@@ -7,6 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
   serverExternalPackages: ["sharp", "@react-pdf/renderer"],
+  turbopack: {},
   webpack: (config) => {
     config.resolve.alias.canvas = false
     config.resolve.alias.encoding = false
