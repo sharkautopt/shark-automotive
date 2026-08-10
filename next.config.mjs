@@ -6,7 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  serverExternalPackages: ["sharp", "@react-pdf/renderer"],
+  serverExternalPackages: ["@react-pdf/renderer"],
   turbopack: {},
   webpack: (config) => {
     config.resolve.alias.canvas = false
