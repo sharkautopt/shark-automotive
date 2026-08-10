@@ -1,20 +1,17 @@
+import sharp from "sharp"
+
 /**
- * react-pdf's own remote-URL fetching is unreliable (silent intermittent
- * failures) and it cannot decode WebP/AVIF. To guarantee photos always
- * render, we fetch each image server-side and embed the original bytes as a
- * data URI — no native image processing (e.g. sharp/libvips) involved, so
- * this has no native binary to load in serverless runtimes.
- *
- * Note: this intentionally skips resizing/re-encoding. Photos should already
- * be reasonably sized JPEGs/PNGs at upload time; WebP/AVIF sources will still
- * fail to render inside the PDF (react-pdf limitation) and are dropped.
+ * react-pdf cannot render WebP/AVIF and its internal remote-URL fetching is
+ * unreliable (silent intermittent failures). To guarantee photos always render,
+ * we fetch each image server-side, convert it to JPEG, and embed it as a data URI.
  */
 
 const FETCH_TIMEOUT_MS = 10000
-const SUPPORTED_CONTENT_TYPES = ["image/jpeg", "image/jpg", "image/png"]
+/** Max width for embedded photos — keeps PDFs small while staying sharp in print. */
+const MAX_WIDTH = 1200
 
 /**
- * Fetch a remote image and return it as a data URI, or null on failure.
+ * Fetch a remote image and return it as a JPEG data URI, or null on failure.
  * Data URIs / already-embedded images pass through untouched.
  */
 export async function resolvePdfImage(url: string | null | undefined): Promise<string | null> {
@@ -30,17 +27,18 @@ export async function resolvePdfImage(url: string | null | undefined): Promise<s
       console.log("[v0] PDF image fetch failed:", res.status, url.slice(0, 120))
       return null
     }
-
-    const contentType = res.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase() || ""
-    if (!SUPPORTED_CONTENT_TYPES.includes(contentType)) {
-      console.log("[v0] PDF image skipped (unsupported type without sharp):", contentType, url.slice(0, 120))
-      return null
-    }
-
     const input = Buffer.from(await res.arrayBuffer())
     if (input.length === 0) return null
 
-    return `data:${contentType};base64,${input.toString("base64")}`
+    // Normalize everything (webp, avif, png, rotated jpegs...) to a flat JPEG.
+    const jpeg = await sharp(input)
+      .rotate() // respect EXIF orientation
+      .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+      .flatten({ background: "#ffffff" })
+      .jpeg({ quality: 80 })
+      .toBuffer()
+
+    return `data:image/jpeg;base64,${jpeg.toString("base64")}`
   } catch (err) {
     console.log("[v0] PDF image resolve failed:", (err as Error).message, url.slice(0, 120))
     return null

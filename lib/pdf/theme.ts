@@ -1,3 +1,4 @@
+import path from "path"
 import { Font } from "@react-pdf/renderer"
 
 /**
@@ -24,10 +25,32 @@ let registered = false
  */
 export function registerPdfFonts() {
   if (registered) return
+  const dir = path.join(process.cwd(), "assets", "fonts")
 
-  // The deployed app uses react-pdf built-in fonts. Custom font files are not
-  // guaranteed to be present in serverless bundles, so never register paths
-  // that can turn every PDF route into a 500.
+  Font.register({
+    family: "Bebas Neue",
+    fonts: [{ src: path.join(dir, "BebasNeue-Regular.woff") }],
+  })
+
+  Font.register({
+    family: "DM Sans",
+    fonts: [
+      { src: path.join(dir, "DMSans-Regular.woff"), fontWeight: 400 },
+      { src: path.join(dir, "DMSans-Medium.woff"), fontWeight: 500 },
+      { src: path.join(dir, "DMSans-Bold.woff"), fontWeight: 700 },
+    ],
+  })
+
+  Font.register({
+    family: "DM Mono",
+    fonts: [
+      { src: path.join(dir, "DMMono-Regular.woff"), fontWeight: 400 },
+      { src: path.join(dir, "DMMono-Medium.woff"), fontWeight: 500 },
+    ],
+  })
+
+  // Prevent hyphenation splitting of long words (VINs, model names).
   Font.registerHyphenationCallback((word) => [word])
+
   registered = true
 }

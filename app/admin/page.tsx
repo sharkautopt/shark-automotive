@@ -101,10 +101,10 @@ export default async function AdminDashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-card text-foreground flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar user={user} />
       
-      <main className="flex-1 p-6 ml-64 bg-card">
+      <main className="flex-1 p-6 ml-64">
         <div className="space-y-6">
           {/* Header */}
           <div>

@@ -184,47 +184,6 @@
   }
 }
 
-/* Admin area: normalize legacy dark utilities across every category */
-.admin-shell .bg-shark-navy,
-.admin-shell .bg-shark-navy-light,
-.admin-shell .bg-shark-navy-light\/30,
-.admin-shell .bg-shark-navy-light\/50,
-.admin-shell .bg-shark-navy\/50 {
-  background-color: var(--card) !important;
-}
-.admin-shell .text-shark-silver,
-.admin-shell .text-shark-silver\/50,
-.admin-shell .text-shark-silver\/60,
-.admin-shell .text-shark-silver\/70,
-.admin-shell .text-shark-gold,
-.admin-shell .text-shark-gold-light {
-  color: var(--foreground) !important;
-}
-.admin-shell .border-shark-gold\/10,
-.admin-shell .border-shark-gold\/20 {
-  border-color: var(--border) !important;
-}
-.admin-shell input,
-.admin-shell select,
-.admin-shell textarea {
-  background-color: var(--card) !important;
-  color: var(--foreground) !important;
-  border-color: var(--border) !important;
-}
-.admin-shell input::placeholder,
-.admin-shell textarea::placeholder {
-  color: var(--muted-foreground) !important;
-}
-.admin-shell .bg-shark-gold,
-.admin-shell .bg-shark-gold\/10,
-.admin-shell .bg-shark-gold\/20 {
-  background-color: var(--secondary) !important;
-}
-.admin-shell button.bg-shark-gold {
-  background-color: var(--foreground) !important;
-  color: var(--background) !important;
-}
-
 @layer utilities {
   /* Glass morphism effect */
   .glass {

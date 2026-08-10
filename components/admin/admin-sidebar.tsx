@@ -51,9 +51,9 @@ export function AdminSidebar({ user: userProp }: { user?: User }) {
   }
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-foreground border-r border-foreground/20 flex flex-col text-background">
+    <aside className="fixed left-0 top-0 h-screen w-64 bg-secondary border-r border-border flex flex-col">
       {/* Logo */}
-      <div className="p-5 border-b border-background/15">
+      <div className="p-5 border-b border-border">
         <Link href="/admin" className="flex items-center gap-3">
           <Image
             src="/images/shark-fin-logo.png"
@@ -63,7 +63,7 @@ export function AdminSidebar({ user: userProp }: { user?: User }) {
             className="h-9 w-auto"
           />
         </Link>
-        <span className="text-background/60 font-mono text-xs mt-2 block uppercase tracking-wider">Admin</span>
+        <span className="text-primary font-mono text-xs mt-2 block uppercase tracking-wider">Admin</span>
       </div>
 
       {/* Navigation */}
@@ -78,8 +78,8 @@ export function AdminSidebar({ user: userProp }: { user?: User }) {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors text-sm ${
                 isActive
-                  ? "bg-background text-foreground font-medium"
-                  : "text-background/70 hover:text-background hover:bg-background/10"
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -90,15 +90,15 @@ export function AdminSidebar({ user: userProp }: { user?: User }) {
       </nav>
 
       {/* User section */}
-      <div className="p-3 border-t border-background/15">
+      <div className="p-3 border-t border-border">
         <div className="flex items-center gap-3 px-4 py-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-background/15 flex items-center justify-center">
-            <span className="text-background font-semibold text-sm">
+          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+            <span className="text-primary font-semibold text-sm">
               {user?.email?.charAt(0).toUpperCase() ?? "A"}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-background text-sm truncate font-medium">
+            <p className="text-foreground text-sm truncate font-medium">
               {user?.user_metadata?.full_name || user?.email || "Administrador"}
             </p>
             <p className="text-muted-foreground text-xs">Admin</p>
@@ -106,7 +106,7 @@ export function AdminSidebar({ user: userProp }: { user?: User }) {
         </div>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-2 w-full text-left text-background/70 hover:text-background hover:bg-background/10 rounded-lg transition-colors text-sm"
+          className="flex items-center gap-3 px-4 py-2 w-full text-left text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors text-sm"
         >
           <LogOut className="w-5 h-5" />
           <span>Terminar Sessão</span>

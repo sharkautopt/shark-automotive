@@ -48,40 +48,16 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vehicleId }),
       })
+      const data = await res.json()
       if (!res.ok) {
-        const raw = await res.text()
-        let message = raw
-        try {
-          message = JSON.parse(raw).error || raw
-        } catch {
-          // Keep the server response when it is not JSON.
-        }
-        setError(message || `Erro ao gerar o documento (HTTP ${res.status}).`)
+        setError(data.error || 'Erro ao gerar o documento.')
         return
       }
-
-      // The API returns the PDF bytes directly, avoiding private storage URL
-      // and popup issues. Download it from a temporary browser object URL.
-      const blob = await res.blob()
-      if (!blob.size) throw new Error('O PDF gerado está vazio.')
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `window-sticker-${vehicleId}.pdf`
-      document.body.appendChild(link)
-      link.click()
-      link.remove()
-      setTimeout(() => URL.revokeObjectURL(url), 1000)
-      // The PDF is already generated and downloaded. A document-history refresh
-      // must not turn a successful generation into a misleading error message.
-      try {
-        await loadDocs()
-      } catch (historyError) {
-        console.log('[v0] Document history refresh failed:', historyError)
-      }
-    } catch (error) {
-      console.log('[v0] Window sticker client failed:', error)
-      setError(error instanceof Error ? error.message : 'Não foi possível gerar o documento.')
+      // Open the freshly generated PDF and refresh the list.
+      if (data.publicUrl) window.open(data.publicUrl, '_blank')
+      await loadDocs()
+    } catch {
+      setError('Não foi possível gerar o documento.')
     } finally {
       setGenerating(false)
     }
