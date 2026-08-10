@@ -48,54 +48,6 @@ export async function POST(request: NextRequest) {
   if (!body.clientName?.trim()) {
     return NextResponse.json({ error: "Nome do cliente em falta" }, { status: 400 })
   }
-  // When a stock vehicle is selected, the database is the source of truth.
-  // This prevents stale/partial browser form state from omitting vehicle data.
-  if (body.vehicleId) {
-    const { data: stockVehicle, error: stockError } = await supabaseAdmin
-      .from("vehicles")
-      .select("*")
-      .eq("id", body.vehicleId)
-      .single()
-
-    if (stockError || !stockVehicle) {
-      return NextResponse.json({ error: "Viatura de stock não encontrada" }, { status: 404 })
-    }
-
-    const submittedVehicle = body.vehicle ?? ({} as EncomendaDocProps["vehicle"])
-    body.vehicle = {
-      ...submittedVehicle,
-      make: stockVehicle.make,
-      model: stockVehicle.model,
-      year: String(stockVehicle.year ?? ""),
-      mileage: stockVehicle.mileage != null ? `${Number(stockVehicle.mileage).toLocaleString("pt-PT")} km` : "—",
-      fuel: stockVehicle.fuel_type || "—",
-      power: stockVehicle.power != null ? `${stockVehicle.power} cv` : "—",
-      colour: stockVehicle.exterior_color || "—",
-      origin: stockVehicle.country_origin || "—",
-      variant: submittedVehicle.variant || undefined,
-      firstRegistration: stockVehicle.registration_date
-        ? new Date(stockVehicle.registration_date).toLocaleDateString("pt-PT", { month: "2-digit", year: "numeric" })
-        : submittedVehicle.firstRegistration,
-      displacement: stockVehicle.engine_size || submittedVehicle.displacement,
-      transmission: stockVehicle.transmission || submittedVehicle.transmission,
-      doors: stockVehicle.doors != null ? String(stockVehicle.doors) : submittedVehicle.doors,
-      seats: stockVehicle.seats != null ? String(stockVehicle.seats) : submittedVehicle.seats,
-      bodyType: stockVehicle.body_type || submittedVehicle.bodyType,
-      interior: stockVehicle.interior_color || submittedVehicle.interior,
-      co2: stockVehicle.co2_emissions != null ? `${stockVehicle.co2_emissions} g/km` : submittedVehicle.co2,
-      vin: stockVehicle.vin || submittedVehicle.vin,
-      summary: stockVehicle.description || submittedVehicle.summary,
-      features: [
-        ...(submittedVehicle.features || []),
-        ...(stockVehicle.service_history ? ["Histórico de manutenção disponível"] : []),
-        ...(stockVehicle.carpass_status ? ["Car-Pass verificado"] : []),
-        ...(stockVehicle.protocol_score != null ? [`Protocolo de inspeção: ${stockVehicle.protocol_score}/150 pontos`] : []),
-        ...(stockVehicle.warranty_months ? [`Garantia: ${stockVehicle.warranty_months} meses`] : []),
-      ].filter((value, index, values) => values.indexOf(value) === index),
-    }
-    body.photos = Array.isArray(stockVehicle.photos) ? stockVehicle.photos : body.photos
-  }
-
   if (!body.vehicle?.make || !body.vehicle?.model) {
     return NextResponse.json({ error: "Dados do veículo em falta" }, { status: 400 })
   }
@@ -124,17 +76,13 @@ export async function POST(request: NextRequest) {
   // QR: link to inventory item if vehicle-based, else to the site.
   const origin = request.nextUrl.origin || COMPANY.siteUrl
   const qrTarget = body.vehicleId ? `${origin}/inventario/${body.vehicleId}` : COMPANY.siteUrl
-  let qrDataUrl: string | null = null
-  let photos: string[] = []
-  try {
-    qrDataUrl = await generateQrDataUrl(qrTarget)
-    registerPdfFonts()
-    // Image failures are intentionally non-fatal: the PDF still generates with
-    // the vehicle data when a remote photo is unavailable.
-    photos = await resolvePdfImages((body.photos || []).slice(0, 5))
-  } catch (err) {
-    console.log("[v0] PDF asset preparation failed; continuing without assets:", err)
-  }
+  const qrDataUrl = await generateQrDataUrl(qrTarget)
+
+  registerPdfFonts()
+
+  // Pre-fetch photos server-side and embed as JPEG data URIs — react-pdf's own
+  // remote fetching is unreliable and it cannot decode WebP/AVIF uploads.
+  const photos = await resolvePdfImages((body.photos || []).slice(0, 5))
 
   const docProps: EncomendaDocProps = {
     mode: body.mode,
@@ -154,14 +102,13 @@ export async function POST(request: NextRequest) {
   try {
     pdfBuffer = await renderToBuffer(createElement(EncomendaDocument, docProps))
   } catch (err) {
-    const message = err instanceof Error ? err.message : "erro desconhecido"
-    console.log("[v0] Encomenda render failed:", message)
-    return NextResponse.json({ error: `Falha ao gerar o PDF: ${message}` }, { status: 500 })
+    console.log("[v0] Encomenda render failed:", (err as Error).message)
+    return NextResponse.json({ error: "Falha ao gerar o PDF" }, { status: 500 })
   }
 
   const docTypeSlug = body.mode === "orcamento" ? "encomenda_orcamento" : "encomenda_proposta"
   const filename = `encomendas/${docTypeSlug}-${Date.now()}.pdf`
-  const { error: upErr } = await supabaseAdmin.storage
+  const { error: upErr } = await supabase.storage
     .from("documents")
     .upload(filename, pdfBuffer, { contentType: "application/pdf", upsert: true })
 
@@ -172,14 +119,14 @@ export async function POST(request: NextRequest) {
 
   const {
     data: { publicUrl },
-  } = supabaseAdmin.storage.from("documents").getPublicUrl(filename)
+  } = supabase.storage.from("documents").getPublicUrl(filename)
 
   const title =
     body.mode === "orcamento"
       ? `Orçamento ${documentNumber} — ${body.clientName.trim()}`
       : `Proposta ${body.vehicle.make} ${body.vehicle.model} — ${body.clientName.trim()}`
 
-  const { data: doc, error: docErr } = await supabaseAdmin
+  const { data: doc, error: docErr } = await supabase
     .from("generated_documents")
     .insert({
       doc_type: docTypeSlug,
@@ -199,16 +146,8 @@ export async function POST(request: NextRequest) {
 
   if (docErr) {
     console.log("[v0] Encomenda record failed:", docErr.message)
+    return NextResponse.json({ success: true, publicUrl, title, warning: "Documento gerado mas não registado." })
   }
 
-  // Return the generated bytes directly. Storage/history failures must never
-  // turn a valid PDF generation into a network error in the admin portal.
-  return new NextResponse(new Uint8Array(pdfBuffer), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="${docTypeSlug}-${Date.now()}.pdf"`,
-      "Cache-Control": "no-store",
-    },
-  })
+  return NextResponse.json({ success: true, ...doc, publicUrl })
 }

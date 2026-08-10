@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 74,
     paddingHorizontal: 34,
-    fontFamily: "Helvetica",
+    fontFamily: "DM Sans",
     color: brand.chalk,
   },
   // Header
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginBottom: 16,
   },
-  brandName: { fontFamily: "Helvetica-Bold", fontSize: 26, color: brand.chalk, letterSpacing: 1 },
-  brandSub: { fontFamily: "Courier", fontSize: 7, color: brand.steel, letterSpacing: 2, marginTop: 2 },
-  registo: { fontFamily: "Courier", fontSize: 9, color: brand.chalkDark, letterSpacing: 1.5 },
+  brandName: { fontFamily: "Bebas Neue", fontSize: 26, color: brand.chalk, letterSpacing: 1 },
+  brandSub: { fontFamily: "DM Mono", fontSize: 7, color: brand.steel, letterSpacing: 2, marginTop: 2 },
+  registo: { fontFamily: "DM Mono", fontSize: 9, color: brand.chalkDark, letterSpacing: 1.5 },
   // Hero
   hero: { width: "100%", height: 230, objectFit: "cover", marginBottom: 16 },
   heroPlaceholder: {
@@ -37,29 +37,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   // Title
-  vehicleTitle: { fontFamily: "Helvetica-Bold", fontSize: 38, color: brand.white, lineHeight: 0.98 },
-  vehicleMeta: { fontFamily: "Courier", fontSize: 10, color: brand.steel, marginTop: 5, letterSpacing: 0.5 },
+  vehicleTitle: { fontFamily: "Bebas Neue", fontSize: 38, color: brand.white, lineHeight: 0.98 },
+  vehicleMeta: { fontFamily: "DM Mono", fontSize: 10, color: brand.steel, marginTop: 5, letterSpacing: 0.5 },
   divider: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 14 },
   // Price + QR
   priceRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  priceLabel: { fontFamily: "Courier", fontSize: 8, color: brand.steel, letterSpacing: 1.5, marginBottom: 3 },
-  price: { fontFamily: "Helvetica-Bold", fontSize: 46, color: brand.gold, lineHeight: 1 },
-  priceNote: { fontFamily: "Helvetica", fontSize: 8.5, color: brand.chalkDark, marginTop: 3 },
+  priceLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.steel, letterSpacing: 1.5, marginBottom: 3 },
+  price: { fontFamily: "Bebas Neue", fontSize: 46, color: brand.gold, lineHeight: 1 },
+  priceNote: { fontFamily: "DM Sans", fontSize: 8.5, color: brand.chalkDark, marginTop: 3 },
   qrWrap: { alignItems: "center" },
   qr: { width: 72, height: 72 },
-  qrText: { fontFamily: "Courier", fontSize: 6, color: brand.steel, marginTop: 3, letterSpacing: 1 },
+  qrText: { fontFamily: "DM Mono", fontSize: 6, color: brand.steel, marginTop: 3, letterSpacing: 1 },
   // Protocol score
-  scoreLabel: { fontFamily: "Courier", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 6 },
+  scoreLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 6 },
   scoreRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   dotsRow: { flexDirection: "row", flexWrap: "wrap", width: "82%", gap: 2 },
   dot: { width: 8, height: 8 },
-  scoreValue: { fontFamily: "Helvetica-Bold", fontSize: 22, color: brand.chalk },
+  scoreValue: { fontFamily: "Bebas Neue", fontSize: 22, color: brand.chalk },
   // Thumbnails
   thumbStrip: { flexDirection: "row", gap: 5, marginTop: 4 },
   thumb: { flex: 1, height: 52, objectFit: "cover" },
   // Warranty
-  warrantyLabel: { fontFamily: "Courier", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 4 },
-  warrantyText: { fontFamily: "Helvetica", fontSize: 9, color: brand.chalk, lineHeight: 1.4 },
+  warrantyLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 4 },
+  warrantyText: { fontFamily: "DM Sans", fontSize: 9, color: brand.chalk, lineHeight: 1.4 },
   // Footer
   footer: {
     position: "absolute",
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
     borderTopColor: brand.line,
     paddingTop: 8,
   },
-  tagline: { fontFamily: "Courier", fontSize: 8, color: brand.chalk, letterSpacing: 1, marginBottom: 4 },
+  tagline: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalk, letterSpacing: 1, marginBottom: 4 },
   footerContacts: { flexDirection: "row", justifyContent: "space-between", marginBottom: 2 },
-  footerText: { fontFamily: "Courier", fontSize: 6.5, color: brand.steel, letterSpacing: 0.3 },
-  legal: { fontFamily: "Courier", fontSize: 6, color: brand.steel, letterSpacing: 0.2 },
+  footerText: { fontFamily: "DM Mono", fontSize: 6.5, color: brand.steel, letterSpacing: 0.3 },
+  legal: { fontFamily: "DM Mono", fontSize: 6, color: brand.steel, letterSpacing: 0.2 },
 })
 
 export interface WindowStickerProps {
@@ -124,7 +124,7 @@ export function WindowStickerDocument({ vehicle, heroPhoto, thumbnails, qrDataUr
           <Image src={heroPhoto} style={styles.hero} />
         ) : (
           <View style={styles.heroPlaceholder}>
-            <Text style={{ fontFamily: "Courier", fontSize: 9, color: brand.steel }}>SEM FOTOGRAFIA</Text>
+            <Text style={{ fontFamily: "DM Mono", fontSize: 9, color: brand.steel }}>SEM FOTOGRAFIA</Text>
           </View>
         )}
 

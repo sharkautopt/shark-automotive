@@ -18,20 +18,6 @@ interface VehicleOption {
   country_origin: string | null
   transmission: string | null
   photos: string[] | null
-  vin: string | null
-  description: string | null
-  interior_color: string | null
-  body_type: string | null
-  doors: number | null
-  seats: number | null
-  engine_size: string | null
-  co2_emissions: number | null
-  registration_date: string | null
-  first_owner: boolean | null
-  service_history: boolean | null
-  warranty_months: number | null
-  carpass_status: boolean | null
-  protocol_score: number | null
 }
 
 interface GeneratedDoc {
@@ -132,28 +118,10 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       mileage: v.mileage ? `${num(v.mileage)} km` : "",
       fuel: v.fuel_type || "",
       power: v.power ? `${v.power} cv` : "",
-      displacement: v.engine_size || "",
       transmission: v.transmission || "",
-      doors: v.doors != null ? String(v.doors) : "",
-      seats: v.seats != null ? String(v.seats) : "",
-      bodyType: v.body_type || "",
       colour: v.exterior_color || "",
-      interior: v.interior_color || "",
-      co2: v.co2_emissions != null ? `${v.co2_emissions} g/km` : "",
-      owners: v.first_owner ? "1" : "",
-      vin: v.vin || "",
       origin: v.country_origin || "",
-      firstRegistration: v.registration_date
-        ? new Date(v.registration_date).toLocaleDateString("pt-PT", { month: "2-digit", year: "numeric" })
-        : "",
-      summary: v.description || "",
     })
-    setFeatures([
-      v.service_history ? "Histórico de manutenção disponível" : "",
-      v.carpass_status ? "Car-Pass verificado" : "",
-      v.protocol_score != null ? `Protocolo de inspeção: ${v.protocol_score}/150 pontos` : "",
-      v.warranty_months ? `Garantia: ${v.warranty_months} meses` : "",
-    ].filter(Boolean).join("\n"))
     setPhotos((v.photos || []).slice(0, 5))
     setVehiclePrice(v.price ? String(v.price) : "")
     setFromPrice(v.price ? String(v.price) : "")
@@ -241,7 +209,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       make: vf.make.trim(),
       model: vf.model.trim(),
       year: vf.year.trim(),
-      mileage: vf.mileage.trim() || "���",
+      mileage: vf.mileage.trim() || "—",
       fuel: vf.fuel.trim() || "—",
       power: vf.power.trim() || "—",
       colour: vf.colour.trim() || "—",
@@ -294,31 +262,14 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       })
+      const data = await res.json()
       if (!res.ok) {
-        const raw = await res.text()
-        let message = raw
-        try {
-          message = JSON.parse(raw).error || raw
-        } catch {
-          // Keep non-JSON server responses for diagnostics.
-        }
-        setError(message || `Falha ao gerar o documento (HTTP ${res.status}).`)
+        setError(data.error || "Falha ao gerar o documento.")
       } else {
-        const blob = await res.blob()
-        if (!blob.size) throw new Error("O PDF gerado está vazio.")
-        const url = URL.createObjectURL(blob)
-        const link = document.createElement("a")
-        link.href = url
-        link.download = res.headers.get("Content-Disposition")?.match(/filename=\"?([^\"]+)/)?.[1] || "documento.pdf"
-        document.body.appendChild(link)
-        link.click()
-        link.remove()
-        setTimeout(() => URL.revokeObjectURL(url), 1000)
-        setResult({ success: true } as GeneratedDoc)
+        setResult(data)
       }
-    } catch (error) {
-      console.log("[v0] Document generation request failed:", error)
-      setError(error instanceof Error ? error.message : "Erro de rede ao gerar o documento.")
+    } catch {
+      setError("Erro de rede ao gerar o documento.")
     } finally {
       setLoading(false)
     }

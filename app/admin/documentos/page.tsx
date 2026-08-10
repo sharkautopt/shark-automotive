@@ -18,7 +18,7 @@ async function checkAdmin() {
 async function getVehicles() {
   const { data, error } = await supabaseAdmin
     .from("vehicles")
-    .select("id, make, model, year, price, mileage, fuel_type, power, exterior_color, interior_color, country_origin, transmission, photos, vin, description, body_type, doors, seats, engine_size, co2_emissions, registration_date, first_owner, service_history, warranty_months, carpass_status, protocol_score")
+    .select("id, make, model, year, price, mileage, fuel_type, power, exterior_color, country_origin, transmission, photos")
     .order("created_at", { ascending: false })
 
   if (error) {

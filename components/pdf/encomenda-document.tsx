@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 78,
     paddingHorizontal: 36,
-    fontFamily: "Helvetica",
+    fontFamily: "DM Sans",
     color: brand.chalk,
   },
   header: {
@@ -82,15 +82,15 @@ const styles = StyleSheet.create({
   },
   headerLeft: { flexShrink: 1, paddingRight: 12 },
   headerRight: { flexShrink: 0, alignItems: "flex-end" },
-  brandName: { fontFamily: "Helvetica-Bold", fontSize: 26, color: brand.chalk, letterSpacing: 1 },
-  brandSub: { fontFamily: "Courier", fontSize: 7, color: brand.steel, letterSpacing: 2, marginTop: 2 },
-  docType: { fontFamily: "Helvetica-Bold", fontSize: 18, color: brand.chalk, paddingLeft: 6, paddingRight: 1 },
-  docNumber: { fontFamily: "Courier", fontSize: 8, color: brand.steel, textAlign: "right", marginTop: 2 },
+  brandName: { fontFamily: "Bebas Neue", fontSize: 26, color: brand.chalk, letterSpacing: 1 },
+  brandSub: { fontFamily: "DM Mono", fontSize: 7, color: brand.steel, letterSpacing: 2, marginTop: 2 },
+  docType: { fontFamily: "Bebas Neue", fontSize: 18, color: brand.chalk, paddingLeft: 6, paddingRight: 1 },
+  docNumber: { fontFamily: "DM Mono", fontSize: 8, color: brand.steel, textAlign: "right", marginTop: 2 },
 
   metaBar: { flexDirection: "row", justifyContent: "space-between", marginBottom: 16 },
   metaItem: {},
-  metaKey: { fontFamily: "Courier", fontSize: 7, color: brand.steel, letterSpacing: 1, marginBottom: 2 },
-  metaVal: { fontFamily: "Helvetica", fontSize: 11, fontWeight: 500, color: brand.white },
+  metaKey: { fontFamily: "DM Mono", fontSize: 7, color: brand.steel, letterSpacing: 1, marginBottom: 2 },
+  metaVal: { fontFamily: "DM Sans", fontSize: 11, fontWeight: 500, color: brand.white },
 
   // photos — 1 large + 2x2 square, all equal height
   photoRow: { flexDirection: "row", gap: 6, marginBottom: 12 },
@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
-  vehicleTitle: { fontFamily: "Helvetica-Bold", fontSize: 34, color: brand.white, lineHeight: 1 },
-  vehicleVariant: { fontFamily: "Helvetica", fontSize: 11, fontWeight: 500, color: brand.chalkDark, marginTop: 2 },
-  vehicleMeta: { fontFamily: "Courier", fontSize: 10, color: brand.steel, marginTop: 4 },
-  summary: { fontFamily: "Helvetica", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 8 },
+  vehicleTitle: { fontFamily: "Bebas Neue", fontSize: 34, color: brand.white, lineHeight: 1 },
+  vehicleVariant: { fontFamily: "DM Sans", fontSize: 11, fontWeight: 500, color: brand.chalkDark, marginTop: 2 },
+  vehicleMeta: { fontFamily: "DM Mono", fontSize: 10, color: brand.steel, marginTop: 4 },
+  summary: { fontFamily: "DM Sans", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 8 },
   divider: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 14 },
   dividerTight: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 9 },
 
-  sectionLabel: { fontFamily: "Courier", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 8 },
+  sectionLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 8 },
 
   // spec grid (two columns)
   specGrid: { flexDirection: "row", flexWrap: "wrap" },
@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: brand.line,
   },
-  specKey: { fontFamily: "Helvetica", fontSize: 9, color: brand.chalkDark },
-  specVal: { fontFamily: "Helvetica", fontSize: 9, fontWeight: 500, color: brand.white, textAlign: "right" },
+  specKey: { fontFamily: "DM Sans", fontSize: 9, color: brand.chalkDark },
+  specVal: { fontFamily: "DM Sans", fontSize: 9, fontWeight: 500, color: brand.white, textAlign: "right" },
 
   // features
   featureRow: { flexDirection: "row", flexWrap: "wrap", marginTop: 2 },
   featureChip: {
-    fontFamily: "Helvetica",
+    fontFamily: "DM Sans",
     fontSize: 8.5,
     color: brand.chalk,
     borderWidth: 0.5,
@@ -152,16 +152,16 @@ const styles = StyleSheet.create({
   },
 
   // proposta estimate
-  estimateLabel: { fontFamily: "Courier", fontSize: 8, color: brand.steel, letterSpacing: 1.5, marginBottom: 3 },
-  estimate: { fontFamily: "Helvetica-Bold", fontSize: 40, color: brand.gold, lineHeight: 1 },
-  estimateNote: { fontFamily: "Helvetica", fontSize: 8.5, color: brand.chalkDark, marginTop: 3 },
-  includes: { fontFamily: "Helvetica", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 4 },
+  estimateLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.steel, letterSpacing: 1.5, marginBottom: 3 },
+  estimate: { fontFamily: "Bebas Neue", fontSize: 40, color: brand.gold, lineHeight: 1 },
+  estimateNote: { fontFamily: "DM Sans", fontSize: 8.5, color: brand.chalkDark, marginTop: 3 },
+  includes: { fontFamily: "DM Sans", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 4 },
 
   // cost table
   costRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", paddingVertical: 5 },
-  costKey: { fontFamily: "Helvetica", fontSize: 10, color: brand.chalk },
-  costSub: { fontFamily: "Helvetica", fontSize: 7.5, color: brand.steel, marginTop: 1, maxWidth: 320, lineHeight: 1.35 },
-  costVal: { fontFamily: "Courier", fontSize: 10, color: brand.chalk },
+  costKey: { fontFamily: "DM Sans", fontSize: 10, color: brand.chalk },
+  costSub: { fontFamily: "DM Sans", fontSize: 7.5, color: brand.steel, marginTop: 1, maxWidth: 320, lineHeight: 1.35 },
+  costVal: { fontFamily: "DM Mono", fontSize: 10, color: brand.chalk },
   totalRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -171,15 +171,15 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: brand.line,
   },
-  totalKey: { fontFamily: "Helvetica-Bold", fontSize: 18, color: brand.chalk, letterSpacing: 0.5 },
-  totalVal: { fontFamily: "Helvetica-Bold", fontSize: 22, color: brand.gold },
+  totalKey: { fontFamily: "Bebas Neue", fontSize: 18, color: brand.chalk, letterSpacing: 0.5 },
+  totalVal: { fontFamily: "Bebas Neue", fontSize: 22, color: brand.gold },
 
   ctaRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 4 },
-  ctaText: { fontFamily: "Helvetica-Bold", fontSize: 20, color: brand.chalk, maxWidth: "70%" },
+  ctaText: { fontFamily: "Bebas Neue", fontSize: 20, color: brand.chalk, maxWidth: "70%" },
   qr: { width: 72, height: 72 },
-  qrText: { fontFamily: "Courier", fontSize: 6, color: brand.steel, marginTop: 3, letterSpacing: 1, textAlign: "center" },
+  qrText: { fontFamily: "DM Mono", fontSize: 6, color: brand.steel, marginTop: 3, letterSpacing: 1, textAlign: "center" },
 
-  smallPrint: { fontFamily: "Helvetica", fontSize: 7.5, color: brand.steel, lineHeight: 1.4, marginTop: 12 },
+  smallPrint: { fontFamily: "DM Sans", fontSize: 7.5, color: brand.steel, lineHeight: 1.4, marginTop: 12 },
 
   footer: {
     position: "absolute",
@@ -190,10 +190,10 @@ const styles = StyleSheet.create({
     borderTopColor: brand.line,
     paddingTop: 8,
   },
-  tagline: { fontFamily: "Courier", fontSize: 8, color: brand.chalk, letterSpacing: 1, marginBottom: 4 },
+  tagline: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalk, letterSpacing: 1, marginBottom: 4 },
   footerContacts: { flexDirection: "row", justifyContent: "space-between", marginBottom: 2 },
-  footerText: { fontFamily: "Courier", fontSize: 6.5, color: brand.steel },
-  legal: { fontFamily: "Courier", fontSize: 6, color: brand.steel },
+  footerText: { fontFamily: "DM Mono", fontSize: 6.5, color: brand.steel },
+  legal: { fontFamily: "DM Mono", fontSize: 6, color: brand.steel },
 })
 
 /** Build the [label, value] spec rows, skipping empty values. */
@@ -241,7 +241,7 @@ function Photos({ photos, height }: { photos: string[]; height: number }) {
   if (photos.length === 0) {
     return (
       <View style={[styles.photoPlaceholder, { height }]}>
-        <Text style={{ fontFamily: "Courier", fontSize: 9, color: brand.steel }}>SEM FOTOGRAFIA</Text>
+        <Text style={{ fontFamily: "DM Mono", fontSize: 9, color: brand.steel }}>SEM FOTOGRAFIA</Text>
       </View>
     )
   }

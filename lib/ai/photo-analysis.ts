@@ -12,15 +12,7 @@ import { z } from "zod"
  * the manual upload order, so the feature can never block publishing.
  */
 
-const MODEL = "google/gemini-2.5-flash"
-
-function getImageMediaType(url: string): string {
-  const cleanUrl = url.split("?")[0].toLowerCase()
-  if (cleanUrl.endsWith(".png")) return "image/png"
-  if (cleanUrl.endsWith(".webp")) return "image/webp"
-  if (cleanUrl.endsWith(".gif")) return "image/gif"
-  return "image/jpeg"
-}
+const MODEL = "openai/gpt-4o-mini"
 
 const photoScoreSchema = z.object({
   index: z.number().int().describe("The 0-based index of the photo in the input list"),
@@ -83,17 +75,13 @@ export async function analyzeVehiclePhotos(
               text:
                 `Veículo: ${vehicleLabel}. Avalia cada uma das ${photoUrls.length} fotografias seguintes ` +
                 `pela ordem apresentada (índice 0 a ${photoUrls.length - 1}). ` +
-                `IMPORTANTE: documentos, folhas de manutenção, histórico de serviço, faturas, matrículas ` +
-                `e screenshots são sempre category=document, score máximo 5 e isHeroCandidate=false. ` +
-                `A capa só pode ser uma fotografia exterior do carro completo: exterior_front, ` +
-                `exterior_rear ou exterior_side. Fotos de interior, motor, detalhes e documentos nunca ` +
-                `podem ser capa. Para cada foto indica a categoria, pontuação 0-100, se é candidata ` +
-                `a foto principal, qualidade técnica e uma nota curta. Devolve uma entrada por foto.`,
+                `Para cada foto indica a categoria, uma pontuação 0-100, se é candidata a foto principal, ` +
+                `a qualidade técnica e uma nota curta. Devolve uma entrada por foto.`,
             },
             ...photoUrls.map((url) => ({
               type: "file" as const,
               data: new URL(url),
-              mediaType: getImageMediaType(url),
+              mediaType: "image",
             })),
           ],
         },
@@ -116,41 +104,13 @@ export async function analyzeVehiclePhotos(
       }
     })
 
-    // Documents and service-history photos can score highly for legibility, but must
-    // never become the listing cover. Apply a deterministic vehicle-photo priority
-    // after the model response so the result remains safe and predictable.
-    const exteriorCategories = new Set([
-      "exterior_front",
-      "exterior_rear",
-      "exterior_side",
-    ])
-    const isExterior = (photo: (typeof enriched)[number]) =>
-      exteriorCategories.has(photo.category)
-
-    const normalized = enriched.map((photo) => ({
-      ...photo,
-      score: photo.category === "document" ? 0 : photo.score,
-      isHeroCandidate: photo.category === "document" ? false : photo.isHeroCandidate,
-    }))
-
-    const ordered = [...normalized].sort((a, b) => {
-      const aExterior = isExterior(a) ? 1 : 0
-      const bExterior = isExterior(b) ? 1 : 0
-      return bExterior - aExterior || b.score - a.score || a.index - b.index
-    })
-
-    const heroPool = normalized.filter(isExterior)
-    const hero = [...heroPool].sort((a, b) => {
-      const aCandidate = a.isHeroCandidate ? 1 : 0
-      const bCandidate = b.isHeroCandidate ? 1 : 0
-      return bCandidate - aCandidate || b.score - a.score || a.index - b.index
-    })[0]
-    const fallbackHero = normalized.find((photo) => photo.category !== "document")
+    // Order by score descending, keeping original order as a stable tiebreaker.
+    const ordered = [...enriched].sort((a, b) => b.score - a.score || a.index - b.index)
 
     return {
       orderedPhotos: ordered.map((s) => s.url),
-      heroPhoto: hero?.url ?? fallbackHero?.url ?? null,
-      scores: normalized,
+      heroPhoto: ordered[0]?.url ?? photoUrls[0] ?? null,
+      scores: enriched,
       model: MODEL,
     }
   } catch (err) {

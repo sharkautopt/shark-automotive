@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useState } from 'react'
 import Link from 'next/link'
 import { Fuel, Gauge, Settings2, Calendar, Shield, MapPin, FileDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -29,29 +28,6 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
   }
 
   const isSold = vehicle.status === 'sold'
-  const [isDownloading, setIsDownloading] = useState(false)
-  const [downloadError, setDownloadError] = useState<string | null>(null)
-
-  const downloadFicha = async () => {
-    setIsDownloading(true)
-    setDownloadError(null)
-    const response = await fetch(`/api/vehicles/${vehicle.id}/ficha`)
-    if (!response.ok) {
-      const message = await response.text().catch(() => '')
-      throw new Error(message || 'Não foi possível gerar a ficha')
-    }
-
-    const blob = await response.blob()
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `ficha-${vehicle.make}-${vehicle.model}-${vehicle.year}.pdf`
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-    URL.revokeObjectURL(url)
-    setIsDownloading(false)
-  }
 
   return (
     <motion.div
@@ -183,25 +159,16 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
       </Link>
 
       {/* Download ficha (window sticker) */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          void downloadFicha().catch((error) => {
-            console.error('[v0] Ficha download failed:', error)
-            setIsDownloading(false)
-            setDownloadError(error instanceof Error ? error.message : 'Erro ao descarregar ficha')
-          })
-        }}
-        disabled={isDownloading}
-        aria-busy={isDownloading}
-        className="relative z-20 flex items-center justify-center gap-2 mx-5 mb-5 py-2.5 border border-border/60 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors duration-300 w-[calc(100%-2.5rem)] disabled:cursor-wait disabled:opacity-60"
+      <a
+        href={`/api/vehicles/${vehicle.id}/ficha`}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => e.stopPropagation()}
+        className="flex items-center justify-center gap-2 mx-5 mb-5 py-2.5 border border-border/60 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors duration-300"
       >
         <FileDown className="w-3.5 h-3.5" />
-        {isDownloading ? 'A gerar...' : 'Descarregar Ficha'}
-        {downloadError && <span className="sr-only">{downloadError}</span>}
-      </button>
+        Descarregar Ficha
+      </a>
     </motion.div>
   )
 }
