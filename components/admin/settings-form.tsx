@@ -64,14 +64,14 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
   }
 
   const inputClass =
-    "w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none"
-  const labelClass = "block text-shark-silver/60 text-sm font-mono mb-2"
+    "w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none"
+  const labelClass = "block text-muted-foreground/60 text-sm font-mono mb-2"
 
   return (
     <div className="space-y-8">
       {/* Contact */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">CONTACTOS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">CONTACTOS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Telefone</label>
@@ -113,8 +113,8 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       </div>
 
       {/* Statistics */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">ESTATÍSTICAS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">ESTATÍSTICAS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Veículos Importados</label>
@@ -156,8 +156,8 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       </div>
 
       {/* Social */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">REDES SOCIAIS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">REDES SOCIAIS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Instagram</label>
@@ -196,7 +196,7 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       <button
         onClick={handleSave}
         disabled={isSaving}
-        className="flex items-center gap-2 px-6 py-3 bg-shark-gold text-shark-navy font-medium rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+        className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
       >
         {saved ? (
           <>

@@ -68,34 +68,34 @@ function LoginForm() {
       {/* Login form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-shark-silver/70 text-sm font-mono mb-2">
+          <label className="block text-muted-foreground/70 text-sm font-mono mb-2">
             EMAIL
           </label>
           <div className="relative">
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-shark-silver/30" />
+            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/30" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full pl-12 pr-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver placeholder-shark-silver/30 focus:border-shark-gold focus:outline-none transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground placeholder-muted-foreground/30 focus:border-primary focus:outline-none transition-colors"
               placeholder="admin@sharkautomotive.pt"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-shark-silver/70 text-sm font-mono mb-2">
+          <label className="block text-muted-foreground/70 text-sm font-mono mb-2">
             PASSWORD
           </label>
           <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-shark-silver/30" />
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/30" />
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full pl-12 pr-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver placeholder-shark-silver/30 focus:border-shark-gold focus:outline-none transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground placeholder-muted-foreground/30 focus:border-primary focus:outline-none transition-colors"
               placeholder="••••••••"
             />
           </div>
@@ -106,7 +106,7 @@ function LoginForm() {
           disabled={isLoading}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-4 bg-shark-gold text-shark-navy font-bebas text-xl tracking-wider rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+          className="w-full py-4 bg-primary text-primary-foreground font-display text-xl tracking-wider rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
         >
           {isLoading ? (
             <>
@@ -129,25 +129,25 @@ function LoginFormFallback() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="h-4 w-16 bg-shark-silver/10 rounded mb-2" />
-        <div className="h-12 bg-shark-silver/5 border border-shark-gold/10 rounded-lg" />
+        <div className="h-4 w-16 bg-muted-foreground/10 rounded mb-2" />
+        <div className="h-12 bg-muted-foreground/5 border border-primary/10 rounded-lg" />
       </div>
       <div>
-        <div className="h-4 w-20 bg-shark-silver/10 rounded mb-2" />
-        <div className="h-12 bg-shark-silver/5 border border-shark-gold/10 rounded-lg" />
+        <div className="h-4 w-20 bg-muted-foreground/10 rounded mb-2" />
+        <div className="h-12 bg-muted-foreground/5 border border-primary/10 rounded-lg" />
       </div>
-      <div className="h-14 bg-shark-gold/20 rounded-lg animate-pulse" />
+      <div className="h-14 bg-primary/20 rounded-lg animate-pulse" />
     </div>
   )
 }
 
 export default function AdminLoginPage() {
   return (
-    <div className="min-h-screen bg-shark-navy flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-shark-gold/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-shark-gold/3 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl" />
       </div>
 
       <motion.div
@@ -155,7 +155,7 @@ export default function AdminLoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="relative w-full max-w-md"
       >
-        <div className="bg-shark-navy-light/30 border border-shark-gold/20 rounded-2xl p-8 backdrop-blur-sm">
+        <div className="bg-secondary/30 border border-primary/20 rounded-2xl p-8 backdrop-blur-sm">
           {/* Logo */}
           <div className="text-center mb-8">
             <Image
@@ -165,10 +165,10 @@ export default function AdminLoginPage() {
               height={70}
               className="mx-auto mb-4"
             />
-            <h1 className="font-bebas text-2xl text-shark-silver">
-              ADMIN <span className="text-shark-gold">DASHBOARD</span>
+            <h1 className="font-display text-2xl text-foreground">
+              ADMIN <span className="text-primary">DASHBOARD</span>
             </h1>
-            <p className="text-shark-silver/50 text-sm mt-2">
+            <p className="text-muted-foreground/50 text-sm mt-2">
               Acesso restrito a administradores
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function AdminLoginPage() {
           <div className="mt-8 text-center">
             <a
               href="/"
-              className="text-shark-silver/50 hover:text-shark-gold text-sm transition-colors"
+              className="text-muted-foreground/50 hover:text-primary text-sm transition-colors"
             >
               Voltar ao website
             </a>

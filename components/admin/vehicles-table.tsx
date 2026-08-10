@@ -62,32 +62,32 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
 
   if (vehicles.length === 0) {
     return (
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-12 text-center">
-        <p className="text-shark-silver/60">Nenhum veículo em inventário</p>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-12 text-center">
+        <p className="text-muted-foreground/60">Nenhum veículo em inventário</p>
       </div>
     )
   }
 
   return (
-    <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl overflow-hidden">
+    <div className="bg-secondary/30 border border-primary/10 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-shark-gold/10">
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">VEÍCULO</th>
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">ANO</th>
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">KM</th>
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">PREÇO</th>
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">STATUS</th>
-              <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">PROTOCOLO</th>
-              <th className="text-right p-4 text-shark-silver/60 font-mono text-sm">AÇÕES</th>
+            <tr className="border-b border-primary/10">
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">VEÍCULO</th>
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">ANO</th>
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">KM</th>
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">PREÇO</th>
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">STATUS</th>
+              <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">PROTOCOLO</th>
+              <th className="text-right p-4 text-muted-foreground/60 font-mono text-sm">AÇÕES</th>
             </tr>
           </thead>
           <tbody>
             {vehicles.map((vehicle) => (
               <tr 
                 key={vehicle.id} 
-                className="border-b border-shark-gold/5 hover:bg-shark-navy-light/20 transition-colors"
+                className="border-b border-primary/5 hover:bg-secondary/20 transition-colors"
               >
                 <td className="p-4">
                   <div className="flex items-center gap-3">
@@ -95,24 +95,24 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                       onClick={() => toggleFeatured(vehicle.id, vehicle.featured || false)}
                       className={`p-1 rounded transition-colors ${
                         vehicle.featured 
-                          ? "text-shark-gold" 
-                          : "text-shark-silver/30 hover:text-shark-gold/50"
+                          ? "text-primary" 
+                          : "text-muted-foreground/30 hover:text-primary/50"
                       }`}
                     >
                       <Star className="w-4 h-4" fill={vehicle.featured ? "currentColor" : "none"} />
                     </button>
                     <div>
-                      <p className="text-shark-silver font-medium">
+                      <p className="text-foreground font-medium">
                         {vehicle.make} {vehicle.model}
                       </p>
-                      <p className="text-shark-silver/50 text-sm">{vehicle.fuel_type} • {vehicle.transmission}</p>
+                      <p className="text-muted-foreground/50 text-sm">{vehicle.fuel_type} • {vehicle.transmission}</p>
                     </div>
                   </div>
                 </td>
-                <td className="p-4 text-shark-silver">{vehicle.year}</td>
-                <td className="p-4 text-shark-silver">{vehicle.mileage?.toLocaleString()} km</td>
+                <td className="p-4 text-foreground">{vehicle.year}</td>
+                <td className="p-4 text-foreground">{vehicle.mileage?.toLocaleString()} km</td>
                 <td className="p-4">
-                  <span className="text-shark-gold font-bebas text-xl">
+                  <span className="text-primary font-display text-xl">
                     {vehicle.price?.toLocaleString()}€
                   </span>
                 </td>
@@ -135,13 +135,13 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                 </td>
                 <td className="p-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-12 h-2 bg-shark-navy rounded-full overflow-hidden">
+                    <div className="w-12 h-2 bg-background rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-shark-gold rounded-full"
+                        className="h-full bg-primary rounded-full"
                         style={{ width: `${((vehicle.protocol_score || 0) / 150) * 100}%` }}
                       />
                     </div>
-                    <span className="text-shark-silver/60 text-sm font-mono">
+                    <span className="text-muted-foreground/60 text-sm font-mono">
                       {vehicle.protocol_score}/150
                     </span>
                   </div>
@@ -151,7 +151,7 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                     <a
                       href={`/inventario/${vehicle.id}`}
                       target="_blank"
-                      className="p-2 text-shark-silver/50 hover:text-shark-silver hover:bg-shark-navy-light rounded transition-colors"
+                      className="p-2 text-muted-foreground/50 hover:text-foreground hover:bg-secondary rounded transition-colors"
                       title="Ver no site"
                     >
                       <Eye className="w-4 h-4" />
@@ -160,21 +160,21 @@ export function VehiclesTable({ vehicles }: { vehicles: Vehicle[] }) {
                       href={`/api/vehicles/${vehicle.id}/ficha`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-shark-silver/50 hover:text-shark-gold hover:bg-shark-gold/10 rounded transition-colors"
+                      className="p-2 text-muted-foreground/50 hover:text-primary hover:bg-primary/10 rounded transition-colors"
                       title="Descarregar ficha (PDF)"
                     >
                       <FileDown className="w-4 h-4" />
                     </a>
                     <a
                       href={`/admin/veiculos/${vehicle.id}`}
-                      className="p-2 text-shark-silver/50 hover:text-shark-gold hover:bg-shark-gold/10 rounded transition-colors"
+                      className="p-2 text-muted-foreground/50 hover:text-primary hover:bg-primary/10 rounded transition-colors"
                     >
                       <Pencil className="w-4 h-4" />
                     </a>
                     <button
                       onClick={() => handleDelete(vehicle.id)}
                       disabled={isDeleting === vehicle.id}
-                      className="p-2 text-shark-silver/50 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors disabled:opacity-50"
+                      className="p-2 text-muted-foreground/50 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors disabled:opacity-50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

@@ -19,17 +19,17 @@ const typeLabel: Record<string, string> = {
 export function RecentDocuments({ documents }: { documents: DocRow[] }) {
   if (documents.length === 0) {
     return (
-      <p className="text-shark-silver/50 text-sm border border-shark-gold/10 rounded-lg px-5 py-8 text-center">
+      <p className="text-muted-foreground/50 text-sm border border-primary/10 rounded-lg px-5 py-8 text-center">
         Ainda não foram gerados documentos.
       </p>
     )
   }
 
   return (
-    <div className="border border-shark-gold/10 rounded-xl overflow-hidden">
+    <div className="border border-primary/10 rounded-xl overflow-hidden">
       <table className="w-full text-left">
         <thead>
-          <tr className="border-b border-shark-gold/10 text-shark-silver/60 font-mono text-xs uppercase">
+          <tr className="border-b border-primary/10 text-muted-foreground/60 font-mono text-xs uppercase">
             <th className="p-4">Documento</th>
             <th className="p-4">Tipo</th>
             <th className="p-4">Cliente</th>
@@ -39,16 +39,16 @@ export function RecentDocuments({ documents }: { documents: DocRow[] }) {
         </thead>
         <tbody>
           {documents.map((doc) => (
-            <tr key={doc.id} className="border-b border-shark-gold/5 hover:bg-shark-navy/40 transition-colors">
+            <tr key={doc.id} className="border-b border-primary/5 hover:bg-background/40 transition-colors">
               <td className="p-4">
                 <div className="flex items-center gap-3">
-                  <FileText className="w-4 h-4 text-shark-gold/70 shrink-0" />
-                  <span className="text-shark-silver">{doc.document_number || doc.title}</span>
+                  <FileText className="w-4 h-4 text-primary/70 shrink-0" />
+                  <span className="text-foreground">{doc.document_number || doc.title}</span>
                 </div>
               </td>
-              <td className="p-4 text-shark-silver/80">{typeLabel[doc.doc_type] || doc.doc_type}</td>
-              <td className="p-4 text-shark-silver/80">{doc.client_name || "—"}</td>
-              <td className="p-4 text-shark-silver/50 text-sm">
+              <td className="p-4 text-muted-foreground/80">{typeLabel[doc.doc_type] || doc.doc_type}</td>
+              <td className="p-4 text-muted-foreground/80">{doc.client_name || "—"}</td>
+              <td className="p-4 text-muted-foreground/50 text-sm">
                 {new Date(doc.created_at).toLocaleDateString("pt-PT")}
               </td>
               <td className="p-4 text-right">
@@ -57,12 +57,12 @@ export function RecentDocuments({ documents }: { documents: DocRow[] }) {
                     href={doc.public_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-shark-gold hover:text-shark-gold-light"
+                    className="inline-flex items-center gap-1 text-primary hover:text-primary"
                   >
                     PDF <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 ) : (
-                  <span className="text-shark-silver/30">—</span>
+                  <span className="text-muted-foreground/30">—</span>
                 )}
               </td>
             </tr>

@@ -47,38 +47,38 @@ export default async function AdminLeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-8">
           {/* Header */}
           <div>
-            <h1 className="font-bebas text-4xl text-shark-silver">
+            <h1 className="font-display text-4xl text-foreground">
               GESTÃO DE LEADS
             </h1>
-            <p className="text-shark-silver/60 mt-1">
+            <p className="text-muted-foreground/60 mt-1">
               {stats.total} leads no total - {stats.new} novos
             </p>
           </div>
 
           {/* Stats */}
           <div className="grid sm:grid-cols-4 gap-4">
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-4">
-              <p className="text-shark-silver/60 text-sm font-mono">TOTAL</p>
-              <p className="font-bebas text-3xl text-shark-silver">{stats.total}</p>
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-4">
+              <p className="text-muted-foreground/60 text-sm font-mono">TOTAL</p>
+              <p className="font-display text-3xl text-foreground">{stats.total}</p>
             </div>
-            <div className="bg-shark-gold/10 border border-shark-gold/20 rounded-xl p-4">
-              <p className="text-shark-gold text-sm font-mono">NOVOS</p>
-              <p className="font-bebas text-3xl text-shark-gold">{stats.new}</p>
+            <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
+              <p className="text-primary text-sm font-mono">NOVOS</p>
+              <p className="font-display text-3xl text-primary">{stats.new}</p>
             </div>
             <div className="bg-blue-400/10 border border-blue-400/20 rounded-xl p-4">
               <p className="text-blue-400 text-sm font-mono">CONTACTADOS</p>
-              <p className="font-bebas text-3xl text-blue-400">{stats.contacted}</p>
+              <p className="font-display text-3xl text-blue-400">{stats.contacted}</p>
             </div>
             <div className="bg-green-400/10 border border-green-400/20 rounded-xl p-4">
               <p className="text-green-400 text-sm font-mono">CONVERTIDOS</p>
-              <p className="font-bebas text-3xl text-green-400">{stats.converted}</p>
+              <p className="font-display text-3xl text-green-400">{stats.converted}</p>
             </div>
           </div>
 

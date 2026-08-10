@@ -47,22 +47,22 @@ export default async function OperationDetailPage({ params }: { params: Promise<
     ])
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-6">
           <div>
-            <Link href="/admin/operacoes" className="inline-flex items-center gap-2 text-shark-silver/60 hover:text-shark-silver mb-4">
+            <Link href="/admin/operacoes" className="inline-flex items-center gap-2 text-muted-foreground/60 hover:text-foreground mb-4">
               <ArrowLeft className="w-4 h-4" />
               Voltar às operações
             </Link>
             <div className="flex items-center gap-4">
-              <h1 className="font-bebas text-4xl text-shark-silver">
+              <h1 className="font-display text-4xl text-foreground">
                 {(profile as Profile)?.full_name || (profile as Profile)?.email || 'Operação'}
               </h1>
               <RoleBadge role={(operation as Operation).role} />
             </div>
-            <p className="text-shark-silver/60 mt-1">
+            <p className="text-muted-foreground/60 mt-1">
               {operation.vehicle_make ? `${operation.vehicle_make} ${operation.vehicle_model ?? ''}` : 'Operação de parceria'}
             </p>
           </div>

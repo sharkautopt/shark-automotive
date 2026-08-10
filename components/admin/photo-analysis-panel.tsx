@@ -70,14 +70,14 @@ export function PhotoAnalysisPanel({
   }
 
   return (
-    <div className="mt-6 border-t border-shark-gold/10 pt-6">
+    <div className="mt-6 border-t border-primary/10 pt-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="font-bebas text-xl text-shark-silver flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-shark-gold" />
+          <h3 className="font-display text-xl text-foreground flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary" />
             ANÁLISE INTELIGENTE DE FOTOS
           </h3>
-          <p className="text-shark-silver/50 text-sm font-mono mt-1">
+          <p className="text-muted-foreground/50 text-sm font-mono mt-1">
             A IA classifica cada foto e escolhe a melhor imagem de capa.
           </p>
         </div>
@@ -85,7 +85,7 @@ export function PhotoAnalysisPanel({
           type="button"
           onClick={runAnalysis}
           disabled={analyzing || photos.length === 0}
-          className="flex items-center gap-2 px-5 py-2.5 bg-shark-gold text-shark-navy font-bebas text-base rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-display text-base rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
           {analyzing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
           {analyzing ? 'A ANALISAR...' : 'ANALISAR COM IA'}
@@ -100,7 +100,7 @@ export function PhotoAnalysisPanel({
       )}
 
       {usedFallback && (
-        <div className="flex items-center gap-2 text-shark-gold text-sm bg-shark-gold/10 border border-shark-gold/20 rounded-lg px-4 py-3 mb-4">
+        <div className="flex items-center gap-2 text-primary text-sm bg-primary/10 border border-primary/20 rounded-lg px-4 py-3 mb-4">
           <AlertCircle className="w-4 h-4 shrink-0" />
           Serviço de IA indisponível. Mantida a ordem de carregamento das fotos.
         </div>
@@ -114,35 +114,35 @@ export function PhotoAnalysisPanel({
               <div
                 key={s.url}
                 className={`relative rounded-lg overflow-hidden border-2 transition-colors ${
-                  isHero ? 'border-shark-gold' : 'border-transparent'
+                  isHero ? 'border-primary' : 'border-transparent'
                 }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={s.url || '/placeholder.svg'} alt={`${label} ${idx + 1}`} className="w-full h-32 object-cover" />
 
                 {idx === 0 && (
-                  <div className="absolute top-2 left-2 flex items-center gap-1 bg-shark-gold text-shark-navy text-xs font-bold px-2 py-1 rounded">
+                  <div className="absolute top-2 left-2 flex items-center gap-1 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded">
                     <Trophy className="w-3 h-3" />
                     TOP
                   </div>
                 )}
 
                 <div
-                  className="absolute top-2 right-2 bg-shark-navy/80 text-shark-gold text-xs font-mono font-bold px-2 py-1 rounded cursor-help"
+                  className="absolute top-2 right-2 bg-background/80 text-primary text-xs font-mono font-bold px-2 py-1 rounded cursor-help"
                   title={s.notes ? `${s.category} · ${s.quality} — ${s.notes}` : s.category}
                 >
                   {s.score}
                 </div>
 
-                <div className="absolute bottom-0 inset-x-0 bg-shark-navy/85 px-2 py-1.5">
+                <div className="absolute bottom-0 inset-x-0 bg-background/85 px-2 py-1.5">
                   <button
                     type="button"
                     onClick={() => onHeroChange(s.url)}
                     className={`w-full flex items-center justify-center gap-1 text-xs font-mono transition-colors ${
-                      isHero ? 'text-shark-gold' : 'text-shark-silver/70 hover:text-shark-silver'
+                      isHero ? 'text-primary' : 'text-muted-foreground/70 hover:text-foreground'
                     }`}
                   >
-                    <Star className={`w-3 h-3 ${isHero ? 'fill-shark-gold' : ''}`} />
+                    <Star className={`w-3 h-3 ${isHero ? 'fill-primary' : ''}`} />
                     {isHero ? 'CAPA' : 'Definir capa'}
                   </button>
                 </div>
@@ -153,7 +153,7 @@ export function PhotoAnalysisPanel({
       )}
 
       {scores.length > 0 && (
-        <p className="text-shark-silver/40 text-xs font-mono mt-4">
+        <p className="text-muted-foreground/40 text-xs font-mono mt-4">
           Passe o rato sobre a pontuação para ver a justificação da IA. Pode sempre alterar a capa manualmente.
         </p>
       )}

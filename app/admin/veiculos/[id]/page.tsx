@@ -79,22 +79,22 @@ export default function EditVehiclePage() {
 
   if (!isAuthorized || loading) {
     return (
-      <div className="min-h-screen bg-shark-navy flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-shark-gold" />
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     )
   }
 
   if (!vehicle) {
     return (
-      <div className="min-h-screen bg-shark-navy flex items-center justify-center">
-        <p className="text-shark-silver/60">Veículo não encontrado</p>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground/60">Veículo não encontrado</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       
       <main className="flex-1 p-8 ml-64">
@@ -102,12 +102,12 @@ export default function EditVehiclePage() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/admin/veiculos" className="p-2 text-shark-silver/50 hover:text-shark-silver hover:bg-shark-navy-light rounded-lg transition-colors">
+              <Link href="/admin/veiculos" className="p-2 text-muted-foreground/50 hover:text-foreground hover:bg-secondary rounded-lg transition-colors">
                 <ArrowLeft className="w-6 h-6" />
               </Link>
               <div>
-                <h1 className="font-bebas text-4xl text-shark-silver">EDITAR VEÍCULO</h1>
-                <p className="text-shark-silver/60 mt-1 font-mono">{vehicle.make} {vehicle.model} {vehicle.year}</p>
+                <h1 className="font-display text-4xl text-foreground">EDITAR VEÍCULO</h1>
+                <p className="text-muted-foreground/60 mt-1 font-mono">{vehicle.make} {vehicle.model} {vehicle.year}</p>
               </div>
             </div>
             <button onClick={handleDelete} disabled={deleting} className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-colors disabled:opacity-50">
@@ -119,39 +119,39 @@ export default function EditVehiclePage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Info */}
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-              <h2 className="font-bebas text-2xl text-shark-silver mb-6">INFORMAÇÕES BÁSICAS</h2>
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">INFORMAÇÕES BÁSICAS</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">MARCA</label>
-                  <input type="text" value={vehicle.make} onChange={(e) => updateField('make', e.target.value)} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">MARCA</label>
+                  <input type="text" value={vehicle.make} onChange={(e) => updateField('make', e.target.value)} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">MODELO</label>
-                  <input type="text" value={vehicle.model} onChange={(e) => updateField('model', e.target.value)} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">MODELO</label>
+                  <input type="text" value={vehicle.model} onChange={(e) => updateField('model', e.target.value)} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">ANO</label>
-                  <input type="number" value={vehicle.year} onChange={(e) => updateField('year', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">ANO</label>
+                  <input type="number" value={vehicle.year} onChange={(e) => updateField('year', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">PREÇO (€)</label>
-                  <input type="number" step="0.01" value={vehicle.price} onChange={(e) => updateField('price', parseFloat(e.target.value))} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PREÇO (€)</label>
+                  <input type="number" step="0.01" value={vehicle.price} onChange={(e) => updateField('price', parseFloat(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
               </div>
             </div>
 
             {/* Technical Specs */}
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-              <h2 className="font-bebas text-2xl text-shark-silver mb-6">ESPECIFICAÇÕES TÉCNICAS</h2>
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">ESPECIFICAÇÕES TÉCNICAS</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">QUILOMETRAGEM</label>
-                  <input type="number" value={vehicle.mileage} onChange={(e) => updateField('mileage', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">QUILOMETRAGEM</label>
+                  <input type="number" value={vehicle.mileage} onChange={(e) => updateField('mileage', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">COMBUSTÍVEL</label>
-                  <select value={vehicle.fuel_type} onChange={(e) => updateField('fuel_type', e.target.value)} className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none">
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">COMBUSTÍVEL</label>
+                  <select value={vehicle.fuel_type} onChange={(e) => updateField('fuel_type', e.target.value)} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none">
                     <option value="Gasolina">Gasolina</option>
                     <option value="Diesel">Diesel</option>
                     <option value="Híbrido">Híbrido</option>
@@ -159,8 +159,8 @@ export default function EditVehiclePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">TRANSMISSÃO</label>
-                  <select value={vehicle.transmission} onChange={(e) => updateField('transmission', e.target.value)} className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none">
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">TRANSMISSÃO</label>
+                  <select value={vehicle.transmission} onChange={(e) => updateField('transmission', e.target.value)} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none">
                     <option value="Automática">Automática</option>
                     <option value="Manual">Manual</option>
                     <option value="DSG">DSG</option>
@@ -168,44 +168,44 @@ export default function EditVehiclePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">POTÊNCIA (CV)</label>
-                  <input type="number" value={vehicle.power} onChange={(e) => updateField('power', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">POTÊNCIA (CV)</label>
+                  <input type="number" value={vehicle.power} onChange={(e) => updateField('power', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
               </div>
             </div>
 
             {/* Status */}
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-              <h2 className="font-bebas text-2xl text-shark-silver mb-6">ESTADO</h2>
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">ESTADO</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">ESTADO</label>
-                  <select value={vehicle.status} onChange={(e) => updateField('status', e.target.value)} className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none">
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">ESTADO</label>
+                  <select value={vehicle.status} onChange={(e) => updateField('status', e.target.value)} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none">
                     <option value="available">Disponível</option>
                     <option value="reserved">Reservado</option>
                     <option value="sold">Vendido</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-shark-silver/70 text-sm font-mono mb-2">PONTUAÇÃO</label>
-                  <input type="number" min="0" max="150" value={vehicle.protocol_score || 0} onChange={(e) => updateField('protocol_score', parseInt(e.target.value))} className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none" />
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PONTUAÇÃO</label>
+                  <input type="number" min="0" max="150" value={vehicle.protocol_score || 0} onChange={(e) => updateField('protocol_score', parseInt(e.target.value))} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div className="flex items-center gap-6 pt-8">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" checked={vehicle.featured || false} onChange={(e) => updateField('featured', e.target.checked)} className="w-5 h-5 rounded" />
-                    <span className="text-shark-silver text-sm">Destaque</span>
+                    <span className="text-foreground text-sm">Destaque</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" checked={vehicle.carpass_status || false} onChange={(e) => updateField('carpass_status', e.target.checked)} className="w-5 h-5 rounded" />
-                    <span className="text-shark-silver text-sm">Car-Pass</span>
+                    <span className="text-foreground text-sm">Car-Pass</span>
                   </label>
                 </div>
               </div>
             </div>
 
             {/* Photos */}
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-              <h2 className="font-bebas text-2xl text-shark-silver mb-6">FOTOGRAFIAS</h2>
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">FOTOGRAFIAS</h2>
               <PhotoUploader
                 photos={vehicle.photos || []}
                 onChange={(photos) => updateField('photos', photos)}
@@ -224,15 +224,15 @@ export default function EditVehiclePage() {
             </div>
 
             {/* Description */}
-            <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-              <h2 className="font-bebas text-2xl text-shark-silver mb-6">DESCRIÇÃO</h2>
-              <textarea value={vehicle.description || ''} onChange={(e) => updateField('description', e.target.value)} rows={4} className="w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none resize-none" placeholder="Descrição detalhada do veículo..." />
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">DESCRIÇÃO</h2>
+              <textarea value={vehicle.description || ''} onChange={(e) => updateField('description', e.target.value)} rows={4} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none" placeholder="Descrição detalhada do veículo..." />
             </div>
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
-              <Link href="/admin/veiculos" className="px-6 py-3 text-shark-silver/70 hover:text-shark-silver transition-colors">Cancelar</Link>
-              <button type="submit" disabled={saving} className="flex items-center gap-2 px-8 py-3 bg-shark-gold text-shark-navy font-bebas text-lg rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50">
+              <Link href="/admin/veiculos" className="px-6 py-3 text-muted-foreground/70 hover:text-foreground transition-colors">Cancelar</Link>
+              <button type="submit" disabled={saving} className="flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground font-display text-lg rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50">
                 {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 GUARDAR ALTERAÇÕES
               </button>
