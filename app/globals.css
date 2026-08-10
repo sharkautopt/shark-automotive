@@ -1,0 +1,342 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Respect prefers-reduced-motion: collapse all animations/transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Shark Automotive - Light Industrial Theme: Concrete & Charcoal */
+:root {
+  /* Light Concrete Base */
+  --background: oklch(0.93 0.010 50);
+  --foreground: oklch(0.08 0.008 40);
+  
+  /* Card surfaces - white */
+  --card: oklch(1.00 0.000 0);
+  --card-foreground: oklch(0.08 0.008 40);
+  
+  /* Popover */
+  --popover: oklch(1.00 0.000 0);
+  --popover-foreground: oklch(0.08 0.008 40);
+  
+  /* Primary - Charcoal */
+  --primary: oklch(0.25 0.008 40);
+  --primary-foreground: oklch(1.00 0.000 0);
+  
+  /* Secondary - Slightly darker concrete */
+  --secondary: oklch(0.89 0.010 50);
+  --secondary-foreground: oklch(0.08 0.008 40);
+  
+  /* Muted */
+  --muted: oklch(0.92 0.009 50);
+  --muted-foreground: oklch(0.29 0.008 40);
+  
+  /* Accent - Charcoal highlight */
+  --accent: oklch(0.25 0.008 40);
+  --accent-foreground: oklch(1.00 0.000 0);
+  
+  /* Destructive */
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(1.00 0.000 0);
+  
+  /* Borders */
+  --border: oklch(0.79 0.009 50);
+  --input: oklch(0.95 0.010 50);
+  --ring: oklch(0.25 0.008 40);
+  
+  /* Charts */
+  --chart-1: oklch(0.25 0.008 40);
+  --chart-2: oklch(0.35 0.008 40);
+  --chart-3: oklch(0.45 0.008 40);
+  --chart-4: oklch(0.65 0.14 40);
+  --chart-5: oklch(0.70 0.13 120);
+  
+  --radius: 0.5rem;
+  
+  /* Sidebar */
+  --sidebar: oklch(0.93 0.010 50);
+  --sidebar-foreground: oklch(0.08 0.008 40);
+  --sidebar-primary: oklch(0.58 0.15 25);
+  --sidebar-primary-foreground: oklch(1.00 0.000 0);
+  --sidebar-accent: oklch(0.89 0.010 50);
+  --sidebar-accent-foreground: oklch(0.08 0.008 40);
+  --sidebar-border: oklch(0.79 0.009 50);
+  --sidebar-ring: oklch(0.58 0.15 25);
+  
+  /* Custom Shark Automotive Colors - Light Theme */
+  --shark-navy: oklch(0.08 0.008 40);
+  --shark-navy-light: oklch(0.29 0.008 40);
+  --shark-gold: oklch(0.25 0.008 40);
+  --shark-gold-light: oklch(0.35 0.008 40);
+  --shark-gold-dark: oklch(0.15 0.008 40);
+  --shark-platinum: oklch(1.00 0.000 0);
+  --shark-steel: oklch(0.29 0.008 40);
+}
+
+.dark {
+  --background: oklch(0.93 0.010 50);
+  --foreground: oklch(0.08 0.008 40);
+  --card: oklch(1.00 0.000 0);
+  --card-foreground: oklch(0.08 0.008 40);
+  --popover: oklch(1.00 0.000 0);
+  --popover-foreground: oklch(0.08 0.008 40);
+  --primary: oklch(0.58 0.15 25);
+  --primary-foreground: oklch(1.00 0.000 0);
+  --secondary: oklch(0.89 0.010 50);
+  --secondary-foreground: oklch(0.08 0.008 40);
+  --muted: oklch(0.92 0.009 50);
+  --muted-foreground: oklch(0.29 0.008 40);
+  --accent: oklch(0.58 0.15 25);
+  --accent-foreground: oklch(1.00 0.000 0);
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(1.00 0.000 0);
+  --border: oklch(0.79 0.009 50);
+  --input: oklch(0.95 0.010 50);
+  --ring: oklch(0.58 0.15 25);
+}
+
+@theme inline {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'Geist Mono', monospace;
+  --font-display: 'Bebas Neue', system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Shark Custom Colors */
+  --color-shark-navy: var(--shark-navy);
+  --color-shark-navy-light: var(--shark-navy-light);
+  --color-shark-gold: var(--shark-gold);
+  --color-shark-gold-light: var(--shark-gold-light);
+  --color-shark-gold-dark: var(--shark-gold-dark);
+  --color-shark-platinum: var(--shark-platinum);
+  --color-shark-steel: var(--shark-steel);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--shark-gold-dark);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--shark-gold);
+  }
+}
+
+/* Admin area: normalize legacy dark utilities across every category */
+.admin-shell .bg-shark-navy,
+.admin-shell .bg-shark-navy-light,
+.admin-shell .bg-shark-navy-light\/30,
+.admin-shell .bg-shark-navy-light\/50,
+.admin-shell .bg-shark-navy\/50 {
+  background-color: var(--card) !important;
+}
+.admin-shell .text-shark-silver,
+.admin-shell .text-shark-silver\/50,
+.admin-shell .text-shark-silver\/60,
+.admin-shell .text-shark-silver\/70,
+.admin-shell .text-shark-gold,
+.admin-shell .text-shark-gold-light {
+  color: var(--foreground) !important;
+}
+.admin-shell .border-shark-gold\/10,
+.admin-shell .border-shark-gold\/20 {
+  border-color: var(--border) !important;
+}
+.admin-shell input,
+.admin-shell select,
+.admin-shell textarea {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+.admin-shell input::placeholder,
+.admin-shell textarea::placeholder {
+  color: var(--muted-foreground) !important;
+}
+.admin-shell .bg-shark-gold,
+.admin-shell .bg-shark-gold\/10,
+.admin-shell .bg-shark-gold\/20 {
+  background-color: var(--secondary) !important;
+}
+.admin-shell button.bg-shark-gold {
+  background-color: var(--foreground) !important;
+  color: var(--background) !important;
+}
+
+@layer utilities {
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(28, 32, 28, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+  }
+  
+  .glass-gold {
+    background: rgba(16, 185, 129, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  
+  /* Gold gradient text */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #10b981 0%, #6ee7b7 50%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Brushed metal effect */
+  .brushed-gold {
+    background: linear-gradient(
+      135deg,
+      #0e9e6e 0%,
+      #10b981 20%,
+      #6ee7b7 40%,
+      #10b981 60%,
+      #0e9e6e 80%,
+      #10b981 100%
+    );
+  }
+  
+  /* Technical border */
+  .border-technical {
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    position: relative;
+  }
+  
+  .border-technical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
+  }
+  
+  /* Cinematic overlay */
+  .cinematic-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(18, 22, 18, 0.8) 0%,
+      rgba(18, 22, 18, 0.4) 50%,
+      rgba(18, 22, 18, 0.9) 100%
+    );
+  }
+  
+  /* Luxury cursor */
+  .luxury-cursor {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%2310b981'/%3E%3C/svg%3E") 12 12, auto;
+  }
+  
+  /* Shine animation */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(16, 185, 129, 0.1) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    animation: shine 3s infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Font display class */
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* Selection color */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--shark-gold);
+  outline-offset: 2px;
+}
