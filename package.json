@@ -73,7 +73,10 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "sharp": "^0.35.3"
+    }
   },
   "devDependencies": {
     "@fontsource/bebas-neue": "^5.2.7",
