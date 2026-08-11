@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
 const navigation = [
-  { name: 'Protocolo', href: '/protocolo' },
   { name: 'Viaturas', href: '/inventario' },
   { name: 'Encomenda', href: '/importacao' },
   { name: 'Parceiros', href: '/parceiros' },

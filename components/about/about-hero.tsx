@@ -54,9 +54,7 @@ export function AboutHero() {
           </h1>
           
           <p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed max-w-xl">
-            O mercado de importação está cheio de adjetivos. Nós trocámos os adjetivos 
-            por documentos. 150 pontos de auditoria. 18 páginas de prova. Um Car-Pass 
-            europeu. Uma inspeção B oficial.
+            O mercado de importação está cheio de adjetivos. Nós trocámos os adjetivos por documentação verificável, histórico europeu e inspeção técnica oficial.
           </p>
         </motion.div>
       </div>

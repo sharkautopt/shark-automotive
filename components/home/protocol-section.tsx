@@ -28,7 +28,7 @@ const protocolSteps = [
     icon: Wrench,
     number: '02',
     title: 'Inspeção Técnica',
-    description: 'Avaliação mecânica detalhada com 25 pontos de verificação por técnicos certificados.',
+    description: 'Avaliação mecânica detalhada por técnicos qualificados.',
     points: ['Motor e transmissão', 'Suspensão e travões', 'Sistemas eletrónicos'],
   },
   {
@@ -68,7 +68,7 @@ export function ProtocolSection() {
       <div className="absolute inset-0">
         <Image
           src="/images/bts/mercedes-eqs-inspection-ramp.jpg"
-          alt="Mercedes EQS sobre rampa de inspeção durante o Protocolo Shark 25"
+          alt="Mercedes EQS sobre rampa de inspeção técnica"
           fill
           sizes="100vw"
           className="object-cover"
@@ -80,8 +80,8 @@ export function ProtocolSection() {
         <div className="text-center mb-16">
           <SectionHeading
             label="O Nosso Método"
-            title="PROTOCOLO SHARK 25"
-            description="Um processo rigoroso de 25 pontos de inspeção que garante a qualidade e transparência de cada veículo importado."
+            title="VERIFICAÇÃO SHARK"
+            description="Um processo rigoroso de inspeção e documentação que reforça a qualidade e transparência de cada veículo importado."
           />
         </div>
 
@@ -131,8 +131,8 @@ export function ProtocolSection() {
           className="text-center"
         >
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-            <Link href="/protocolo" className="flex items-center gap-2">
-              Conhecer o Protocolo Completo
+            <Link href="/contacto" className="flex items-center gap-2">
+              Pedir dossier técnico
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>

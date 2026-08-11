@@ -12,7 +12,7 @@ const pages = [
   },
   {
     id: 'protocolo',
-    name: 'Protocolo 150',
+    name: 'Verificação Shark',
     description: 'Protocolo SHARK values and timeline',
     sections: ['hero', 'values', 'timeline'],
     status: 'pending'

@@ -29,8 +29,7 @@ export function AboutTeam() {
 
             <p className="text-muted-foreground leading-relaxed mb-6">
               O nosso diferencial é simples: tratamos cada veículo como se fosse para nós próprios. 
-              Desenvolvemos o Protocolo 150 precisamente porque acreditamos que os nossos clientes 
-              merecem toda a informação antes de tomar uma decisão de compra.
+Desenvolvemos a verificação Shark precisamente porque acreditamos que os nossos clientes merecem toda a informação antes de tomar uma decisão de compra.
             </p>
 
             <p className="text-muted-foreground leading-relaxed mb-8">

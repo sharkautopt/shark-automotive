@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const steps = [
   { label: 'Participação inicial', value: '8.000\u20AC', note: 'Contrato individual assinado antes da compra' },
   { label: 'Viatura adquirida', value: 'Hot hatch alemão, 2019', note: 'Leilão fechado, Alemanha' },
-  { label: 'Protocolo Shark 150', value: '147/150', note: 'Dossier técnico completo partilhado' },
+  { label: 'Verificação Shark', value: 'Aprovada', note: 'Dossier técnico completo partilhado' },
   { label: 'Ciclo da operação', value: '9 semanas', note: 'Compra \u2192 transporte \u2192 legalização \u2192 venda' },
   { label: 'Resultado partilhado', value: 'Proporcional', note: 'Distribuído conforme a participação contratada' },
 ]

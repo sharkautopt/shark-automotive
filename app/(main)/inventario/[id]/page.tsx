@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${vehicle.make} ${vehicle.model} ${vehicle.year}`,
-    description: `${vehicle.make} ${vehicle.model} ${vehicle.year} - ${vehicle.power}cv, ${vehicle.mileage.toLocaleString('pt-PT')}km, ${vehicle.fuel_type}. Importado da ${vehicle.country_origin} com Protocolo 150.`,
+    description: `${vehicle.make} ${vehicle.model} ${vehicle.year} - ${vehicle.power}cv, ${vehicle.mileage.toLocaleString('pt-PT')}km, ${vehicle.fuel_type}. Importado da ${vehicle.country_origin} com inspeção técnica documentada.`,
     openGraph: {
       images: vehicle.photos?.[0] ? [vehicle.photos[0]] : [],
     },

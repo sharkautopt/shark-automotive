@@ -29,14 +29,10 @@ export function AboutMission() {
                 genéricas e falta de documentação técnica.
               </p>
               <p>
-                Criámos o Protocolo 150 para mudar isso. Cada viatura que importamos 
-                passa por 150 pontos de verificação documentados, desde diagnóstico 
-                OBD completo até verificação de histórico europeu.
+                Criámos um processo de verificação documentado para mudar isso. Cada viatura que importamos é analisada desde o diagnóstico OBD até à verificação do histórico europeu.
               </p>
               <p>
-                O resultado é um Dossier Técnico de 18 páginas que acompanha cada 
-                veículo. Não é marketing. São dados verificáveis que permitem ao 
-                cliente tomar uma decisão informada.
+                O resultado é um dossier técnico que acompanha cada veículo. Não é marketing: são dados verificáveis que permitem ao cliente tomar uma decisão informada.
               </p>
             </div>
           </motion.div>

@@ -39,8 +39,8 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
   const verifications = [
     { 
       icon: Shield, 
-      label: 'Protocolo Shark', 
-      value: `${vehicle.protocol_score}/150 pontos`,
+      label: 'Verificação Shark', 
+      value: vehicle.inspection_status === 'approved' ? 'Aprovada' : 'Em validação',
       verified: vehicle.inspection_status === 'approved'
     },
     { 

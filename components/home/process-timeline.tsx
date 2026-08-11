@@ -14,7 +14,7 @@ const steps = [
   {
     icon: FileCheck,
     title: 'Verificação',
-    description: 'Inspeção de 25 pontos, verificação documental e elaboração do dossier técnico.',
+    description: 'Inspeção técnica, verificação documental e elaboração do dossier técnico.',
     duration: '3-5 dias',
   },
   {
