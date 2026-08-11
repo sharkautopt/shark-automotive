@@ -10,6 +10,7 @@ import { SimulatorInquiryModal } from "./simulator-inquiry-modal"
 interface VehicleData {
   make?: string
   model?: string
+  variant?: string
   year?: number
   mileage?: number
   price?: number
@@ -22,6 +23,8 @@ interface VehicleData {
   co2Estimated?: boolean
   normaEstimated?: boolean
   estimatedNorma?: Norma
+  co2Source?: string
+  co2Confidence?: "high" | "low" | "manual"
 }
 
 export function SimulatorForm() {
@@ -53,16 +56,17 @@ export function SimulatorForm() {
   })
 
   async function enrichWithEstimatedCo2(data: VehicleData) {
-    if (data.co2 != null || !data.make || !data.model || !data.year || !data.cc || !data.fuelType) return data
+    if (data.co2 != null) return { ...data, co2Source: "Fonte: anúncio original", co2Confidence: "high" as const }
+    if (!data.make || !data.model || !data.year || !data.cc || !data.fuelType) return data
     try {
       const res = await fetch("/api/import/estimate-co2", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ make: data.make, model: data.model, year: data.year, cc: data.cc, fuelType: data.fuelType }),
+        body: JSON.stringify({ make: data.make, model: data.model, variant: data.variant, year: data.year, cc: data.cc, power: data.power, fuelType: data.fuelType, transmission: data.transmission }),
       })
       const estimate = await res.json()
       if (!res.ok || estimate.confidence !== "high" || !estimate.co2 || !estimate.norma) return data
-      return { ...data, co2: estimate.co2, co2Estimated: true, normaEstimated: true, estimatedNorma: estimate.norma }
+      return { ...data, co2: estimate.co2, co2Estimated: true, normaEstimated: true, estimatedNorma: estimate.norma, co2Source: estimate.source, co2Confidence: "high" as const }
     } catch {
       return data
     }
@@ -553,10 +557,14 @@ export function SimulatorForm() {
               </div>
             )}
             {vehicleData.co2 && (
-              <div className={vehicleData.co2Estimated ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}>
+              <div className={vehicleData.co2Estimated && vehicleData.co2Confidence !== "high" ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}>
                 <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">EMISSÕES CO₂</p>
                 <p className="text-sm font-mono text-foreground">{vehicleData.co2} g/km</p>
-                {vehicleData.co2Estimated && <p className="mt-1 text-[10px] leading-4 text-primary">Estimado com base no modelo — confirme no CoC/DUA.</p>}
+                {vehicleData.co2Source ? (
+                  <p className="mt-1 text-[10px] leading-4 text-primary">{vehicleData.co2Source}{vehicleData.co2Confidence === "high" && vehicleData.co2Estimated ? " · Verifique no CoC/DUA antes de confirmar." : ""}</p>
+                ) : vehicleData.co2Estimated ? (
+                  <p className="mt-1 text-[10px] leading-4 text-primary">Estimado com base no modelo — confirme no CoC/DUA.</p>
+                ) : null}
               </div>
             )}
           </div>
@@ -592,9 +600,9 @@ export function SimulatorForm() {
             {!overrideIsv && (
               <div className="mt-4 space-y-3">
                 <div>
-                  <label className={`flex items-center gap-2 text-sm text-foreground/70 mb-1 ${vehicleData.normaEstimated ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}`}>
+                  <label className={`flex items-center gap-2 text-sm text-foreground/70 mb-1 ${vehicleData.normaEstimated && vehicleData.co2Confidence !== "high" ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}`}>
                     Norma de homologação <span className="text-primary">*</span>
-                    {vehicleData.normaEstimated && <span className="text-[10px] text-primary">ESTIMADA — confirmar no CoC/DUA</span>}
+                    {vehicleData.normaEstimated && <span className="text-[10px] text-primary">{vehicleData.co2Confidence === "high" ? "PESQUISA WEB — verificar no CoC/DUA" : "ESTIMADA — confirmar no CoC/DUA"}</span>}
                   </label>
                   <select
                     value={norma}
