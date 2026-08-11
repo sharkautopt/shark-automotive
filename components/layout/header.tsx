@@ -12,7 +12,7 @@ const navigation = [
   { name: 'Protocolo', href: '/protocolo' },
   { name: 'Viaturas', href: '/inventario' },
   { name: 'Encomenda', href: '/importacao' },
-  { name: 'Parceiros', href: '/parceiros' },
+  { name: 'Shark Partners', href: '/parceiros' },
   { name: 'Quem Somos', href: '/quem-somos' },
   { name: 'Contacto', href: '/contacto' },
 ]

@@ -8,7 +8,7 @@ import { WorkedExample } from '@/components/partners/worked-example'
 import { PartnersForm } from '@/components/partners/partners-form'
 
 export const metadata: Metadata = {
-  title: 'Parceiros de Investimento | Programa de Parceria Automotive',
+  title: 'Shark Partners | Parceria Automóvel Transparente',
   description: 'Invista no mercado automóvel premium com a Shark Automotive. Retornos atrativos, risco controlado, transparência total.',
 }
 
