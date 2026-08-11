@@ -47,11 +47,11 @@ export function Header() {
               transition={{ type: 'spring', stiffness: 400 }}
             >
               <Image
-                src="/icon.svg"
+                src="/images/shark-fin-logo.png"
                 alt="Shark Automotive"
-                width={48}
-                height={48}
-                className="h-10 w-10 lg:h-12 lg:w-12"
+                width={400}
+                height={150}
+                className="h-20 lg:h-28 w-auto"
                 priority
               />
             </motion.div>
