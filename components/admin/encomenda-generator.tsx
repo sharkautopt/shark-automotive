@@ -3,7 +3,14 @@
 import { useMemo, useState } from "react"
 import { FileText, Loader2, ExternalLink, Car, User, Euro, Sparkles, ClipboardPaste, ImageIcon } from "lucide-react"
 import { serviceFeeForPrice } from "@/lib/pdf/fees"
+import { calculateISVDetailed } from "@/lib/import/calculate-isv"
 import { PhotoUploader } from "@/components/admin/photo-uploader"
+
+/** Extracts the leading numeric portion of strings like "180 cv", "1998 cm³", "120 g/km". */
+const parseNumber = (value: string): number | undefined => {
+  const match = value.replace(/\./g, "").replace(",", ".").match(/-?\d+(\.\d+)?/)
+  return match ? Number(match[0]) : undefined
+}
 
 interface VehicleOption {
   id: string
@@ -95,6 +102,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
   const [deliveryTime, setDeliveryTime] = useState("4 a 6 semanas")
   const [vehiclePrice, setVehiclePrice] = useState("")
   const [isv, setIsv] = useState("")
+  const [isvOverride, setIsvOverride] = useState(false)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -104,7 +112,21 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
 
   // Tiered service fee derived from vehicle price.
   const tier = useMemo(() => serviceFeeForPrice(Number(vehiclePrice) || 0), [vehiclePrice])
-  const total = tier.onRequest ? 0 : (Number(vehiclePrice) || 0) + (Number(isv) || 0) + (tier.fee || 0)
+
+  // ISV auto-calculated from the vehicle spec fields — same engine used by the public Simulador.
+  const isvBreakdown = useMemo(
+    () =>
+      calculateISVDetailed(
+        vf.fuel,
+        parseNumber(vf.power),
+        parseNumber(vf.co2),
+        parseNumber(vf.year),
+        parseNumber(vf.displacement)
+      ),
+    [vf.fuel, vf.power, vf.co2, vf.year, vf.displacement]
+  )
+  const effectiveIsv = isvOverride ? Number(isv) || 0 : isvBreakdown.total
+  const total = tier.onRequest ? 0 : (Number(vehiclePrice) || 0) + effectiveIsv + (tier.fee || 0)
 
   function fillFromStock(id: string) {
     setVehicleId(id)
@@ -248,7 +270,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
     } else {
       payload.costs = {
         vehiclePrice: Number(vehiclePrice) || 0,
-        isv: Number(isv) || 0,
+        isv: effectiveIsv,
         serviceFee: tier.fee || 0,
         serviceFeeOnRequest: tier.onRequest,
         total,
@@ -461,14 +483,35 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
               />
             </div>
             <div>
-              <label className={labelClass}>ISV — introduzido manualmente (€)</label>
+              <label className={labelClass}>ISV — calculado automaticamente (€)</label>
               <input
                 type="number"
                 className={inputClass}
-                value={isv}
+                value={isvOverride ? isv : Math.round(isvBreakdown.total)}
                 onChange={(e) => setIsv(e.target.value)}
+                readOnly={!isvOverride}
                 placeholder="Ex: 3200"
               />
+              <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isvOverride}
+                  onChange={(e) => {
+                    setIsvOverride(e.target.checked)
+                    if (!e.target.checked) setIsv("")
+                  }}
+                  className="w-4 h-4 accent-primary"
+                />
+                <span className="text-muted-foreground/60 text-xs">Substituir por valor manual</span>
+              </label>
+              {!isvOverride && (
+                <p className="text-muted-foreground/50 text-[11px] mt-1">
+                  Calculado a partir de combustível, potência, CO₂ e cilindrada — igual ao Simulador público
+                  (cilindrada {num(isvBreakdown.cilindrada)} € + ambiental {num(isvBreakdown.ambiental)} €
+                  {isvBreakdown.particulas ? ` + partículas ${num(isvBreakdown.particulas)} €` : ""}
+                  {isvBreakdown.desconto ? ` − desconto ${num(isvBreakdown.desconto)} €` : ""}).
+                </p>
+              )}
             </div>
           </div>
 
