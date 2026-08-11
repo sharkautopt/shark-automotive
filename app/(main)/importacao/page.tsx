@@ -9,7 +9,7 @@ import { ImportRequestForm } from '@/components/import/import-request-form'
 
 export const metadata: Metadata = {
   title: 'Importação Sob Encomenda | Encontramos o Seu Veículo',
-  description: 'Serviço de importação personalizada de veículos premium da Alemanha e Holanda. Processo transparente, inspeção de 150 pontos, documentação completa.',
+  description: 'Serviço de importação personalizada de veículos premium da Alemanha e Holanda. Processo transparente, inspeção técnica e documentação completa.',
 }
 
 export default function ImportPage() {

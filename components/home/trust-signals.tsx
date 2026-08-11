@@ -7,7 +7,7 @@ const signals = [
   {
     icon: ShieldCheck,
     title: 'Inspeção Completa',
-    description: '25 pontos de verificação por técnicos certificados',
+    description: 'Verificação técnica por profissionais qualificados',
   },
   {
     icon: FileCheck,

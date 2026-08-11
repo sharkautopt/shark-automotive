@@ -90,9 +90,9 @@ export function ProtocolSteps() {
     <section className="py-24 lg:py-32" id="protocolo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          label="25 Pontos"
-          title="AS 6 FASES DO PROTOCOLO"
-          description="Cada veículo passa por 6 fases de inspeção rigorosa, totalizando 25 pontos de verificação."
+          label="Verificação Shark"
+          title="AS 6 FASES DE VERIFICAÇÃO"
+          description="Cada veículo passa por 6 fases de inspeção rigorosa, com todos os resultados documentados."
           className="mb-16"
         />
 

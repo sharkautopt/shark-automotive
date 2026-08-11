@@ -6,7 +6,7 @@ import { Search, Shield, Truck } from 'lucide-react'
 
 const features = [
   { icon: Search, label: 'Pesquisa Personalizada', description: 'Encontramos o veículo exato' },
-  { icon: Shield, label: 'Protocolo 25', description: 'Inspeção completa garantida' },
+  { icon: Shield, label: 'Verificação Completa', description: 'Inspeção documentada' },
   { icon: Truck, label: 'Entrega Chave-na-Mão', description: 'Tratamos de tudo' },
 ]
 

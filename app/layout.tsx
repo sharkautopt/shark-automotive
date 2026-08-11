@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'Shark Automotive | Importação Premium de Veículos da Alemanha e Bélgica',
     template: '%s | Shark Automotive'
   },
-  description: 'Importação de veículos premium da Alemanha e Bélgica para Portugal. Protocolo de inspeção 150 pontos, total transparência, dossier técnico completo. Zero Conversas. Total Transparência.',
+  description: 'Importação de veículos premium da Alemanha e Bélgica para Portugal. Verificação técnica documentada, total transparência e dossier técnico completo. Zero Conversas. Total Transparência.',
   keywords: [
     'importação automóvel',
     'carros alemanha',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     url: 'https://sharkautomotive.pt',
     siteName: 'Shark Automotive',
     title: 'Shark Automotive | Importação Premium de Veículos',
-    description: 'Importação de veículos premium da Alemanha e Bélgica. Protocolo 150 pontos, total transparência.',
+    description: 'Importação de veículos premium da Alemanha e Bélgica. Verificação técnica documentada e total transparência.',
     images: [
       {
         url: '/og-image.jpg',

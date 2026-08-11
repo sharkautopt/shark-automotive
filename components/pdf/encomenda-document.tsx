@@ -388,7 +388,7 @@ export function EncomendaDocument(props: EncomendaDocProps) {
             <View style={styles.dividerTight} />
             <Text style={styles.sectionLabel}>INCLUI</Text>
             <Text style={styles.includes}>
-              Protocolo Shark 150 · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais ·
+              Verificação técnica e documental · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais ·
               Garantia de 6 meses.
             </Text>
             <View style={styles.divider} />

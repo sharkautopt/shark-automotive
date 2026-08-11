@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Shield, FileCheck, Eye } from 'lucide-react'
 
 const values = [
-  { icon: Shield, title: 'Rigor', description: 'Cada veículo passa por 25 pontos de verificação' },
+  { icon: Shield, title: 'Rigor', description: 'Cada veículo passa por uma inspeção técnica documentada' },
   { icon: FileCheck, title: 'Documentação', description: 'Dossier técnico completo entregue ao cliente' },
   { icon: Eye, title: 'Transparência', description: 'Acesso total a histórico, inspeções e relatórios' },
 ]
@@ -30,8 +30,8 @@ export function ProtocolHero() {
               transition={{ delay: 0.1 }}
               className="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide text-foreground mb-6 text-balance"
             >
-              PROTOCOLO{' '}
-              <span className="text-[#9FADBB]">{'SHARK\u00A025'}</span>
+              VERIFICAÇÃO{' '}
+              <span className="text-[#9FADBB]">SHARK</span>
             </motion.h1>
             
             <motion.p
@@ -40,9 +40,7 @@ export function ProtocolHero() {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground mb-8 leading-relaxed"
             >
-              O Protocolo Shark 25 é a nossa metodologia proprietária de inspeção e verificação 
-              de veículos. Desenvolvido ao longo de 8 anos, garante que cada veículo importado 
-              cumpre os mais elevados padrões de qualidade e transparência.
+              A verificação Shark é a nossa metodologia de inspeção e documentação de veículos. Desenvolvida ao longo de 8 anos, reforça a qualidade e transparência de cada importação.
             </motion.p>
 
             <motion.div

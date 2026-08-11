@@ -83,9 +83,9 @@ export function AboutTeam() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-muted-foreground font-light">
             <p>Car-Pass Europeu verificado</p>
-            <p>Protocolo 150 de auditoria</p>
+            <p>Auditoria técnica documentada</p>
             <p>Inspeção B oficial IMT</p>
-            <p>Dossier Técnico de 18 páginas</p>
+            <p>Dossier técnico completo</p>
             <p>ISV e legalização tratados</p>
             <p>Preço final sem surpresas</p>
           </div>

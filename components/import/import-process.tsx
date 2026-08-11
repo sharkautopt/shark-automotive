@@ -23,7 +23,7 @@ const steps = [
     number: '03',
     icon: FileCheck,
     title: 'Verificação & Inspeção',
-    description: 'Realizamos o Protocolo 150 completo: verificação documental, Car-Pass, e inspeção técnica presencial.',
+    description: 'Realizamos uma verificação completa: documentação, Car-Pass e inspeção técnica presencial.',
     duration: '2-3 dias',
   },
   {

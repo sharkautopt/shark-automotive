@@ -122,7 +122,7 @@ export default async function InventoryPage({
             <SectionHeading
               label="Inventário"
               title="VEÍCULOS DISPONÍVEIS"
-              description="Todos os veículos passaram pelo nosso Protocolo 150 de inspeção e estão prontos para entrega."
+              description="Todos os veículos passaram pelo nosso processo de inspeção e verificação e estão prontos para entrega."
             />
           </div>
         </section>

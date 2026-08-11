@@ -8,12 +8,12 @@ const values = [
   {
     icon: FileCheck,
     title: 'Documentação',
-    description: 'Cada viatura vem com um Dossier Técnico completo de 18 páginas. Não há descrições vagas, apenas dados verificáveis.',
+    description: 'Cada viatura vem acompanhada de documentação técnica organizada e dados verificáveis. Não há descrições vagas.',
   },
   {
     icon: Shield,
     title: 'Proteção',
-    description: 'Garantia incluída, inspeção B oficial, e um protocolo de 150 pontos que assegura a qualidade de cada veículo.',
+    description: 'Garantia incluída, inspeção B oficial e verificação técnica documentada para cada veículo.',
   },
   {
     icon: Eye,

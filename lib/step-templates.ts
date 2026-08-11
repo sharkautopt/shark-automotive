@@ -17,7 +17,7 @@ export const STEP_TEMPLATES: Record<OperationRole, string[]> = {
     'Opções Apresentadas',
     'Viatura Aprovada',
     'Pagamento Sinal',
-    'Inspeção Protocolo 150',
+    'Inspeção técnica e documentação',
     'Em Transporte',
     'Legalização',
     'Entregue',

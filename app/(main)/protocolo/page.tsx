@@ -9,8 +9,8 @@ import { WarrantySection } from '@/components/protocol/warranty-section'
 import { AboutTeam } from '@/components/protocol/about-team'
 
 export const metadata: Metadata = {
-  title: 'Protocolo Shark 150 | A Nossa Metodologia',
-  description: 'Conheça o Protocolo Shark 150: 150 pontos de inspeção, verificação documental completa, garantia e total transparência em cada importação.',
+  title: 'Verificação Shark | A Nossa Metodologia',
+  description: 'Conheça a metodologia Shark: inspeção técnica, verificação documental completa, garantia e total transparência em cada importação.',
 }
 
 export default function ProtocolPage() {
