@@ -145,7 +145,7 @@ export default async function InventoryPage({
                 <p className="font-mono text-sm tracking-wider text-muted-foreground">
                   {vehicles.filter(v => v.status !== 'sold').length} viaturas disponíveis · Novas entradas em breve
                 </p>
-                <p className="font-mono text-xs tracking-wider text-[#5A7A9A]">
+                <p className="font-mono text-xs tracking-wider text-[#2E6B9E]">
                   Financiamento disponível em todas as viaturas.
                 </p>
               </div>

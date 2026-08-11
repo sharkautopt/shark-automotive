@@ -41,8 +41,8 @@ export function AboutHero() {
           className="max-w-3xl"
         >
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-6 h-[1px] bg-[#5A7A9A]" />
-            <span className="font-mono text-[10px] tracking-[4px] uppercase text-[#5A7A9A]">
+            <span className="w-6 h-[1px] bg-[#2E6B9E]" />
+            <span className="font-mono text-[10px] tracking-[4px] uppercase text-[#2E6B9E]">
               Quem Somos
             </span>
           </div>

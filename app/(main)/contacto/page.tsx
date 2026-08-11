@@ -21,7 +21,7 @@ export default function ContactoPage() {
         <section className="py-16 lg:py-24 border-b border-border/50">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto">
-              <span className="inline-block font-mono text-xs tracking-[0.3em] text-[#5A7A9A] uppercase mb-6">
+              <span className="inline-block font-mono text-xs tracking-[0.3em] text-[#2E6B9E] uppercase mb-6">
                 Contacto
               </span>
               <h1 className="font-display text-5xl md:text-7xl tracking-wide text-foreground mb-6 text-balance">
@@ -47,9 +47,9 @@ export default function ContactoPage() {
 
                 <div className="space-y-4">
                   {/* Telefone / WhatsApp merged */}
-                  <div className="flex items-center gap-4 p-4 border border-[#C8C4BC]/40 bg-card/40">
+                  <div className="flex items-center gap-4 p-4 border border-[#9FADBB]/40 bg-card/40">
                     <div className="w-12 h-12 flex items-center justify-center border border-border/60 flex-shrink-0">
-                      <Phone className="w-5 h-5 text-[#5A7A9A]" />
+                      <Phone className="w-5 h-5 text-[#2E6B9E]" />
                     </div>
                     <div className="min-w-0">
                       <span className="text-muted-foreground text-sm font-mono block">
@@ -59,7 +59,7 @@ export default function ContactoPage() {
                       <div className="flex items-center gap-4 mt-1">
                         <a
                           href="tel:+351911903833"
-                          className="font-mono text-xs tracking-wider text-[#5A7A9A] hover:text-foreground transition-colors underline underline-offset-4"
+                          className="font-mono text-xs tracking-wider text-[#2E6B9E] hover:text-foreground transition-colors underline underline-offset-4"
                         >
                           Ligar
                         </a>
@@ -67,7 +67,7 @@ export default function ContactoPage() {
                           href="https://wa.me/351911903833"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-xs tracking-wider text-[#5A7A9A] hover:text-foreground transition-colors underline underline-offset-4"
+                          className="font-mono text-xs tracking-wider text-[#2E6B9E] hover:text-foreground transition-colors underline underline-offset-4"
                         >
                           WhatsApp
                         </a>
@@ -76,15 +76,15 @@ export default function ContactoPage() {
                   </div>
 
                   {/* Email */}
-                  <div className="flex items-center gap-4 p-4 border border-[#C8C4BC]/40 bg-card/40">
+                  <div className="flex items-center gap-4 p-4 border border-[#9FADBB]/40 bg-card/40">
                     <div className="w-12 h-12 flex items-center justify-center border border-border/60 flex-shrink-0">
-                      <Mail className="w-5 h-5 text-[#5A7A9A]" />
+                      <Mail className="w-5 h-5 text-[#2E6B9E]" />
                     </div>
                     <div className="min-w-0">
                       <span className="text-muted-foreground text-sm font-mono block">Email</span>
                       <a
                         href="mailto:contacto@sharkauto.pt"
-                        className="text-foreground hover:text-[#C8C4BC] transition-colors break-all"
+                        className="text-foreground hover:text-[#9FADBB] transition-colors break-all"
                       >
                         contacto@sharkauto.pt
                       </a>
@@ -92,9 +92,9 @@ export default function ContactoPage() {
                   </div>
 
                   {/* Horário */}
-                  <div className="flex items-center gap-4 p-4 border border-[#C8C4BC]/40 bg-card/40">
+                  <div className="flex items-center gap-4 p-4 border border-[#9FADBB]/40 bg-card/40">
                     <div className="w-12 h-12 flex items-center justify-center border border-border/60 flex-shrink-0">
-                      <Clock className="w-5 h-5 text-[#5A7A9A]" />
+                      <Clock className="w-5 h-5 text-[#2E6B9E]" />
                     </div>
                     <div>
                       <span className="text-muted-foreground text-sm font-mono block">Horário</span>
@@ -104,7 +104,7 @@ export default function ContactoPage() {
                 </div>
 
                 {/* Location photo */}
-                <div className="mt-8 relative aspect-video border border-[#C8C4BC]/40 overflow-hidden">
+                <div className="mt-8 relative aspect-video border border-[#9FADBB]/40 overflow-hidden">
                   <Image
                     src="/images/bts/rolfo-transporter-street.jpg"
                     alt="Transporte de viaturas da Shark Automotive em Lisboa"
@@ -114,7 +114,7 @@ export default function ContactoPage() {
                   />
                   <div
                     className="absolute inset-0 flex items-end p-6"
-                    style={{ backgroundColor: 'rgba(13,27,42,0.5)' }}
+                    style={{ backgroundColor: 'rgba(14, 27, 47,0.5)' }}
                   >
                     <p className="font-mono text-sm tracking-[0.2em] uppercase text-[#E8E4DC]">
                       Lisboa, Portugal
@@ -124,7 +124,7 @@ export default function ContactoPage() {
               </div>
 
               {/* Contact Form */}
-              <div className="border border-[#C8C4BC]/40 bg-card/40 p-8">
+              <div className="border border-[#9FADBB]/40 bg-card/40 p-8">
                 <h2 className="font-display text-3xl tracking-wide text-foreground mb-2">
                   ENVIE-NOS UMA MENSAGEM
                 </h2>

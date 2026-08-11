@@ -73,7 +73,7 @@ export function ProtocolSection() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(13,27,42,0.80)' }} />
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(14, 27, 47,0.80)' }} />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -101,7 +101,7 @@ export function ProtocolSection() {
               </div>
 
               <div className="w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                <step.icon className="w-6 h-6 text-[#5A7A9A]" />
+                <step.icon className="w-6 h-6 text-[#2E6B9E]" />
               </div>
 
               <h3 className="font-display text-xl tracking-wide text-foreground mb-2">
@@ -114,7 +114,7 @@ export function ProtocolSection() {
               <ul className="space-y-2">
                 {step.points.map((point, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-[#5A7A9A] flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#2E6B9E] flex-shrink-0" />
                     <span>{point}</span>
                   </li>
                 ))}

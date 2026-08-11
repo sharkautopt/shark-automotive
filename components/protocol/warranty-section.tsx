@@ -74,7 +74,7 @@ export function WarrantySection() {
                 className="bg-card/50 border border-border/50 p-6"
               >
                 <div className="w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-[#5A7A9A]" />
+                  <feature.icon className="w-6 h-6 text-[#2E6B9E]" />
                 </div>
                 <h3 className="font-display text-lg text-foreground mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>

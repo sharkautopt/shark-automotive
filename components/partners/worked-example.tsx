@@ -22,8 +22,8 @@ export function WorkedExample() {
           className="mb-10"
         >
           <div className="flex items-center gap-3 mb-4">
-            <span className="w-6 h-[1px] bg-[#5A7A9A]" />
-            <span className="font-mono text-[10px] tracking-[4px] uppercase text-[#5A7A9A]">
+            <span className="w-6 h-[1px] bg-[#2E6B9E]" />
+            <span className="font-mono text-[10px] tracking-[4px] uppercase text-[#2E6B9E]">
               Operação Exemplo
             </span>
           </div>
@@ -49,7 +49,7 @@ export function WorkedExample() {
               className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 sm:gap-8 items-baseline p-5"
             >
               <div>
-                <p className="font-mono text-xs tracking-wider uppercase text-[#5A7A9A] mb-1">
+                <p className="font-mono text-xs tracking-wider uppercase text-[#2E6B9E] mb-1">
                   {step.label}
                 </p>
                 <p className="text-sm text-muted-foreground">{step.note}</p>

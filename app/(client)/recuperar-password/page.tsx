@@ -32,9 +32,9 @@ export default function RecuperarPasswordPage() {
           <h1 className="font-mono uppercase tracking-widest text-sm" style={{ color: '#6B7280' }}>Recuperar Password</h1>
         </div>
 
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #C8C4BC' }} className="p-8">
+        <div style={{ backgroundColor: '#ffffff', border: '1px solid #9FADBB' }} className="p-8">
           {sent ? (
-            <p style={{ color: '#0D1B2A' }} className="text-sm leading-relaxed">
+            <p style={{ color: '#0E1B2F' }} className="text-sm leading-relaxed">
               Se existir uma conta associada a esse email, enviámos as instruções para redefinir a password.
               Verifica a tua caixa de entrada.
             </p>
@@ -51,7 +51,7 @@ export default function RecuperarPasswordPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full px-4 py-3 focus:outline-none"
-                  style={{ backgroundColor: '#F4F8FC', border: '1px solid #C8C4BC', color: '#0D1B2A' }}
+                  style={{ backgroundColor: '#F4F8FC', border: '1px solid #9FADBB', color: '#0E1B2F' }}
                   placeholder="o.teu@email.com"
                 />
               </div>
@@ -59,7 +59,7 @@ export default function RecuperarPasswordPage() {
                 type="submit"
                 disabled={loading}
                 className="w-full py-4 font-mono uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-90 disabled:opacity-50"
-                style={{ backgroundColor: '#0D1B2A', color: '#E8E4DC' }}
+                style={{ backgroundColor: '#0E1B2F', color: '#E8E4DC' }}
               >
                 {loading && <Loader2 className="w-4 h-4 animate-spin" />}
                 Enviar link

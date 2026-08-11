@@ -34,12 +34,12 @@ export function AboutTeam() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-block bg-white border border-[#C8C4BC] p-6 mb-16"
+          className="inline-block bg-white border border-[#9FADBB] p-6 mb-16"
         >
-          <p className="font-mono text-[10px] tracking-[4px] uppercase text-[#5A7A9A] mb-3">
+          <p className="font-mono text-[10px] tracking-[4px] uppercase text-[#2E6B9E] mb-3">
             Registo Comercial
           </p>
-          <div className="font-sans text-[13px] leading-relaxed text-[#0D1B2A]">
+          <div className="font-sans text-[13px] leading-relaxed text-[#0E1B2F]">
             <p>ESTIRPESÓBRIA – SOCIEDADE UNIPESSOAL LDA</p>
             <p>NIPC 519473108</p>
             <p>Avenida Luís Bívar 91, Lisboa</p>
@@ -58,7 +58,7 @@ export function AboutTeam() {
               className="text-center"
             >
               <div className="w-16 h-16 border border-primary/30 mx-auto flex items-center justify-center mb-4">
-                <fact.icon className="w-6 h-6 text-[#5A7A9A]" />
+                <fact.icon className="w-6 h-6 text-[#2E6B9E]" />
               </div>
               <p className="text-[10px] tracking-[3px] uppercase text-primary mb-2">
                 {fact.label}
@@ -78,7 +78,7 @@ export function AboutTeam() {
           transition={{ delay: 0.3 }}
           className="mt-16 bg-card border border-border/30 p-8 lg:p-12"
         >
-          <h3 className="font-mono text-[10px] tracking-[4px] uppercase text-[#5A7A9A] mb-6">
+          <h3 className="font-mono text-[10px] tracking-[4px] uppercase text-[#2E6B9E] mb-6">
             O Que Incluímos
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-muted-foreground font-light">

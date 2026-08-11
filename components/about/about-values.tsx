@@ -49,7 +49,7 @@ export function AboutValues() {
               className="bg-card border border-border/30 p-8 group hover:border-primary/30 transition-colors duration-300"
             >
               <div className="w-12 h-12 border border-primary/30 flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors duration-300">
-                <value.icon className="w-5 h-5 text-[#5A7A9A]" />
+                <value.icon className="w-5 h-5 text-[#2E6B9E]" />
               </div>
               <h3 className="font-display text-xl text-foreground mb-3">
                 {value.title}

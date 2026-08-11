@@ -27,9 +27,9 @@ export function SettingsSection({ profile }: { profile: Profile }) {
   }
 
   return (
-    <section className="max-w-2xl border border-[#C8C4BC] bg-white">
-      <header className="border-b border-[#C8C4BC] px-6 py-4">
-        <h2 className="font-bebas text-xl tracking-wide text-[#0D1B2A]">Definições</h2>
+    <section className="max-w-2xl border border-[#9FADBB] bg-white">
+      <header className="border-b border-[#9FADBB] px-6 py-4">
+        <h2 className="font-bebas text-xl tracking-wide text-[#0E1B2F]">Definições</h2>
       </header>
 
       <form onSubmit={save} className="space-y-5 p-6">
@@ -42,32 +42,32 @@ export function SettingsSection({ profile }: { profile: Profile }) {
             type="checkbox"
             checked={notify}
             onChange={(e) => setNotify(e.target.checked)}
-            className="h-4 w-4 accent-[#0D1B2A]"
+            className="h-4 w-4 accent-[#0E1B2F]"
           />
-          <span className="text-sm text-[#0D1B2A]">Receber notificações por email</span>
+          <span className="text-sm text-[#0E1B2F]">Receber notificações por email</span>
         </label>
 
-        {message && <p className="font-mono text-[11px] uppercase tracking-wider text-[#0D1B2A]/70">{message}</p>}
+        {message && <p className="font-mono text-[11px] uppercase tracking-wider text-[#0E1B2F]/70">{message}</p>}
 
-        <div className="flex flex-wrap gap-3 border-t border-[#C8C4BC] pt-5">
+        <div className="flex flex-wrap gap-3 border-t border-[#9FADBB] pt-5">
           <button
             type="submit"
             disabled={saving}
-            className="bg-[#0D1B2A] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC] hover:opacity-90 disabled:opacity-50"
+            className="bg-[#0E1B2F] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC] hover:opacity-90 disabled:opacity-50"
           >
             {saving ? 'A guardar...' : 'Guardar Alterações'}
           </button>
           <button
             type="button"
             onClick={resetPassword}
-            className="border border-[#0D1B2A] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#0D1B2A] hover:bg-[#0D1B2A] hover:text-[#E8E4DC]"
+            className="border border-[#0E1B2F] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#0E1B2F] hover:bg-[#0E1B2F] hover:text-[#E8E4DC]"
           >
             Alterar Password
           </button>
           <button
             type="button"
             onClick={() => clientSignOut()}
-            className="ml-auto border border-[#C8C4BC] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#0D1B2A]/70 hover:border-[#0D1B2A] hover:text-[#0D1B2A]"
+            className="ml-auto border border-[#9FADBB] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#0E1B2F]/70 hover:border-[#0E1B2F] hover:text-[#0E1B2F]"
           >
             Terminar Sessão
           </button>
@@ -90,12 +90,12 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A]/50">{label}</label>
+      <label className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F]/50">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-[#C8C4BC] bg-white px-3 py-2 text-sm text-[#0D1B2A] outline-none focus:border-[#0D1B2A]"
+        className="w-full border border-[#9FADBB] bg-white px-3 py-2 text-sm text-[#0E1B2F] outline-none focus:border-[#0E1B2F]"
       />
     </div>
   )

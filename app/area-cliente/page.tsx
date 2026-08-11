@@ -27,16 +27,16 @@ export default async function AreaClientePage() {
   if (!operation) {
     return (
       <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="max-w-md border border-[#C8C4BC] bg-white p-8 text-center">
-          <h1 className="font-bebas text-2xl tracking-wide text-[#0D1B2A]">Sem operação activa</h1>
-          <p className="mt-3 text-sm leading-relaxed text-[#0D1B2A]/70">
+        <div className="max-w-md border border-[#9FADBB] bg-white p-8 text-center">
+          <h1 className="font-bebas text-2xl tracking-wide text-[#0E1B2F]">Sem operação activa</h1>
+          <p className="mt-3 text-sm leading-relaxed text-[#0E1B2F]/70">
             A tua conta ainda não tem nenhuma operação associada. A equipa Shark irá configurar o teu
             processo em breve.
           </p>
           <form action="/login" className="mt-6">
             <a
               href="/login"
-              className="inline-block bg-[#0D1B2A] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC]"
+              className="inline-block bg-[#0E1B2F] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC]"
             >
               Terminar sessão
             </a>

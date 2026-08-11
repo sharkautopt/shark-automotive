@@ -118,7 +118,7 @@ export function VehicleInquiryForm({ vehicle }: VehicleInquiryFormProps) {
           href={`tel:+351910000000`}
           className="flex items-center justify-center gap-2 p-3 bg-background border border-border/50 hover:border-primary/30 transition-colors"
         >
-          <Phone className="w-4 h-4 text-[#5A7A9A]" />
+          <Phone className="w-4 h-4 text-[#2E6B9E]" />
           <span className="text-sm">Ligar</span>
         </a>
         <a

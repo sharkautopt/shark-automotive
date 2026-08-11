@@ -90,7 +90,7 @@ export function ISVCalculator() {
           <div className="bg-card/50 border border-border/50 p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
-                <Calculator className="w-5 h-5 text-[#5A7A9A]" />
+                <Calculator className="w-5 h-5 text-[#2E6B9E]" />
               </div>
               <h3 className="font-display text-xl text-foreground">Simulador ISV</h3>
             </div>

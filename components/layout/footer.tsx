@@ -91,7 +91,7 @@ export function Footer() {
           </div>
 
           {/* Legal identification */}
-          <p className="mt-4 font-sans text-[11px] leading-[1.6] text-[#5A7A9A] text-center sm:text-left">
+          <p className="mt-4 font-sans text-[11px] leading-[1.6] text-[#2E6B9E] text-center sm:text-left">
             O website www.sharkauto.pt é propriedade e gerido por ESTIRPESÓBRIA – SOCIEDADE UNIPESSOAL LDA · Avenida Luís Bívar, nº 91, Piso 1 e 0, Fração A, Lisboa · NIPC: 519473108 · Licença de Comércio e Atividades Aduaneiras Registada.
           </p>
         </div>

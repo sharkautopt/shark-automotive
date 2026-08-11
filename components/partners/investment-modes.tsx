@@ -69,7 +69,7 @@ export function InvestmentModes() {
                     key={i} 
                     className="flex items-center gap-3 text-sm text-steel"
                   >
-                    <Check className="w-4 h-4 text-[#5A7A9A] flex-shrink-0" />
+                    <Check className="w-4 h-4 text-[#2E6B9E] flex-shrink-0" />
                     {feature}
                   </div>
                 ))}

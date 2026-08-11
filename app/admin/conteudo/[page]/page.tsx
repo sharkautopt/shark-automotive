@@ -205,7 +205,7 @@ export default function PageContentEditor({
                 className="w-full flex items-center justify-between px-5 py-4 bg-card/40 hover:bg-card/60 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs tracking-[3px] uppercase text-[#5A7A9A]">
+                  <span className="font-mono text-xs tracking-[3px] uppercase text-[#2E6B9E]">
                     {sectionLabels[section] || formatKey(section)}
                   </span>
                   <span className="text-xs text-muted-foreground">

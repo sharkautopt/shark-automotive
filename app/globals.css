@@ -18,7 +18,7 @@
 /* Shark Automotive - Light Industrial Theme: Concrete & Charcoal */
 :root {
   /* Light Concrete Base */
-  --background: oklch(0.93 0.010 50);
+  --background: #E8E7E2;
   --foreground: oklch(0.08 0.008 40);
   
   /* Card surfaces - white */
@@ -29,8 +29,8 @@
   --popover: oklch(1.00 0.000 0);
   --popover-foreground: oklch(0.08 0.008 40);
   
-  /* Primary - Charcoal */
-  --primary: oklch(0.25 0.008 40);
+  /* Primary - Navy */
+  --primary: #0E1B2F;
   --primary-foreground: oklch(1.00 0.000 0);
   
   /* Secondary - Slightly darker concrete */
@@ -41,8 +41,8 @@
   --muted: oklch(0.92 0.009 50);
   --muted-foreground: oklch(0.29 0.008 40);
   
-  /* Accent - Charcoal highlight */
-  --accent: oklch(0.25 0.008 40);
+  /* Accent - Navy highlight */
+  --accent: #0E1B2F;
   --accent-foreground: oklch(1.00 0.000 0);
   
   /* Destructive */
@@ -52,7 +52,12 @@
   /* Borders */
   --border: oklch(0.79 0.009 50);
   --input: oklch(0.95 0.010 50);
-  --ring: oklch(0.25 0.008 40);
+  --ring: #0E1B2F;
+
+  /* Marine blue accent — links, small icons, stat numbers */
+  --shark-blue: #2E6B9E;
+  /* Muted silver — secondary icons/dividers */
+  --shark-silver: #9FADBB;
   
   /* Charts */
   --chart-1: oklch(0.25 0.008 40);
@@ -154,6 +159,8 @@
   --color-shark-gold-dark: var(--shark-gold-dark);
   --color-shark-platinum: var(--shark-platinum);
   --color-shark-steel: var(--shark-steel);
+  --color-shark-blue: var(--shark-blue);
+  --color-shark-silver: var(--shark-silver);
 }
 
 @layer base {
