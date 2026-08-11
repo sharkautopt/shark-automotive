@@ -18,7 +18,7 @@ async function fileToBase64(file: File): Promise<string> {
 const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
   disponivel: { label: 'Disponível', cls: 'bg-green-500/15 text-green-400' },
   pendente: { label: 'Pendente', cls: 'bg-amber-500/15 text-amber-400' },
-  nao_aplicavel: { label: 'N/A', cls: 'bg-shark-silver/10 text-shark-silver/50' },
+  nao_aplicavel: { label: 'N/A', cls: 'bg-muted-foreground/10 text-muted-foreground/50' },
 }
 
 export function OperationDocumentsManager({ operationId, documents }: { operationId: string; documents: OperationDocument[] }) {
@@ -55,11 +55,11 @@ export function OperationDocumentsManager({ operationId, documents }: { operatio
         const status = latest?.status ?? 'pendente'
         const s = STATUS_LABEL[status] ?? STATUS_LABEL.pendente
         return (
-          <div key={slot.doc_type} className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-4 flex items-center justify-between gap-4">
+          <div key={slot.doc_type} className="bg-secondary/30 border border-primary/10 rounded-xl p-4 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 min-w-0">
-              <FileText className="w-5 h-5 text-shark-gold shrink-0" />
+              <FileText className="w-5 h-5 text-primary shrink-0" />
               <div className="min-w-0">
-                <p className="text-shark-silver truncate">{slot.doc_label}</p>
+                <p className="text-foreground truncate">{slot.doc_label}</p>
                 {latest?.uploaded_by === 'client' && (
                   <span className="text-xs text-blue-400">Submetido pelo cliente</span>
                 )}
@@ -69,15 +69,15 @@ export function OperationDocumentsManager({ operationId, documents }: { operatio
               <span className={`px-2 py-1 rounded text-xs font-mono ${s.cls}`}>{s.label}</span>
               {latest?.storage_path && (
                 <>
-                  <button onClick={() => handleDownload(latest.storage_path!)} className="p-2 text-shark-silver/70 hover:text-shark-gold" aria-label="Descarregar">
+                  <button onClick={() => handleDownload(latest.storage_path!)} className="p-2 text-muted-foreground/70 hover:text-primary" aria-label="Descarregar">
                     <Download className="w-4 h-4" />
                   </button>
-                  <button onClick={() => deleteDocument(latest.id, operationId)} className="p-2 text-shark-silver/70 hover:text-red-400" aria-label="Eliminar">
+                  <button onClick={() => deleteDocument(latest.id, operationId)} className="p-2 text-muted-foreground/70 hover:text-red-400" aria-label="Eliminar">
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </>
               )}
-              <label className="flex items-center gap-2 bg-shark-gold/10 text-shark-gold px-3 py-2 rounded-lg cursor-pointer hover:bg-shark-gold/20 text-sm">
+              <label className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-2 rounded-lg cursor-pointer hover:bg-primary/20 text-sm">
                 {uploadingSlot === slot.doc_type ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                 Carregar
                 <input
@@ -96,16 +96,16 @@ export function OperationDocumentsManager({ operationId, documents }: { operatio
 
       {clientExtras.length > 0 && (
         <div className="pt-4">
-          <p className="text-shark-silver/60 font-mono text-xs uppercase mb-2">Outros documentos do cliente</p>
+          <p className="text-muted-foreground/60 font-mono text-xs uppercase mb-2">Outros documentos do cliente</p>
           {clientExtras.map((d) => (
-            <div key={d.id} className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-4 flex items-center justify-between gap-4 mb-2">
+            <div key={d.id} className="bg-secondary/30 border border-primary/10 rounded-xl p-4 flex items-center justify-between gap-4 mb-2">
               <div className="flex items-center gap-3 min-w-0">
                 <FileText className="w-5 h-5 text-blue-400 shrink-0" />
-                <p className="text-shark-silver truncate">{d.doc_label || d.doc_type}</p>
+                <p className="text-foreground truncate">{d.doc_label || d.doc_type}</p>
                 <span className="text-xs text-blue-400">Submetido pelo cliente</span>
               </div>
               {d.storage_path && (
-                <button onClick={() => handleDownload(d.storage_path!)} className="p-2 text-shark-silver/70 hover:text-shark-gold" aria-label="Descarregar">
+                <button onClick={() => handleDownload(d.storage_path!)} className="p-2 text-muted-foreground/70 hover:text-primary" aria-label="Descarregar">
                   <Download className="w-4 h-4" />
                 </button>
               )}

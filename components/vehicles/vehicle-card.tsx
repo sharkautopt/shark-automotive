@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fuel, Gauge, Settings2, Calendar, Shield, MapPin, FileDown } from 'lucide-react'
+import { Fuel, Gauge, Settings2, Calendar, MapPin, FileDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Vehicle } from '@/lib/types'
 
@@ -80,11 +80,13 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
             </div>
           )}
 
-          {/* Protocol Score */}
-          <div className="absolute top-4 right-4 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1.5 border border-border/60">
-            <Shield className="w-4 h-4 text-[#5A7A9A]" />
-            <span className="font-mono text-sm text-foreground">{vehicle.protocol_score}/150</span>
-          </div>
+          {/* Monthly price — configured per vehicle in the admin dashboard. */}
+          {vehicle.monthly_price != null && vehicle.monthly_price > 0 && (
+            <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-2 text-right leading-none">
+              <span className="block font-mono text-[10px] uppercase tracking-wider opacity-80">Desde</span>
+              <span className="block font-display text-lg mt-1">{Math.round(vehicle.monthly_price)}€/mês</span>
+            </div>
+          )}
         </div>
 
         {/* Content */}

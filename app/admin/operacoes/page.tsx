@@ -51,28 +51,28 @@ export default async function AdminOperationsPage() {
   const operations = await getOperations()
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-bebas text-4xl text-shark-silver">OPERAÇÕES</h1>
-              <p className="text-shark-silver/60 mt-1">{operations.length} operações no total</p>
+              <h1 className="font-display text-4xl text-foreground">OPERAÇÕES</h1>
+              <p className="text-muted-foreground/60 mt-1">{operations.length} operações no total</p>
             </div>
             <Link
               href="/admin/operacoes/nova"
-              className="flex items-center gap-2 bg-shark-gold text-shark-navy font-medium px-5 py-3 rounded-lg hover:bg-shark-gold-light transition-colors"
+              className="flex items-center gap-2 bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors"
             >
               <Plus className="w-5 h-5" />
               Nova Operação
             </Link>
           </div>
 
-          <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl overflow-hidden">
+          <div className="bg-secondary/30 border border-primary/10 rounded-xl overflow-hidden">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-shark-gold/10 text-shark-silver/60 font-mono text-xs uppercase">
+                <tr className="border-b border-primary/10 text-muted-foreground/60 font-mono text-xs uppercase">
                   <th className="p-4">Cliente</th>
                   <th className="p-4">Role</th>
                   <th className="p-4">Viatura</th>
@@ -84,27 +84,27 @@ export default async function AdminOperationsPage() {
               <tbody>
                 {operations.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-shark-silver/50">
+                    <td colSpan={6} className="p-8 text-center text-muted-foreground/50">
                       Ainda não existem operações. Cria a primeira.
                     </td>
                   </tr>
                 ) : (
                   operations.map((op) => (
-                    <tr key={op.id} className="border-b border-shark-gold/5 hover:bg-shark-navy/40 transition-colors">
+                    <tr key={op.id} className="border-b border-primary/5 hover:bg-background/40 transition-colors">
                       <td className="p-4">
-                        <p className="text-shark-silver">{op.profiles?.full_name || '—'}</p>
-                        <p className="text-shark-silver/50 text-sm">{op.profiles?.email}</p>
+                        <p className="text-foreground">{op.profiles?.full_name || '—'}</p>
+                        <p className="text-muted-foreground/50 text-sm">{op.profiles?.email}</p>
                       </td>
                       <td className="p-4"><RoleBadge role={op.role} /></td>
-                      <td className="p-4 text-shark-silver/80">
+                      <td className="p-4 text-muted-foreground/80">
                         {op.vehicle_make ? `${op.vehicle_make} ${op.vehicle_model ?? ''}` : '—'}
                       </td>
-                      <td className="p-4 text-shark-silver/80">{currentStep(op.operation_steps)}</td>
-                      <td className="p-4 text-shark-silver/50 text-sm">
+                      <td className="p-4 text-muted-foreground/80">{currentStep(op.operation_steps)}</td>
+                      <td className="p-4 text-muted-foreground/50 text-sm">
                         {new Date(op.created_at).toLocaleDateString('pt-PT')}
                       </td>
                       <td className="p-4 text-right">
-                        <Link href={`/admin/operacoes/${op.id}`} className="text-shark-gold hover:text-shark-gold-light">
+                        <Link href={`/admin/operacoes/${op.id}`} className="text-primary hover:text-primary">
                           Abrir
                         </Link>
                       </td>

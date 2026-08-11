@@ -20,7 +20,6 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
 
   const [statsData, setStatsData] = useState({
     vehicles_imported: Number(statistics.vehicles_imported) || 0,
-    satisfied_clients: Number(statistics.satisfied_clients) || 0,
     years_experience: Number(statistics.years_experience) || 0,
     average_savings: Number(statistics.average_savings) || 0,
   })
@@ -64,14 +63,14 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
   }
 
   const inputClass =
-    "w-full px-4 py-3 bg-shark-navy border border-shark-gold/20 rounded-lg text-shark-silver focus:border-shark-gold focus:outline-none"
-  const labelClass = "block text-shark-silver/60 text-sm font-mono mb-2"
+    "w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none"
+  const labelClass = "block text-muted-foreground/60 text-sm font-mono mb-2"
 
   return (
     <div className="space-y-8">
       {/* Contact */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">CONTACTOS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">CONTACTOS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Telefone</label>
@@ -113,8 +112,8 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       </div>
 
       {/* Statistics */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">ESTATÍSTICAS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">ESTATÍSTICAS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Veículos Importados</label>
@@ -122,15 +121,6 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
               type="number"
               value={statsData.vehicles_imported}
               onChange={(e) => setStatsData({ ...statsData, vehicles_imported: Number(e.target.value) })}
-              className={inputClass}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Clientes Satisfeitos</label>
-            <input
-              type="number"
-              value={statsData.satisfied_clients}
-              onChange={(e) => setStatsData({ ...statsData, satisfied_clients: Number(e.target.value) })}
               className={inputClass}
             />
           </div>
@@ -156,8 +146,8 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       </div>
 
       {/* Social */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
-        <h2 className="font-bebas text-2xl text-shark-silver mb-6">REDES SOCIAIS</h2>
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+        <h2 className="font-display text-2xl text-foreground mb-6">REDES SOCIAIS</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Instagram</label>
@@ -196,7 +186,7 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
       <button
         onClick={handleSave}
         disabled={isSaving}
-        className="flex items-center gap-2 px-6 py-3 bg-shark-gold text-shark-navy font-medium rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+        className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
       >
         {saved ? (
           <>

@@ -48,21 +48,21 @@ export default async function AdminDocumentosPage() {
   const [vehicles, recent] = await Promise.all([getVehicles(), getRecentDocuments()])
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-8">
           <div>
-            <h1 className="font-bebas text-4xl text-shark-silver">DOCUMENTOS</h1>
-            <p className="text-shark-silver/60 mt-1">
+            <h1 className="font-display text-4xl text-foreground">DOCUMENTOS</h1>
+            <p className="text-muted-foreground/60 mt-1">
               Gere propostas comerciais e orçamentos formais para encomendas de importação.
             </p>
           </div>
 
           <EncomendaGenerator vehicles={vehicles} />
 
-          <div className="pt-4 border-t border-shark-gold/10">
-            <h2 className="font-bebas text-2xl text-shark-silver mb-4">DOCUMENTOS RECENTES</h2>
+          <div className="pt-4 border-t border-primary/10">
+            <h2 className="font-display text-2xl text-foreground mb-4">DOCUMENTOS RECENTES</h2>
             <RecentDocuments documents={recent} />
           </div>
         </div>

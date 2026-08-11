@@ -64,14 +64,14 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
   }
 
   return (
-    <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6">
+    <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="font-bebas text-2xl text-shark-silver">DOCUMENTOS</h2>
+        <h2 className="font-display text-2xl text-foreground">DOCUMENTOS</h2>
         <button
           type="button"
           onClick={generate}
           disabled={generating}
-          className="flex items-center gap-2 px-5 py-2.5 bg-shark-gold text-shark-navy font-bebas text-base rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-display text-base rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
           {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
           {generating ? 'A GERAR...' : 'GERAR WINDOW STICKER'}
@@ -86,25 +86,25 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
       )}
 
       {loading ? (
-        <div className="flex items-center gap-2 text-shark-silver/50 text-sm py-4">
+        <div className="flex items-center gap-2 text-muted-foreground/50 text-sm py-4">
           <Loader2 className="w-4 h-4 animate-spin" />
           A carregar documentos...
         </div>
       ) : docs.length === 0 ? (
-        <p className="text-shark-silver/50 text-sm font-mono py-4">
+        <p className="text-muted-foreground/50 text-sm font-mono py-4">
           Ainda não foram gerados documentos para este veículo.
         </p>
       ) : (
-        <div className="divide-y divide-shark-gold/10">
+        <div className="divide-y divide-primary/10">
           {docs.map((doc) => (
             <div key={doc.id} className="flex items-center justify-between py-3">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-shark-gold/10 flex items-center justify-center">
-                  <FileText className="w-4 h-4 text-shark-gold" />
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-shark-silver text-sm">{doc.title}</p>
-                  <p className="text-shark-silver/40 text-xs font-mono">
+                  <p className="text-foreground text-sm">{doc.title}</p>
+                  <p className="text-muted-foreground/40 text-xs font-mono">
                     {new Date(doc.created_at).toLocaleString('pt-PT')}
                     {doc.generated_by ? ` · ${doc.generated_by}` : ''}
                   </p>
@@ -115,7 +115,7 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
                   href={doc.public_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-shark-gold text-sm hover:text-shark-gold-light transition-colors"
+                  className="flex items-center gap-1.5 text-primary text-sm hover:text-primary transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   Abrir

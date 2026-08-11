@@ -47,24 +47,24 @@ export function OperationMessages({ operationId, initialMessages }: { operationI
   }
 
   return (
-    <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl flex flex-col h-[500px]">
+    <div className="bg-secondary/30 border border-primary/10 rounded-xl flex flex-col h-[500px]">
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
         {messages.length === 0 ? (
-          <p className="text-shark-silver/50 text-center py-8">Sem mensagens ainda.</p>
+          <p className="text-muted-foreground/50 text-center py-8">Sem mensagens ainda.</p>
         ) : (
           messages.map((m) => (
             <div key={m.id} className={`flex ${m.sender === 'admin' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[75%] px-4 py-3 rounded-lg ${m.sender === 'admin' ? 'bg-shark-gold/15 text-shark-silver' : 'bg-shark-navy text-shark-silver'}`}>
-                <p className="text-xs text-shark-silver/50 mb-1 font-mono">{m.sender_name || (m.sender === 'admin' ? 'Equipa Shark' : 'Cliente')}</p>
+              <div className={`max-w-[75%] px-4 py-3 rounded-lg ${m.sender === 'admin' ? 'bg-primary/15 text-foreground' : 'bg-background text-foreground'}`}>
+                <p className="text-xs text-muted-foreground/50 mb-1 font-mono">{m.sender_name || (m.sender === 'admin' ? 'Equipa Shark' : 'Cliente')}</p>
                 <p className="text-sm whitespace-pre-wrap">{m.body}</p>
-                <p className="text-[10px] text-shark-silver/40 mt-1">{new Date(m.created_at).toLocaleString('pt-PT')}</p>
+                <p className="text-[10px] text-muted-foreground/40 mt-1">{new Date(m.created_at).toLocaleString('pt-PT')}</p>
               </div>
             </div>
           ))
         )}
         <div ref={bottomRef} />
       </div>
-      <div className="border-t border-shark-gold/10 p-4 flex gap-3">
+      <div className="border-t border-primary/10 p-4 flex gap-3">
         <input
           value={body}
           onChange={(e) => setBody(e.target.value)}
@@ -75,9 +75,9 @@ export function OperationMessages({ operationId, initialMessages }: { operationI
             }
           }}
           placeholder="Escreve uma resposta..."
-          className="flex-1 bg-shark-navy border border-shark-gold/20 rounded-lg px-4 py-3 text-shark-silver placeholder:text-shark-silver/30 focus:outline-none focus:border-shark-gold/50"
+          className="flex-1 bg-background border border-primary/20 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/50"
         />
-        <button onClick={handleSend} disabled={sending} className="bg-shark-gold text-shark-navy px-4 py-3 rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50">
+        <button onClick={handleSend} disabled={sending} className="bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50">
           {sending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
         </button>
       </div>

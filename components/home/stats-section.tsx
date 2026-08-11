@@ -1,10 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Car, FileCheck, ShieldCheck, Percent } from 'lucide-react'
+import { Calendar, Clock3, ShieldCheck } from 'lucide-react'
 
 interface StatItem {
-  icon: typeof Car
+  icon: typeof Calendar
   value: string
   label: string
   description: string
@@ -12,28 +12,22 @@ interface StatItem {
 
 const stats: StatItem[] = [
   {
-    icon: Car,
-    value: '3',
-    label: 'Viaturas em Stock',
-    description: 'Verificadas 25 Pontos',
+    icon: Calendar,
+    value: '2023',
+    label: 'Ano de Fundação',
+    description: 'Shark Automotive',
   },
   {
-    icon: FileCheck,
-    value: '100%',
-    label: 'Documentação Confirmada',
-    description: 'Historial validado',
+    icon: Clock3,
+    value: '3-4',
+    label: 'Semanas',
+    description: 'Tempo médio de entrega',
   },
   {
     icon: ShieldCheck,
-    value: 'ZERO',
-    label: 'Surpresas',
+    value: '0',
+    label: 'Custos ocultos',
     description: 'Total transparência',
-  },
-  {
-    icon: Percent,
-    value: '15%',
-    label: 'Poupança Média',
-    description: 'Face a concessionários',
   },
 ]
 
@@ -41,7 +35,7 @@ export function StatsSection() {
   return (
     <section className="py-24 bg-card/30 border-y border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}

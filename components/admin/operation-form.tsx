@@ -12,8 +12,8 @@ import {
 import type { OperationRole } from '@/lib/types'
 
 const inputClass =
-  'w-full bg-shark-navy border border-shark-gold/20 rounded-lg px-4 py-3 text-shark-silver placeholder:text-shark-silver/30 focus:outline-none focus:border-shark-gold/50'
-const labelClass = 'block text-shark-silver/70 font-mono text-xs uppercase mb-2'
+  'w-full bg-background border border-primary/20 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/50'
+const labelClass = 'block text-muted-foreground/70 font-mono text-xs uppercase mb-2'
 
 async function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -133,14 +133,14 @@ export function OperationForm() {
                   done
                     ? 'bg-green-500/20 text-green-400'
                     : active
-                    ? 'bg-shark-gold/20 text-shark-gold'
-                    : 'bg-shark-navy-light/50 text-shark-silver/40'
+                    ? 'bg-primary/20 text-primary'
+                    : 'bg-secondary/50 text-muted-foreground/40'
                 }`}
               >
                 {done ? <Check className="w-4 h-4" /> : n}
               </div>
-              <span className={`text-sm ${active ? 'text-shark-silver' : 'text-shark-silver/40'}`}>{label}</span>
-              {i < stepLabels.length - 1 && <div className="w-8 h-px bg-shark-gold/10" />}
+              <span className={`text-sm ${active ? 'text-foreground' : 'text-muted-foreground/40'}`}>{label}</span>
+              {i < stepLabels.length - 1 && <div className="w-8 h-px bg-primary/10" />}
             </div>
           )
         })}
@@ -174,7 +174,7 @@ export function OperationForm() {
           <button
             onClick={handleCreateAccount}
             disabled={loading}
-            className="flex items-center gap-2 bg-shark-gold text-shark-navy font-medium px-5 py-3 rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             Continuar
@@ -186,17 +186,17 @@ export function OperationForm() {
       {step === 2 && (
         <div className="space-y-5">
           {tempPassword && (
-            <div className="p-4 bg-shark-gold/10 border border-shark-gold/30 rounded-lg">
-              <p className="text-shark-gold text-sm font-mono uppercase mb-2">Password temporária (mostrada uma vez)</p>
+            <div className="p-4 bg-primary/10 border border-primary/30 rounded-lg">
+              <p className="text-primary text-sm font-mono uppercase mb-2">Password temporária (mostrada uma vez)</p>
               <div className="flex items-center gap-3">
-                <code className="text-shark-silver bg-shark-navy px-3 py-2 rounded flex-1">{tempPassword}</code>
+                <code className="text-foreground bg-background px-3 py-2 rounded flex-1">{tempPassword}</code>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(tempPassword)
                     setCopied(true)
                     setTimeout(() => setCopied(false), 2000)
                   }}
-                  className="p-2 text-shark-gold hover:text-shark-gold-light"
+                  className="p-2 text-primary hover:text-primary"
                   aria-label="Copiar password"
                 >
                   {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
@@ -225,7 +225,7 @@ export function OperationForm() {
           )}
 
           <div className="flex gap-3">
-            <button onClick={() => setStep(3)} className="bg-shark-gold text-shark-navy font-medium px-5 py-3 rounded-lg hover:bg-shark-gold-light transition-colors">
+            <button onClick={() => setStep(3)} className="bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors">
               Continuar
             </button>
           </div>
@@ -235,24 +235,24 @@ export function OperationForm() {
       {/* Step 3 */}
       {step === 3 && (
         <div className="space-y-5">
-          <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6 space-y-2 text-shark-silver/80">
-            <p><span className="text-shark-silver/50 font-mono text-xs uppercase">Cliente:</span> {fullName} ({email})</p>
-            <p><span className="text-shark-silver/50 font-mono text-xs uppercase">Role:</span> {role}</p>
+          <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6 space-y-2 text-muted-foreground/80">
+            <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Cliente:</span> {fullName} ({email})</p>
+            <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Role:</span> {role}</p>
             {role !== 'parceiro' ? (
-              <p><span className="text-shark-silver/50 font-mono text-xs uppercase">Viatura:</span> {make} {model} {year}</p>
+              <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Viatura:</span> {make} {model} {year}</p>
             ) : (
-              <p><span className="text-shark-silver/50 font-mono text-xs uppercase">Investimento:</span> {investAmount ? `${investAmount}€` : '—'}</p>
+              <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Investimento:</span> {investAmount ? `${investAmount}€` : '—'}</p>
             )}
-            <p className="text-shark-silver/50 text-sm pt-2">Ao criar, os passos do processo serão gerados automaticamente para o role seleccionado.</p>
+            <p className="text-muted-foreground/50 text-sm pt-2">Ao criar, os passos do processo serão gerados automaticamente para o role seleccionado.</p>
           </div>
           <div className="flex gap-3">
-            <button onClick={() => setStep(2)} className="border border-shark-gold/20 text-shark-silver px-5 py-3 rounded-lg hover:bg-shark-navy-light/50 transition-colors">
+            <button onClick={() => setStep(2)} className="border border-primary/20 text-foreground px-5 py-3 rounded-lg hover:bg-secondary/50 transition-colors">
               Voltar
             </button>
             <button
               onClick={handleCreateOperation}
               disabled={loading}
-              className="flex items-center gap-2 bg-shark-gold text-shark-navy font-medium px-5 py-3 rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               Criar Operação

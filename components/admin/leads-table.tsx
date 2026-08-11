@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client"
 import type { Lead } from "@/lib/types"
 
 const statusColors: Record<string, string> = {
-  new: "bg-shark-gold/20 text-shark-gold border-shark-gold/30",
+  new: "bg-primary/20 text-primary border-primary/30",
   contacted: "bg-blue-400/20 text-blue-400 border-blue-400/30",
   qualified: "bg-purple-400/20 text-purple-400 border-purple-400/30",
   negotiating: "bg-orange-400/20 text-orange-400 border-orange-400/30",
@@ -76,8 +76,8 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
             onClick={() => setFilter(status)}
             className={`px-4 py-2 rounded-lg text-sm font-mono whitespace-nowrap transition-colors ${
               filter === status
-                ? "bg-shark-gold text-shark-navy"
-                : "bg-shark-navy-light/30 text-shark-silver/70 hover:text-shark-silver"
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary/30 text-muted-foreground/70 hover:text-foreground"
             }`}
           >
             {status === "all" ? "TODOS" : status.toUpperCase()}
@@ -86,39 +86,39 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
       </div>
 
       {/* Table */}
-      <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl overflow-hidden">
+      <div className="bg-secondary/30 border border-primary/10 rounded-xl overflow-hidden">
         {filteredLeads.length === 0 ? (
           <div className="p-12 text-center">
-            <p className="text-shark-silver/60">Nenhum lead encontrado</p>
+            <p className="text-muted-foreground/60">Nenhum lead encontrado</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-shark-gold/10">
-                  <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">LEAD</th>
-                  <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">TIPO</th>
-                  <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">VEÍCULO</th>
-                  <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">STATUS</th>
-                  <th className="text-left p-4 text-shark-silver/60 font-mono text-sm">DATA</th>
-                  <th className="text-right p-4 text-shark-silver/60 font-mono text-sm">AÇÕES</th>
+                <tr className="border-b border-primary/10">
+                  <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">LEAD</th>
+                  <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">TIPO</th>
+                  <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">VEÍCULO</th>
+                  <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">STATUS</th>
+                  <th className="text-left p-4 text-muted-foreground/60 font-mono text-sm">DATA</th>
+                  <th className="text-right p-4 text-muted-foreground/60 font-mono text-sm">AÇÕES</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLeads.map((lead) => (
                   <tr 
                     key={lead.id}
-                    className="border-b border-shark-gold/5 hover:bg-shark-navy-light/20 transition-colors"
+                    className="border-b border-primary/5 hover:bg-secondary/20 transition-colors"
                   >
                     <td className="p-4">
-                      <p className="text-shark-silver font-medium">{lead.name}</p>
+                      <p className="text-foreground font-medium">{lead.name}</p>
                       <div className="flex items-center gap-3 mt-1">
-                        <a href={`mailto:${lead.email}`} className="text-shark-silver/50 hover:text-shark-gold text-sm flex items-center gap-1">
+                        <a href={`mailto:${lead.email}`} className="text-muted-foreground/50 hover:text-primary text-sm flex items-center gap-1">
                           <Mail className="w-3 h-3" />
                           {lead.email}
                         </a>
                         {lead.phone && (
-                          <a href={`tel:${lead.phone}`} className="text-shark-silver/50 hover:text-shark-gold text-sm flex items-center gap-1">
+                          <a href={`tel:${lead.phone}`} className="text-muted-foreground/50 hover:text-primary text-sm flex items-center gap-1">
                             <Phone className="w-3 h-3" />
                             {lead.phone}
                           </a>
@@ -126,17 +126,17 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="text-shark-silver/70 text-sm">
+                      <span className="text-muted-foreground/70 text-sm">
                         {typeLabels[lead.lead_type] || lead.lead_type}
                       </span>
                     </td>
                     <td className="p-4">
                       {lead.vehicles ? (
-                        <span className="text-shark-silver text-sm">
+                        <span className="text-foreground text-sm">
                           {lead.vehicles.make} {lead.vehicles.model}
                         </span>
                       ) : (
-                        <span className="text-shark-silver/30 text-sm">-</span>
+                        <span className="text-muted-foreground/30 text-sm">-</span>
                       )}
                     </td>
                     <td className="p-4">
@@ -156,7 +156,7 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
                       </select>
                     </td>
                     <td className="p-4">
-                      <span className="text-shark-silver/50 text-sm">
+                      <span className="text-muted-foreground/50 text-sm">
                         {new Date(lead.created_at).toLocaleDateString("pt-PT")}
                       </span>
                     </td>
@@ -164,13 +164,13 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => setSelectedLead(lead)}
-                          className="p-2 text-shark-silver/50 hover:text-shark-gold hover:bg-shark-gold/10 rounded transition-colors"
+                          className="p-2 text-muted-foreground/50 hover:text-primary hover:bg-primary/10 rounded transition-colors"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => deleteLead(lead.id)}
-                          className="p-2 text-shark-silver/50 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"
+                          className="p-2 text-muted-foreground/50 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -191,62 +191,62 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
           onClick={() => setSelectedLead(null)}
         >
           <div 
-            className="bg-shark-navy border border-shark-gold/20 rounded-2xl p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto"
+            className="bg-background border border-primary/20 rounded-2xl p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="font-bebas text-2xl text-shark-silver mb-4">
+            <h3 className="font-display text-2xl text-foreground mb-4">
               DETALHES DO LEAD
             </h3>
             
             <div className="space-y-4">
               <div>
-                <span className="text-shark-silver/50 text-sm font-mono">NOME</span>
-                <p className="text-shark-silver">{selectedLead.name}</p>
+                <span className="text-muted-foreground/50 text-sm font-mono">NOME</span>
+                <p className="text-foreground">{selectedLead.name}</p>
               </div>
               <div>
-                <span className="text-shark-silver/50 text-sm font-mono">EMAIL</span>
-                <p className="text-shark-silver">{selectedLead.email}</p>
+                <span className="text-muted-foreground/50 text-sm font-mono">EMAIL</span>
+                <p className="text-foreground">{selectedLead.email}</p>
               </div>
               {selectedLead.phone && (
                 <div>
-                  <span className="text-shark-silver/50 text-sm font-mono">TELEFONE</span>
-                  <p className="text-shark-silver">{selectedLead.phone}</p>
+                  <span className="text-muted-foreground/50 text-sm font-mono">TELEFONE</span>
+                  <p className="text-foreground">{selectedLead.phone}</p>
                 </div>
               )}
               <div>
-                <span className="text-shark-silver/50 text-sm font-mono">TIPO</span>
-                <p className="text-shark-silver">{typeLabels[selectedLead.lead_type] || selectedLead.lead_type}</p>
+                <span className="text-muted-foreground/50 text-sm font-mono">TIPO</span>
+                <p className="text-foreground">{typeLabels[selectedLead.lead_type] || selectedLead.lead_type}</p>
               </div>
               {selectedLead.message && (
                 <div>
-                  <span className="text-shark-silver/50 text-sm font-mono">MENSAGEM</span>
-                  <p className="text-shark-silver whitespace-pre-wrap">{selectedLead.message}</p>
+                  <span className="text-muted-foreground/50 text-sm font-mono">MENSAGEM</span>
+                  <p className="text-foreground whitespace-pre-wrap">{selectedLead.message}</p>
                 </div>
               )}
               {selectedLead.financing_amount && (
                 <div>
-                  <span className="text-shark-silver/50 text-sm font-mono">VALOR FINANCIAMENTO</span>
-                  <p className="text-shark-gold font-bebas text-xl">{selectedLead.financing_amount.toLocaleString()}€</p>
+                  <span className="text-muted-foreground/50 text-sm font-mono">VALOR FINANCIAMENTO</span>
+                  <p className="text-primary font-display text-xl">{selectedLead.financing_amount.toLocaleString()}€</p>
                 </div>
               )}
               {selectedLead.investment_amount && (
                 <div>
-                  <span className="text-shark-silver/50 text-sm font-mono">VALOR INVESTIMENTO</span>
-                  <p className="text-shark-gold font-bebas text-xl">{selectedLead.investment_amount.toLocaleString()}€</p>
+                  <span className="text-muted-foreground/50 text-sm font-mono">VALOR INVESTIMENTO</span>
+                  <p className="text-primary font-display text-xl">{selectedLead.investment_amount.toLocaleString()}€</p>
                 </div>
               )}
               <div>
-                <span className="text-shark-silver/50 text-sm font-mono">DATA DE CRIAÇÃO</span>
-                <p className="text-shark-silver">
+                <span className="text-muted-foreground/50 text-sm font-mono">DATA DE CRIAÇÃO</span>
+                <p className="text-foreground">
                   {new Date(selectedLead.created_at).toLocaleString("pt-PT")}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mt-6 pt-6 border-t border-shark-gold/10">
+            <div className="flex items-center gap-4 mt-6 pt-6 border-t border-primary/10">
               <a
                 href={`mailto:${selectedLead.email}`}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-shark-gold text-shark-navy font-bebas rounded-lg hover:bg-shark-gold-light transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground font-display rounded-lg hover:bg-primary/90 transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 ENVIAR EMAIL
@@ -256,7 +256,7 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
                   href={`https://wa.me/${selectedLead.phone.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white font-bebas rounded-lg hover:bg-green-500 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white font-display rounded-lg hover:bg-green-500 transition-colors"
                 >
                   <MessageSquare className="w-4 h-4" />
                   WHATSAPP
@@ -266,7 +266,7 @@ export function LeadsTable({ leads }: { leads: (Lead & { vehicles?: { make: stri
 
             <button
               onClick={() => setSelectedLead(null)}
-              className="w-full mt-4 py-3 text-shark-silver/50 hover:text-shark-silver transition-colors"
+              className="w-full mt-4 py-3 text-muted-foreground/50 hover:text-foreground transition-colors"
             >
               Fechar
             </button>

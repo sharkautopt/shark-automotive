@@ -40,15 +40,15 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
 
   return (
     <div>
-      <div className="flex flex-wrap gap-1 border-b border-shark-gold/10 mb-6">
+      <div className="flex flex-wrap gap-1 border-b border-primary/10 mb-6">
         {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`px-4 py-3 font-mono text-xs uppercase transition-colors ${
               tab === t.id
-                ? 'text-shark-gold border-b-2 border-shark-gold'
-                : 'text-shark-silver/50 hover:text-shark-silver'
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-muted-foreground/50 hover:text-foreground'
             }`}
           >
             {t.label}

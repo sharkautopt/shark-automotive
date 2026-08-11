@@ -37,15 +37,15 @@ export default async function AdminConfiguracoesPage() {
   const settings = await getSettings()
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar user={user} />
 
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-8 max-w-3xl">
           {/* Header */}
           <div>
-            <h1 className="font-bebas text-4xl text-shark-silver">CONFIGURAÇÕES</h1>
-            <p className="text-shark-silver/60 mt-1">
+            <h1 className="font-display text-4xl text-foreground">CONFIGURAÇÕES</h1>
+            <p className="text-muted-foreground/60 mt-1">
               Gerir dados de contacto e estatísticas do site
             </p>
           </div>

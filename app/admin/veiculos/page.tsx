@@ -42,7 +42,7 @@ export default async function AdminVeiculosPage() {
   const vehicles = await getVehicles()
 
   return (
-    <div className="min-h-screen bg-shark-navy flex">
+    <div className="min-h-screen bg-background flex">
       <AdminSidebar />
       
       <main className="flex-1 p-8 ml-64">
@@ -50,16 +50,16 @@ export default async function AdminVeiculosPage() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-bebas text-4xl text-shark-silver">
+              <h1 className="font-display text-4xl text-foreground">
                 GESTÃO DE VEÍCULOS
               </h1>
-              <p className="text-shark-silver/60 mt-1">
+              <p className="text-muted-foreground/60 mt-1">
                 {vehicles.length} veículos em inventário
               </p>
             </div>
             <Link
               href="/admin/veiculos/novo"
-              className="flex items-center gap-2 px-6 py-3 bg-shark-gold text-shark-navy font-bebas text-lg rounded-lg hover:bg-shark-gold-light transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display text-lg rounded-lg hover:bg-primary/90 transition-colors"
             >
               <Plus className="w-5 h-5" />
               ADICIONAR VEÍCULO

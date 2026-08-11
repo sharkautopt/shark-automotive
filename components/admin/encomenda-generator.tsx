@@ -276,22 +276,22 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
   }
 
   const inputClass =
-    "w-full bg-shark-navy border border-shark-gold/20 rounded-lg px-4 py-3 text-shark-silver placeholder:text-shark-silver/40 focus:border-shark-gold/60 focus:outline-none"
+    "w-full bg-background border border-primary/20 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/40 focus:border-primary/60 focus:outline-none"
   const smallInput =
-    "w-full bg-shark-navy border border-shark-gold/20 rounded-lg px-3 py-2 text-sm text-shark-silver placeholder:text-shark-silver/40 focus:border-shark-gold/60 focus:outline-none"
-  const labelClass = "block text-shark-silver/60 font-mono text-xs uppercase mb-2"
-  const smallLabel = "block text-shark-silver/50 font-mono text-[10px] uppercase mb-1"
+    "w-full bg-background border border-primary/20 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/40 focus:border-primary/60 focus:outline-none"
+  const labelClass = "block text-muted-foreground/60 font-mono text-xs uppercase mb-2"
+  const smallLabel = "block text-muted-foreground/50 font-mono text-[10px] uppercase mb-1"
 
   return (
     <div className="max-w-3xl space-y-8">
       {/* Mode toggle */}
-      <div className="flex gap-2 bg-shark-navy-light/40 p-1.5 rounded-xl border border-shark-gold/10 w-fit">
+      <div className="flex gap-2 bg-secondary/40 p-1.5 rounded-xl border border-primary/10 w-fit">
         {(["proposta", "orcamento"] as const).map((m) => (
           <button
             key={m}
             onClick={() => setMode(m)}
             className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${
-              mode === m ? "bg-shark-gold text-shark-navy" : "text-shark-silver/70 hover:text-shark-silver"
+              mode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground/70 hover:text-foreground"
             }`}
           >
             {m === "proposta" ? "Proposta Comercial" : "Orçamento Formal"}
@@ -299,7 +299,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
         ))}
       </div>
 
-      <p className="text-shark-silver/60 text-sm -mt-4">
+      <p className="text-muted-foreground/60 text-sm -mt-4">
         {mode === "proposta"
           ? "Documento de marketing com valor \u201ca partir de\u201d, ideal para primeiro contacto."
           : "Documento formal numerado (ORC-AAAA-NNN) com discriminação completa de custos e validade de 15 dias."}
@@ -320,12 +320,12 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       </div>
 
       {/* AI paste */}
-      <div className="border border-shark-gold/20 rounded-xl p-5 bg-shark-navy-light/30 space-y-3">
+      <div className="border border-primary/20 rounded-xl p-5 bg-secondary/30 space-y-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-shark-gold" />
-          <h3 className="font-bebas text-xl text-shark-silver tracking-wide">ANALISAR ANÚNCIO COM IA</h3>
+          <Sparkles className="w-4 h-4 text-primary" />
+          <h3 className="font-display text-xl text-foreground tracking-wide">ANALISAR ANÚNCIO COM IA</h3>
         </div>
-        <p className="text-shark-silver/50 text-xs -mt-1">
+        <p className="text-muted-foreground/50 text-xs -mt-1">
           Cole o texto de uma página de leiloeira, mobile.de, AutoScout24 ou stand (em qualquer idioma). A IA extrai e
           resume os dados da viatura para o documento.
         </p>
@@ -339,12 +339,12 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
           <button
             onClick={analyzePaste}
             disabled={parsing}
-            className="flex items-center gap-2 bg-shark-gold/90 text-shark-navy font-medium px-5 py-2.5 rounded-lg hover:bg-shark-gold transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
             {parsing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ClipboardPaste className="w-4 h-4" />}
             {parsing ? "A interpretar..." : "Analisar com IA"}
           </button>
-          {parseInfo && <span className="text-shark-gold/90 text-xs">{parseInfo}</span>}
+          {parseInfo && <span className="text-primary/90 text-xs">{parseInfo}</span>}
           {parseError && <span className="text-red-400 text-xs">{parseError}</span>}
         </div>
       </div>
@@ -366,8 +366,8 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       </div>
 
       {/* Editable spec fields */}
-      <div className="border border-shark-gold/10 rounded-xl p-5 space-y-4">
-        <h3 className="font-bebas text-xl text-shark-silver tracking-wide">DADOS DA VIATURA</h3>
+      <div className="border border-primary/10 rounded-xl p-5 space-y-4">
+        <h3 className="font-display text-xl text-foreground tracking-wide">DADOS DA VIATURA</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Field label="Marca *" value={vf.make} onChange={(v) => setField("make", v)} cls={smallInput} lc={smallLabel} />
           <Field label="Modelo *" value={vf.model} onChange={(v) => setField("model", v)} cls={smallInput} lc={smallLabel} />
@@ -411,12 +411,12 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       </div>
 
       {/* Photos */}
-      <div className="border border-shark-gold/10 rounded-xl p-5 space-y-3">
+      <div className="border border-primary/10 rounded-xl p-5 space-y-3">
         <div className="flex items-center gap-2">
-          <ImageIcon className="w-4 h-4 text-shark-gold" />
-          <h3 className="font-bebas text-xl text-shark-silver tracking-wide">FOTOGRAFIAS</h3>
+          <ImageIcon className="w-4 h-4 text-primary" />
+          <h3 className="font-display text-xl text-foreground tracking-wide">FOTOGRAFIAS</h3>
         </div>
-        <p className="text-shark-silver/50 text-xs -mt-1">
+        <p className="text-muted-foreground/50 text-xs -mt-1">
           Carregue até 5 fotos. A 1ª é a foto grande de destaque; as restantes 4 aparecem no mosaico ao lado. Arraste
           para reordenar ou defina a principal.
         </p>
@@ -473,24 +473,24 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
           </div>
 
           {/* Auto service fee */}
-          <div className="border border-shark-gold/20 rounded-lg px-5 py-4 bg-shark-navy-light/30">
+          <div className="border border-primary/20 rounded-lg px-5 py-4 bg-secondary/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-shark-silver/70 font-mono text-xs uppercase">Taxa de Serviço Shark</p>
-                <p className="text-shark-silver/40 text-[11px] mt-1 max-w-md">
+                <p className="text-muted-foreground/70 font-mono text-xs uppercase">Taxa de Serviço Shark</p>
+                <p className="text-muted-foreground/40 text-[11px] mt-1 max-w-md">
                   Inclui transporte, seguro e todos os encargos documentais e notariais. Determinada pelo escalão de
                   preço {tier.band !== "—" ? `(${tier.band})` : ""}.
                 </p>
               </div>
-              <span className="text-shark-gold font-bebas text-2xl whitespace-nowrap">
+              <span className="text-primary font-display text-2xl whitespace-nowrap">
                 {tier.onRequest ? "sob consulta" : tier.fee ? `${num(tier.fee)} €` : "—"}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-between bg-shark-navy-light/40 border border-shark-gold/20 rounded-lg px-5 py-4">
-            <span className="text-shark-silver/70 font-mono text-sm uppercase">Total Chave-na-Mão</span>
-            <span className="text-shark-gold font-bebas text-3xl">
+          <div className="flex items-center justify-between bg-secondary/40 border border-primary/20 rounded-lg px-5 py-4">
+            <span className="text-muted-foreground/70 font-mono text-sm uppercase">Total Chave-na-Mão</span>
+            <span className="text-primary font-display text-3xl">
               {tier.onRequest ? "sob consulta" : `${num(total)} €`}
             </span>
           </div>
@@ -507,16 +507,16 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       )}
 
       {result && (
-        <div className="flex items-center justify-between border border-shark-gold/30 bg-shark-gold/10 rounded-lg px-5 py-4">
+        <div className="flex items-center justify-between border border-primary/30 bg-primary/10 rounded-lg px-5 py-4">
           <div>
-            <p className="text-shark-silver font-medium">{result.title}</p>
-            <p className="text-shark-silver/50 text-xs">Documento gerado com sucesso.</p>
+            <p className="text-foreground font-medium">{result.title}</p>
+            <p className="text-muted-foreground/50 text-xs">Documento gerado com sucesso.</p>
           </div>
           <a
             href={result.public_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-shark-gold hover:text-shark-gold-light"
+            className="flex items-center gap-2 text-primary hover:text-primary"
           >
             Abrir PDF <ExternalLink className="w-4 h-4" />
           </a>
@@ -526,7 +526,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       <button
         onClick={generate}
         disabled={loading}
-        className="flex items-center gap-2 bg-shark-gold text-shark-navy font-medium px-6 py-3.5 rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50"
+        className="flex items-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3.5 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
       >
         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <FileText className="w-5 h-5" />}
         {loading ? "A gerar..." : `Gerar ${mode === "proposta" ? "Proposta" : "Orçamento"}`}

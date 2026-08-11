@@ -81,18 +81,18 @@ export function PhotoUploader({ photos, onChange }: PhotoUploaderProps) {
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={isUploading}
-        className="w-full flex flex-col items-center justify-center gap-3 py-10 border-2 border-dashed border-shark-gold/30 rounded-xl text-shark-silver/70 hover:border-shark-gold/60 hover:text-shark-silver transition-colors disabled:opacity-50"
+        className="w-full flex flex-col items-center justify-center gap-3 py-10 border-2 border-dashed border-primary/30 rounded-xl text-muted-foreground/70 hover:border-primary/60 hover:text-foreground transition-colors disabled:opacity-50"
       >
         {isUploading ? (
           <>
-            <Loader2 className="w-8 h-8 animate-spin text-shark-gold" />
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
             <span className="font-mono text-sm">A CARREGAR...</span>
           </>
         ) : (
           <>
-            <Upload className="w-8 h-8 text-shark-gold" />
+            <Upload className="w-8 h-8 text-primary" />
             <span className="font-mono text-sm">CLIQUE PARA CARREGAR FOTOS</span>
-            <span className="text-xs text-shark-silver/40">JPG, PNG, WEBP — máx. 10MB cada</span>
+            <span className="text-xs text-muted-foreground/40">JPG, PNG, WEBP — máx. 10MB cada</span>
           </>
         )}
       </button>
@@ -110,7 +110,7 @@ export function PhotoUploader({ photos, onChange }: PhotoUploaderProps) {
 
       {photos.length > 0 && (
         <>
-          <p className="text-xs text-shark-silver/50 font-mono">
+          <p className="text-xs text-muted-foreground/50 font-mono">
             {photos.length} FOTO(S) — A PRIMEIRA É A PRINCIPAL. ARRASTE PARA REORDENAR.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -121,25 +121,25 @@ export function PhotoUploader({ photos, onChange }: PhotoUploaderProps) {
                 onDragStart={() => setDragIndex(index)}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={() => handleDrop(index)}
-                className="group relative aspect-[4/3] rounded-lg overflow-hidden border border-shark-gold/20 bg-shark-navy"
+                className="group relative aspect-[4/3] rounded-lg overflow-hidden border border-primary/20 bg-background"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={url || "/placeholder.svg"} alt={`Foto ${index + 1}`} className="w-full h-full object-cover" />
 
                 {index === 0 && (
-                  <span className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-shark-gold text-shark-navy text-xs font-bold rounded">
+                  <span className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 bg-primary text-primary-foreground text-xs font-bold rounded">
                     <Star className="w-3 h-3 fill-current" />
                     PRINCIPAL
                   </span>
                 )}
 
-                <div className="absolute inset-0 bg-shark-navy/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <div className="absolute inset-0 bg-background/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                   {index !== 0 && (
                     <button
                       type="button"
                       onClick={() => makePrimary(index)}
                       title="Definir como principal"
-                      className="p-2 bg-shark-gold text-shark-navy rounded-lg hover:bg-shark-gold-light transition-colors"
+                      className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                     >
                       <Star className="w-4 h-4" />
                     </button>
@@ -154,7 +154,7 @@ export function PhotoUploader({ photos, onChange }: PhotoUploaderProps) {
                   </button>
                 </div>
 
-                <GripVertical className="absolute bottom-2 right-2 w-4 h-4 text-shark-silver/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab" />
+                <GripVertical className="absolute bottom-2 right-2 w-4 h-4 text-muted-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab" />
               </div>
             ))}
           </div>

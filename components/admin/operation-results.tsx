@@ -6,8 +6,8 @@ import { updateResults } from '@/app/admin/operacoes/actions'
 import type { Operation } from '@/lib/types'
 
 const inputClass =
-  'w-full bg-shark-navy border border-shark-gold/20 rounded-lg px-3 py-2 text-shark-silver text-sm placeholder:text-shark-silver/30 focus:outline-none focus:border-shark-gold/50'
-const labelClass = 'block text-shark-silver/60 font-mono text-xs uppercase mb-1'
+  'w-full bg-background border border-primary/20 rounded-lg px-3 py-2 text-foreground text-sm placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/50'
+const labelClass = 'block text-muted-foreground/60 font-mono text-xs uppercase mb-1'
 
 export function OperationResults({ operation }: { operation: Operation }) {
   const [amount, setAmount] = useState(operation.result_amount?.toString() ?? '')
@@ -30,15 +30,15 @@ export function OperationResults({ operation }: { operation: Operation }) {
   }
 
   return (
-    <div className="bg-shark-navy-light/30 border border-shark-gold/10 rounded-xl p-6 max-w-xl space-y-4">
+    <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6 max-w-xl space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Valor investido</label>
-          <p className="text-shark-silver py-2">{operation.investment_amount != null ? `${operation.investment_amount.toLocaleString('pt-PT')}€` : '—'}</p>
+          <p className="text-foreground py-2">{operation.investment_amount != null ? `${operation.investment_amount.toLocaleString('pt-PT')}€` : '—'}</p>
         </div>
         <div>
           <label className={labelClass}>Data de entrada</label>
-          <p className="text-shark-silver py-2">{operation.investment_date ? new Date(operation.investment_date).toLocaleDateString('pt-PT') : '—'}</p>
+          <p className="text-foreground py-2">{operation.investment_date ? new Date(operation.investment_date).toLocaleDateString('pt-PT') : '—'}</p>
         </div>
       </div>
       <div>
@@ -53,7 +53,7 @@ export function OperationResults({ operation }: { operation: Operation }) {
         <label className={labelClass}>Observações</label>
         <textarea className={inputClass} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
       </div>
-      <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 bg-shark-gold text-shark-navy font-medium px-4 py-2 rounded-lg hover:bg-shark-gold-light transition-colors disabled:opacity-50 text-sm">
+      <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 bg-primary text-primary-foreground font-medium px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 text-sm">
         {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <Check className="w-4 h-4" /> : null}
         {saved ? 'Guardado' : 'Guardar Resultados'}
       </button>

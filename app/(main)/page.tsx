@@ -9,7 +9,6 @@ import { TrustSignals } from '@/components/home/trust-signals'
 import { ProtocolSection } from '@/components/home/protocol-section'
 import { InsideProcess } from '@/components/home/inside-process'
 import { ProcessTimeline } from '@/components/home/process-timeline'
-import { SocialProof } from '@/components/home/social-proof'
 import { CTASection } from '@/components/home/cta-section'
 import type { Vehicle } from '@/lib/types'
 
@@ -46,7 +45,6 @@ export default async function HomePage() {
         <ProtocolSection />
         <InsideProcess />
         <ProcessTimeline />
-        <SocialProof />
         <CTASection />
       </main>
       <Footer />
