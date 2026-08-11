@@ -8,6 +8,7 @@ export interface Vehicle {
   transmission: string
   power: number
   price: number
+  monthly_price: number | null
   country_origin: string
   vin: string | null
   inspection_status: 'pending' | 'in_progress' | 'approved' | 'rejected'

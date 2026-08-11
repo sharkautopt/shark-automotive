@@ -138,6 +138,11 @@ export default function EditVehiclePage() {
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PREÇO (€)</label>
                   <input type="number" step="0.01" value={vehicle.price} onChange={(e) => updateField('price', parseFloat(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
+                <div>
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PREÇO MENSAL (€)</label>
+                  <input type="number" step="0.01" min="0" value={vehicle.monthly_price ?? 0} onChange={(e) => updateField('monthly_price', parseFloat(e.target.value) || 0)} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
+                  <p className="text-xs text-muted-foreground/60 mt-1">Prestação definida manualmente.</p>
+                </div>
               </div>
             </div>
 

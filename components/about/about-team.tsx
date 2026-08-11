@@ -2,18 +2,13 @@
 
 import { motion } from 'framer-motion'
 import { SectionHeading } from '@/components/ui/section-heading'
-import { MapPin, Clock, Globe } from 'lucide-react'
+import { MapPin, Clock } from 'lucide-react'
 
 const facts = [
   {
     icon: MapPin,
     label: 'Localização',
     value: 'Lisboa, Portugal',
-  },
-  {
-    icon: Globe,
-    label: 'Mercados',
-    value: 'Alemanha · Holanda',
   },
   {
     icon: Clock,

@@ -21,6 +21,7 @@ export default function NovoVeiculoPage() {
     transmission: "Automática",
     power: 0,
     price: 0,
+    monthly_price: 0,
     country_origin: "Alemanha",
     vin: "",
     inspection_status: "pending",
@@ -141,6 +142,11 @@ export default function NovoVeiculoPage() {
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PREÇO *</label>
                   <input type="number" name="price" value={formData.price} onChange={handleChange} required min={0} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" placeholder="89900" />
+                </div>
+                <div>
+                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">PREÇO MENSAL (€)</label>
+                  <input type="number" name="monthly_price" value={formData.monthly_price} onChange={handleChange} min={0} step="0.01" className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" placeholder="1499" />
+                  <p className="text-xs text-muted-foreground/60 mt-1">Prestação definida manualmente para esta viatura.</p>
                 </div>
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">POTÊNCIA (CV) *</label>

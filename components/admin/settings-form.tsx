@@ -20,7 +20,6 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
 
   const [statsData, setStatsData] = useState({
     vehicles_imported: Number(statistics.vehicles_imported) || 0,
-    satisfied_clients: Number(statistics.satisfied_clients) || 0,
     years_experience: Number(statistics.years_experience) || 0,
     average_savings: Number(statistics.average_savings) || 0,
   })
@@ -122,15 +121,6 @@ export function SettingsForm({ contact, statistics, social }: SettingsFormProps)
               type="number"
               value={statsData.vehicles_imported}
               onChange={(e) => setStatsData({ ...statsData, vehicles_imported: Number(e.target.value) })}
-              className={inputClass}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Clientes Satisfeitos</label>
-            <input
-              type="number"
-              value={statsData.satisfied_clients}
-              onChange={(e) => setStatsData({ ...statsData, satisfied_clients: Number(e.target.value) })}
               className={inputClass}
             />
           </div>

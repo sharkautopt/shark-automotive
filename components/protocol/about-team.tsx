@@ -21,7 +21,7 @@ export function AboutTeam() {
             className="prose prose-invert prose-lg max-w-none"
           >
             <p className="text-muted-foreground leading-relaxed mb-6">
-              A Shark Automotive nasceu em 2018 da paixão pelo automóvel e da frustração com a 
+              A Shark Automotive nasceu em 2023 da paixão pelo automóvel e da frustração com a 
               falta de transparência no mercado de importação em Portugal. Fundada por Vasco Menezes, 
               com experiência directa no mercado automóvel Europeu, a empresa rapidamente se 
               estabeleceu como referência na importação de veículos premium.
@@ -48,7 +48,7 @@ export function AboutTeam() {
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
           >
             <div className="p-6 bg-card/50 border border-border/50 ">
-              <span className="font-display text-4xl text-primary block mb-1">2018</span>
+              <span className="font-display text-4xl text-primary block mb-1">2023</span>
               <span className="text-sm text-muted-foreground">Ano de Fundação</span>
             </div>
             <div className="p-6 bg-card/50 border border-border/50 ">
