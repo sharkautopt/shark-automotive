@@ -19,6 +19,9 @@ interface VehicleData {
   bodyType?: string
   co2?: number
   cc?: number
+  co2Estimated?: boolean
+  normaEstimated?: boolean
+  estimatedNorma?: Norma
 }
 
 export function SimulatorForm() {
@@ -49,6 +52,22 @@ export function SimulatorForm() {
     cc: undefined,
   })
 
+  async function enrichWithEstimatedCo2(data: VehicleData) {
+    if (data.co2 != null || !data.make || !data.model || !data.year || !data.cc || !data.fuelType) return data
+    try {
+      const res = await fetch("/api/import/estimate-co2", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ make: data.make, model: data.model, year: data.year, cc: data.cc, fuelType: data.fuelType }),
+      })
+      const estimate = await res.json()
+      if (!res.ok || estimate.confidence !== "high" || !estimate.co2 || !estimate.norma) return data
+      return { ...data, co2: estimate.co2, co2Estimated: true, normaEstimated: true, estimatedNorma: estimate.norma }
+    } catch {
+      return data
+    }
+  }
+
   async function handleParseUrl() {
     if (!url.trim()) {
       setError("Por favor, cola um URL válido")
@@ -72,9 +91,9 @@ export function SimulatorForm() {
         throw new Error(data.error || "Erro ao processar URL")
       }
 
-      const data = (await res.json()) as VehicleData
+      const data = await enrichWithEstimatedCo2((await res.json()) as VehicleData)
       setVehicleData(data)
-      setNorma("")
+      setNorma(data.estimatedNorma || "")
       setParticulatesConfirmed(false)
 
       // ISV requires the Norma de homologação (NEDC/WLTP) — an explicit user choice, never inferred.
@@ -130,8 +149,9 @@ export function SimulatorForm() {
         cc: parsedVehicle.displacement,
       }
 
-      setVehicleData(vehicleData)
-      setNorma("")
+      const enrichedVehicle = await enrichWithEstimatedCo2(vehicleData)
+      setVehicleData(enrichedVehicle)
+      setNorma(enrichedVehicle.estimatedNorma || "")
       setParticulatesConfirmed(false)
 
       // ISV requires the Norma de homologação (NEDC/WLTP) — an explicit user choice, never inferred.
@@ -533,9 +553,10 @@ export function SimulatorForm() {
               </div>
             )}
             {vehicleData.co2 && (
-              <div>
+              <div className={vehicleData.co2Estimated ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}>
                 <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">EMISSÕES CO₂</p>
                 <p className="text-sm font-mono text-foreground">{vehicleData.co2} g/km</p>
+                {vehicleData.co2Estimated && <p className="mt-1 text-[10px] leading-4 text-primary">Estimado com base no modelo — confirme no CoC/DUA.</p>}
               </div>
             )}
           </div>
@@ -571,8 +592,9 @@ export function SimulatorForm() {
             {!overrideIsv && (
               <div className="mt-4 space-y-3">
                 <div>
-                  <label className="flex items-center gap-2 text-sm text-foreground/70 mb-1">
+                  <label className={`flex items-center gap-2 text-sm text-foreground/70 mb-1 ${vehicleData.normaEstimated ? "rounded-md border border-dashed border-primary/60 bg-primary/5 p-2" : ""}`}>
                     Norma de homologação <span className="text-primary">*</span>
+                    {vehicleData.normaEstimated && <span className="text-[10px] text-primary">ESTIMADA — confirmar no CoC/DUA</span>}
                   </label>
                   <select
                     value={norma}
