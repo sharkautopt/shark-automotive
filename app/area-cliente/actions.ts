@@ -68,8 +68,9 @@ export async function getDocumentUrl(operationId: string, storagePath: string): 
 
   if (!doc && !inv) return { error: 'Documento não encontrado.' }
 
-  const { data } = await supabaseAdmin.storage.from('client-documents').createSignedUrl(storagePath, 1800)
-  return data?.signedUrl ? { url: data.signedUrl } : { error: 'Não foi possível gerar o link.' }
+  const { data, error } = await supabaseAdmin.storage.from('client-documents').createSignedUrl(storagePath, 1800)
+  if (error || !data?.signedUrl) return { error: error?.message || 'Não foi possível gerar o link.' }
+  return { url: data.signedUrl }
 }
 
 export async function uploadClientDocument(formData: FormData): Promise<{ ok?: boolean; error?: string }> {

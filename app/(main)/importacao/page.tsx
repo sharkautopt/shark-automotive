@@ -19,12 +19,12 @@ export default function ImportPage() {
       <main className="pt-20">
         <ImportHero />
         <ImportProcess />
-        <section id="simulador-encomenda" className="bg-shark-navy-light/30 py-16 sm:py-24">
+        <section id="simulador-encomenda" className="bg-muted/40 py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <div className="mx-auto mb-10 max-w-3xl text-center">
-              <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-shark-gold">Simulador de importação</p>
-              <h2 className="font-display text-3xl text-shark-silver sm:text-4xl">Simule a sua encomenda</h2>
-              <p className="mt-4 text-sm leading-6 text-shark-silver/60 sm:text-base">
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-primary">Simulador de importação</p>
+              <h2 className="font-display text-3xl text-foreground sm:text-4xl">Simule a sua encomenda</h2>
+              <p className="mt-4 text-sm leading-6 text-muted-foreground sm:text-base">
                 Cole um anúncio, introduza um URL do Mobile.de ou AutoScout24, ou preencha os dados manualmente.
                 O simulador estima o ISV e todos os custos de importação.
               </p>

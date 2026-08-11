@@ -10,9 +10,9 @@ export function PartnersHero() {
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block font-mono text-xs tracking-[0.3em] text-[#2E6B9E] uppercase mb-6"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 font-mono text-xs tracking-[0.22em] text-primary uppercase mb-6"
           >
-            Participe num negócio real.
+            SHARK PARTNERS
           </motion.span>
           
           <motion.h1
@@ -21,8 +21,8 @@ export function PartnersHero() {
             transition={{ delay: 0.1 }}
             className="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide text-foreground mb-6"
           >
-            PARCEIROS DE{' '}
-            <span className="text-[#9FADBB]">NEGÓCIO</span>
+            FINANCIA STOCK AUTOMÓVEL.
+            <span className="text-primary"> PARTILHA OS LUCROS REAIS.</span>
           </motion.h1>
           
           <motion.p
@@ -31,10 +31,7 @@ export function PartnersHero() {
             transition={{ delay: 0.2 }}
             className="text-xl text-muted-foreground leading-relaxed"
           >
-            A Shark Automotive opera em co-participação com parceiros seleccionados. 
-            Em cada operação, os parceiros participam directamente no negócio — partilhando 
-            custos, riscos e resultados reais. Sem promessas. Sem percentagens garantidas. 
-            Um negócio transparente, contratualizado por operação.
+            Sem promessas de rendimentos mágicos ou fundos abstratos. Participa diretamente na compra e revenda de viaturas específicas no mercado europeu com 100% de transparência contratual.
           </motion.p>
         </div>
       </div>

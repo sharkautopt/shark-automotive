@@ -223,11 +223,11 @@ export function SimulatorForm() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Input Section */}
-      <div className="border border-shark-gold/10 rounded-xl p-6 space-y-4">
-        <h2 className="font-bebas text-2xl text-shark-silver tracking-wide">SIMULADOR DE IMPORTAÇÃO</h2>
+      <div className="border border-border rounded-xl p-6 space-y-4">
+        <h2 className="font-bebas text-2xl text-foreground tracking-wide">SIMULADOR DE IMPORTAÇÃO</h2>
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-shark-gold/10 -mx-6 px-6 overflow-x-auto">
+        <div className="flex gap-2 border-b border-border -mx-6 px-6 overflow-x-auto">
           <button
             onClick={() => {
               setMode("url")
@@ -235,8 +235,8 @@ export function SimulatorForm() {
             }}
             className={`pb-3 px-4 font-mono text-sm font-semibold tracking-wider transition-colors whitespace-nowrap ${
               mode === "url"
-                ? "text-shark-gold border-b-2 border-shark-gold"
-                : "text-shark-silver/50 hover:text-shark-silver/70"
+                ? "text-primary border-b-2 border-primary"
+                : "text-foreground/50 hover:text-foreground/70"
             }`}
           >
             <Search className="w-4 h-4 inline mr-2" />
@@ -249,8 +249,8 @@ export function SimulatorForm() {
             }}
             className={`pb-3 px-4 font-mono text-sm font-semibold tracking-wider transition-colors whitespace-nowrap ${
               mode === "ai"
-                ? "text-shark-gold border-b-2 border-shark-gold"
-                : "text-shark-silver/50 hover:text-shark-silver/70"
+                ? "text-primary border-b-2 border-primary"
+                : "text-foreground/50 hover:text-foreground/70"
             }`}
           >
             <Copy className="w-4 h-4 inline mr-2" />
@@ -263,8 +263,8 @@ export function SimulatorForm() {
             }}
             className={`pb-3 px-4 font-mono text-sm font-semibold tracking-wider transition-colors whitespace-nowrap ${
               mode === "manual"
-                ? "text-shark-gold border-b-2 border-shark-gold"
-                : "text-shark-silver/50 hover:text-shark-silver/70"
+                ? "text-primary border-b-2 border-primary"
+                : "text-foreground/50 hover:text-foreground/70"
             }`}
           >
             <Edit2 className="w-4 h-4 inline mr-2" />
@@ -275,7 +275,7 @@ export function SimulatorForm() {
         {/* URL Mode */}
         {mode === "url" && (
           <div className="space-y-4">
-            <p className="text-sm text-shark-silver/60">
+            <p className="text-sm text-foreground/60">
               Cola o URL de um anúncio de carro (Mobile.de, AutoScout24, Coches.net, etc.)
             </p>
             <div className="flex gap-3">
@@ -288,13 +288,13 @@ export function SimulatorForm() {
                   setError("")
                 }}
                 onKeyDown={(e) => e.key === "Enter" && handleParseUrl()}
-                className="flex-1 bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+                className="flex-1 bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
                 disabled={loading}
               />
               <button
                 onClick={handleParseUrl}
                 disabled={loading}
-                className="flex items-center gap-2 bg-shark-gold hover:bg-shark-gold-light text-shark-navy disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
+                className="flex items-center gap-2 bg-primary hover:bg-primary-light text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
               >
                 {loading ? (
                   <>
@@ -315,9 +315,9 @@ export function SimulatorForm() {
         {/* AI (Paste Text) Mode */}
         {mode === "ai" && (
           <div className="space-y-4">
-            <div className="bg-shark-gold/5 border border-shark-gold/20 rounded-lg p-3 space-y-2">
-              <p className="text-sm text-shark-silver/70 font-semibold">🤖 Extração Automática com IA:</p>
-              <ol className="text-xs text-shark-silver/60 space-y-1 ml-4 list-decimal">
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 space-y-2">
+              <p className="text-sm text-foreground/70 font-semibold">🤖 Extração Automática com IA:</p>
+              <ol className="text-xs text-foreground/60 space-y-1 ml-4 list-decimal">
                 <li>Abra o anúncio do carro no browser (Mobile.de, AutoScout24, Coches.net, etc.)</li>
                 <li>Selecione e copie todo o texto (Ctrl+A, Ctrl+C)</li>
                 <li>Cola aqui e clique "Analisar" — a IA extrai os dados automaticamente</li>
@@ -331,13 +331,13 @@ export function SimulatorForm() {
                 setError("")
               }}
               rows={6}
-              className="w-full bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors resize-none"
+              className="w-full bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors resize-none"
               disabled={loading}
             />
             <button
               onClick={handlePasteText}
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-shark-gold hover:bg-shark-gold-light text-shark-navy disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-light text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
             >
               {loading ? (
                 <>
@@ -357,7 +357,7 @@ export function SimulatorForm() {
         {/* Manual Mode */}
         {mode === "manual" && (
           <div className="space-y-4">
-            <p className="text-sm text-shark-silver/60">Preencha os dados do carro para obter o orçamento completo.</p>
+            <p className="text-sm text-foreground/60">Preencha os dados do carro para obter o orçamento completo.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
@@ -365,21 +365,21 @@ export function SimulatorForm() {
             placeholder="Marca (ex: BMW)"
             value={manualData.make || ""}
             onChange={(e) => handleManualChange("make", e.target.value)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="text"
             placeholder="Modelo (ex: 320d)"
             value={manualData.model || ""}
             onChange={(e) => handleManualChange("model", e.target.value)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
             placeholder="Ano"
             value={manualData.year || ""}
             onChange={(e) => handleManualChange("year", e.target.value ? parseInt(e.target.value) : undefined)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
@@ -388,21 +388,21 @@ export function SimulatorForm() {
             onChange={(e) =>
               handleManualChange("mileage", e.target.value ? parseInt(e.target.value) : undefined)
             }
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
             placeholder="Preço (EUR)"
             value={manualData.price || ""}
             onChange={(e) => handleManualChange("price", e.target.value ? parseFloat(e.target.value) : undefined)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="text"
             placeholder="Combustível (ex: Diesel)"
             value={manualData.fuelType || ""}
             onChange={(e) => handleManualChange("fuelType", e.target.value)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
@@ -411,31 +411,31 @@ export function SimulatorForm() {
             onChange={(e) =>
               handleManualChange("power", e.target.value ? parseInt(e.target.value) : undefined)
             }
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="text"
             placeholder="Caixa de velocidades"
             value={manualData.transmission || ""}
             onChange={(e) => handleManualChange("transmission", e.target.value)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
             placeholder="Cilindrada (cc)"
             value={manualData.cc || ""}
             onChange={(e) => handleManualChange("cc", e.target.value ? parseInt(e.target.value) : undefined)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
           <input
             type="number"
             placeholder="Emissões CO₂ (g/km)"
             value={manualData.co2 || ""}
             onChange={(e) => handleManualChange("co2", e.target.value ? parseInt(e.target.value) : undefined)}
-            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+            className="bg-card border border-border rounded-lg px-4 py-3 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
         </div>
-        <p className="text-xs text-shark-silver/50">
+        <p className="text-xs text-foreground/50">
           Cilindrada e CO₂ são necessários para calcular o ISV. Pode ainda selecionar a Norma de homologação
           após submeter os dados.
         </p>
@@ -443,7 +443,7 @@ export function SimulatorForm() {
         <button
           onClick={handleManualSubmit}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 bg-shark-gold hover:bg-shark-gold-light text-shark-navy disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-light text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-mono text-sm font-semibold tracking-wider transition-colors"
         >
           {loading ? (
             <>
@@ -470,78 +470,78 @@ export function SimulatorForm() {
 
       {/* Vehicle Data Section */}
       {vehicleData && (
-        <div className="border border-shark-gold/10 rounded-xl p-6 space-y-4">
-          <h3 className="font-bebas text-xl text-shark-silver tracking-wide">DADOS INSERIDOS</h3>
+        <div className="border border-border rounded-xl p-6 space-y-4">
+          <h3 className="font-bebas text-xl text-foreground tracking-wide">DADOS INSERIDOS</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {vehicleData.make && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">MARCA</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.make}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">MARCA</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.make}</p>
               </div>
             )}
             {vehicleData.model && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">MODELO</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.model}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">MODELO</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.model}</p>
               </div>
             )}
             {vehicleData.year && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">ANO</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.year}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">ANO</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.year}</p>
               </div>
             )}
             {vehicleData.mileage && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">QUILOMETRAGEM</p>
-                <p className="text-sm font-mono text-shark-silver">
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">QUILOMETRAGEM</p>
+                <p className="text-sm font-mono text-foreground">
                   {vehicleData.mileage.toLocaleString("pt-PT")} km
                 </p>
               </div>
             )}
             {vehicleData.price && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">PREÇO DO CARRO</p>
-                <p className="text-sm font-mono text-shark-gold font-semibold">
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">PREÇO DO CARRO</p>
+                <p className="text-sm font-mono text-primary font-semibold">
                   {vehicleData.price.toLocaleString("pt-PT", { style: "currency", currency: "EUR" })}
                 </p>
               </div>
             )}
             {vehicleData.fuelType && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">COMBUSTÍVEL</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.fuelType}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">COMBUSTÍVEL</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.fuelType}</p>
               </div>
             )}
             {vehicleData.power && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">POTÊNCIA</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.power} cv</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">POTÊNCIA</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.power} cv</p>
               </div>
             )}
             {vehicleData.transmission && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">CAIXA</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.transmission}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">CAIXA</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.transmission}</p>
               </div>
             )}
             {vehicleData.bodyType && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">CARROÇARIA</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.bodyType}</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">CARROÇARIA</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.bodyType}</p>
               </div>
             )}
             {vehicleData.co2 && (
               <div>
-                <p className="text-xs text-shark-silver/50 font-mono tracking-widest mb-1">EMISSÕES CO₂</p>
-                <p className="text-sm font-mono text-shark-silver">{vehicleData.co2} g/km</p>
+                <p className="text-xs text-foreground/50 font-mono tracking-widest mb-1">EMISSÕES CO₂</p>
+                <p className="text-sm font-mono text-foreground">{vehicleData.co2} g/km</p>
               </div>
             )}
           </div>
 
           {/* ISV Override */}
-          <div className="border-t border-shark-gold/10 pt-4">
+          <div className="border-t border-border pt-4">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
@@ -553,9 +553,9 @@ export function SimulatorForm() {
                     if (vehicleData.price) calculateCosts(vehicleData.price, 0)
                   }
                 }}
-                className="w-4 h-4 accent-shark-gold"
+                className="w-4 h-4 accent-primary"
               />
-              <span className="text-sm text-shark-silver/70">Adicionar ISV manual (opcional)</span>
+              <span className="text-sm text-foreground/70">Adicionar ISV manual (opcional)</span>
             </label>
 
             {overrideIsv && (
@@ -564,26 +564,26 @@ export function SimulatorForm() {
                 placeholder="Valor ISV em EUR"
                 value={customIsv}
                 onChange={(e) => handleIsvChange(e.target.value)}
-                className="mt-2 w-full bg-shark-navy-light border border-shark-gold/10 rounded-lg px-3 py-2 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+                className="mt-2 w-full bg-card border border-border rounded-lg px-3 py-2 text-foreground placeholder-muted-foreground/30 font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
               />
             )}
 
             {!overrideIsv && (
               <div className="mt-4 space-y-3">
                 <div>
-                  <label className="flex items-center gap-2 text-sm text-shark-silver/70 mb-1">
-                    Norma de homologação <span className="text-shark-gold">*</span>
+                  <label className="flex items-center gap-2 text-sm text-foreground/70 mb-1">
+                    Norma de homologação <span className="text-primary">*</span>
                   </label>
                   <select
                     value={norma}
                     onChange={(e) => handleNormaChange(e.target.value as Norma | "")}
-                    className="w-full bg-shark-navy-light border border-shark-gold/10 rounded-lg px-3 py-2 text-shark-silver font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+                    className="w-full bg-card border border-border rounded-lg px-3 py-2 text-foreground font-mono text-sm focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
                   >
                     <option value="">Selecione NEDC ou WLTP…</option>
                     <option value="NEDC">NEDC</option>
                     <option value="WLTP">WLTP</option>
                   </select>
-                  <p className="text-xs text-shark-silver/40 mt-1">
+                  <p className="text-xs text-foreground/40 mt-1">
                     Necessária para calcular o ISV — consulte o Certificado de Conformidade (CoC) ou DUA do
                     veículo. Nunca é adivinhada a partir do ano.
                   </p>
@@ -595,9 +595,9 @@ export function SimulatorForm() {
                       type="checkbox"
                       checked={particulatesConfirmed}
                       onChange={(e) => handleParticulatesChange(e.target.checked)}
-                      className="w-4 h-4 accent-shark-gold"
+                      className="w-4 h-4 accent-primary"
                     />
-                    <span className="text-sm text-shark-silver/70">
+                    <span className="text-sm text-foreground/70">
                       Confirmo emissão de partículas ≥0,001g/km (+500 €)
                     </span>
                   </label>
@@ -616,7 +616,7 @@ export function SimulatorForm() {
         <div className="mt-6">
           <button
             onClick={() => setShowInquiryModal(true)}
-            className="w-full bg-shark-gold hover:bg-shark-gold-light text-shark-navy px-6 py-4 rounded-lg font-bebas text-lg tracking-wider transition-colors"
+            className="w-full bg-primary hover:bg-primary-light text-primary-foreground px-6 py-4 rounded-lg font-bebas text-lg tracking-wider transition-colors"
           >
             QUERO RECEBER PROPOSTA
           </button>
