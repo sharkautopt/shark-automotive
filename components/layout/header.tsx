@@ -12,7 +12,6 @@ const navigation = [
   { name: 'Protocolo', href: '/protocolo' },
   { name: 'Viaturas', href: '/inventario' },
   { name: 'Encomenda', href: '/importacao' },
-  { name: 'Simulador', href: '/simulador' },
   { name: 'Parceiros', href: '/parceiros' },
   { name: 'Quem Somos', href: '/quem-somos' },
   { name: 'Contacto', href: '/contacto' },
