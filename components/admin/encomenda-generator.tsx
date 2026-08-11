@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { FileText, Loader2, ExternalLink, Car, User, Euro, Sparkles, ClipboardPaste, ImageIcon } from "lucide-react"
+import { FileText, Loader2, ExternalLink, Car, User, Euro, Sparkles, ClipboardPaste, ImageIcon, Link2 } from "lucide-react"
 import { serviceFeeForPrice } from "@/lib/pdf/fees"
 import { calculateISVDetailed, normalizeFuelCategory, type Norma } from "@/lib/import/calculate-isv"
 
@@ -101,6 +101,8 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
   const [photos, setPhotos] = useState<string[]>([])
 
   const [pasteText, setPasteText] = useState("")
+  const [listingUrl, setListingUrl] = useState("")
+  const [parseMethod, setParseMethod] = useState<"ia" | "url">("ia")
   const [parsing, setParsing] = useState(false)
   const [parseError, setParseError] = useState<string | null>(null)
   const [parseInfo, setParseInfo] = useState<string | null>(null)
@@ -163,6 +165,44 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
     setFromPrice(v.price ? String(v.price) : "")
   }
 
+  function applyParsedVehicle(p: Record<string, unknown>, source: string) {
+    const text = (value: unknown) => (value == null ? "" : String(value))
+    const number = (value: unknown, suffix: string) => (value == null ? "" : `${num(Number(value))}${suffix}`)
+    setVehicleId("")
+    setPhotos([])
+    setVf({
+      make: text(p.make),
+      model: text(p.model),
+      variant: text(p.variant),
+      year: text(p.year),
+      firstRegistration: text(p.firstRegistration),
+      mileage: number(p.mileage, " km"),
+      fuel: text(p.fuel ?? p.fuelType),
+      power: number(p.power, " cv"),
+      displacement: number(p.displacement ?? p.cc, " cm³"),
+      transmission: text(p.transmission),
+      drivetrain: text(p.drivetrain),
+      doors: text(p.doors),
+      seats: text(p.seats),
+      bodyType: text(p.bodyType),
+      colour: text(p.exteriorColour ?? p.colour),
+      interior: text(p.interior),
+      co2: number(p.co2, " g/km"),
+      owners: text(p.owners),
+      vin: text(p.vin),
+      origin: text(p.sourceHint ?? source),
+      summary: text(p.summary),
+    })
+    setFeatures(Array.isArray(p.features) ? p.features.map(String).join("\n") : text(p.features))
+    if (p.price != null) {
+      setVehiclePrice(String(p.price))
+      setFromPrice(String(p.price))
+    }
+    setNorma("")
+    setParticulatesConfirmed(false)
+    setParseInfo(`Anúncio interpretado (${source}). Reveja os campos antes de gerar.`)
+  }
+
   async function analyzePaste() {
     setParseError(null)
     setParseInfo(null)
@@ -175,50 +215,37 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       const res = await fetch("/api/admin/documents/parse-listing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: pasteText }),
+        body: JSON.stringify({ text: pasteText.trim() }),
       })
       const data = await res.json()
-      if (!res.ok) {
-        setParseError(data.error || "Falha ao analisar o anúncio.")
-        return
-      }
-      const p = data.vehicle
-      // External listing: not a stock vehicle.
-      setVehicleId("")
-      setPhotos([])
-      setVf({
-        make: p.make || "",
-        model: p.model || "",
-        variant: p.variant || "",
-        year: p.year || "",
-        firstRegistration: p.firstRegistration || "",
-        mileage: p.mileage != null ? `${num(p.mileage)} km` : "",
-        fuel: p.fuel || "",
-        power: p.power != null ? `${p.power} cv` : "",
-        displacement: p.displacement != null ? `${num(p.displacement)} cm³` : "",
-        transmission: p.transmission || "",
-        drivetrain: p.drivetrain || "",
-        doors: p.doors != null ? String(p.doors) : "",
-        seats: p.seats != null ? String(p.seats) : "",
-        bodyType: p.bodyType || "",
-        colour: p.exteriorColour || "",
-        interior: p.interior || "",
-        co2: p.co2 != null ? `${p.co2} g/km` : "",
-        owners: p.owners != null ? String(p.owners) : "",
-        vin: p.vin || "",
-        origin: p.sourceHint || "",
-        summary: p.summary || "",
+      if (!res.ok) throw new Error(data.error || "Falha ao analisar o anúncio.")
+      applyParsedVehicle(data.vehicle, "IA")
+    } catch (err) {
+      setParseError(err instanceof Error ? err.message : "Erro de rede ao analisar o anúncio.")
+    } finally {
+      setParsing(false)
+    }
+  }
+
+  async function analyzeUrl() {
+    setParseError(null)
+    setParseInfo(null)
+    if (!listingUrl.trim()) {
+      setParseError("Cole um URL do Mobile.de ou AutoScout24.")
+      return
+    }
+    setParsing(true)
+    try {
+      const res = await fetch("/api/import/parse-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: listingUrl.trim() }),
       })
-      setFeatures((p.features || []).join("\n"))
-      if (p.price != null) {
-        setVehiclePrice(String(p.price))
-        setFromPrice(String(p.price))
-      }
-      setParseInfo(
-        `Anúncio interpretado${p.sourceHint ? ` (${p.sourceHint})` : ""}. Reveja os campos antes de gerar.`,
-      )
-    } catch {
-      setParseError("Erro de rede ao analisar o anúncio.")
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Falha ao interpretar o URL.")
+      applyParsedVehicle(data, "URL")
+    } catch (err) {
+      setParseError(err instanceof Error ? err.message : "Erro de rede ao interpretar o URL.")
     } finally {
       setParsing(false)
     }
@@ -359,34 +386,41 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
         />
       </div>
 
-      {/* AI paste */}
-      <div className="border border-primary/20 rounded-xl p-5 bg-secondary/30 space-y-3">
+      {/* Automatic listing import */}
+      <div className="border border-primary/20 rounded-xl p-5 bg-secondary/30 space-y-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-primary" />
-          <h3 className="font-display text-xl text-foreground tracking-wide">ANALISAR ANÚNCIO COM IA</h3>
+          {parseMethod === "ia" ? <Sparkles className="w-4 h-4 text-primary" /> : <Link2 className="w-4 h-4 text-primary" />}
+          <h3 className="font-display text-xl text-foreground tracking-wide">PREENCHER COM ANÚNCIO</h3>
         </div>
-        <p className="text-muted-foreground/50 text-xs -mt-1">
-          Cole o texto de uma página de leiloeira, mobile.de, AutoScout24 ou stand (em qualquer idioma). A IA extrai e
-          resume os dados da viatura para o documento.
-        </p>
-        <textarea
-          className={`${inputClass} min-h-[120px] resize-y font-mono text-sm`}
-          value={pasteText}
-          onChange={(e) => setPasteText(e.target.value)}
-          placeholder="Cole aqui o texto completo do anúncio..."
-        />
-        <div className="flex items-center gap-3">
-          <button
-            onClick={analyzePaste}
-            disabled={parsing}
-            className="flex items-center gap-2 bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
-          >
-            {parsing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ClipboardPaste className="w-4 h-4" />}
-            {parsing ? "A interpretar..." : "Analisar com IA"}
+        <div className="flex gap-2 border-b border-primary/10 pb-3">
+          <button type="button" onClick={() => setParseMethod("ia")} className={`px-3 py-2 text-xs rounded-lg ${parseMethod === "ia" ? "bg-primary text-primary-foreground" : "text-muted-foreground/60 hover:text-foreground"}`}>
+            IA — colar texto
           </button>
-          {parseInfo && <span className="text-primary/90 text-xs">{parseInfo}</span>}
-          {parseError && <span className="text-red-400 text-xs">{parseError}</span>}
+          <button type="button" onClick={() => setParseMethod("url")} className={`px-3 py-2 text-xs rounded-lg ${parseMethod === "url" ? "bg-primary text-primary-foreground" : "text-muted-foreground/60 hover:text-foreground"}`}>
+            URL — Mobile.de / AutoScout24
+          </button>
         </div>
+        {parseMethod === "ia" ? (
+          <>
+            <p className="text-muted-foreground/50 text-xs">Cole o texto completo do anúncio. A IA extrai os dados da viatura para o documento.</p>
+            <textarea className={`${inputClass} min-h-[120px] resize-y font-mono text-sm`} value={pasteText} onChange={(e) => setPasteText(e.target.value)} placeholder="Cole aqui o texto completo do anúncio..." />
+            <button type="button" onClick={analyzePaste} disabled={parsing} className="flex items-center gap-2 bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg disabled:opacity-50">
+              {parsing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ClipboardPaste className="w-4 h-4" />}
+              {parsing ? "A interpretar..." : "Analisar com IA"}
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="text-muted-foreground/50 text-xs">Cole o link de um anúncio do Mobile.de ou AutoScout24 para extrair automaticamente os dados.</p>
+            <input className={inputClass} value={listingUrl} onChange={(e) => setListingUrl(e.target.value)} placeholder="https://suchen.mobile.de/fahrzeuge/details.html?..." type="url" />
+            <button type="button" onClick={analyzeUrl} disabled={parsing} className="flex items-center gap-2 bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg disabled:opacity-50">
+              {parsing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Link2 className="w-4 h-4" />}
+              {parsing ? "A interpretar..." : "Interpretar URL"}
+            </button>
+          </>
+        )}
+        {parseInfo && <span className="block text-primary/90 text-xs">{parseInfo}</span>}
+        {parseError && <span className="block text-red-400 text-xs">{parseError}</span>}
       </div>
 
       {/* Stock vehicle (optional) */}
