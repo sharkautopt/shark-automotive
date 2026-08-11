@@ -94,10 +94,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/images/shark-fin-logo.png', type: 'image/png' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/images/shark-fin-logo.png',
   },
 }
 
