@@ -3,7 +3,14 @@
 import { useMemo, useState } from "react"
 import { FileText, Loader2, ExternalLink, Car, User, Euro, Sparkles, ClipboardPaste, ImageIcon } from "lucide-react"
 import { serviceFeeForPrice } from "@/lib/pdf/fees"
-import { calculateISVDetailed } from "@/lib/import/calculate-isv"
+import { calculateISVDetailed, normalizeFuelCategory, type Norma } from "@/lib/import/calculate-isv"
+
+/** Parses a "MM/AAAA" 1ª matrícula string into { month, year }, if valid. */
+const parseFirstRegistration = (value: string): { month?: number; year?: number } => {
+  const match = value.match(/(\d{1,2})\s*\/\s*(\d{4})/)
+  if (match) return { month: Number(match[1]), year: Number(match[2]) }
+  return {}
+}
 import { PhotoUploader } from "@/components/admin/photo-uploader"
 
 /** Extracts the leading numeric portion of strings like "180 cv", "1998 cm³", "120 g/km". */
@@ -103,6 +110,8 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
   const [vehiclePrice, setVehiclePrice] = useState("")
   const [isv, setIsv] = useState("")
   const [isvOverride, setIsvOverride] = useState(false)
+  const [norma, setNorma] = useState<Norma | "">("")
+  const [particulatesConfirmed, setParticulatesConfirmed] = useState(false)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -113,19 +122,24 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
   // Tiered service fee derived from vehicle price.
   const tier = useMemo(() => serviceFeeForPrice(Number(vehiclePrice) || 0), [vehiclePrice])
 
+  const isDiesel = useMemo(() => normalizeFuelCategory(vf.fuel) === "gasoleo", [vf.fuel])
+
   // ISV auto-calculated from the vehicle spec fields — same engine used by the public Simulador.
-  const isvBreakdown = useMemo(
-    () =>
-      calculateISVDetailed(
-        vf.fuel,
-        parseNumber(vf.power),
-        parseNumber(vf.co2),
-        parseNumber(vf.year),
-        parseNumber(vf.displacement)
-      ),
-    [vf.fuel, vf.power, vf.co2, vf.year, vf.displacement]
-  )
-  const effectiveIsv = isvOverride ? Number(isv) || 0 : isvBreakdown.total
+  // Norma (NEDC/WLTP) is a required explicit selection, never inferred from the registration year.
+  const isvBreakdown = useMemo(() => {
+    if (!norma) return null
+    const reg = parseFirstRegistration(vf.firstRegistration)
+    return calculateISVDetailed({
+      fuel: normalizeFuelCategory(vf.fuel),
+      cc: parseNumber(vf.displacement),
+      co2: parseNumber(vf.co2),
+      norma,
+      registrationYear: reg.year ?? parseNumber(vf.year),
+      registrationMonth: reg.month,
+      particulatesConfirmed: isDiesel && particulatesConfirmed,
+    })
+  }, [vf.fuel, vf.co2, vf.displacement, vf.year, vf.firstRegistration, norma, isDiesel, particulatesConfirmed])
+  const effectiveIsv = isvOverride ? Number(isv) || 0 : isvBreakdown?.total || 0
   const total = tier.onRequest ? 0 : (Number(vehiclePrice) || 0) + effectiveIsv + (tier.fee || 0)
 
   function fillFromStock(id: string) {
@@ -222,10 +236,14 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
       setError("Indique pelo menos marca e modelo da viatura (selecione uma viatura, cole um anúncio ou preencha manualmente).")
       return
     }
-    if (mode === "orcamento" && tier.onRequest) {
-      setError("Preço acima de 95.000 € — taxa sob consulta. Ajuste o preço ou gere uma proposta.")
-      return
-    }
+  if (mode === "orcamento" && tier.onRequest) {
+  setError("Preço acima de 95.000 € — taxa sob consulta. Ajuste o preço ou gere uma proposta.")
+  return
+  }
+  if (mode === "orcamento" && !isvOverride && !norma) {
+  setError("Selecione a Norma de homologação (NEDC ou WLTP) para calcular o ISV, ou introduza o ISV manualmente.")
+  return
+  }
 
     const vehicle = {
       make: vf.make.trim(),
@@ -487,7 +505,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
               <input
                 type="number"
                 className={inputClass}
-                value={isvOverride ? isv : Math.round(isvBreakdown.total)}
+                value={isvOverride ? isv : Math.round(isvBreakdown?.total || 0)}
                 onChange={(e) => setIsv(e.target.value)}
                 readOnly={!isvOverride}
                 placeholder="Ex: 3200"
@@ -504,16 +522,58 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
                 />
                 <span className="text-muted-foreground/60 text-xs">Substituir por valor manual</span>
               </label>
-              {!isvOverride && (
-                <p className="text-muted-foreground/50 text-[11px] mt-1">
-                  Calculado a partir de combustível, potência, CO₂ e cilindrada — igual ao Simulador público
-                  (cilindrada {num(isvBreakdown.cilindrada)} € + ambiental {num(isvBreakdown.ambiental)} €
-                  {isvBreakdown.particulas ? ` + partículas ${num(isvBreakdown.particulas)} €` : ""}
-                  {isvBreakdown.desconto ? ` − desconto ${num(isvBreakdown.desconto)} €` : ""}).
+            </div>
+          </div>
+
+          {!isvOverride && (
+            <div className="border border-primary/20 rounded-lg px-5 py-4 bg-secondary/30 space-y-3">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={smallLabel}>
+                    Norma de homologação <span className="text-primary">*</span>
+                  </label>
+                  <select
+                    className={smallInput}
+                    value={norma}
+                    onChange={(e) => setNorma(e.target.value as Norma | "")}
+                  >
+                    <option value="">Selecione…</option>
+                    <option value="NEDC">NEDC</option>
+                    <option value="WLTP">WLTP</option>
+                  </select>
+                  <p className="text-muted-foreground/40 text-[11px] mt-1">
+                    Consulte o Certificado de Conformidade (CoC) ou DUA do veículo. Nunca inferido do ano.
+                  </p>
+                </div>
+                {isDiesel && (
+                  <div>
+                    <label className={smallLabel}>Emissão de partículas</label>
+                    <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={particulatesConfirmed}
+                        onChange={(e) => setParticulatesConfirmed(e.target.checked)}
+                        className="w-4 h-4 accent-primary"
+                      />
+                      <span className="text-muted-foreground/60 text-xs">
+                        Confirmo emissão de partículas ≥0,001g/km (+500 €)
+                      </span>
+                    </label>
+                  </div>
+                )}
+              </div>
+
+              {isvBreakdown && norma && (
+                <p className="text-muted-foreground/50 text-[11px]">
+                  Cilindrada {num(isvBreakdown.cilindradaFinal)} € (bruto {num(isvBreakdown.cilindradaBruta)} €) +
+                  ambiental {num(isvBreakdown.ambientalFinal)} € (bruto {num(isvBreakdown.ambientalBruta)} €)
+                  {isvBreakdown.particulas ? ` + partículas ${num(isvBreakdown.particulas)} €` : ""} — desconto de
+                  idade {Math.round(isvBreakdown.descontoPercentagem * 100)}% aplicado a ambos os componentes
+                  (veículo com ~{isvBreakdown.ageYears} anos). Aplica-se apenas a usados importados da UE.
                 </p>
               )}
             </div>
-          </div>
+          )}
 
           {/* Auto service fee */}
           <div className="border border-primary/20 rounded-lg px-5 py-4 bg-secondary/30">

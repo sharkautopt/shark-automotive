@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Loader2, AlertCircle, Copy, Edit2, Search } from "lucide-react"
 import { ImportCosts } from "@/lib/import/calculate-costs"
-import { calculateISV } from "@/lib/import/calculate-isv"
+import { calculateISV, normalizeFuelCategory, type Norma } from "@/lib/import/calculate-isv"
 import { SimulatorCostBreakdown } from "./simulator-cost-breakdown"
 import { SimulatorInquiryModal } from "./simulator-inquiry-modal"
 
@@ -32,6 +32,8 @@ export function SimulatorForm() {
   const [overrideIsv, setOverrideIsv] = useState(false)
   const [customIsv, setCustomIsv] = useState("")
   const [showInquiryModal, setShowInquiryModal] = useState(false)
+  const [norma, setNorma] = useState<Norma | "">("")
+  const [particulatesConfirmed, setParticulatesConfirmed] = useState(false)
 
   const [manualData, setManualData] = useState<VehicleData>({
     make: "",
@@ -43,6 +45,8 @@ export function SimulatorForm() {
     power: undefined,
     transmission: "",
     bodyType: "",
+    co2: undefined,
+    cc: undefined,
   })
 
   async function handleParseUrl() {
@@ -70,17 +74,13 @@ export function SimulatorForm() {
 
       const data = (await res.json()) as VehicleData
       setVehicleData(data)
+      setNorma("")
+      setParticulatesConfirmed(false)
 
+      // ISV requires the Norma de homologação (NEDC/WLTP) — an explicit user choice, never inferred.
+      // Costs are shown once the user selects it below; until then ISV is treated as 0.
       if (data.price) {
-        // Auto-calculate ISV based on parsed vehicle specs
-        const calculatedISV = calculateISV(
-          data.fuelType,
-          data.power,
-          data.co2,
-          data.year,
-          data.cc
-        )
-        await calculateCosts(data.price, calculatedISV)
+        await calculateCosts(data.price, 0)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro desconhecido")
@@ -131,17 +131,12 @@ export function SimulatorForm() {
       }
 
       setVehicleData(vehicleData)
+      setNorma("")
+      setParticulatesConfirmed(false)
 
+      // ISV requires the Norma de homologação (NEDC/WLTP) — an explicit user choice, never inferred.
       if (vehicleData.price) {
-        // Auto-calculate ISV based on vehicle specs
-        const calculatedISV = calculateISV(
-          vehicleData.fuelType,
-          vehicleData.power,
-          vehicleData.co2,
-          vehicleData.year,
-          vehicleData.cc
-        )
-        await calculateCosts(vehicleData.price, calculatedISV)
+        await calculateCosts(vehicleData.price, 0)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro desconhecido")
@@ -175,6 +170,35 @@ export function SimulatorForm() {
     }
   }
 
+  /** Recomputes ISV (requires an explicit Norma) and the full cost breakdown. */
+  async function recalcWithNorma(normaValue: Norma | "", particulates: boolean) {
+    if (!vehicleData?.price) return
+    if (!normaValue) {
+      await calculateCosts(vehicleData.price, 0)
+      return
+    }
+    const fuel = normalizeFuelCategory(vehicleData.fuelType)
+    const isvAmount = calculateISV({
+      fuel,
+      cc: vehicleData.cc,
+      co2: vehicleData.co2,
+      norma: normaValue,
+      registrationYear: vehicleData.year,
+      particulatesConfirmed: fuel === "gasoleo" && particulates,
+    })
+    await calculateCosts(vehicleData.price, isvAmount)
+  }
+
+  async function handleNormaChange(value: Norma | "") {
+    setNorma(value)
+    await recalcWithNorma(value, particulatesConfirmed)
+  }
+
+  async function handleParticulatesChange(checked: boolean) {
+    setParticulatesConfirmed(checked)
+    await recalcWithNorma(norma, checked)
+  }
+
   async function handleManualSubmit() {
     if (!manualData.price || !manualData.make || !manualData.model) {
       setError("Por favor, preencha pelo menos marca, modelo e preço")
@@ -183,17 +207,12 @@ export function SimulatorForm() {
 
     setError("")
     setVehicleData(manualData)
+    setNorma("")
+    setParticulatesConfirmed(false)
 
-    // Calculate costs with auto-calculated ISV
+    // ISV requires the Norma de homologação (NEDC/WLTP) — selected below, once vehicle data is shown.
     if (manualData.price) {
-      const calculatedISV = calculateISV(
-        manualData.fuelType,
-        manualData.power,
-        manualData.co2,
-        manualData.year,
-        manualData.cc
-      )
-      await calculateCosts(manualData.price, calculatedISV)
+      await calculateCosts(manualData.price, 0)
     }
   }
 
@@ -401,7 +420,25 @@ export function SimulatorForm() {
             onChange={(e) => handleManualChange("transmission", e.target.value)}
             className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
           />
+          <input
+            type="number"
+            placeholder="Cilindrada (cc)"
+            value={manualData.cc || ""}
+            onChange={(e) => handleManualChange("cc", e.target.value ? parseInt(e.target.value) : undefined)}
+            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+          />
+          <input
+            type="number"
+            placeholder="Emissões CO₂ (g/km)"
+            value={manualData.co2 || ""}
+            onChange={(e) => handleManualChange("co2", e.target.value ? parseInt(e.target.value) : undefined)}
+            className="bg-shark-navy-light border border-shark-gold/10 rounded-lg px-4 py-3 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+          />
         </div>
+        <p className="text-xs text-shark-silver/50">
+          Cilindrada e CO₂ são necessários para calcular o ISV. Pode ainda selecionar a Norma de homologação
+          após submeter os dados.
+        </p>
 
         <button
           onClick={handleManualSubmit}
@@ -529,6 +566,43 @@ export function SimulatorForm() {
                 onChange={(e) => handleIsvChange(e.target.value)}
                 className="mt-2 w-full bg-shark-navy-light border border-shark-gold/10 rounded-lg px-3 py-2 text-shark-silver placeholder-shark-silver/30 font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
               />
+            )}
+
+            {!overrideIsv && (
+              <div className="mt-4 space-y-3">
+                <div>
+                  <label className="flex items-center gap-2 text-sm text-shark-silver/70 mb-1">
+                    Norma de homologação <span className="text-shark-gold">*</span>
+                  </label>
+                  <select
+                    value={norma}
+                    onChange={(e) => handleNormaChange(e.target.value as Norma | "")}
+                    className="w-full bg-shark-navy-light border border-shark-gold/10 rounded-lg px-3 py-2 text-shark-silver font-mono text-sm focus:outline-none focus:border-shark-gold/30 focus:ring-1 focus:ring-shark-gold/20 transition-colors"
+                  >
+                    <option value="">Selecione NEDC ou WLTP…</option>
+                    <option value="NEDC">NEDC</option>
+                    <option value="WLTP">WLTP</option>
+                  </select>
+                  <p className="text-xs text-shark-silver/40 mt-1">
+                    Necessária para calcular o ISV — consulte o Certificado de Conformidade (CoC) ou DUA do
+                    veículo. Nunca é adivinhada a partir do ano.
+                  </p>
+                </div>
+
+                {normalizeFuelCategory(vehicleData.fuelType) === "gasoleo" && (
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={particulatesConfirmed}
+                      onChange={(e) => handleParticulatesChange(e.target.checked)}
+                      className="w-4 h-4 accent-shark-gold"
+                    />
+                    <span className="text-sm text-shark-silver/70">
+                      Confirmo emissão de partículas ≥0,001g/km (+500 €)
+                    </span>
+                  </label>
+                )}
+              </div>
             )}
           </div>
         </div>

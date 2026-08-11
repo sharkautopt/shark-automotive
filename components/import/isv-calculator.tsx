@@ -13,62 +13,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Checkbox } from '@/components/ui/checkbox'
 import { SectionHeading } from '@/components/ui/section-heading'
+import {
+  calculateISVDetailed,
+  type FuelCategory,
+  type ISVBreakdown,
+  type Norma,
+} from '@/lib/import/calculate-isv'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 export function ISVCalculator() {
-  const [fuelType, setFuelType] = useState('')
+  const [fuelType, setFuelType] = useState<FuelCategory | ''>('')
   const [engineCC, setEngineCC] = useState('')
   const [co2, setCo2] = useState('')
   const [year, setYear] = useState('')
-  const [result, setResult] = useState<number | null>(null)
+  const [norma, setNorma] = useState<Norma | ''>('')
+  const [particulatesConfirmed, setParticulatesConfirmed] = useState(false)
+  const [result, setResult] = useState<ISVBreakdown | null>(null)
+
+  const isDiesel = fuelType === 'gasoleo'
+  const canCalculate = Boolean(fuelType && engineCC && year && norma)
 
   const calculateISV = () => {
-    // Simplified ISV calculation for demonstration
-    // Real calculation would be more complex based on Portuguese tax tables
-    const cc = parseInt(engineCC) || 0
-    const emissions = parseInt(co2) || 0
-    const vehicleYear = parseInt(year) || new Date().getFullYear()
-    const age = new Date().getFullYear() - vehicleYear
+    if (!fuelType || !norma) return
 
-    let componenteA = 0
-    let componenteB = 0
+    const breakdown = calculateISVDetailed({
+      fuel: fuelType,
+      cc: parseInt(engineCC) || undefined,
+      co2: parseInt(co2) || undefined,
+      norma,
+      registrationYear: parseInt(year) || undefined,
+      particulatesConfirmed: isDiesel && particulatesConfirmed,
+    })
 
-    // Componente cilindrada (simplified)
-    if (fuelType === 'gasolina') {
-      if (cc <= 1000) componenteA = cc * 0.5
-      else if (cc <= 1250) componenteA = 500 + (cc - 1000) * 0.7
-      else if (cc <= 1750) componenteA = 675 + (cc - 1250) * 1.5
-      else if (cc <= 2500) componenteA = 1425 + (cc - 1750) * 4.0
-      else componenteA = 4425 + (cc - 2500) * 7.0
-    } else if (fuelType === 'diesel') {
-      if (cc <= 1250) componenteA = cc * 0.6
-      else if (cc <= 1750) componenteA = 750 + (cc - 1250) * 1.0
-      else if (cc <= 2500) componenteA = 1250 + (cc - 1750) * 5.5
-      else componenteA = 5375 + (cc - 2500) * 10.0
-    } else if (fuelType === 'hibrido') {
-      componenteA = (cc * 0.3) // Reduced rate for hybrids
-    } else if (fuelType === 'eletrico') {
-      componenteA = 0 // Zero for electric
-    }
-
-    // Componente ambiental (simplified)
-    if (emissions > 0 && fuelType !== 'eletrico') {
-      if (emissions <= 120) componenteB = emissions * 4.5
-      else if (emissions <= 180) componenteB = 540 + (emissions - 120) * 7.5
-      else if (emissions <= 250) componenteB = 990 + (emissions - 180) * 18
-      else componenteB = 2250 + (emissions - 250) * 40
-    }
-
-    // Age reduction
-    let ageReduction = 1
-    if (age >= 1 && age < 2) ageReduction = 0.90
-    else if (age >= 2 && age < 3) ageReduction = 0.80
-    else if (age >= 3 && age < 4) ageReduction = 0.70
-    else if (age >= 4 && age < 5) ageReduction = 0.60
-    else if (age >= 5) ageReduction = 0.52
-
-    const total = Math.round((componenteA + componenteB) * ageReduction)
-    setResult(Math.max(0, total))
+    setResult(breakdown)
   }
 
   return (
@@ -98,15 +81,16 @@ export function ISVCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <Label>Tipo de Combustível</Label>
-                <Select value={fuelType} onValueChange={setFuelType}>
+                <Select
+                  value={fuelType}
+                  onValueChange={(v) => setFuelType(v as FuelCategory)}
+                >
                   <SelectTrigger className="bg-background border-border/50">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="gasolina">Gasolina</SelectItem>
-                    <SelectItem value="diesel">Diesel</SelectItem>
-                    <SelectItem value="hibrido">Híbrido</SelectItem>
-                    <SelectItem value="eletrico">Elétrico</SelectItem>
+                    <SelectItem value="gasolina">Gasolina / GPL / GN</SelectItem>
+                    <SelectItem value="gasoleo">Gasóleo</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -143,12 +127,62 @@ export function ISVCalculator() {
                   className="bg-background border-border/50"
                 />
               </div>
+
+              <div className="md:col-span-2">
+                <div className="flex items-center gap-2">
+                  <Label>Norma de homologação</Label>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        aria-label="Ajuda sobre a norma de homologação"
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs text-xs">
+                        Consulte o Certificado de Conformidade (CoC) ou DUA do veículo.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+                <Select value={norma} onValueChange={(v) => setNorma(v as Norma)}>
+                  <SelectTrigger className="bg-background border-border/50">
+                    <SelectValue placeholder="Selecione NEDC ou WLTP" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="NEDC">NEDC</SelectItem>
+                    <SelectItem value="WLTP">WLTP</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Obrigatório — nunca é adivinhado a partir do ano. Veículos de 2018–2019 podem ser
+                  homologados por qualquer uma das normas, e o valor final varia centenas de euros
+                  entre elas.
+                </p>
+              </div>
+
+              {isDiesel && (
+                <div className="md:col-span-2 flex items-start gap-2">
+                  <Checkbox
+                    id="particulates"
+                    checked={particulatesConfirmed}
+                    onCheckedChange={(checked) => setParticulatesConfirmed(checked === true)}
+                    className="mt-0.5"
+                  />
+                  <Label htmlFor="particulates" className="text-sm font-normal leading-relaxed">
+                    Confirmo emissão de partículas ≥0,001g/km (gasóleo) — adiciona 500 € ao ISV
+                  </Label>
+                </div>
+              )}
             </div>
 
             <Button
               onClick={calculateISV}
               className="w-full mt-6 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none"
-              disabled={!fuelType || !engineCC || !year}
+              disabled={!canCalculate}
             >
               Calcular ISV
             </Button>
@@ -157,21 +191,66 @@ export function ISVCalculator() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-6 p-6 bg-primary/10 border border-primary/20 text-center"
+                className="mt-6 space-y-4"
               >
-                <p className="text-sm text-muted-foreground mb-2">ISV Estimado</p>
-                <p className="font-display text-4xl text-primary">
-                  {result.toLocaleString('pt-PT')} €
-                </p>
+                <div className="p-6 bg-primary/10 border border-primary/20 text-center">
+                  <p className="text-sm text-muted-foreground mb-2">ISV Estimado</p>
+                  <p className="font-display text-4xl text-primary">
+                    {result.total.toLocaleString('pt-PT')} €
+                  </p>
+                </div>
+
+                <div className="border border-border/50 divide-y divide-border/50 text-sm">
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-muted-foreground">Componente cilindrada (bruto)</span>
+                    <span className="text-foreground">
+                      {result.cilindradaBruta.toLocaleString('pt-PT')} €
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-muted-foreground">Componente cilindrada (após desconto)</span>
+                    <span className="text-foreground font-medium">
+                      {result.cilindradaFinal.toLocaleString('pt-PT')} €
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-muted-foreground">Componente ambiental (bruto)</span>
+                    <span className="text-foreground">
+                      {result.ambientalBruta.toLocaleString('pt-PT')} €
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-muted-foreground">Componente ambiental (após desconto)</span>
+                    <span className="text-foreground font-medium">
+                      {result.ambientalFinal.toLocaleString('pt-PT')} €
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-muted-foreground">
+                      Desconto por idade ({result.ageYears.toLocaleString('pt-PT')} anos)
+                    </span>
+                    <span className="text-foreground">
+                      {Math.round(result.descontoPercentagem * 100)}%
+                    </span>
+                  </div>
+                  {result.particulas > 0 && (
+                    <div className="flex items-center justify-between px-4 py-2">
+                      <span className="text-muted-foreground">Taxa de partículas</span>
+                      <span className="text-foreground">
+                        {result.particulas.toLocaleString('pt-PT')} €
+                      </span>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             )}
 
             <div className="mt-6 flex items-start gap-2 text-xs text-muted-foreground">
               <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <p>
-                Este valor é uma estimativa simplificada. O cálculo real do ISV depende de 
-                variáveis adicionais e das tabelas oficiais em vigor. Contacte-nos para um 
-                orçamento detalhado.
+                O desconto por idade aplica-se apenas a veículos usados importados de outro Estado-Membro
+                da UE. Este valor é uma estimativa; o cálculo real do ISV depende de variáveis adicionais.
+                Contacte-nos para um orçamento detalhado.
               </p>
             </div>
           </div>
