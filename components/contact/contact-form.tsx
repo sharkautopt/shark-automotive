@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client"
 import { sendToMakeWebhookAsync } from "@/lib/webhook"
 
 const inputClasses =
-  "w-full px-4 py-3 bg-[#F4F8FC] border border-[#C8C4BC] text-[#0D1B2A] placeholder-[#5A7A9A] focus:border-[#0D1B2A] focus:outline-none transition-colors"
+  "w-full px-4 py-3 bg-[#F4F8FC] border border-[#9FADBB] text-[#0E1B2F] placeholder-[#2E6B9E] focus:border-[#0E1B2F] focus:outline-none transition-colors"
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -71,7 +71,7 @@ export function ContactForm() {
         animate={{ opacity: 1 }}
         className="text-center py-12"
       >
-        <CheckCircle className="w-16 h-16 text-[#5A7A9A] mx-auto mb-6" />
+        <CheckCircle className="w-16 h-16 text-[#2E6B9E] mx-auto mb-6" />
         <h3 className="font-display text-2xl text-foreground mb-2">
           MENSAGEM ENVIADA
         </h3>
@@ -80,7 +80,7 @@ export function ContactForm() {
         </p>
         <button
           onClick={() => setIsSuccess(false)}
-          className="text-[#5A7A9A] hover:text-foreground transition-colors font-mono text-sm underline underline-offset-4"
+          className="text-[#2E6B9E] hover:text-foreground transition-colors font-mono text-sm underline underline-offset-4"
         >
           ENVIAR NOVA MENSAGEM
         </button>
@@ -193,7 +193,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-[#0D1B2A] text-[#E8E4DC] border border-[#C8C4BC] font-display text-xl tracking-wider hover:bg-[#0D1B2A]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+        className="w-full py-4 bg-[#0E1B2F] text-[#E8E4DC] border border-[#9FADBB] font-display text-xl tracking-wider hover:bg-[#0E1B2F]/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
       >
         {isSubmitting ? (
           <>

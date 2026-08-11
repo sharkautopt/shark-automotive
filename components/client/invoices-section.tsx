@@ -34,18 +34,18 @@ export function InvoicesSection({
   }
 
   return (
-    <section className="border border-[#C8C4BC] bg-white">
-      <header className="border-b border-[#C8C4BC] px-6 py-4">
-        <h2 className="font-bebas text-xl tracking-wide text-[#0D1B2A]">Facturas</h2>
+    <section className="border border-[#9FADBB] bg-white">
+      <header className="border-b border-[#9FADBB] px-6 py-4">
+        <h2 className="font-bebas text-xl tracking-wide text-[#0E1B2F]">Facturas</h2>
       </header>
 
       {invoices.length === 0 ? (
-        <p className="px-6 py-8 text-sm text-[#0D1B2A]/70">Sem facturas disponíveis.</p>
+        <p className="px-6 py-8 text-sm text-[#0E1B2F]/70">Sem facturas disponíveis.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[560px] text-left">
             <thead>
-              <tr className="border-b border-[#C8C4BC] font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A]/50">
+              <tr className="border-b border-[#9FADBB] font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F]/50">
                 <th className="px-6 py-3 font-normal">Nº</th>
                 <th className="px-6 py-3 font-normal">Descrição</th>
                 <th className="px-6 py-3 font-normal">Data</th>
@@ -54,11 +54,11 @@ export function InvoicesSection({
                 <th className="px-6 py-3 font-normal"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#C8C4BC]">
+            <tbody className="divide-y divide-[#9FADBB]">
               {invoices.map((inv) => {
                 const status = STATUS[inv.status] ?? STATUS.pendente
                 return (
-                  <tr key={inv.id} className="text-sm text-[#0D1B2A]">
+                  <tr key={inv.id} className="text-sm text-[#0E1B2F]">
                     <td className="px-6 py-4 font-mono text-xs">{inv.invoice_number || '—'}</td>
                     <td className="px-6 py-4">{inv.description || '—'}</td>
                     <td className="px-6 py-4">
@@ -75,7 +75,7 @@ export function InvoicesSection({
                         <button
                           onClick={() => download(inv)}
                           disabled={busyId === inv.id}
-                          className="flex items-center gap-1 border border-[#0D1B2A] px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A] hover:bg-[#0D1B2A] hover:text-[#E8E4DC] disabled:opacity-50"
+                          className="flex items-center gap-1 border border-[#0E1B2F] px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F] hover:bg-[#0E1B2F] hover:text-[#E8E4DC] disabled:opacity-50"
                         >
                           <Download className="h-3.5 w-3.5" />
                           {busyId === inv.id ? '...' : 'Download'}

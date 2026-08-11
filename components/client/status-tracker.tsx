@@ -3,8 +3,8 @@ import type { OperationStepClient } from '@/lib/types'
 
 // SECURITY: this component only ever receives OperationStepClient (internal_note excluded upstream).
 
-const NAVY = '#0D1B2A'
-const BORDER = '#C8C4BC'
+const NAVY = '#0E1B2F'
+const BORDER = '#9FADBB'
 const MUTED = '#6B7280'
 const GREEN = '#15803D'
 const AMBER = '#B45309'

@@ -10,7 +10,7 @@ export function ClientHeader({ name, role, title }: { name: string; role: Operat
         </span>
         <RoleBadge role={role} />
       </div>
-      <h1 className="text-3xl font-semibold text-balance" style={{ color: '#0D1B2A' }}>
+      <h1 className="text-3xl font-semibold text-balance" style={{ color: '#0E1B2F' }}>
         Olá, {name}
       </h1>
     </header>

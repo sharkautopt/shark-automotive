@@ -42,9 +42,9 @@ export function ClientSidebar({
       {/* Desktop sidebar */}
       <aside
         className="hidden md:flex fixed left-0 top-0 h-screen w-60 flex-col"
-        style={{ backgroundColor: '#0D1B2A' }}
+        style={{ backgroundColor: '#0E1B2F' }}
       >
-        <div className="p-6" style={{ borderBottom: '1px solid rgba(200,196,188,0.15)' }}>
+        <div className="p-6" style={{ borderBottom: '1px solid rgba(159, 173, 187,0.15)' }}>
           <Image src="/images/shark-logo.png" alt="Shark Automotive" width={150} height={50} className="h-9 w-auto" />
           <p className="font-mono uppercase text-[10px] tracking-widest mt-3" style={{ color: '#8B93A1' }}>
             Área de Cliente
@@ -67,7 +67,7 @@ export function ClientSidebar({
                 <s.icon className="w-4 h-4" />
                 <span className="flex-1 text-left">{s.label}</span>
                 {s.id === 'mensagens' && unread ? (
-                  <span className="text-[10px] px-1.5 py-0.5" style={{ backgroundColor: '#E8E4DC', color: '#0D1B2A' }}>
+                  <span className="text-[10px] px-1.5 py-0.5" style={{ backgroundColor: '#E8E4DC', color: '#0E1B2F' }}>
                     {unread}
                   </span>
                 ) : null}
@@ -75,7 +75,7 @@ export function ClientSidebar({
             )
           })}
         </nav>
-        <div className="p-3" style={{ borderTop: '1px solid rgba(200,196,188,0.15)' }}>
+        <div className="p-3" style={{ borderTop: '1px solid rgba(159, 173, 187,0.15)' }}>
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 font-mono uppercase text-xs tracking-wider transition-colors"
@@ -90,7 +90,7 @@ export function ClientSidebar({
       {/* Mobile bottom tab bar */}
       <nav
         className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex"
-        style={{ backgroundColor: '#0D1B2A', borderTop: '1px solid rgba(200,196,188,0.15)' }}
+        style={{ backgroundColor: '#0E1B2F', borderTop: '1px solid rgba(159, 173, 187,0.15)' }}
       >
         {sections.map((s) => {
           const isActive = active === s.id

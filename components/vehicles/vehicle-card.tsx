@@ -32,7 +32,7 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
   return (
     <motion.div
       className={cn(
-        'group relative bg-card overflow-hidden border border-border/50 hover:border-[#C8C4BC]/40 transition-all duration-500',
+        'group relative bg-card overflow-hidden border border-border/50 hover:border-[#9FADBB]/40 transition-all duration-500',
         featured && 'lg:col-span-2 lg:row-span-2',
         className
       )}
@@ -64,7 +64,7 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
           
           {/* Sold navy tint */}
           {isSold && (
-            <div className="absolute inset-0" style={{ backgroundColor: 'rgba(13,27,42,0.35)' }} />
+            <div className="absolute inset-0" style={{ backgroundColor: 'rgba(14, 27, 47,0.35)' }} />
           )}
 
           {/* Status Badge */}
@@ -72,8 +72,8 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
             <div className="absolute top-4 left-4">
               <span className={cn(
                 'px-3 py-1 text-xs font-mono uppercase tracking-wider',
-                vehicle.status === 'reserved' && 'bg-[#0D1B2A] text-[#C8C4BC] border border-[#C8C4BC]/40',
-                vehicle.status === 'sold' && 'bg-[#0D1B2A] text-[#E8E4DC] border border-[#C8C4BC]/40'
+                vehicle.status === 'reserved' && 'bg-[#0E1B2F] text-[#9FADBB] border border-[#9FADBB]/40',
+                vehicle.status === 'sold' && 'bg-[#0E1B2F] text-[#E8E4DC] border border-[#9FADBB]/40'
               )}>
                 {vehicle.status === 'reserved' ? 'Reservado' : 'Vendido'}
               </span>
@@ -101,7 +101,7 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
                 {vehicle.make} {vehicle.model}
               </h3>
               <div className="flex items-center gap-2 mt-1">
-                <MapPin className="w-3 h-3 text-[#5A7A9A]" />
+                <MapPin className="w-3 h-3 text-[#2E6B9E]" />
                 <span className="text-xs text-muted-foreground font-mono">
                   {vehicle.country_origin}
                 </span>
@@ -110,7 +110,7 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
             <div className="text-right">
               {isSold ? (
                 <p className={cn(
-                  'font-display text-[#C8C4BC]',
+                  'font-display text-[#9FADBB]',
                   featured ? 'text-2xl' : 'text-xl'
                 )}>
                   VENDIDO
@@ -129,22 +129,22 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
           {/* Specs Grid */}
           <div className="grid grid-cols-4 gap-2 pt-4 border-t border-border/50">
             <div className="flex flex-col items-center text-center min-w-0">
-              <Calendar className="w-4 h-4 text-[#5A7A9A] mb-1" />
+              <Calendar className="w-4 h-4 text-[#2E6B9E] mb-1" />
               <span className="text-[11px] text-muted-foreground">Ano</span>
               <span className="font-mono text-xs">{vehicle.year}</span>
             </div>
             <div className="flex flex-col items-center text-center min-w-0">
-              <Gauge className="w-4 h-4 text-[#5A7A9A] mb-1" />
+              <Gauge className="w-4 h-4 text-[#2E6B9E] mb-1" />
               <span className="text-[11px] text-muted-foreground">Km</span>
               <span className="font-mono text-xs">{formatMileage(vehicle.mileage)}</span>
             </div>
             <div className="flex flex-col items-center text-center min-w-0">
-              <Fuel className="w-4 h-4 text-[#5A7A9A] mb-1" />
+              <Fuel className="w-4 h-4 text-[#2E6B9E] mb-1" />
               <span className="text-[11px] text-muted-foreground">Combustível</span>
               <span className="font-mono text-xs">{vehicle.fuel_type}</span>
             </div>
             <div className="flex flex-col items-center text-center min-w-0">
-              <Settings2 className="w-4 h-4 text-[#5A7A9A] mb-1" />
+              <Settings2 className="w-4 h-4 text-[#2E6B9E] mb-1" />
               <span className="text-[11px] text-muted-foreground">Potência</span>
               <span className="font-mono text-xs">{vehicle.power} cv</span>
             </div>
@@ -153,7 +153,7 @@ export function VehicleCard({ vehicle, featured = false, className }: VehicleCar
           {/* Car-Pass Badge */}
           {vehicle.carpass_status && (
             <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-              <div className="w-2 h-2 bg-[#5A7A9A]" />
+              <div className="w-2 h-2 bg-[#2E6B9E]" />
               <span>Car-Pass Verificado</span>
             </div>
           )}

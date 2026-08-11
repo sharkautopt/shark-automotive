@@ -24,9 +24,9 @@ export function VehicleCard({ operation }: { operation: Operation }) {
   const hasPhoto = Boolean(operation.vehicle_photo_url)
 
   return (
-    <div className="border border-[#C8C4BC] bg-white">
+    <div className="border border-[#9FADBB] bg-white">
       <div className="grid md:grid-cols-2">
-        <div className="relative min-h-[220px] bg-[#0D1B2A]">
+        <div className="relative min-h-[220px] bg-[#0E1B2F]">
           {hasPhoto ? (
             <Image
               src={operation.vehicle_photo_url as string}
@@ -46,11 +46,11 @@ export function VehicleCard({ operation }: { operation: Operation }) {
 
         <div className="p-6">
           <div className="flex items-start justify-between gap-4">
-            <h3 className="font-bebas text-2xl tracking-wide text-[#0D1B2A]">
+            <h3 className="font-bebas text-2xl tracking-wide text-[#0E1B2F]">
               {[operation.vehicle_make, operation.vehicle_model].filter(Boolean).join(' ') || 'Viatura'}
             </h3>
             {operation.protocolo_score != null && (
-              <span className="shrink-0 border border-[#0D1B2A] bg-[#0D1B2A] px-2 py-1 font-mono text-[11px] uppercase tracking-wider text-[#E8E4DC]">
+              <span className="shrink-0 border border-[#0E1B2F] bg-[#0E1B2F] px-2 py-1 font-mono text-[11px] uppercase tracking-wider text-[#E8E4DC]">
                 {operation.protocolo_score}/150
               </span>
             )}
@@ -69,7 +69,7 @@ export function VehicleCard({ operation }: { operation: Operation }) {
           <button
             onClick={openDossier}
             disabled={loading}
-            className="mt-6 w-full bg-[#0D1B2A] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC] transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="mt-6 w-full bg-[#0E1B2F] px-4 py-3 font-mono text-[11px] uppercase tracking-widest text-[#E8E4DC] transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {loading ? 'A gerar link...' : 'Ver Dossier Técnico'}
           </button>
@@ -83,8 +83,8 @@ export function VehicleCard({ operation }: { operation: Operation }) {
 function Field({ label, value }: { label: string; value?: string | null }) {
   return (
     <div>
-      <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A]/50">{label}</dt>
-      <dd className="mt-1 text-sm text-[#0D1B2A]">{value || '—'}</dd>
+      <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F]/50">{label}</dt>
+      <dd className="mt-1 text-sm text-[#0E1B2F]">{value || '—'}</dd>
     </div>
   )
 }

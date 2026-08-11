@@ -46,7 +46,7 @@ export function CTASection() {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 blur-2xl" />
 
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-block font-mono text-xs tracking-[0.3em] text-[#5A7A9A] uppercase mb-4">
+            <span className="inline-block font-mono text-xs tracking-[0.3em] text-[#2E6B9E] uppercase mb-4">
               Pronto para começar?
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground mb-6">
@@ -63,7 +63,7 @@ export function CTASection() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-[#C8C4BC]/40 hover:bg-foreground/5 rounded-none bg-transparent">
+              <Button asChild variant="outline" size="lg" className="border-[#9FADBB]/40 hover:bg-foreground/5 rounded-none bg-transparent">
                 <Link href="/contacto">
                   Contactar Consultor
                 </Link>
@@ -87,7 +87,7 @@ export function CTASection() {
                 className="group block h-full bg-card/50 backdrop-blur-sm border border-border/50 p-6 hover:border-primary/30 transition-all duration-300"
               >
                 <div className="w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <card.icon className="w-6 h-6 text-[#5A7A9A]" />
+                  <card.icon className="w-6 h-6 text-[#2E6B9E]" />
                 </div>
                 <h3 className="font-display text-xl tracking-wide text-foreground mb-2">
                   {card.title}

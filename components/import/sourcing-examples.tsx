@@ -66,7 +66,7 @@ export function SourcingExamples() {
 
               {/* Arrow */}
               <div className="flex justify-center py-4 bg-primary/5">
-                <ArrowRight className="w-6 h-6 text-[#5A7A9A] rotate-90" />
+                <ArrowRight className="w-6 h-6 text-[#2E6B9E] rotate-90" />
               </div>
 
               {/* Result */}

@@ -109,7 +109,7 @@ export function ProtocolSteps() {
               <div className="p-6 border-b border-border/50">
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 bg-primary/10 border border-primary/20 flex items-center justify-center">
-                    <step.icon className="w-6 h-6 text-[#5A7A9A]" />
+                    <step.icon className="w-6 h-6 text-[#2E6B9E]" />
                   </div>
                   <div className="text-right">
                     <span className="font-display text-3xl text-primary">{step.points}</span>

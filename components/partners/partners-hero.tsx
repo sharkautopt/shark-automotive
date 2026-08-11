@@ -10,7 +10,7 @@ export function PartnersHero() {
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block font-mono text-xs tracking-[0.3em] text-[#5A7A9A] uppercase mb-6"
+            className="inline-block font-mono text-xs tracking-[0.3em] text-[#2E6B9E] uppercase mb-6"
           >
             Participe num negócio real.
           </motion.span>
@@ -22,7 +22,7 @@ export function PartnersHero() {
             className="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide text-foreground mb-6"
           >
             PARCEIROS DE{' '}
-            <span className="text-[#C8C4BC]">NEGÓCIO</span>
+            <span className="text-[#9FADBB]">NEGÓCIO</span>
           </motion.h1>
           
           <motion.p

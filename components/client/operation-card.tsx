@@ -21,8 +21,8 @@ export function OperationCard({
 
   return (
     <div className="space-y-4">
-      <div className="border border-[#C8C4BC] bg-white p-6">
-        <h3 className="font-bebas text-2xl tracking-wide text-[#0D1B2A]">A Tua Operação</h3>
+      <div className="border border-[#9FADBB] bg-white p-6">
+        <h3 className="font-bebas text-2xl tracking-wide text-[#0E1B2F]">A Tua Operação</h3>
         <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-4">
           <Field label="Valor Investido" value={euro(operation.investment_amount)} />
           <Field label="Data de Entrada" value={date(operation.investment_date)} />
@@ -31,10 +31,10 @@ export function OperationCard({
         </dl>
       </div>
 
-      <div className="border border-[#C8C4BC] bg-white p-6">
-        <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#0D1B2A]/50">Resultados</h4>
+      <div className="border border-[#9FADBB] bg-white p-6">
+        <h4 className="font-mono text-[11px] uppercase tracking-widest text-[#0E1B2F]/50">Resultados</h4>
         {operation.result_amount == null && !operation.result_notes ? (
-          <p className="mt-3 text-sm leading-relaxed text-[#0D1B2A]/70">
+          <p className="mt-3 text-sm leading-relaxed text-[#0E1B2F]/70">
             Resultado ainda não apurado. Será actualizado pela equipa Shark.
           </p>
         ) : (
@@ -42,8 +42,8 @@ export function OperationCard({
             <Field label="Resultado Apurado" value={euro(operation.result_amount)} />
             <Field label="Data de Liquidação" value={date(operation.result_date)} />
             <div className="md:col-span-3">
-              <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A]/50">Observações</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-[#0D1B2A]">{operation.result_notes || '—'}</dd>
+              <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F]/50">Observações</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-[#0E1B2F]">{operation.result_notes || '—'}</dd>
             </div>
           </dl>
         )}
@@ -55,8 +55,8 @@ export function OperationCard({
 function Field({ label, value }: { label: string; value?: string | null }) {
   return (
     <div>
-      <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0D1B2A]/50">{label}</dt>
-      <dd className="mt-1 text-sm text-[#0D1B2A]">{value || '—'}</dd>
+      <dt className="font-mono text-[10px] uppercase tracking-widest text-[#0E1B2F]/50">{label}</dt>
+      <dd className="mt-1 text-sm text-[#0E1B2F]">{value || '—'}</dd>
     </div>
   )
 }

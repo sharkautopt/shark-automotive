@@ -29,7 +29,7 @@ export function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button asChild variant="outline" className="border-[#C8C4BC]/40 hover:bg-foreground/5 rounded-none bg-transparent">
+            <Button asChild variant="outline" className="border-[#9FADBB]/40 hover:bg-foreground/5 rounded-none bg-transparent">
               <Link href="/inventario" className="flex items-center gap-2">
                 Ver Todo o Inventário
                 <ArrowRight className="w-4 h-4" />
