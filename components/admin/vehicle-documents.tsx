@@ -8,6 +8,7 @@ interface GeneratedDoc {
   id: string
   title: string
   public_url: string | null
+  storage_path?: string | null
   created_at: string
   generated_by: string | null
 }
@@ -26,7 +27,7 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
     const supabase = createClient()
     const { data, error } = await supabase
       .from('generated_documents')
-      .select('id, title, public_url, created_at, generated_by')
+      .select('id, title, public_url, storage_path, created_at, generated_by')
       .eq('vehicle_id', vehicleId)
       .eq('doc_type', 'window_sticker')
       .order('created_at', { ascending: false })
@@ -38,6 +39,16 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
   useEffect(() => {
     loadDocs()
   }, [loadDocs])
+
+  const openDocument = async (doc: GeneratedDoc) => {
+    setError(null)
+    if (!doc.public_url) {
+      setError('Este documento não tem um URL de download válido.')
+      return
+    }
+    const opened = window.open(doc.public_url, '_blank', 'noopener,noreferrer')
+    if (!opened) setError('O navegador bloqueou a abertura. Permita pop-ups para descarregar o documento.')
+  }
 
   const generate = async () => {
     setGenerating(true)
@@ -110,16 +121,16 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
                   </p>
                 </div>
               </div>
-              {doc.public_url && (
-                <a
-                  href={doc.public_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {(doc.public_url || doc.storage_path) && (
+                <button
+                  type="button"
+                  onClick={() => openDocument(doc)}
+                  aria-label={`Descarregar ${doc.title}`}
                   className="flex items-center gap-1.5 text-primary text-sm hover:text-primary transition-colors"
                 >
                   <Download className="w-4 h-4" />
-                  Abrir
-                </a>
+                  Download
+                </button>
               )}
             </div>
           ))}

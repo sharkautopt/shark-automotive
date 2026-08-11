@@ -7,24 +7,24 @@ import { SectionHeading } from '@/components/ui/section-heading'
 const investmentModes = [
   {
     name: 'Participação Passiva',
-    tagline: 'Entra no negócio, nós gerimos a operação completa — sourcing, importação, preparação e venda. O resultado da operação é partilhado proporcionalmente à participação de cada sócio, definida por contrato individual antes de cada viatura.',
+    tagline: 'Tu entras com o capital para a viatura. A Shark Auto gere todo o ciclo operacional — sourcing B2B, transporte, legalização, detalhe e venda retail.',
     featured: true,
     features: [
       'Contrato por viatura',
-      'Sem envolvimento operacional',
-      'Resultado partilhado na venda',
-      'Dossier completo de cada operação',
+      'Zero envolvimento operacional ou burocrático',
+      'Recebes capital + lucro diretamente na venda',
+      'Acesso ao dossier financeiro completo',
     ],
   },
   {
     name: 'Participação Activa',
-    tagline: 'Para quem quer estar mais próximo do processo. Acompanha a operação, tem acesso ao dossier técnico completo e participa nas decisões de sourcing e pricing.',
+    tagline: 'Ideal para quem quer acompanhar de perto e aprender a dinâmica do mercado automóvel B2B.',
     featured: false,
     features: [
       'Contrato por viatura',
-      'Acesso ao dossier técnico',
-      'Participação nas decisões',
-      'Resultado partilhado na venda',
+      'Acesso em tempo real aos leilões B2B europeus',
+      'Co-decisão no modelo e pricing de venda',
+      'Transparência total de margens e custos',
     ],
   },
 ]
