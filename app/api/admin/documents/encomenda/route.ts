@@ -26,6 +26,15 @@ interface EncomendaBody {
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    return await createDocument(request)
+  } catch (err) {
+    console.error("[v0] Unhandled document creation error:", err)
+    return NextResponse.json({ error: "Erro interno ao criar o documento." }, { status: 500 })
+  }
+}
+
+async function createDocument(request: NextRequest) {
   const supabase = await createClient()
   const {
     data: { user },
@@ -100,7 +109,7 @@ export async function POST(request: NextRequest) {
 
   let pdfBuffer: Buffer
   try {
-    pdfBuffer = await renderToBuffer(createElement(EncomendaDocument, docProps))
+    pdfBuffer = await renderToBuffer(createElement(EncomendaDocument, docProps) as never)
   } catch (err) {
     console.log("[v0] Encomenda render failed:", (err as Error).message)
     return NextResponse.json({ error: "Falha ao gerar o PDF" }, { status: 500 })

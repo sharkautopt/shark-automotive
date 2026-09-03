@@ -329,14 +329,18 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       })
-      const data = await res.json()
+      const contentType = res.headers.get("content-type") || ""
+      const data = contentType.includes("application/json") ? await res.json() : null
       if (!res.ok) {
-        setError(data.error || "Falha ao gerar o documento.")
+        setError(data?.error || `Falha ao gerar o documento (HTTP ${res.status}).`)
+      } else if (!data?.success) {
+        setError("O servidor não confirmou a criação do documento.")
       } else {
         setResult(data)
       }
-    } catch {
-      setError("Erro de rede ao gerar o documento.")
+    } catch (err) {
+      console.error("[v0] Document creation request failed:", err)
+      setError("Não foi possível contactar o servidor. Verifique a ligação e tente novamente.")
     } finally {
       setLoading(false)
     }
