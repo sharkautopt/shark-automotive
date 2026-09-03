@@ -98,7 +98,7 @@ export function ClientSidebar({
             <button
               key={s.id}
               onClick={() => onSelect(s.id)}
-              className="flex-1 flex flex-col items-center gap-1 py-3"
+              className="flex min-h-16 flex-1 flex-col items-center justify-center gap-1 px-1 py-2"
               style={{ color: isActive ? '#E8E4DC' : '#8B93A1' }}
             >
               <s.icon className="w-5 h-5" />

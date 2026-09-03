@@ -19,7 +19,7 @@ export function HeroSection() {
         <div className="mb-10 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
           <span>01</span><span className="h-px flex-1 bg-border" /><span className="text-muted-foreground">Selecionados europeus → Portugal</span>
         </div>
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)] lg:gap-16">
+        <div className="grid min-w-0 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)] lg:gap-16 [&>div]:min-w-0">
           <div>
             <div className="mb-8 flex items-center gap-3">
               <Image src="/images/shark-fin-logo.png" alt="Shark Automotive" width={180} height={68} className="h-9 w-auto object-contain" priority />
