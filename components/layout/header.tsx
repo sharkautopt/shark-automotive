@@ -10,10 +10,10 @@ import { Button } from '@/components/ui/button'
 
 const navigation = [
   { name: 'Viaturas', href: '/inventario' },
-  { name: 'Encomenda', href: '/importacao' },
-  { name: 'Parceiros', href: '/parceiros' },
-  { name: 'Quem Somos', href: '/quem-somos' },
-  { name: 'Contacto', href: '/contacto' },
+  { name: 'Serviço', href: '/importacao' },
+  { name: 'Dossier', href: '/#dossier' },
+  { name: 'Processo', href: '/#processo' },
+  { name: 'Sobre nós', href: '/quem-somos' },
 ]
 
 export function Header() {
@@ -75,7 +75,7 @@ export function Header() {
               asChild 
               className="bg-shark-gold text-white border border-shark-gold hover:bg-shark-gold-dark text-[10px] font-medium tracking-[3px] uppercase px-6 py-2 h-auto rounded-none"
             >
-              <Link href="/contacto">Peça Dossier</Link>
+              <Link href="/contacto">Peça o dossier</Link>
             </Button>
           </div>
 
@@ -123,7 +123,7 @@ export function Header() {
                 className="pt-6"
               >
                 <Button asChild className="w-full bg-shark-gold text-white border border-shark-gold hover:bg-shark-gold-dark rounded-none text-[10px] tracking-[3px] uppercase py-4 h-auto">
-                  <Link href="/contacto">Peça Dossier</Link>
+                  <Link href="/contacto">Peça o dossier</Link>
                 </Button>
               </motion.div>
             </div>
