@@ -6,7 +6,8 @@ import sharp from "sharp"
  * we fetch each image server-side, convert it to JPEG, and embed it as a data URI.
  */
 
-const FETCH_TIMEOUT_MS = 10000
+const FETCH_TIMEOUT_MS = 4000
+const BATCH_TIMEOUT_MS = 12000
 /** Max width for embedded photos — keeps PDFs small while staying sharp in print. */
 const MAX_WIDTH = 1200
 
@@ -50,6 +51,9 @@ export async function resolvePdfImage(url: string | null | undefined): Promise<s
  * PDF always renders with whatever photos are available.
  */
 export async function resolvePdfImages(urls: (string | null | undefined)[]): Promise<string[]> {
-  const resolved = await Promise.all(urls.map((u) => resolvePdfImage(u)))
+  const resolved = await Promise.race([
+    Promise.all(urls.map((u) => resolvePdfImage(u))),
+    new Promise<(string | null)[]>((resolve) => setTimeout(() => resolve([]), BATCH_TIMEOUT_MS)),
+  ])
   return resolved.filter((r): r is string => r !== null)
 }

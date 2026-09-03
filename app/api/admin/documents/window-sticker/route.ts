@@ -7,6 +7,15 @@ export const dynamic = "force-dynamic"
 export const maxDuration = 60
 
 export async function POST(request: NextRequest) {
+  try {
+    return await createWindowSticker(request)
+  } catch (err) {
+    console.error("[v0] Unhandled window sticker error:", err)
+    return NextResponse.json({ error: `Falha ao gerar o PDF: ${(err as Error).message}` }, { status: 500 })
+  }
+}
+
+async function createWindowSticker(request: NextRequest) {
   const supabase = await createClient()
   const {
     data: { user },
@@ -31,7 +40,7 @@ export async function POST(request: NextRequest) {
   try {
     built = await buildWindowSticker(supabase, body.vehicleId, request.nextUrl.origin)
   } catch (err) {
-    console.log("[v0] Window sticker render failed:", (err as Error).message)
+    console.error("[v0] Window sticker render failed:", (err as Error).message)
     return NextResponse.json({ error: "Falha ao gerar o PDF" }, { status: 500 })
   }
 
@@ -48,13 +57,16 @@ export async function POST(request: NextRequest) {
     .upload(filename, buffer, { contentType: "application/pdf", upsert: true })
 
   if (upErr) {
-    console.log("[v0] Window sticker upload failed:", upErr.message)
+    console.error("[v0] Window sticker upload failed:", upErr.message)
     return NextResponse.json({ error: "Falha ao guardar o PDF" }, { status: 500 })
   }
 
-  const {
-    data: { publicUrl },
-  } = supabase.storage.from("documents").getPublicUrl(filename)
+  const { data: signed, error: signErr } = await supabase.storage.from("documents").createSignedUrl(filename, 60 * 15)
+  if (signErr || !signed?.signedUrl) {
+    console.error("[v0] Window sticker signed URL failed:", signErr?.message)
+    return NextResponse.json({ error: `Falha ao criar link do PDF: ${signErr?.message || "URL indisponível"}` }, { status: 500 })
+  }
+  const signedUrl = signed.signedUrl
 
   const title = `Ficha ${vehicle.make} ${vehicle.model} ${vehicle.year}`
   const { data: doc, error: docErr } = await supabase
@@ -64,7 +76,7 @@ export async function POST(request: NextRequest) {
       vehicle_id: vehicle.id,
       title,
       storage_path: filename,
-      public_url: publicUrl,
+      public_url: null,
       snapshot: {
         make: vehicle.make,
         model: vehicle.model,
@@ -79,9 +91,9 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (docErr) {
-    console.log("[v0] Window sticker record failed:", docErr.message)
-    return NextResponse.json({ success: true, publicUrl, title, warning: "Documento gerado mas não registado." })
+    console.error("[v0] Window sticker record failed:", docErr.message)
+    return NextResponse.json({ success: true, signedUrl, title, warning: "Documento gerado mas não registado." })
   }
 
-  return NextResponse.json({ success: true, ...doc, publicUrl })
+  return NextResponse.json({ success: true, ...doc, signedUrl })
 }

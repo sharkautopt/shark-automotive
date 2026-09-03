@@ -61,7 +61,7 @@ export async function buildWindowSticker(
 
   registerPdfFonts()
   const buffer = await renderToBuffer(
-    createElement(WindowStickerDocument, { vehicle, heroPhoto, thumbnails, qrDataUrl, registo }),
+    createElement(WindowStickerDocument, { vehicle, heroPhoto, thumbnails, qrDataUrl, registo }) as never,
   )
 
   const safeName = `${vehicle.make}-${vehicle.model}-${vehicle.year}`

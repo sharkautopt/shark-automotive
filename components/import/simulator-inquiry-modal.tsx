@@ -55,6 +55,7 @@ export function SimulatorInquiryModal({
 
       // Send to Make webhook (non-blocking)
       sendToMakeWebhookAsync({
+        name: "Pedido do simulador",
         email: email.trim(),
         phone: phone.trim() || "",
         message: `[SIMULADOR] ${vehicleDesc} - Orçamento estimado: €${estimatedCost?.toLocaleString("pt-PT")}`,

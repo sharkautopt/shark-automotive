@@ -1,5 +1,12 @@
-import path from "path"
 import { Font } from "@react-pdf/renderer"
+import {
+  bebasRegular,
+  dmMonoMedium,
+  dmMonoRegular,
+  dmSansBold,
+  dmSansMedium,
+  dmSansRegular,
+} from "@/lib/pdf/fonts-data"
 
 /**
  * Brand palette for generated PDFs — exact values from the Shark document spec.
@@ -25,32 +32,26 @@ let registered = false
  */
 export function registerPdfFonts() {
   if (registered) return
-  const dir = path.join(process.cwd(), "assets", "fonts")
-
-  Font.register({
-    family: "Bebas Neue",
-    fonts: [{ src: path.join(dir, "BebasNeue-Regular.woff") }],
-  })
-
-  Font.register({
-    family: "DM Sans",
-    fonts: [
-      { src: path.join(dir, "DMSans-Regular.woff"), fontWeight: 400 },
-      { src: path.join(dir, "DMSans-Medium.woff"), fontWeight: 500 },
-      { src: path.join(dir, "DMSans-Bold.woff"), fontWeight: 700 },
-    ],
-  })
-
-  Font.register({
-    family: "DM Mono",
-    fonts: [
-      { src: path.join(dir, "DMMono-Regular.woff"), fontWeight: 400 },
-      { src: path.join(dir, "DMMono-Medium.woff"), fontWeight: 500 },
-    ],
-  })
-
-  // Prevent hyphenation splitting of long words (VINs, model names).
-  Font.registerHyphenationCallback((word) => [word])
-
   registered = true
+  try {
+    Font.register({ family: "Bebas Neue", fonts: [{ src: bebasRegular }] })
+    Font.register({
+      family: "DM Sans",
+      fonts: [
+        { src: dmSansRegular, fontWeight: 400 },
+        { src: dmSansMedium, fontWeight: 500 },
+        { src: dmSansBold, fontWeight: 700 },
+      ],
+    })
+    Font.register({
+      family: "DM Mono",
+      fonts: [
+        { src: dmMonoRegular, fontWeight: 400 },
+        { src: dmMonoMedium, fontWeight: 500 },
+      ],
+    })
+    Font.registerHyphenationCallback((word) => [word])
+  } catch (err) {
+    console.error("[v0] PDF font registration failed:", (err as Error).message)
+  }
 }

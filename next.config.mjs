@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  serverExternalPackages: ["sharp", "@react-pdf/renderer"],
   images: {
     unoptimized: true,
   },
