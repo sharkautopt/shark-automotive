@@ -70,13 +70,13 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
         <h2 className="font-display text-2xl text-foreground mb-6">
           Especificações Técnicas
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-px border border-border/60 bg-border/60 sm:grid-cols-2 md:grid-cols-3">
           {specs.map((spec) => (
             <div 
               key={spec.label}
-              className="flex items-start gap-3 p-3 bg-background/50 "
+              className="flex items-center gap-3 bg-background p-3 sm:items-start"
             >
-              <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+              <div className="flex size-9 shrink-0 items-center justify-center border border-primary/20 bg-primary/10 sm:size-10">
                 <spec.icon className="w-5 h-5 text-[#2E6B9E]" />
               </div>
               <div>

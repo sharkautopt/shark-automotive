@@ -37,8 +37,8 @@ export function Header() {
           : 'bg-gradient-to-b from-background/98 to-transparent'
       )}
     >
-      <nav className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="flex h-20 items-center justify-between">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+        <div className="flex h-16 items-center justify-between sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <motion.div
@@ -50,7 +50,7 @@ export function Header() {
                 alt="Shark Automotive"
                 width={400}
                 height={150}
-                className="h-20 lg:h-28 w-auto"
+                className="h-12 w-auto sm:h-16 lg:h-20"
                 priority
               />
             </motion.div>
@@ -81,7 +81,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-foreground"
+            className="lg:hidden flex size-10 items-center justify-center border border-border text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >

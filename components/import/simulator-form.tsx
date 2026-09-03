@@ -251,7 +251,7 @@ export function SimulatorForm() {
         <h2 className="font-bebas text-2xl text-foreground tracking-wide">SIMULADOR DE IMPORTAÇÃO</h2>
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-border -mx-6 px-6 overflow-x-auto">
+        <div className="flex max-w-full gap-2 overflow-x-auto border-b border-border px-2 sm:-mx-6 sm:px-6">
           <button
             onClick={() => {
               setMode("url")

@@ -42,7 +42,7 @@ export function ClientDashboard({
     <div className="md:pl-60">
       <ClientSidebar sections={sections} active={active} onSelect={setActive} />
 
-      <main className="mx-auto max-w-4xl px-4 py-8 pb-24 md:px-8 md:pb-8">
+      <main className="mx-auto max-w-4xl px-4 py-5 pb-28 sm:py-8 md:px-8 md:pb-8">
         <ClientHeader
           name={profile.full_name || 'Cliente'}
           role={operation.role}
