@@ -17,42 +17,42 @@
 
 /* Shark Automotive - Light Industrial Theme: Concrete & Charcoal */
 :root {
-  /* Light Concrete Base */
-  --background: #E8E7E2;
-  --foreground: oklch(0.08 0.008 40);
+  /* Shark Navy canvas */
+  --background: #07111f;
+  --foreground: #edf5f7;
   
-  /* Card surfaces - white */
-  --card: oklch(1.00 0.000 0);
-  --card-foreground: oklch(0.08 0.008 40);
+  /* Elevated panels */
+  --card: #0d1d2d;
+  --card-foreground: #edf5f7;
   
   /* Popover */
-  --popover: oklch(1.00 0.000 0);
-  --popover-foreground: oklch(0.08 0.008 40);
+  --popover: #102538;
+  --popover-foreground: #edf5f7;
   
-  /* Primary - Navy */
-  --primary: #0E1B2F;
-  --primary-foreground: oklch(1.00 0.000 0);
+  /* Primary - Shark cyan */
+  --primary: #20c7d9;
+  --primary-foreground: #07111f;
   
-  /* Secondary - Slightly darker concrete */
-  --secondary: oklch(0.89 0.010 50);
-  --secondary-foreground: oklch(0.08 0.008 40);
+  /* Secondary surfaces */
+  --secondary: #102538;
+  --secondary-foreground: #d9e7eb;
   
   /* Muted */
-  --muted: oklch(0.92 0.009 50);
-  --muted-foreground: oklch(0.29 0.008 40);
+  --muted: #122a3d;
+  --muted-foreground: #9eb4bd;
   
-  /* Accent - Navy highlight */
-  --accent: #0E1B2F;
-  --accent-foreground: oklch(1.00 0.000 0);
+  /* Accent */
+  --accent: #15384d;
+  --accent-foreground: #edf5f7;
   
   /* Destructive */
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(1.00 0.000 0);
   
   /* Borders */
-  --border: oklch(0.79 0.009 50);
-  --input: oklch(0.95 0.010 50);
-  --ring: #0E1B2F;
+  --border: #234257;
+  --input: #102538;
+  --ring: #20c7d9;
 
   /* Marine blue accent — links, small icons, stat numbers */
   --shark-blue: #2E6B9E;
@@ -79,35 +79,35 @@
   --sidebar-ring: oklch(0.58 0.15 25);
   
   /* Custom Shark Automotive Colors - Light Theme */
-  --shark-navy: oklch(0.08 0.008 40);
-  --shark-navy-light: oklch(0.29 0.008 40);
-  --shark-gold: oklch(0.25 0.008 40);
-  --shark-gold-light: oklch(0.35 0.008 40);
-  --shark-gold-dark: oklch(0.15 0.008 40);
-  --shark-platinum: oklch(1.00 0.000 0);
-  --shark-steel: oklch(0.29 0.008 40);
+  --shark-navy: #07111f;
+  --shark-navy-light: #102538;
+  --shark-gold: #20c7d9;
+  --shark-gold-light: #63e0e9;
+  --shark-gold-dark: #0b6d82;
+  --shark-platinum: #edf5f7;
+  --shark-steel: #9eb4bd;
 }
 
 .dark {
-  --background: oklch(0.93 0.010 50);
-  --foreground: oklch(0.08 0.008 40);
-  --card: oklch(1.00 0.000 0);
-  --card-foreground: oklch(0.08 0.008 40);
-  --popover: oklch(1.00 0.000 0);
-  --popover-foreground: oklch(0.08 0.008 40);
-  --primary: oklch(0.58 0.15 25);
-  --primary-foreground: oklch(1.00 0.000 0);
-  --secondary: oklch(0.89 0.010 50);
-  --secondary-foreground: oklch(0.08 0.008 40);
-  --muted: oklch(0.92 0.009 50);
-  --muted-foreground: oklch(0.29 0.008 40);
-  --accent: oklch(0.58 0.15 25);
-  --accent-foreground: oklch(1.00 0.000 0);
-  --destructive: oklch(0.58 0.22 25);
-  --destructive-foreground: oklch(1.00 0.000 0);
-  --border: oklch(0.79 0.009 50);
-  --input: oklch(0.95 0.010 50);
-  --ring: oklch(0.58 0.15 25);
+  --background: #07111f;
+  --foreground: #edf5f7;
+  --card: #0d1d2d;
+  --card-foreground: #edf5f7;
+  --popover: #102538;
+  --popover-foreground: #edf5f7;
+  --primary: #20c7d9;
+  --primary-foreground: #07111f;
+  --secondary: #102538;
+  --secondary-foreground: #d9e7eb;
+  --muted: #122a3d;
+  --muted-foreground: #9eb4bd;
+  --accent: #15384d;
+  --accent-foreground: #edf5f7;
+  --destructive: #ef6a6a;
+  --destructive-foreground: #07111f;
+  --border: #234257;
+  --input: #102538;
+  --ring: #20c7d9;
 }
 
 @theme inline {
