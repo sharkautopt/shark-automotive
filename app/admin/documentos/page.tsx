@@ -52,11 +52,32 @@ export default async function AdminDocumentosPage() {
       <AdminSidebar />
       <main className="flex-1 p-8 ml-64">
         <div className="space-y-8">
-          <div>
-            <h1 className="font-display text-4xl text-foreground">DOCUMENTOS</h1>
-            <p className="text-muted-foreground/60 mt-1">
-              Gere propostas comerciais e orçamentos formais para encomendas de importação.
-            </p>
+          <div className="flex flex-col gap-5 border-b border-border pb-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-primary">Centro documental</p>
+              <h1 className="font-display text-4xl text-foreground">DOCUMENTOS</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                Cria propostas e orçamentos completos a partir do stock, de um anúncio ou de dados introduzidos manualmente.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs sm:w-72">
+              <div className="border border-border bg-card p-3"><span className="block text-muted-foreground">Disponíveis</span><strong className="mt-1 block text-lg text-foreground">{vehicles.length}</strong></div>
+              <div className="border border-border bg-card p-3"><span className="block text-muted-foreground">Recentes</span><strong className="mt-1 block text-lg text-foreground">{recent.length}</strong></div>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              ["01", "Escolher origem", "Stock, URL ou texto do anúncio"],
+              ["02", "Rever dados", "Confirma campos, ISV e margens"],
+              ["03", "Gerar documento", "PDF pronto para partilhar"],
+            ].map(([number, title, description]) => (
+              <div key={number} className="border border-border/80 bg-card/60 p-4">
+                <span className="font-mono text-xs text-primary">{number}</span>
+                <p className="mt-3 text-sm font-medium text-foreground">{title}</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">{description}</p>
+              </div>
+            ))}
           </div>
 
           <EncomendaGenerator vehicles={vehicles} />
