@@ -1,0 +1,486 @@
+SHARK AUTOMOTIVE — TEXTOS PARA REVISÃO
+Gerado a 02/09/2026
+Valores e nomes são exemplos de maquete, não conteúdo final.
+
+################################################################
+# 1A. PÁGINA: INÍCIO (www.sharkauto.pt)
+################################################################
+
+NAVEGAÇÃO DO SITE: Início · Viaturas · Encomenda · Parceiros · Quem somos · Contacto
+
+=== HEADER ===
+SHARK AUTOMOTIVE
+CALCULADORA
+SERVIÇO
+DOSSIER
+VIATURAS
+PERGUNTAS
+PEÇA O DOSSIER
+
+=== HERO + CALCULADORA ===
+01
+ALEMANHA · BÉLGICA · HOLANDA → PORTUGAL
+IMPORTAR CUSTA
+MENOS. AQUI ESTÁ
+A CONTA TODA.
+
+Todos os importadores lhe dizem que é mais barato. Nenhum lhe mostra a conta antes de o ter ao telefone. Aqui a conta está ao lado — ISV, transporte, legalização e a nossa comissão, linha por linha.
+
+PEÇA O DOSSIER
+VER VIATURAS
+3–4
+SEMANAS ATÉ À ENTREGA
+0
+CUSTOS FORA DA CONTA
+6
+MESES DE GARANTIA
+
+ESTIMATIVA DE CUSTO
+FICHA 01
+PREÇO NA ORIGEM
+CILINDRADA
+EMISSÕES CO₂
+ANO DA 1.ª MATRÍCULA
+COMBUSTÍVEL / GASOLINA / DIESEL
+Preço do veículo na origem
+Transporte em camião coberto
+ISV estimado (Alfândega)
+Legalização, matrícula e IUC
+Comissão Shark (fixa)
+TOTAL NA SUA GARAGEM
+
+Estimativa. O ISV é calculado pelas tabelas de cilindrada e CO₂ com redução por idade do veículo; o valor exacto é emitido pela Alfândega e confirmado no dossier antes de qualquer pagamento.
+
+CONFIRMAR ESTA CONTA COM UM TÉCNICO
+
+=== SERVIÇO — O QUE ESTÁ E NÃO ESTÁ INCLUÍDO ===
+02
+ZERO CONVERSAS
+UMA COMISSÃO FIXA. NADA POR BAIXO DA MESA.
+
+ESTÁ INCLUÍDO
++ Procura e negociação na origem
++ Inspecção técnica na rampa por técnico qualificado
++ Dossier técnico completo antes de qualquer pagamento
++ Transporte em porta-carros coberto e segurado
++ ISV, matrícula portuguesa e registo na DGV
++ Garantia de seis meses em motor e transmissão
+
+NÃO FAZEMOS
+— Comissões variáveis conforme o preço do carro
+— Vender viaturas que não vimos ao vivo
+— Custos que aparecem depois do sinal
+— Insistir ao telefone depois de um não
+— Prometer prazos que dependem de terceiros
+
+COMO PAGAMOS
+1. Sinal
+Reserva a viatura depois de ler o dossier. Se a inspecção reprovar, devolvemos.
+2. Compra
+Pagamento ao vendedor na origem, com factura no seu nome.
+3. Entrega
+ISV, matrícula e comissão liquidados contra documentos. Nunca antes.
+
+=== O DOSSIER ===
+03
+VERIFICAÇÃO SHARK
+NÃO PEDIMOS CONFIANÇA. ENTREGAMOS PROVAS.
+
+Antes de dar um sinal, recebe um documento com tudo o que sabemos sobre a viatura. Se algo lá não estiver, é porque não foi verificado — e dizemo-lo.
+
+01 VERIFICAÇÃO DOCUMENTAL
+Histórico completo, quilometragem real, sinistros registados e situação legal da viatura no país de origem.
+CAR-PASS · VIN · MANUTENÇÃO
+
+02 INSPECÇÃO TÉCNICA
+Motor, transmissão, suspensão, travões e sistemas electrónicos avaliados na rampa, com leitura de erros.
+RELATÓRIO ASSINADO
+
+03 REGISTO FOTOGRÁFICO
+Cada painel, cada jante, o interior e o compartimento do motor. Os defeitos também são fotografados.
+FOTOGRAFIAS + VÍDEO 360°
+
+04 TRANSPORTE
+Porta-carros coberto desde a origem até Portugal, com seguro total e rastreamento durante o percurso.
+GPS · SEGURO TOTAL
+
+05 LEGALIZAÇÃO
+Cálculo e liquidação do ISV, matrícula portuguesa, IUC e registo — tratado por nós de ponta a ponta.
+ISV · DGV · MATRÍCULA
+
+06 GARANTIA
+Seis meses de cobertura em motor, transmissão e sistemas principais, com rede de oficinas parceiras.
+6 MESES · ASSISTÊNCIA 24H
+
+=== POR DENTRO DO PROCESSO — FOTOGRAFIA REAL ===
+04
+OPERAÇÕES · 2025—2026
+FOTOGRAFIAS NOSSAS. CARROS NOSSOS. RAMPAS NOSSAS.
+
+Legendas das imagens:
+MERCEDES EQS SOBRE RAMPA DE INSPECÇÃO TÉCNICA
+PORTA-CARROS CARREGADO COM VIATURAS IMPORTADAS
+CAMIÃO PORTA-CARROS ROLFO A DESCARREGAR VIATURAS
+MAZDA MX-5 TRANSPORTADO EM REBOQUE NA AUTOESTRADA
+BMW TOURING DURANTE O PERCURSO DE IMPORTAÇÃO
+FIAT 500 COM MATRÍCULA SHARK AUTOMOTIVE NA ENTREGA
+
+=== VIATURAS DISPONÍVEIS ===
+05
+INVENTÁRIO
+DUAS VIATURAS. AMBAS JÁ INSPECCIONADAS.
+
+O inventário é curto porque só compramos depois de ver. A maior parte do que entregamos é encomendado — diz-nos o carro, nós procuramos.
+
+HOLANDA · MINI COOPER S · 10 900 € · DESDE 180 €/MÊS
+ANO 2011 · KM 147 500 · COMB. Gasolina · POTÊNCIA 184 cv
+VER VIATURA / DESCARREGAR FICHA
+
+HOLANDA · VOLKSWAGEN POLO · 6 800 € · DESDE 110 €/MÊS
+ANO 2012 · KM 144 500 · COMB. Diesel · POTÊNCIA 75 cv
+VER VIATURA / DESCARREGAR FICHA
+
+SOB ENCOMENDA
+NÃO ESTÁ AQUI? VAMOS BUSCÁ-LO.
+Marca, modelo, ano, quilometragem e o tecto de orçamento. Procuramos na Alemanha, Bélgica e Holanda e voltamos com duas ou três opções — cada uma com a conta feita.
+SOLICITAR IMPORTAÇÃO
+
+=== PERGUNTAS FREQUENTES ===
+06
+PRIMEIRA IMPORTAÇÃO
+AS PERGUNTAS QUE TODOS FAZEM À TERCEIRA CHAMADA.
+
+Porque é que importar sai mais barato?
+O mesmo carro, com o mesmo ano e quilometragem, custa menos no mercado alemão, belga ou holandês do que em Portugal, porque a oferta é muito maior. Essa diferença cobre o ISV, o transporte e o nosso serviço — e ainda sobra. Quando não sobra, dizemos-lhe e não avançamos.
+
+O que é o ISV e quem o paga?
+Imposto Sobre Veículos, pago ao Estado português no momento da legalização. Calcula-se pela cilindrada e pelas emissões de CO₂, com uma redução conforme a idade da viatura. Está na conta acima e no orçamento final. Não é nossa margem e não lhe cobramos nada por cima dele.
+
+Posso ver o carro antes de comprar?
+Vê o dossier: fotografia de cada painel e do interior, vídeo 360°, leitura de erros da centralina, Car-Pass ou histórico de quilometragem, e as fotografias da própria inspecção na rampa. Se quiser ir ver pessoalmente, organizamos a viagem.
+
+E se o carro chegar com um problema?
+A inspecção acontece antes de haver compra, por isso a maioria dos problemas trava aí. O que segue viagem leva garantia de seis meses em motor, transmissão e sistemas principais, com oficinas parceiras em Portugal.
+
+Quanto tempo demora do sim à entrega?
+Três a quatro semanas. Uma a duas para verificação e documentação, cinco a sete dias de transporte em camião coberto, e o resto para legalização, matrícula portuguesa e entrega ao domicílio.
+
+Tenho de pagar tudo adiantado?
+Não. Um sinal reserva a viatura depois de ler o dossier. A compra na origem é feita com factura no seu nome. O ISV, a matrícula e a nossa comissão são liquidados contra documentos, na entrega.
+
+=== CTA FINAL ===
+07
+CONTACTO
+PEÇA O DOSSIER DE UMA VIATURA.
+
+Diga-nos o carro que tem em mente. Enviamos o dossier técnico de uma viatura real que corresponda, com a conta fechada. Sem compromisso e sem telefonemas a insistir.
+
+PEÇA O DOSSIER
+WHATSAPP
+
+=== FOOTER ===
+ZERO CONVERSAS. TOTAL TRANSPARÊNCIA.
+NAVEGAR: Protocolo · Viaturas · Encomenda · Parceiros · Contacto
+ÁREA RESTRITA: Cliente · Admin
+@sharkauto.pt
+O website www.sharkauto.pt é propriedade e gerido por ESTIRPESÓBRIA — SOCIEDADE UNIPESSOAL LDA · Avenida Luís Bívar, n.º 91, Piso 1 e 0, Fracção A, Lisboa · NIPC: 519473108 · Licença de Comércio e Actividades Aduaneiras Registada.
+© 2026 SHARK AUTO. TODOS OS DIREITOS RESERVADOS.
+
+################################################################
+# 1B. PÁGINA: ENCOMENDA
+################################################################
+
+=== 01 · IMPORTAÇÃO SOB ENCOMENDA ===
+NÃO ENCONTROU O SEU VEÍCULO IDEAL?
+
+Procuramos o veículo perfeito para si na Alemanha ou Holanda. Com acesso privilegiado ao mercado Europeu, encontramos exatamente o que procura, com a especificação e orçamento definidos por si.
+
+Pesquisa personalizada — Encontramos o veículo exato
+Verificação completa — Inspeção documentada
+Entrega chave-na-mão — Tratamos de tudo
+
+=== 02 · PROCESSO ===
+COMO FUNCIONA A IMPORTAÇÃO
+Um processo transparente e estruturado, do briefing inicial à entrega das chaves.
+
+01 Briefing inicial — 1 dia
+Definimos juntos o veículo ideal: marca, modelo, especificações, orçamento máximo e prazo desejado.
+
+02 Pesquisa de mercado — 3–7 dias
+Procuramos em múltiplas fontes na Alemanha e Holanda, apresentando as melhores opções encontradas.
+
+03 Verificação & inspeção — 2–3 dias
+Realizamos uma verificação completa: documentação, Car-Pass e inspeção técnica presencial.
+
+04 Reserva & pagamento — 1 dia
+Após aprovação, reservamos o veículo com sinal. Opções de financiamento disponíveis.
+
+05 Transporte — 5–7 dias
+Transporte especializado em camião coberto desde a origem até Portugal com seguro total.
+
+06 Legalização & entrega — 5–7 dias
+Tratamos de toda a documentação: ISV, IUC, matrícula portuguesa. Entrega ao domicílio ou em local acordado.
+
+PRAZO TOTAL ESTIMADO: 2–4 SEMANAS
+
+=== 03 · SIMULADOR DE IMPORTAÇÃO ===
+SIMULE A SUA ENCOMENDA
+Cole um anúncio, introduza um URL do Mobile.de ou AutoScout24, ou preencha os dados manualmente. O simulador estima o ISV e todos os custos de importação.
+
+Separadores: URL / IA (colar texto) / Manual
+
+[URL] Importar por URL
+1. Copie o endereço do anúncio no Mobile.de, AutoScout24 ou Coches.net.
+2. Cole aqui e clique "Extrair dados".
+3. Confirme os dados extraídos antes de simular o ISV.
+Placeholder: https://www.mobile.de/…
+
+[IA] Extração automática com IA
+1. Abra o anúncio do carro no browser (Mobile.de, AutoScout24, Coches.net, etc.)
+2. Selecione e copie todo o texto (Ctrl+A, Ctrl+C)
+3. Cole aqui e clique "Analisar" — a IA extrai os dados automaticamente
+Placeholder: Cole aqui o texto completo do anúncio…
+
+[MANUAL] Introdução manual
+1. Indique marca, modelo e ano da primeira matrícula.
+2. Acrescente cilindrada, emissões de CO₂ e combustível.
+3. O simulador calcula o ISV e o custo total de importação.
+Placeholder: Marca, modelo, ano, cilindrada, CO₂, quilometragem…
+
+Botão: EXTRAIR DADOS
+
+=== 04 · PEDIDO DE IMPORTAÇÃO ===
+SOLICITAR PESQUISA
+Preencha o formulário com as especificações do veículo pretendido. Entraremos em contacto em 24 horas.
+
+Campos: Nome · Email · Telefone · Marca e modelo pretendidos · Ano mínimo · Orçamento máximo
+Botão: ENVIAR PEDIDO DE IMPORTAÇÃO
+
+
+################################################################
+# 1C. PÁGINA: PARCEIROS (SHARK PARTNERS)
+################################################################
+
+=== 01 · SHARK PARTNERS ===
+FINANCIA STOCK AUTOMÓVEL. PARTILHA OS LUCROS REAIS.
+
+Sem promessas de rendimentos mágicos ou fundos abstratos. Participa diretamente na compra e revenda de viaturas específicas no mercado europeu com 100% de transparência contratual.
+
+=== 02 · MODELOS DE PARTICIPAÇÃO ===
+COMO PARTICIPAR
+Duas formas de participar nas operações da Shark. Cada operação é contratualizada individualmente por viatura.
+
+PARTICIPAÇÃO PASSIVA
+Tu entras com o capital para a viatura. A Shark Auto gere todo o ciclo operacional — sourcing B2B, transporte, legalização, detalhe e venda retail.
++ Contrato por viatura
++ Zero envolvimento operacional ou burocrático
++ Recebes capital + lucro diretamente na venda
++ Acesso ao dossier financeiro completo
+
+PARTICIPAÇÃO ACTIVA
+Ideal para quem quer acompanhar de perto e aprender a dinâmica do mercado automóvel B2B.
++ Contrato por viatura
++ Acesso em tempo real aos leilões B2B europeus
++ Co-decisão no modelo e pricing de venda
++ Transparência total de margens e custos
+
+=== 03 · OPERAÇÃO EXEMPLO ===
+COMO FUNCIONA NA PRÁTICA
+Uma operação real, anonimizada. Cada passo foi documentado e partilhado com o parceiro ao longo do ciclo.
+
+Participação inicial — Contrato individual assinado antes da compra — 8.000 €
+Viatura adquirida — Leilão fechado, Alemanha — Hot hatch alemão, 2019
+Verificação Shark — Dossier técnico completo partilhado — Aprovada
+Ciclo da operação — Compra → transporte → legalização → venda — 9 semanas
+Resultado partilhado — Distribuído conforme a participação contratada — Proporcional
+
+Exemplo ilustrativo baseado numa operação concluída. Resultados passados não garantem resultados futuros. Cada operação é definida por contrato individual, sem percentagens garantidas.
+
+=== 04 · CONTACTO ===
+TEM INTERESSE?
+O modelo de parceria da Shark é contratualizado individualmente por operação. Se tem interesse em participar, fale connosco directamente.
+
+Campos: Nome · Email · Telefone · Capital que pretende alocar
+Botão: QUERO SABER MAIS
+
+A sua informação é confidencial e será tratada de acordo com a nossa política de privacidade.
+
+A participação em operações da Shark Automotive é formalizada por contrato de Associação em Participação, nos termos do Código Comercial Português. Não constitui instrumento financeiro regulado. Cada operação é independente e os resultados dependem do mercado.
+
+
+################################################################
+# 1D. PÁGINA: QUEM SOMOS
+################################################################
+
+>>> POR ESCREVER — falta a cópia. Blocos previstos: Missão da empresa · Equipa.
+
+
+
+################################################################
+# 2. PORTAL DO CLIENTE (área reservada)
+################################################################
+
+SHARK AUTOMOTIVE
+A SUA IMPORTAÇÃO · OP-2026-014
+
+PASSO 2 DE 8 · BRIEFING RECEBIDO
+A SUA BMW M8 ESTÁ A SER PROCURADA.
+
+Temos o briefing fechado e estamos a avaliar opções na Alemanha e na Bélgica. Assim que houver duas ou três candidatas, recebe o dossier de cada uma com a conta completa antes de decidir.
+
+PASSO ACTUAL — 2/8 — Briefing recebido
+PRAZO ESTIMADO — 4–6 — semanas até à entrega
+JÁ PAGO — 8 000 € — de 96 400 €
+DOCUMENTOS — 3 — disponíveis para si
+
+--- O PROCESSO, PASSO A PASSO ---
+1. Pedido qualificado (02/06) — Briefing e orçamento aprovados.
+2. Briefing recebido (14/07) — Marca, modelo, orçamento e extras confirmados. Estamos a procurar.
+3. Viatura localizada — Apresentamos duas ou três opções, cada uma com a conta fechada.
+4. Inspecção na origem — Relatório técnico, leitura da centralina e fotografias na rampa.
+5. Contrato assinado — Sinal liquidado e viatura reservada no seu nome.
+6. Transporte — Porta-carros coberto e segurado, com rastreamento.
+7. Legalização — ISV, matrícula nacional e registo tratados por nós.
+8. Entrega — Entrega ao domicílio e garantia de seis meses activa.
+
+--- A SUA CONTA ---
+Preço do veículo na origem — 78 000 €
+ISV estimado — 9 900 €
+Transporte e seguro — 3 000 €
+Taxa de serviço Shark — 5 500 €
+TOTAL CHAVE NA MÃO — 96 400 €
+
+Sinal de reserva · Pago a 14/07 · MB Way — 8 000 € [RECIBO]
+Compra na origem · Vence a 28/07 · transferência SEPA — 72 000 € [PAGAR AGORA]
+ISV, matrícula e comissão · Na entrega, contra documentos — 16 400 € [EM BREVE]
+
+--- OS SEUS DOCUMENTOS ---
+Orçamento ORC-2026-014.pdf — Emitido 02/06 · 240 KB
+Briefing assinado.pdf — Recebido 14/07 · 1,1 MB
+Recibo do sinal.pdf — Emitido 14/07 · 88 KB
+
+--- FALAR COM A SHARK (RESPONDEMOS HOJE) ---
+Shark · 14:02 — Boa tarde Vasco. Recebemos o briefing do M8. Já temos duas opções na Alemanha que encaixam no orçamento.
+Você · 14:18 — Perfeito. A prioridade é o Carbon Core e o pacote Driver's. Cor escura de preferência.
+Shark · 14:25 — Anotado. Envio o dossier das duas até amanhã com a conta fechada de cada uma, ISV incluído.
+Você · 14:31 — Obrigado. E o prazo mantém-se nas 4 semanas?
+
+RODAPÉ
+ESTIRPESÓBRIA — SOCIEDADE UNIPESSOAL LDA · Avenida Luís Bívar, n.º 91, Lisboa · NIPC 519473108 · +351 911 903 833
+
+################################################################
+# 3. DOCUMENTOS GERADOS (PDF)
+################################################################
+
+=== 3.1 ORÇAMENTO (A4) ===
+SHARK AUTOMOTIVE
+IMPORTAÇÃO PREMIUM POR ENCOMENDA
+ORÇAMENTO · Nº ORC-2026-005
+PREPARADO PARA: Eduardo Rodrigues
+DATA: 14/07/2026 · VÁLIDO ATÉ: 29/07/2026
+
+HONDA S2000
+2000 · 63 000 km · Gasolina · leboncoin
+CHAVE NA MÃO: 44 530 €
+
+ESPECIFICAÇÃO
+Marca / Modelo — Honda S2000
+Ano — 2000
+Quilometragem — 63 000 km
+Combustível — Gasolina
+Potência — 240 cv
+Cilindrada — 1997 cm³
+Caixa — Manual
+Tracção — RWD
+Portas / Lugares — 2 / 2
+Cor — Prata
+Interior — Estofos vermelhos
+Origem — leboncoin · França
+
+DISCRIMINAÇÃO DE CUSTOS
+Preço do veículo na origem — 36 000 €
+ISV estimado — 4 030 €
+  Calculado por cilindrada e CO₂, com redução por idade.
+Taxa de serviço Shark — 4 500 €
+  Inclui transporte, seguro e todos os encargos documentais e notariais necessários.
+TOTAL CHAVE NA MÃO — 44 530 €
+
+PRAZO ESTIMADO: 4 a 6 semanas
+GARANTIA INCLUÍDA: 6 meses · 500 €
+
+Orçamento sujeito a confirmação após inspecção física do veículo. Não constitui contrato de compra e venda. O ISV apresentado é uma estimativa calculada pelas tabelas de cilindrada e CO₂ em vigor; o valor definitivo é emitido pela Alfândega.
+
+ZERO CONVERSAS · TOTAL TRANSPARÊNCIA
+ESTIRPESÓBRIA — Sociedade Unipessoal Lda · Avenida Luís Bívar, n.º 91, Lisboa · NIPC 519473108
++351 911 903 833 · www.sharkauto.pt
+A Gerência
+
+=== 3.2 FICHA DE VIDRO (A4) ===
+SHARK AUTOMOTIVE
+VERIFICAÇÃO SHARK · 150 PONTOS APROVADOS
+
+VIATURA IMPORTADA · HOLANDA
+MINI COOPER S
+10 900 € — chave na mão · desde 180 €/mês
+
+ANO 2011 · QUILOMETRAGEM 147 500 · COMBUSTÍVEL Gasolina
+POTÊNCIA 184 cv · CAIXA Manual · GARANTIA 6 meses
+
+EQUIPAMENTO VERIFICADO
++ Climatização automática
++ Jantes de liga leve 17"
++ Sensores de estacionamento
++ Bluetooth e entrada USB
++ Volante multifunções em pele
++ Faróis de nevoeiro
++ Computador de bordo
++ Bancos desportivos
++ Livro de revisões completo
++ Segundo jogo de chaves
+
+DOSSIER TÉCNICO COMPLETO
+Histórico, leitura da centralina, 38 fotografias e relatório de inspecção assinado. Peça no balcão ou em www.sharkauto.pt
+[QR DOSSIER]
+
+ESTIRPESÓBRIA — Sociedade Unipessoal Lda · NIPC 519473108 · Avenida Luís Bívar, n.º 91, Lisboa · +351 911 903 833
+
+=== 3.3 DECLARAÇÃO DE CIRCULAÇÃO (A4) ===
+SHARK AUTOMOTIVE
+ZERO CONVERSAS · TOTAL TRANSPARÊNCIA
+Declaração N.º 031 · Emitida em 14/07/2026
+
+DECLARAÇÃO DE CIRCULAÇÃO
+
+Para os devidos efeitos, e em especial para fazer fé perante as Autoridades de Trânsito e Alfandegárias, a SHARK AUTOMOTIVE declara que a viatura abaixo identificada foi vendida e começou a circular nesta data, sob a responsabilidade do seguinte cliente:
+
+DADOS DO CLIENTE
+Nome completo — Eduardo Rodrigues
+Morada completa — Rua das Amoreiras, n.º 12, 3.º Dto., 1250-062 Lisboa
+NIF (contribuinte) — 234 567 891
+
+CARACTERÍSTICAS DA VIATURA
+Matrícula — AB-12-CD
+Mat. estrangeira — GX-482-VK
+Marca / Modelo — Honda S2000
+Ano construção — 2000
+Data 1.ª matrícula — 12/04/2000
+Data mat. nacional — 14/07/2026
+N.º chassi (VIN) — JHMAP11400S200412
+Cilindrada — 1997 cm³
+Potência — 240 cv / 176 kW
+Combustível — Gasolina
+Lotação — 2 lugares
+Categoria / Tipo — Ligeiro / Passageiros
+Cor — Prata
+Portas — 2
+Tara — 1 260 kg
+Peso bruto — 1 480 kg
+
+Mais declaramos que o referido cliente não se faz acompanhar dos respectivos documentos, por os mesmos se encontrarem em regularização junto das Repartições Oficiais (Conservatória do Registo de Automóveis e Notariado), situação prevista e autorizada pela Direcção-Geral das Contribuições e Impostos, nos termos da legislação aplicável em vigor.
+
+Esta declaração é válida por 60 dias úteis a contar da data de emissão.
+
+Lisboa, 14/07/2026
+A Gerência — SHARK AUTOMOTIVE
+
+ESTIRPESÓBRIA, UNIPESSOAL LDA (Shark Automotive) · Sede: Avenida Luís Bívar, n.º 91, Piso -1 e 0, Fracção A, 1069-141 Lisboa · NIF 519473108 · Capital Social 2.500,00 € · IBAN PT50 0033 0000 4584 3610 1870 5

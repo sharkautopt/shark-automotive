@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #081619; }
+  * { box-sizing: border-box; }
+  a { color: #E9A93F; text-decoration: none; }
+  a:hover { color: #ffffff; }
+  ::selection { background: #E9A93F; color: #081619; }
+  input { font-family: inherit; }
+</style>
+</helmet>
+
+<div style="background:#0E2529;color:#EDEAE2;font-family:'IBM Plex Sans',system-ui,sans-serif;min-height:100vh">
+
+  <header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(16px,4vw,48px);border-bottom:1px solid rgba(237,234,226,0.14)">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="https://www.sharkauto.pt/images/shark-fin-logo.png" alt="Shark Automotive" style="height:20px;width:auto;filter:brightness(0) invert(1)" />
+      <span style="font-family:Anton,sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase">Shark Automotive</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8FA3A6">A sua importação · OP-2026-014</span>
+      <div style="width:30px;height:30px;background:#E9A93F;color:#0E2529;display:grid;place-items:center;font-family:Anton,sans-serif;font-size:14px">V</div>
+    </div>
+  </header>
+
+  <main style="padding:clamp(24px,4vw,56px) clamp(16px,4vw,48px);max-width:1240px;margin:0 auto">
+
+    <div style="margin-bottom:clamp(28px,4vw,44px)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#E9A93F;margin-bottom:14px">Passo 2 de 8 · Briefing recebido</div>
+      <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(34px,6vw,68px);line-height:0.92;text-transform:uppercase;margin:0 0 18px;text-wrap:balance">A sua BMW M8 está a ser procurada.</h1>
+      <p style="font-size:clamp(14px,1.5vw,17px);line-height:1.65;color:#C4BFB3;max-width:60ch;margin:0;text-wrap:pretty">Temos o briefing fechado e estamos a avaliar opções na Alemanha e na Bélgica. Assim que houver duas ou três candidatas, recebe o dossier de cada uma com a conta completa antes de decidir.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:1px;border:1px solid rgba(237,234,226,0.14);margin-bottom:clamp(24px,3vw,36px)">
+      <sc-for list="{{ resumo }}" as="r" hint-placeholder-count="4">
+        <div style="box-shadow:0 0 0 1px rgba(237,234,226,0.14);background:#0E2529;padding:20px 18px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#8FA3A6;margin-bottom:12px">{{ r.label }}</div>
+          <div style="font-family:Anton,sans-serif;font-size:28px;line-height:0.95">{{ r.valor }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#C4BFB3;margin-top:8px">{{ r.nota }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(20px,2.5vw,32px);align-items:start">
+
+      <div style="border:1px solid rgba(237,234,226,0.14)">
+        <div style="padding:20px 22px;border-bottom:1px solid rgba(237,234,226,0.14)">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:19px;text-transform:uppercase;margin:0">O processo, passo a passo</h2>
+        </div>
+        <sc-for list="{{ passos }}" as="p" hint-placeholder-count="8">
+          <div style="display:flex;gap:16px;padding:17px 22px;border-bottom:1px solid rgba(237,234,226,0.09)">
+            <div style="{{ p.marcador }}">{{ p.icone }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px">
+                <span style="{{ p.tituloEstilo }}">{{ p.titulo }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA3A6;flex:none">{{ p.data }}</span>
+              </div>
+              <div style="{{ p.notaEstilo }}">{{ p.nota }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;gap:clamp(20px,2.5vw,32px)">
+
+        <div style="border:1px solid rgba(237,234,226,0.14)">
+          <div style="padding:20px 22px;border-bottom:1px solid rgba(237,234,226,0.14)">
+            <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:19px;text-transform:uppercase;margin:0">A sua conta</h2>
+          </div>
+          <div style="padding:20px 22px;border-bottom:1px solid rgba(237,234,226,0.12)">
+            <sc-for list="{{ conta }}" as="c" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px dotted rgba(237,234,226,0.2)">
+                <span style="font-size:13px;color:#C4BFB3">{{ c.label }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;white-space:nowrap">{{ c.valor }}</span>
+              </div>
+            </sc-for>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:18px 0 0">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Total chave na mão</span>
+              <span style="font-family:Anton,sans-serif;font-size:30px;line-height:1">96 400 €</span>
+            </div>
+          </div>
+          <sc-for list="{{ pagamentos }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid rgba(237,234,226,0.09)">
+              <div style="flex:1;min-width:140px">
+                <div style="font-size:13px;font-weight:500">{{ p.descricao }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA3A6;margin-top:4px">{{ p.detalhe }}</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;flex:none">{{ p.valor }}</div>
+              <button style="{{ p.botaoEstilo }}">{{ p.botaoLabel }}</button>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="border:1px solid rgba(237,234,226,0.14)">
+          <div style="padding:20px 22px;border-bottom:1px solid rgba(237,234,226,0.14)">
+            <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:19px;text-transform:uppercase;margin:0">Os seus documentos</h2>
+          </div>
+          <sc-for list="{{ documentos }}" as="d" hint-placeholder-count="3">
+            <a href="#" style="display:flex;align-items:center;gap:14px;padding:15px 22px;border-bottom:1px solid rgba(237,234,226,0.09);color:#EDEAE2" style-hover="background:#123035">
+              <div style="width:30px;height:38px;flex:none;background:rgba(237,234,226,0.1);border:1px solid rgba(237,234,226,0.2);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:7px;color:#C4BFB3">PDF</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.nome }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA3A6;margin-top:4px">{{ d.meta }}</div>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#E9A93F;flex:none">Abrir</span>
+            </a>
+          </sc-for>
+        </div>
+
+        <div style="border:1px solid rgba(237,234,226,0.14);display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 22px;border-bottom:1px solid rgba(237,234,226,0.14)">
+            <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:19px;text-transform:uppercase;margin:0">Falar com a Shark</h2>
+            <span style="display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#7FBF9A"><span style="width:6px;height:6px;background:#7FBF9A;border-radius:50%"></span>Respondemos hoje</span>
+          </div>
+          <div style="padding:20px 22px;display:flex;flex-direction:column;gap:14px;max-height:320px;overflow-y:auto">
+            <sc-for list="{{ mensagens }}" as="m" hint-placeholder-count="4">
+              <div style="{{ m.linha }}">
+                <div style="{{ m.bolha }}">
+                  <div style="font-size:13px;line-height:1.55">{{ m.texto }}</div>
+                  <div style="{{ m.metaEstilo }}">{{ m.autor }} · {{ m.hora }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:8px;padding:16px 22px;border-top:1px solid rgba(237,234,226,0.12)">
+            <input type="text" value="{{ rascunho }}" onChange="{{ setRascunho }}" placeholder="Escrever mensagem…" style="flex:1;min-width:0;padding:12px 14px;background:rgba(237,234,226,0.06);border:1px solid rgba(237,234,226,0.2);color:#EDEAE2;font-size:13px;outline:none" />
+            <button onClick="{{ enviar }}" style="flex:none;padding:12px 18px;background:#E9A93F;color:#0E2529;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#EDEAE2">Enviar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer style="padding:32px clamp(16px,4vw,48px);background:#081619;font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.8;color:#6C6A62">
+    ESTIRPESÓBRIA — SOCIEDADE UNIPESSOAL LDA · Avenida Luís Bívar, n.º 91, Lisboa · NIPC 519473108 · +351 911 903 833
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+/* Shark Automotive — customer portal for one operation (design reference).
+   INT-03 operation + steps · INT-05 payment links · INT-04 documents bucket
+   INT-06 realtime chat. RLS: a customer reads ONLY rows where
+   operations.customer_id = auth.uid(). Mock data below. */
+
+class Component extends DCLogic {
+  state = { rascunho: "", extra: [] };
+
+  renderVals() {
+    const s = this.state;
+    const passoActual = 2;
+
+    const defs = [
+      ["Pedido qualificado", "Briefing e orçamento aprovados.", "02/06"],
+      ["Briefing recebido", "Marca, modelo, orçamento e extras confirmados. Estamos a procurar.", "14/07"],
+      ["Viatura localizada", "Apresentamos duas ou três opções, cada uma com a conta fechada.", ""],
+      ["Inspecção na origem", "Relatório técnico, leitura da centralina e fotografias na rampa.", ""],
+      ["Contrato assinado", "Sinal liquidado e viatura reservada no seu nome.", ""],
+      ["Transporte", "Porta-carros coberto e segurado, com rastreamento.", ""],
+      ["Legalização", "ISV, matrícula nacional e registo tratados por nós.", ""],
+      ["Entrega", "Entrega ao domicílio e garantia de seis meses activa.", ""]
+    ];
+
+    const base = [
+      { autor: "Shark", texto: "Boa tarde Vasco. Recebemos o briefing do M8. Já temos duas opções na Alemanha que encaixam no orçamento.", hora: "14:02", meu: false },
+      { autor: "Você", texto: "Perfeito. A prioridade é o Carbon Core e o pacote Driver's. Cor escura de preferência.", hora: "14:18", meu: true },
+      { autor: "Shark", texto: "Anotado. Envio o dossier das duas até amanhã com a conta fechada de cada uma, ISV incluído.", hora: "14:25", meu: false },
+      { autor: "Você", texto: "Obrigado. E o prazo mantém-se nas 4 semanas?", hora: "14:31", meu: true }
+    ];
+
+    return {
+      resumo: [
+        { label: "Passo actual", valor: "2/8", nota: "Briefing recebido" },
+        { label: "Prazo estimado", valor: "4–6", nota: "semanas até à entrega" },
+        { label: "Já pago", valor: "8 000 €", nota: "de 96 400 €" },
+        { label: "Documentos", valor: "3", nota: "disponíveis para si" }
+      ],
+
+      passos: defs.map(([titulo, nota, data], i) => {
+        const n = i + 1;
+        const feito = n < passoActual;
+        const actual = n === passoActual;
+        let marcador = "width:28px;height:28px;flex:none;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;";
+        if (feito) marcador += "background:#EDEAE2;color:#0E2529";
+        else if (actual) marcador += "background:#E9A93F;color:#0E2529";
+        else marcador += "background:rgba(237,234,226,0.1);color:#8FA3A6";
+        return {
+          titulo,
+          nota,
+          data: data || "—",
+          icone: feito ? "✓" : String(n),
+          marcador,
+          tituloEstilo: "font-size:14px;font-weight:" + (actual ? "600" : "500") +
+            ";color:" + (n > passoActual ? "#8FA3A6" : "#EDEAE2"),
+          notaEstilo: (feito || actual)
+            ? "font-size:12px;line-height:1.6;color:#C4BFB3;margin-top:6px"
+            : "font-size:12px;line-height:1.6;color:#6E8285;margin-top:6px"
+        };
+      }),
+
+      conta: [
+        { label: "Preço do veículo na origem", valor: "78 000 €" },
+        { label: "ISV estimado", valor: "9 900 €" },
+        { label: "Transporte e seguro", valor: "3 000 €" },
+        { label: "Taxa de serviço Shark", valor: "5 500 €" }
+      ],
+
+      pagamentos: [
+        { descricao: "Sinal de reserva", detalhe: "Pago a 14/07 · MB Way", valor: "8 000 €", pago: true },
+        { descricao: "Compra na origem", detalhe: "Vence a 28/07 · transferência SEPA", valor: "72 000 €", pago: false },
+        { descricao: "ISV, matrícula e comissão", detalhe: "Na entrega, contra documentos", valor: "16 400 €", pago: null }
+      ].map(p => ({
+        ...p,
+        botaoLabel: p.pago === true ? "Recibo" : p.pago === false ? "Pagar agora" : "Em breve",
+        botaoEstilo: "flex:none;padding:11px 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:" +
+          (p.pago === null ? "default" : "pointer") + ";border:1px solid " +
+          (p.pago === false ? "#E9A93F" : "rgba(237,234,226,0.28)") + ";background:" +
+          (p.pago === false ? "#E9A93F" : "transparent") + ";color:" +
+          (p.pago === false ? "#0E2529" : p.pago === null ? "#6E8285" : "#EDEAE2")
+      })),
+
+      documentos: [
+        { nome: "Orçamento ORC-2026-014.pdf", meta: "Emitido 02/06 · 240 KB" },
+        { nome: "Briefing assinado.pdf", meta: "Recebido 14/07 · 1,1 MB" },
+        { nome: "Recibo do sinal.pdf", meta: "Emitido 14/07 · 88 KB" }
+      ],
+
+      mensagens: base.concat(s.extra).map(m => ({
+        ...m,
+        linha: "display:flex;justify-content:" + (m.meu ? "flex-end" : "flex-start"),
+        bolha: "max-width:80%;padding:13px 15px;background:" +
+          (m.meu ? "#E9A93F" : "rgba(237,234,226,0.08)") + ";color:" + (m.meu ? "#0E2529" : "#EDEAE2"),
+        metaEstilo: "font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;margin-top:8px;color:" +
+          (m.meu ? "rgba(14,37,41,0.6)" : "#8FA3A6")
+      })),
+
+      rascunho: s.rascunho,
+      setRascunho: (e) => this.setState({ rascunho: e.target.value }),
+      enviar: () => {
+        const t = s.rascunho.trim();
+        if (!t) return;
+        this.setState({ rascunho: "", extra: s.extra.concat([{ autor: "Você", texto: t, hora: "agora", meu: true }]) });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #060C15; }
+  * { box-sizing: border-box; }
+  a { color: #2F80ED; text-decoration: none; }
+  a:hover { color: #ffffff; }
+  input[type=range] { accent-color: #2F80ED; }
+  ::selection { background: #2F80ED; color: #FFFFFF; }
+</style>
+</helmet>
+
+<div style="background:#0A111C;color:#FFFFFF;font-family:Inter,system-ui,sans-serif;min-height:100vh;overflow-x:hidden">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px clamp(16px,4vw,56px);background:rgba(6,12,21,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(148,160,176,0.14)">
+    <button onClick="{{ irInicio }}" style="display:flex;align-items:center;gap:12px;color:#FFFFFF;background:none;border:none;padding:0;cursor:pointer">
+      <img src="https://www.sharkauto.pt/images/shark-fin-logo.png" alt="Shark Automotive" style="height:22px;width:auto;filter:brightness(0) invert(1)" />
+      <span style="font-family:Inter,sans-serif;font-weight:800;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap">Shark Automotive</span>
+    </button>
+    <nav style="display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,22px)">
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+        <button onClick="{{ m.ir }}" style="{{ m.estilo }}">{{ m.label }}</button>
+      </sc-for>
+    </nav>
+    <button onClick="{{ irContacto }}" style="flex:none;padding:11px 20px;background:#2F80ED;color:#FFFFFF;border:none;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#5C9BF2">Peça o dossier</button>
+  </header>
+
+  <sc-if value="{{ pgInicio }}" hint-placeholder-val="{{ true }}">
+  <section id="top" data-screen-label="Hero + Calculadora" style="padding:clamp(40px,6vw,88px) clamp(16px,4vw,56px) clamp(48px,6vw,96px);border-bottom:1px solid rgba(148,160,176,0.14)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>01</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+      <span style="color:#94A0B0">Selecionados europeus → Portugal</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,4vw,64px);align-items:start">
+
+      <div>
+        <h1 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(44px,7.5vw,104px);line-height:0.88;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 28px;text-wrap:balance">Importar custa<br />menos. Aqui está<br />a <span style="color:#2F80ED">conta toda</span>.</h1>
+        <p style="font-size:clamp(14px,1.5vw,17px);line-height:1.6;color:#94A0B0;max-width:52ch;margin:0 0 32px;text-wrap:pretty">Todos os importadores lhe dizem que é mais barato. Nenhum lhe mostra a conta antes de o ter ao telefone. Aqui a conta está ao lado — ISV, transporte, legalização e a nossa comissão, linha por linha.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px">
+          <a href="#contacto" style="padding:16px 28px;background:#2F80ED;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#2F80ED">Peça o dossier</a>
+          <a href="#viaturas" style="padding:16px 28px;border:1px solid rgba(148,160,176,0.35);color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#2F80ED;color:#2F80ED">Ver viaturas</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+          <div style="background:#0A111C;padding:18px 16px">
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:30px;line-height:1;color:#FFFFFF">3–6</div>
+            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#94A0B0;margin-top:8px">Semanas até à entrega</div>
+          </div>
+          <div style="background:#0A111C;padding:18px 16px">
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:30px;line-height:1;color:#FFFFFF">0</div>
+            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#94A0B0;margin-top:8px">Custos fora da conta</div>
+          </div>
+          <div style="background:#0A111C;padding:18px 16px">
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:30px;line-height:1;color:#FFFFFF">6</div>
+            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#94A0B0;margin-top:8px">Meses de garantia para viaturas importadas selecionadas</div>
+            <div style="font-size:10px;line-height:1.5;color:#6B7280;margin-top:6px">18 meses por acordo mútuo em inventário de stock</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="calculadora" style="background:#0F1826;color:#FFFFFF;border:1px solid rgba(148,160,176,0.16);padding:clamp(20px,2.5vw,32px);scroll-margin-top:80px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:2px solid #2F80ED;margin-bottom:24px">
+          <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(20px,2.2vw,26px);line-height:1;text-transform:uppercase;margin:0">Estimativa de custo</h2>
+          <span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B7280">Ficha 01</span>
+        </div>
+
+        <div style="display:grid;gap:22px;margin-bottom:28px">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF">Preço na origem</label>
+              <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:19px">{{ fPreco }}</span>
+            </div>
+            <input type="range" min="3000" max="60000" step="500" value="{{ preco }}" onChange="{{ setPreco }}" style="width:100%;margin:0" />
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF">Cilindrada</label>
+              <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:19px">{{ fCc }}</span>
+            </div>
+            <input type="range" min="875" max="3500" step="25" value="{{ cc }}" onChange="{{ setCc }}" style="width:100%;margin:0" />
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF">Emissões CO₂</label>
+              <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:19px">{{ fCo2 }}</span>
+            </div>
+            <input type="range" min="60" max="260" step="1" value="{{ co2 }}" onChange="{{ setCo2 }}" style="width:100%;margin:0" />
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#FFFFFF">Ano da 1.ª matrícula</label>
+              <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:19px">{{ ano }}</span>
+            </div>
+            <input type="range" min="2006" max="2026" step="1" value="{{ ano }}" onChange="{{ setAno }}" style="width:100%;margin:0" />
+          </div>
+
+          <div>
+            <label style="display:block;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#0A111C;margin-bottom:8px">Combustível</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0A111C;border:1px solid #0A111C">
+              <button onClick="{{ setGasolina }}" style="{{ btnGasolina }}">Gasolina</button>
+              <button onClick="{{ setDiesel }}" style="{{ btnDiesel }}">Diesel</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:2px solid #0A111C;padding-top:18px">
+          <sc-for list="{{ linhas }}" as="linha" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px dotted rgba(148,160,176,0.25)">
+              <span style="font-size:12px;color:#6B7280">{{ linha.label }}</span>
+              <span style="font-size:13px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">{{ linha.valor }}</span>
+            </div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:20px 0 0">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Total na sua garagem</span>
+            <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4vw,42px);line-height:0.9;white-space:nowrap">{{ fTotal }}</span>
+          </div>
+          <p style="font-size:10px;line-height:1.6;color:#6B7280;margin:20px 0 0;text-wrap:pretty">Estimativa. O ISV é calculado pelas tabelas de cilindrada e CO₂ com redução por idade do veículo; o valor exacto é emitido pela Alfândega e confirmado no dossier antes de qualquer pagamento.</p>
+          <a href="#contacto" style="display:block;margin-top:20px;padding:16px;background:#0A111C;color:#FFFFFF;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#2F80ED;color:#060C15">Confirmar esta conta com um técnico</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="servico" data-screen-label="Serviço — o que está e não está incluído" style="padding:clamp(48px,6vw,96px) clamp(16px,4vw,56px);border-bottom:1px solid rgba(148,160,176,0.14);scroll-margin-top:70px">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>02</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+      <span style="color:#94A0B0">Zero conversas</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(32px,5vw,68px);line-height:0.92;text-transform:uppercase;margin:0 0 clamp(32px,4vw,56px);max-width:22ch;text-wrap:balance">Uma comissão fixa. Nada por baixo da mesa.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+      <div style="background:#0A111C;padding:clamp(20px,2.5vw,32px)">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#2F80ED;margin-bottom:20px">Está incluído</div>
+        <sc-for list="{{ incluido }}" as="i" hint-placeholder-count="6">
+          <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(148,160,176,0.1);font-size:13px;line-height:1.5;color:#FFFFFF">
+            <span style="color:#2F80ED">+</span>
+            <span>{{ i }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#0A111C;padding:clamp(20px,2.5vw,32px)">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#94A0B0;margin-bottom:20px">Não fazemos</div>
+        <sc-for list="{{ naoFazemos }}" as="i" hint-placeholder-count="5">
+          <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(148,160,176,0.1);font-size:13px;line-height:1.5;color:#94A0B0">
+            <span>—</span>
+            <span>{{ i }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#0F1826;color:#FFFFFF;border:1px solid rgba(148,160,176,0.16);padding:clamp(20px,2.5vw,32px)">
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#6B7280;margin-bottom:20px">Como pagamos</div>
+        <p style="font-size:13px;line-height:1.6;color:#94A0B0;margin:0 0 20px;text-wrap:pretty">Depois de selecionar uma viatura o pagamento é feito em 3 fases:</p>
+        <div style="display:grid;gap:18px">
+          <div style="padding-bottom:16px;border-bottom:1px solid rgba(148,160,176,0.2)">
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:26px;line-height:1">1. Viatura</div>
+            <div style="font-size:12px;line-height:1.55;color:#6B7280;margin-top:6px">Pagamento direto ao stand (ou a nós — caso estejamos a licitar por ti).</div>
+          </div>
+          <div style="padding-bottom:16px;border-bottom:1px solid rgba(148,160,176,0.2)">
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:26px;line-height:1">2. Serviço</div>
+            <div style="font-size:12px;line-height:1.55;color:#6B7280;margin-top:6px">A nossa taxa de serviço engloba o transporte assegurado e todos os trâmites necessários para o registo (excluído ISV).</div>
+          </div>
+          <div>
+            <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:26px;line-height:1">3. ISV</div>
+            <div style="font-size:12px;line-height:1.55;color:#6B7280;margin-top:6px">Após termos a DAV submetida geramos uma guia de pagamento para pagares o ISV e receber a matrícula definitiva, portuguesa, em teu nome.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dossier" data-screen-label="O Dossier" style="padding:clamp(48px,6vw,96px) clamp(16px,4vw,56px);border-bottom:1px solid rgba(148,160,176,0.14);scroll-margin-top:70px">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>03</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+      <span style="color:#94A0B0">Verificação Shark</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(24px,3vw,48px);align-items:end;margin-bottom:clamp(32px,4vw,56px)">
+      <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(32px,5vw,68px);line-height:0.92;text-transform:uppercase;margin:0;text-wrap:balance">Não pedimos confiança. Entregamos provas.</h2>
+      <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;margin:0;max-width:48ch;text-wrap:pretty">Antes de avançar, recebe um documento com tudo o que sabemos sobre a viatura. Se algo lá não estiver, é porque não foi verificado — e dizemo-lo.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+      <sc-for list="{{ dossier }}" as="d" hint-placeholder-count="6">
+        <div style="background:#0A111C;padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:14px;min-height:200px" style-hover="background:#131C2B">
+          <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:38px;line-height:1;color:rgba(148,160,176,0.22)">{{ d.n }}</div>
+          <div style="font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF">{{ d.titulo }}</div>
+          <div style="font-size:12px;line-height:1.6;color:#94A0B0;flex:1">{{ d.texto }}</div>
+          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#2F80ED;padding-top:12px;border-top:1px solid rgba(148,160,176,0.14)">{{ d.tag }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Por dentro do processo — fotografia real" style="border-bottom:1px solid rgba(148,160,176,0.14)">
+    <div style="padding:clamp(48px,6vw,96px) clamp(16px,4vw,56px) clamp(28px,3vw,44px)">
+      <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+        <span>04</span>
+        <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+        <span style="color:#94A0B0">Operações · 2025—2026</span>
+      </div>
+      <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(32px,5vw,68px);line-height:0.92;text-transform:uppercase;margin:0;max-width:24ch;text-wrap:balance">Fotografias nossas. Carros nossos. Rampas nossas.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:rgba(148,160,176,0.14)">
+      <sc-for list="{{ fotos }}" as="f" hint-placeholder-count="6">
+        <figure style="position:relative;margin:0;aspect-ratio:4/3;overflow:hidden;background:#060C15">
+          <img src="{{ f.src }}" alt="{{ f.alt }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.8) contrast(1.05)" />
+          <figcaption style="position:absolute;left:0;bottom:0;right:0;padding:14px 16px;background:linear-gradient(to top,rgba(6,12,21,0.92),transparent);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#FFFFFF">{{ f.alt }}</figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgViaturas }}" hint-placeholder-val="{{ false }}">
+  <section id="viaturas" data-screen-label="Viaturas disponíveis" style="padding:clamp(48px,6vw,96px) clamp(16px,4vw,56px);border-bottom:1px solid rgba(148,160,176,0.14);scroll-margin-top:70px">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>05</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+      <span style="color:#94A0B0">Inventário</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,3vw,48px);align-items:end;margin-bottom:clamp(28px,3vw,48px)">
+      <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(32px,5vw,68px);line-height:0.92;text-transform:uppercase;margin:0;text-wrap:balance">Viaturas já inspeccionadas.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+      <sc-for list="{{ carros }}" as="c" hint-placeholder-count="2">
+        <div style="background:#0A111C;padding:clamp(20px,2.5vw,32px);display:flex;flex-direction:column;gap:20px" style-hover="background:#131C2B">
+          <div style="display:flex;justify-content:space-between;align-items:start;gap:16px">
+            <div>
+              <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#2F80ED;margin-bottom:8px">{{ c.origem }}</div>
+              <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(24px,2.6vw,32px);line-height:1;text-transform:uppercase">{{ c.nome }}</div>
+            </div>
+            <div style="text-align:right;flex:none">
+              <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(24px,2.6vw,32px);line-height:1;color:#2F80ED">{{ c.preco }}</div>
+              <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94A0B0;margin-top:6px">Desde {{ c.mensal }}/mês</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:1px;background:rgba(148,160,176,0.14)">
+            <div style="background:#0A111C;padding:12px 10px">
+              <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#94A0B0">Ano</div>
+              <div style="font-size:14px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums">{{ c.ano }}</div>
+            </div>
+            <div style="background:#0A111C;padding:12px 10px">
+              <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#94A0B0">Km</div>
+              <div style="font-size:14px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums">{{ c.km }}</div>
+            </div>
+            <div style="background:#0A111C;padding:12px 10px">
+              <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#94A0B0">Comb.</div>
+              <div style="font-size:14px;font-weight:600;margin-top:5px">{{ c.comb }}</div>
+            </div>
+            <div style="background:#0A111C;padding:12px 10px">
+              <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#94A0B0">Potência</div>
+              <div style="font-size:14px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums">{{ c.cv }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:auto">
+            <a href="{{ c.url }}" style="flex:1;min-width:130px;padding:14px;background:#2F80ED;color:#FFFFFF;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#2F80ED">Ver viatura</a>
+            <a href="{{ c.ficha }}" style="flex:1;min-width:130px;padding:14px;border:1px solid rgba(148,160,176,0.35);color:#FFFFFF;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#2F80ED;color:#2F80ED">Descarregar ficha</a>
+          </div>
+        </div>
+      </sc-for>
+      <div style="background:#0F1826;color:#FFFFFF;border:1px solid rgba(148,160,176,0.16);padding:clamp(20px,2.5vw,32px);display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B7280">Sob encomenda</div>
+        <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(24px,2.6vw,32px);line-height:1;text-transform:uppercase">Não está aqui? Vamos buscá-lo.</div>
+        <p style="font-size:13px;line-height:1.6;color:#6B7280;margin:0;flex:1">Marca, modelo, ano, quilometragem e o tecto de orçamento. Procuramos na Alemanha, Bélgica e Holanda e voltamos com duas ou três opções — cada uma com a conta feita.</p>
+        <a href="#contacto" style="padding:14px;background:#2F80ED;color:#FFFFFF;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#2F80ED;color:#060C15">Solicitar importação</a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgInicio }}" hint-placeholder-val="{{ true }}">
+  <section id="perguntas" data-screen-label="Perguntas frequentes" style="padding:clamp(48px,6vw,96px) clamp(16px,4vw,56px);border-bottom:1px solid rgba(148,160,176,0.14);scroll-margin-top:70px">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>06</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.2)"></span>
+      <span style="color:#94A0B0">Primeira importação</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
+      <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(32px,5vw,60px);line-height:0.92;text-transform:uppercase;margin:0;text-wrap:balance">As perguntas que todos fazem à terceira chamada.</h2>
+      <div>
+        <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="4">
+          <div style="border-top:1px solid rgba(148,160,176,0.18)">
+            <button onClick="{{ q.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:20px 0;background:none;border:none;color:#FFFFFF;font-family:Inter,sans-serif;font-weight:500;font-size:14px;font-weight:600;line-height:1.45;text-align:left;cursor:pointer" style-hover="color:#2F80ED">
+              <span>{{ q.pergunta }}</span>
+              <span style="flex:none;font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:20px;color:#2F80ED">{{ q.sinal }}</span>
+            </button>
+            <div style="{{ q.corpoStyle }}">
+              <p style="font-size:13px;line-height:1.7;color:#94A0B0;margin:0 0 20px;max-width:60ch;text-wrap:pretty">{{ q.resposta }}</p>
+            </div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid rgba(148,160,176,0.18)"></div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgEncomenda }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Encomenda" style="padding:clamp(40px,6vw,88px) clamp(16px,4vw,56px) clamp(48px,6vw,96px);border-bottom:1px solid rgba(148,160,176,0.14)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>01</span>
+      <span style="color:#94A0B0">Importação sob encomenda</span>
+    </div>
+    <h1 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(36px,6vw,82px);line-height:0.9;text-transform:uppercase;margin:0 0 28px;max-width:20ch;text-wrap:balance">Não encontrou o seu veículo ideal?</h1>
+    <p style="font-size:clamp(14px,1.5vw,17px);line-height:1.6;color:#94A0B0;max-width:60ch;margin:0 0 clamp(32px,4vw,52px);text-wrap:pretty">Procuramos o veículo perfeito para si na Alemanha ou Holanda. Com acesso privilegiado ao mercado Europeu, encontramos exatamente o que procura, com a especificação e orçamento definidos por si.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14);margin-bottom:clamp(48px,6vw,96px)">
+      <div style="background:#0A111C;padding:24px 22px">
+        <div style="font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF;margin-bottom:8px">Pesquisa personalizada</div>
+        <div style="font-size:12px;line-height:1.6;color:#94A0B0">Encontramos o veículo exato</div>
+      </div>
+      <div style="background:#0A111C;padding:24px 22px">
+        <div style="font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF;margin-bottom:8px">Verificação completa</div>
+        <div style="font-size:12px;line-height:1.6;color:#94A0B0">Inspeção documentada</div>
+      </div>
+      <div style="background:#0A111C;padding:24px 22px">
+        <div style="font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF;margin-bottom:8px">Entrega chave-na-mão</div>
+        <div style="font-size:12px;line-height:1.6;color:#94A0B0">Tratamos de tudo</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:20px">
+      <span>02</span>
+      <span style="color:#94A0B0">Processo</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px;max-width:22ch;text-wrap:balance">Como funciona a importação</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:52ch;margin:0 0 clamp(28px,3.5vw,48px);text-wrap:pretty">Um processo transparente e estruturado, do briefing inicial à entrega das chaves.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+      <sc-for list="{{ passosImportacao }}" as="p" hint-placeholder-count="6">
+        <div style="background:#0A111C;padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;min-height:190px">
+          <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:38px;line-height:1;color:rgba(148,160,176,0.22)">{{ p.n }}</div>
+          <div style="font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF">{{ p.titulo }}</div>
+          <div style="font-size:12px;line-height:1.6;color:#94A0B0;flex:1">{{ p.texto }}</div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#2F80ED">{{ p.prazo }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-top:28px;padding:22px 24px;border:1px solid #2F80ED">
+      <span style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#94A0B0">Prazo total estimado</span>
+      <span style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(26px,3.4vw,40px);line-height:1;color:#2F80ED">3–6 Semanas</span>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin:clamp(48px,6vw,96px) 0 20px">
+      <span>03</span>
+      <span style="color:#94A0B0">Simulador de importação</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px;max-width:22ch;text-wrap:balance">Simule a sua encomenda</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:56ch;margin:0 0 clamp(24px,3vw,36px);text-wrap:pretty">Cole um anúncio, introduza um URL do Mobile.de ou AutoScout24, ou preencha os dados manualmente. O simulador estima o ISV e todos os custos de importação.</p>
+
+    <div style="border:1px solid rgba(148,160,176,0.16);background:#0F1826;padding:clamp(20px,2.5vw,32px);max-width:820px">
+      <div style="display:flex;gap:1px;background:rgba(148,160,176,0.16);border:1px solid rgba(148,160,176,0.16);margin-bottom:24px">
+        <sc-for list="{{ modosSimulador }}" as="m" hint-placeholder-count="3">
+          <button onClick="{{ m.ir }}" style="{{ m.estilo }}">{{ m.label }}</button>
+        </sc-for>
+      </div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#2F80ED;margin-bottom:14px">{{ simuladorTitulo }}</div>
+      <ol style="margin:0 0 22px;padding-left:20px;font-size:13px;line-height:1.75;color:#94A0B0">
+        <sc-for list="{{ simuladorPassos }}" as="s" hint-placeholder-count="3">
+          <li style="margin-bottom:6px">{{ s }}</li>
+        </sc-for>
+      </ol>
+      <textarea placeholder="{{ simuladorPlaceholder }}" style="width:100%;min-height:120px;padding:14px;background:#0A111C;border:1px solid rgba(148,160,176,0.2);color:#FFFFFF;font-family:Inter,sans-serif;font-size:13px;line-height:1.6;resize:vertical;outline:none;margin-bottom:16px"></textarea>
+      <button style="padding:14px 26px;background:#2F80ED;color:#FFFFFF;border:none;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#5C9BF2">Extrair dados</button>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin:clamp(48px,6vw,96px) 0 20px">
+      <span>04</span>
+      <span style="color:#94A0B0">Pedido de importação</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px;max-width:20ch;text-wrap:balance">Solicitar pesquisa</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:56ch;margin:0 0 clamp(24px,3vw,36px);text-wrap:pretty">Preencha o formulário com as especificações do veículo pretendido. Entraremos em contacto em 24 horas.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;max-width:820px;margin-bottom:24px">
+      <sc-for list="{{ camposImportacao }}" as="c" hint-placeholder-count="6">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#94A0B0">{{ c }}</span>
+          <input type="text" style="width:100%;padding:13px 14px;background:#0A111C;border:1px solid rgba(148,160,176,0.2);color:#FFFFFF;font-size:14px;outline:none" />
+        </label>
+      </sc-for>
+    </div>
+    <button style="padding:18px 32px;background:#2F80ED;color:#FFFFFF;border:none;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#5C9BF2">Enviar pedido de importação</button>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgParceiros }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Parceiros" style="padding:clamp(40px,6vw,88px) clamp(16px,4vw,56px) clamp(48px,6vw,96px);border-bottom:1px solid rgba(148,160,176,0.14)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>01</span>
+      <span style="color:#94A0B0">Shark Partners</span>
+    </div>
+    <h1 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(34px,5.6vw,76px);line-height:0.9;text-transform:uppercase;margin:0 0 28px;max-width:22ch;text-wrap:balance">Financia stock automóvel. Partilha os lucros reais.</h1>
+    <p style="font-size:clamp(14px,1.5vw,17px);line-height:1.6;color:#94A0B0;max-width:62ch;margin:0 0 clamp(40px,5vw,72px);text-wrap:pretty">Sem promessas de rendimentos mágicos ou fundos abstratos. Participa diretamente na compra e revenda de viaturas específicas no mercado europeu com 100% de transparência contratual.</p>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:20px">
+      <span>02</span>
+      <span style="color:#94A0B0">Modelos de participação</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px;max-width:20ch;text-wrap:balance">Como participar</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:56ch;margin:0 0 clamp(28px,3.5vw,48px);text-wrap:pretty">Duas formas de participar nas operações da Shark. Cada operação é contratualizada individualmente por viatura.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14)">
+      <sc-for list="{{ modelosParceria }}" as="m" hint-placeholder-count="2">
+        <div style="background:#0A111C;padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column;gap:16px">
+          <div style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(22px,2.4vw,30px);line-height:1;text-transform:uppercase">{{ m.titulo }}</div>
+          <p style="font-size:13px;line-height:1.65;color:#94A0B0;margin:0;text-wrap:pretty">{{ m.texto }}</p>
+          <div style="display:grid;gap:10px;margin-top:4px">
+            <sc-for list="{{ m.pontos }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;gap:10px;font-size:13px;line-height:1.5">
+                <span style="color:#2F80ED;flex:none">+</span>
+                <span>{{ p }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin:clamp(48px,6vw,96px) 0 20px">
+      <span>03</span>
+      <span style="color:#94A0B0">Operação exemplo</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px;max-width:22ch;text-wrap:balance">Como funciona na prática</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:58ch;margin:0 0 clamp(28px,3.5vw,44px);text-wrap:pretty">Uma operação real, anonimizada. Cada passo foi documentado e partilhado com o parceiro ao longo do ciclo.</p>
+
+    <div style="border:1px solid rgba(148,160,176,0.14)">
+      <sc-for list="{{ operacaoExemplo }}" as="o" hint-placeholder-count="5">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid rgba(148,160,176,0.09)">
+          <div style="flex:1;min-width:220px">
+            <div style="font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#2F80ED;margin-bottom:7px">{{ o.label }}</div>
+            <div style="font-size:13px;line-height:1.55;color:#94A0B0">{{ o.nota }}</div>
+          </div>
+          <div style="flex:none;font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(20px,2.4vw,30px);line-height:1;white-space:nowrap">{{ o.valor }}</div>
+        </div>
+      </sc-for>
+      <p style="font-size:11px;line-height:1.7;color:#6B7280;margin:0;padding:18px 24px;text-wrap:pretty">Exemplo ilustrativo baseado numa operação concluída. Resultados passados não garantem resultados futuros. Cada operação é definida por contrato individual, sem percentagens garantidas.</p>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin:clamp(48px,6vw,96px) 0 20px">
+      <span>04</span>
+      <span style="color:#94A0B0">Contacto</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(30px,4.6vw,58px);line-height:0.94;text-transform:uppercase;margin:0 0 16px">Tem interesse?</h2>
+    <p style="font-size:clamp(14px,1.4vw,16px);line-height:1.65;color:#94A0B0;max-width:56ch;margin:0 0 clamp(24px,3vw,36px);text-wrap:pretty">O modelo de parceria da Shark é contratualizado individualmente por operação. Se tem interesse em participar, fale connosco directamente.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;max-width:760px;margin-bottom:20px">
+      <sc-for list="{{ camposParceria }}" as="c" hint-placeholder-count="4">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#94A0B0">{{ c }}</span>
+          <input type="text" style="width:100%;padding:13px 14px;background:#0A111C;border:1px solid rgba(148,160,176,0.2);color:#FFFFFF;font-size:14px;outline:none" />
+        </label>
+      </sc-for>
+    </div>
+    <button style="padding:18px 32px;background:#2F80ED;color:#FFFFFF;border:none;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;margin-bottom:16px" style-hover="background:#5C9BF2">Quero saber mais</button>
+    <p style="font-size:11px;line-height:1.7;color:#6B7280;margin:0 0 24px;max-width:60ch">A sua informação é confidencial e será tratada de acordo com a nossa política de privacidade.</p>
+    <p style="font-size:11px;line-height:1.75;color:#6B7280;margin:0;max-width:76ch;padding-top:20px;border-top:1px solid rgba(148,160,176,0.14);text-wrap:pretty">A participação em operações da Shark Automotive é formalizada por contrato de Associação em Participação, nos termos do Código Comercial Português. Não constitui instrumento financeiro regulado. Cada operação é independente e os resultados dependem do mercado.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgQuemSomos }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Quem somos" style="padding:clamp(40px,6vw,88px) clamp(16px,4vw,56px) clamp(48px,6vw,96px);border-bottom:1px solid rgba(148,160,176,0.14)">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#2F80ED;margin-bottom:clamp(24px,4vw,48px)">
+      <span>01</span>
+      <span style="color:#94A0B0">Quem somos</span>
+    </div>
+    <h1 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(34px,5.6vw,76px);line-height:0.9;text-transform:uppercase;margin:0 0 28px;max-width:20ch;text-wrap:balance">Página por escrever.</h1>
+    <p style="font-size:clamp(14px,1.5vw,17px);line-height:1.65;color:#94A0B0;max-width:56ch;margin:0 0 32px;text-wrap:pretty">Falta o texto desta página — missão da empresa e equipa. Envie a cópia e monto-a com a mesma estrutura das restantes.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:rgba(148,160,176,0.14);border:1px solid rgba(148,160,176,0.14);max-width:820px">
+      <div style="background:#0A111C;padding:24px 22px;min-height:130px">
+        <div style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#2F80ED;margin-bottom:10px">Bloco 01</div>
+        <div style="font-size:13px;line-height:1.6;color:#6B7280">Missão da empresa</div>
+      </div>
+      <div style="background:#0A111C;padding:24px 22px;min-height:130px">
+        <div style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#2F80ED;margin-bottom:10px">Bloco 02</div>
+        <div style="font-size:13px;line-height:1.6;color:#6B7280">Equipa</div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ pgContacto }}" hint-placeholder-val="{{ false }}">
+  <section id="contacto" data-screen-label="CTA final" style="padding:clamp(56px,8vw,120px) clamp(16px,4vw,56px);background:#060C15;color:#FFFFFF;scroll-margin-top:70px">
+    <div style="display:flex;align-items:baseline;gap:16px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#6B7280;margin-bottom:clamp(24px,4vw,48px)">
+      <span style="color:#2F80ED">07</span>
+      <span style="flex:1;height:1px;background:rgba(148,160,176,0.25)"></span>
+      <span>Contacto</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:clamp(40px,8vw,110px);line-height:0.88;text-transform:uppercase;margin:0 0 32px;max-width:20ch;text-wrap:balance">Peça o dossier de uma viatura.</h2>
+    <p style="font-size:clamp(15px,1.6vw,19px);line-height:1.6;color:#6B7280;max-width:56ch;margin:0 0 40px;text-wrap:pretty">Diga-nos o carro que tem em mente. Enviamos o dossier técnico de uma viatura real que corresponda, com a conta fechada. Sem compromisso e sem telefonemas a insistir.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="https://www.sharkauto.pt/contacto" style="padding:18px 32px;background:#2F80ED;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#2F80ED;color:#060C15">Peça o dossier</a>
+      <a href="https://wa.me/351910000000" style="padding:18px 32px;border:1px solid rgba(148,160,176,0.4);color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#0A111C;background:rgba(148,160,176,0.06)">WhatsApp</a>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="padding:clamp(40px,5vw,72px) clamp(16px,4vw,56px) 32px;background:#060C15">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px;padding-bottom:40px;border-bottom:1px solid rgba(148,160,176,0.14)">
+      <div>
+        <img src="https://www.sharkauto.pt/images/shark-logo.png" alt="Shark Automotive" style="height:30px;width:auto;filter:brightness(0) invert(1);margin-bottom:16px" />
+        <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#2F80ED">Zero conversas. Total transparência.</div>
+      </div>
+      <div style="display:grid;gap:11px;align-content:start;font-size:12px">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B7280;margin-bottom:4px">Navegar</div>
+        <sc-for list="{{ menuRodape }}" as="m" hint-placeholder-count="5">
+          <button onClick="{{ m.ir }}" style="background:none;border:none;padding:0;text-align:left;color:#94A0B0;font-size:12px;cursor:pointer" style-hover="color:#2F80ED">{{ m.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:grid;gap:11px;align-content:start;font-size:12px">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B7280;margin-bottom:4px">Área restrita</div>
+        <a href="https://www.sharkauto.pt/area-cliente" style="color:#94A0B0">Cliente</a>
+        <a href="https://www.sharkauto.pt/admin/login" style="color:#94A0B0">Admin</a>
+        <a href="https://instagram.com/sharkauto.pt" style="color:#94A0B0">@sharkauto.pt</a>
+      </div>
+      <div style="font-size:10px;line-height:1.75;color:#6B7280;max-width:44ch">O website www.sharkauto.pt é propriedade e gerido por ESTIRPESÓBRIA — SOCIEDADE UNIPESSOAL LDA · Avenida Luís Bívar, n.º 91, Piso 1 e 0, Fracção A, Lisboa · NIPC: 519473108 · Licença de Comércio e Actividades Aduaneiras Registada.</div>
+    </div>
+    <div style="padding-top:24px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6B7280">© 2026 Shark Auto. Todos os direitos reservados.</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;comissaoFixa&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1250,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:5000,&quot;step&quot;:50,&quot;unit&quot;:&quot;€&quot;,&quot;section&quot;:&quot;Calculadora&quot;},&quot;custoTransporte&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:950,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:3000,&quot;step&quot;:50,&quot;unit&quot;:&quot;€&quot;,&quot;section&quot;:&quot;Calculadora&quot;},&quot;custoLegalizacao&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:480,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:2000,&quot;step&quot;:20,&quot;unit&quot;:&quot;€&quot;,&quot;section&quot;:&quot;Calculadora&quot;}}">
+class Component extends DCLogic {
+  state = { pg: "inicio", modo: "ia", preco: 12000, cc: 1600, co2: 132, ano: 2015, comb: "gasolina", aberta: 0 };
+
+  ir(pg) {
+    return () => {
+      this.setState({ pg });
+      if (typeof window !== "undefined") window.scrollTo(0, 0);
+    };
+  }
+
+  // ---- ISV (Portugal) — tabela A, veículos de passageiros. Estrutura oficial;
+  // confirmar coeficientes com a tabela em vigor antes de publicar.
+  isv(cc, co2, comb, ano) {
+    let compCC;
+    if (cc <= 1000) compCC = cc * 1.06 - 792.72;
+    else if (cc <= 1250) compCC = cc * 1.26 - 1007.66;
+    else compCC = cc * 5.62 - 6448.55;
+
+    let compCO2;
+    if (comb === "diesel") {
+      if (co2 <= 79) compCO2 = co2 * 1.02 - 89.28;
+      else if (co2 <= 95) compCO2 = co2 * 3.13 - 258.87;
+      else if (co2 <= 120) compCO2 = co2 * 3.80 - 320.53;
+      else if (co2 <= 140) compCO2 = co2 * 22.60 - 2589.11;
+      else if (co2 <= 160) compCO2 = co2 * 26.50 - 3103.10;
+      else compCO2 = co2 * 34.05 - 4325.98;
+    } else {
+      if (co2 <= 99) compCO2 = co2 * 0.44 - 43.02;
+      else if (co2 <= 115) compCO2 = co2 * 1.10 - 109.97;
+      else if (co2 <= 145) compCO2 = co2 * 1.42 - 145.14;
+      else if (co2 <= 175) compCO2 = co2 * 2.01 - 190.66;
+      else if (co2 <= 195) compCO2 = co2 * 3.545 - 456.09;
+      else compCO2 = co2 * 5.53 - 837.65;
+    }
+    compCC = Math.max(0, compCC);
+    compCO2 = Math.max(0, compCO2);
+
+    const idade = Math.max(0, 2026 - ano);
+    let redCC = 0, redCO2 = 0;
+    if (idade > 10) { redCC = 0.65; redCO2 = 0.40; }
+    else if (idade > 9) { redCC = 0.60; redCO2 = 0.35; }
+    else if (idade > 8) { redCC = 0.52; redCO2 = 0.30; }
+    else if (idade > 7) { redCC = 0.43; redCO2 = 0.25; }
+    else if (idade > 6) { redCC = 0.35; redCO2 = 0.20; }
+    else if (idade > 5) { redCC = 0.28; redCO2 = 0.15; }
+    else if (idade > 2) { redCC = 0.20; redCO2 = 0.10; }
+    else if (idade > 1) { redCC = 0.10; redCO2 = 0.05; }
+
+    const particulas = comb === "diesel" ? 250 : 0;
+    return Math.max(0, compCC * (1 - redCC) + compCO2 * (1 - redCO2) + particulas);
+  }
+
+  eur(n) {
+    return new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(Math.round(n));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const transporte = this.props.custoTransporte ?? 950;
+    const legalizacao = this.props.custoLegalizacao ?? 480;
+    const comissao = this.props.comissaoFixa ?? 1250;
+    const isv = this.isv(s.cc, s.co2, s.comb, s.ano);
+    const total = s.preco + transporte + isv + legalizacao + comissao;
+
+    const btn = (on) => "padding:14px 10px;background:" + (on ? "#2F80ED" : "#131C2B") +
+      ";color:" + (on ? "#FFFFFF" : "#94A0B0") +
+      ";border:none;font-family:Inter,sans-serif;font-weight:500;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer";
+
+    const perguntas = [
+      ["Porque é que importar sai mais barato?",
+       "O mesmo carro, com o mesmo ano e quilometragem, custa menos no mercado alemão, belga ou holandês do que em Portugal, porque a oferta é muito maior. Essa diferença cobre o ISV, o transporte e o nosso serviço — e ainda sobra. Quando não sobra, dizemos-lhe e não avançamos."],
+      ["O que é o ISV e quem o paga?",
+       "Imposto Sobre Veículos, pago ao Estado português no momento da legalização. Calcula-se pela cilindrada e pelas emissões de CO₂, com uma redução conforme a idade da viatura. Está na conta acima e no orçamento final. Não é nossa margem e não lhe cobramos nada por cima dele."],
+      ["Posso ver o carro antes de comprar?",
+       "Vê o dossier: fotografia de cada painel e do interior, vídeo 360°, leitura de erros da centralina, CarVertical ou histórico de quilometragem, e as fotografias da própria inspecção na rampa. Se quiser ir ver pessoalmente, organizamos a viagem."],
+      ["E se o carro chegar com um problema?",
+       "A inspecção acontece antes de haver compra, por isso a maioria dos problemas trava aí. O que segue viagem leva garantia de seis meses em motor, transmissão e sistemas principais, com oficinas parceiras em Portugal."],
+    ];
+
+    const paginas = [
+      ["viaturas", "Viaturas"], ["encomenda", "Encomenda"], ["parceiros", "Parceiros"],
+      ["quemsomos", "Quem somos"], ["contacto", "Contacto"]
+    ];
+    const link = (on) => "background:none;border:none;padding:0;font-family:inherit;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;color:" + (on ? "#FFFFFF" : "#94A0B0");
+
+    const simulador = {
+      url: { titulo: "Importar por URL", placeholder: "https://www.mobile.de/…", passos: [
+        "Copie o endereço do anúncio no Mobile.de, AutoScout24 ou Coches.net.",
+        "Cole aqui e clique \u201cExtrair dados\u201d.",
+        "Confirme os dados extraídos antes de simular o ISV."
+      ]},
+      ia: { titulo: "Extração automática com IA", placeholder: "Cole aqui o texto completo do anúncio…", passos: [
+        "Abra o anúncio do carro no browser (Mobile.de, AutoScout24, Coches.net, etc.)",
+        "Selecione e copie todo o texto (Ctrl+A, Ctrl+C)",
+        "Cole aqui e clique \u201cAnalisar\u201d — a IA extrai os dados automaticamente"
+      ]},
+      manual: { titulo: "Introdução manual", placeholder: "Marca, modelo, ano, cilindrada, CO₂, quilometragem…", passos: [
+        "Indique marca, modelo e ano da primeira matrícula.",
+        "Acrescente cilindrada, emissões de CO₂ e combustível.",
+        "O simulador calcula o ISV e o custo total de importação."
+      ]}
+    };
+    const modoBtn = (on) => "flex:1;padding:13px 10px;background:" + (on ? "#2F80ED" : "#0F1826") +
+      ";color:" + (on ? "#FFFFFF" : "#94A0B0") +
+      ";border:none;font-family:inherit;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer";
+
+    return {
+      pgInicio: s.pg === "inicio",
+      pgViaturas: s.pg === "viaturas",
+      pgEncomenda: s.pg === "encomenda",
+      pgParceiros: s.pg === "parceiros",
+      pgQuemSomos: s.pg === "quemsomos",
+      pgContacto: s.pg === "contacto",
+      irInicio: this.ir("inicio"),
+      irContacto: this.ir("contacto"),
+      menu: paginas.map(([id, label]) => ({ label, ir: this.ir(id), estilo: link(s.pg === id) })),
+      menuRodape: [["inicio", "Início"], ...paginas].map(([id, label]) => ({ label, ir: this.ir(id) })),
+
+      passosImportacao: [
+        { n: "01", titulo: "Briefing inicial", texto: "Definimos juntos o veículo ideal: marca, modelo, especificações, orçamento máximo e prazo desejado.", prazo: "" },
+        { n: "02", titulo: "Pesquisa de mercado", texto: "Procuramos em múltiplas fontes, apresentando as melhores opções encontradas.", prazo: "" },
+        { n: "03", titulo: "Verificação & inspeção", texto: "Realizamos uma verificação completa: documentação, relatórios e inspeção técnica.", prazo: "" },
+        { n: "04", titulo: "Reserva & pagamento", texto: "Após aprovação, reservamos o veículo com sinal. Opções de financiamento disponíveis.", prazo: "" },
+        { n: "05", titulo: "Transporte", texto: "Transporte especializado em camião coberto desde a origem até Portugal com seguro total.", prazo: "" },
+        { n: "06", titulo: "Legalização & entrega", texto: "Tratamos de toda a documentação: ISV, IUC, matrícula portuguesa. Entrega ao domicílio ou em local acordado.", prazo: "" }
+      ],
+      modosSimulador: [["url", "URL"], ["ia", "IA (colar texto)"], ["manual", "Manual"]].map(([id, label]) => ({
+        label, estilo: modoBtn(s.modo === id), ir: () => this.setState({ modo: id })
+      })),
+      simuladorTitulo: simulador[s.modo].titulo,
+      simuladorPassos: simulador[s.modo].passos,
+      simuladorPlaceholder: simulador[s.modo].placeholder,
+      camposImportacao: ["Nome", "Email", "Telefone", "Marca e modelo pretendidos", "Ano mínimo", "Orçamento máximo"],
+
+      modelosParceria: [
+        { titulo: "Participação passiva",
+          texto: "Tu entras com o capital para a viatura. A Shark Auto gere todo o ciclo operacional — sourcing B2B, transporte, legalização, detalhe e venda retail.",
+          pontos: ["Contrato por viatura", "Zero envolvimento operacional ou burocrático", "Recebes capital + lucro diretamente na venda", "Acesso ao dossier financeiro completo"] },
+        { titulo: "Participação activa",
+          texto: "Ideal para quem quer acompanhar de perto e aprender a dinâmica do mercado automóvel B2B.",
+          pontos: ["Contrato por viatura", "Acesso em tempo real aos leilões B2B europeus", "Co-decisão no modelo e pricing de venda", "Transparência total de margens e custos"] }
+      ],
+      operacaoExemplo: [
+        { label: "Participação inicial", nota: "Contrato individual assinado antes da compra", valor: "8.000 €" },
+        { label: "Viatura adquirida", nota: "Leilão fechado, Alemanha", valor: "Hot hatch alemão, 2019" },
+        { label: "Verificação Shark", nota: "Dossier técnico completo partilhado", valor: "Aprovada" },
+        { label: "Ciclo da operação", nota: "Compra → transporte → legalização → venda", valor: "9 semanas" },
+        { label: "Resultado partilhado", nota: "Distribuído conforme a participação contratada", valor: "Proporcional" }
+      ],
+      camposParceria: ["Nome", "Email", "Telefone", "Capital que pretende alocar"],
+
+      preco: s.preco, cc: s.cc, co2: s.co2, ano: s.ano,
+      fPreco: this.eur(s.preco),
+      fCc: s.cc + " cm³",
+      fCo2: s.co2 + " g/km",
+      fTotal: this.eur(total),
+      setPreco: (e) => this.setState({ preco: +e.target.value }),
+      setCc: (e) => this.setState({ cc: +e.target.value }),
+      setCo2: (e) => this.setState({ co2: +e.target.value }),
+      setAno: (e) => this.setState({ ano: +e.target.value }),
+      setGasolina: () => this.setState({ comb: "gasolina" }),
+      setDiesel: () => this.setState({ comb: "diesel" }),
+      btnGasolina: btn(s.comb === "gasolina"),
+      btnDiesel: btn(s.comb === "diesel"),
+
+      linhas: [
+        { label: "Preço do veículo na origem", valor: this.eur(s.preco) },
+        { label: "Transporte em camião coberto", valor: this.eur(transporte) },
+        { label: "ISV estimado (Alfândega)", valor: this.eur(isv) },
+        { label: "Legalização, matrícula e IUC", valor: this.eur(legalizacao) },
+        { label: "Comissão Shark (fixa)", valor: this.eur(comissao) }
+      ],
+
+      incluido: [
+        "Procura e negociação na origem",
+        "Inspecção técnica (Auditoria Técnica Shark)",
+        "Dossier técnico completo antes de qualquer pagamento",
+        "Transporte assegurado em porta-carros",
+        "ISV, matrícula portuguesa e registo final em seu nome",
+        "Garantia de seis meses (em carros que já não tenham garantia de stand/fábrica)"
+      ],
+
+      naoFazemos: [
+        "Custos que aparecem depois",
+        "Insistir ao telefone depois de um não",
+        "Prometer prazos que dependem de terceiros"
+      ],
+
+      dossier: [
+        { n: "01", titulo: "Verificação documental", texto: "Histórico completo, quilometragem real, sinistros registados e situação legal da viatura no país de origem.", tag: "Relatório de kilometragem, manutenção e acidentes · VIN" },
+        { n: "02", titulo: "Inspecção técnica", texto: "Motor, transmissão, suspensão, travões e sistemas electrónicos avaliados na rampa, com leitura de erros.", tag: "Relatório assinado" },
+        { n: "03", titulo: "Registo fotográfico", texto: "Cada painel, cada jante, o interior e o compartimento do motor. Os defeitos também são fotografados.", tag: "Fotografias + vídeo 360°" },
+        { n: "04", titulo: "Transporte", texto: "Porta-carros desde a origem até Portugal, com seguro total e rastreamento durante o percurso.", tag: "Seguro total" },
+        { n: "05", titulo: "Legalização", texto: "Cálculo e liquidação do ISV, matrícula portuguesa, IUC e registo — tratado por nós de ponta a ponta.", tag: "ISV · DGV · Matrícula" },
+        { n: "06", titulo: "Garantia", texto: "Seis meses de cobertura em motor, transmissão e sistemas principais, com rede de oficinas parceiras (para carros que venham sem garantia de origem).", tag: "6 meses · Assistência 24h" }
+      ],
+
+      fotos: [
+        { src: "https://www.sharkauto.pt/images/bts/mercedes-eqs-inspection-ramp.jpg", alt: "Mercedes EQS sobre rampa de inspecção técnica" },
+        { src: "https://www.sharkauto.pt/images/bts/transporter-luxury-cars.jpg", alt: "Porta-carros carregado com viaturas importadas" },
+        { src: "https://www.sharkauto.pt/images/bts/rolfo-transporter-street.jpg", alt: "Camião porta-carros Rolfo a descarregar viaturas" },
+        { src: "https://www.sharkauto.pt/images/bts/mazda-mx5-trailer.jpg", alt: "Mazda MX-5 transportado em reboque na autoestrada" },
+        { src: "https://www.sharkauto.pt/images/bts/bmw-wagon-fuel-station.jpg", alt: "BMW Touring durante o percurso de importação" },
+        { src: "https://www.sharkauto.pt/images/bts/fiat-500-shark-plate.jpg", alt: "Fiat 500 com matrícula Shark Automotive na entrega" }
+      ],
+
+      carros: [
+        { nome: "Mini Cooper S", origem: "Holanda", preco: "10 900 €", mensal: "180 €", ano: "2011", km: "147 500", comb: "Gasolina", cv: "184 cv",
+          url: "https://www.sharkauto.pt/inventario/15f15199-06bc-4e2e-84ff-11927e6b1bfb",
+          ficha: "https://www.sharkauto.pt/api/vehicles/15f15199-06bc-4e2e-84ff-11927e6b1bfb/ficha" },
+        { nome: "Volkswagen Polo", origem: "Holanda", preco: "6 800 €", mensal: "110 €", ano: "2012", km: "144 500", comb: "Diesel", cv: "75 cv",
+          url: "https://www.sharkauto.pt/inventario/c396eeb1-573d-4101-b0fc-91710f73ea31",
+          ficha: "https://www.sharkauto.pt/api/vehicles/c396eeb1-573d-4101-b0fc-91710f73ea31/ficha" }
+      ],
+
+      faqs: perguntas.map(([pergunta, resposta], i) => ({
+        pergunta, resposta,
+        sinal: s.aberta === i ? "−" : "+",
+        corpoStyle: s.aberta === i ? "display:block" : "display:none",
+        toggle: () => this.setState({ aberta: s.aberta === i ? -1 : i })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>
