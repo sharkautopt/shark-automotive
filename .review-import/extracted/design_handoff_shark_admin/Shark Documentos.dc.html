@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  a { color: #B07316; text-decoration: none; }
+  a:hover { color: #0E2529; }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page size="a4">
+
+  <section class="page" data-screen-label="Orçamento" style="display:flex;flex-direction:column;background:#FFFFFF;font-family:'IBM Plex Sans',sans-serif;color:#141A1C">
+
+    <div style="background:#0E2529;color:#EDEAE2;padding:13mm 14mm 11mm">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10mm;margin-bottom:11mm">
+        <div>
+          <div style="font-family:Anton,sans-serif;font-size:22pt;line-height:1;letter-spacing:0.02em;text-transform:uppercase">Shark Automotive</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.3em;text-transform:uppercase;color:#E9A93F;margin-top:2.5mm">Importação premium por encomenda</div>
+        </div>
+        <div style="text-align:right;flex:none">
+          <div style="font-family:Anton,sans-serif;font-size:15pt;line-height:1;text-transform:uppercase">Orçamento</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:8pt;color:#E9A93F;margin-top:2mm">Nº ORC-2026-005</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:6mm;padding-top:6mm;border-top:1px solid rgba(237,234,226,0.28)">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.22em;text-transform:uppercase;color:#8FA3A6;margin-bottom:2mm">Preparado para</div>
+          <div style="font-size:11.5pt;font-weight:600">Eduardo Rodrigues</div>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.22em;text-transform:uppercase;color:#8FA3A6;margin-bottom:2mm">Data</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10pt">14/07/2026</div>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.22em;text-transform:uppercase;color:#8FA3A6;margin-bottom:2mm">Válido até</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10pt">29/07/2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:11mm 14mm 0">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;padding-bottom:5mm;border-bottom:2px solid #0E2529">
+        <div>
+          <div style="font-family:Anton,sans-serif;font-size:30pt;line-height:0.95;text-transform:uppercase">Honda S2000</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5pt;color:#55605F;margin-top:2.5mm">2000 · 63 000 km · Gasolina · leboncoin</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.2em;text-transform:uppercase;color:#8A8779">Chave na mão</div>
+          <div style="font-family:Anton,sans-serif;font-size:26pt;line-height:1;color:#0E2529;margin-top:1.5mm">44 530 €</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:8mm 14mm 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.24em;text-transform:uppercase;color:#8A8779;margin-bottom:4mm">Especificação</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 10mm">
+        <sc-for list="{{ especificacao }}" as="e" hint-placeholder-count="12">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:4mm;padding:2.6mm 0;border-bottom:1px dotted #C9CCD2">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:7.5pt;letter-spacing:0.05em;text-transform:uppercase;color:#6C7472">{{ e.label }}</span>
+            <span style="font-size:9.5pt;font-weight:500;text-align:right">{{ e.valor }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:9mm 14mm 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.24em;text-transform:uppercase;color:#8A8779;margin-bottom:4mm">Discriminação de custos</div>
+      <sc-for list="{{ custos }}" as="c" hint-placeholder-count="3">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8mm;padding:3.4mm 0;border-bottom:1px solid #E2E4E8">
+          <div style="flex:1">
+            <div style="font-size:10pt;font-weight:500">{{ c.label }}</div>
+            <div style="{{ c.notaEstilo }}">{{ c.nota }}</div>
+          </div>
+          <div style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:11pt;font-weight:600;font-variant-numeric:tabular-nums">{{ c.valor }}</div>
+        </div>
+      </sc-for>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8mm;padding:5mm 0 0">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:8pt;font-weight:600;letter-spacing:0.16em;text-transform:uppercase">Total chave na mão</span>
+        <span style="font-family:Anton,sans-serif;font-size:24pt;line-height:1">44 530 €</span>
+      </div>
+    </div>
+
+    <div style="padding:9mm 14mm 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#C9CCD2;border:1px solid #C9CCD2">
+        <div style="background:#F3F1EC;padding:5mm 6mm">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.2em;text-transform:uppercase;color:#6C7472;margin-bottom:2.5mm">Prazo estimado</div>
+          <div style="font-family:Anton,sans-serif;font-size:16pt;line-height:1">4 a 6 semanas</div>
+        </div>
+        <div style="background:#F3F1EC;padding:5mm 6mm">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.2em;text-transform:uppercase;color:#6C7472;margin-bottom:2.5mm">Garantia incluída</div>
+          <div style="font-family:Anton,sans-serif;font-size:16pt;line-height:1">6 meses · 500 €</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding:9mm 14mm 10mm">
+      <p style="font-size:7.5pt;line-height:1.6;color:#55605F;margin:0 0 6mm;text-wrap:pretty">Orçamento sujeito a confirmação após inspecção física do veículo. Não constitui contrato de compra e venda. O ISV apresentado é uma estimativa calculada pelas tabelas de cilindrada e CO₂ em vigor; o valor definitivo é emitido pela Alfândega.</p>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10mm;padding-top:5mm;border-top:2px solid #0E2529">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:7pt;letter-spacing:0.24em;text-transform:uppercase;color:#B07316;margin-bottom:2mm">Zero conversas · Total transparência</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;line-height:1.65;color:#8A8779">ESTIRPESÓBRIA — Sociedade Unipessoal Lda · Avenida Luís Bívar, n.º 91, Lisboa · NIPC 519473108<br />+351 911 903 833 · www.sharkauto.pt</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="width:26mm;border-top:1px solid #141A1C;padding-top:2mm;font-family:'IBM Plex Mono',monospace;font-size:6.5pt;color:#6C7472">A Gerência</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" data-screen-label="Ficha de vidro" style="display:flex;flex-direction:column;background:#FFFFFF;font-family:'IBM Plex Sans',sans-serif;color:#141A1C">
+
+    <div style="background:#0E2529;color:#EDEAE2;padding:11mm 14mm;display:flex;align-items:center;justify-content:space-between;gap:8mm">
+      <div style="font-family:Anton,sans-serif;font-size:18pt;line-height:1;text-transform:uppercase">Shark Automotive</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.24em;text-transform:uppercase;color:#E9A93F;text-align:right">Verificação Shark<br />150 pontos aprovados</div>
+    </div>
+
+    <div style="padding:14mm 14mm 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:7pt;letter-spacing:0.24em;text-transform:uppercase;color:#8A8779;margin-bottom:4mm">Viatura importada · Holanda</div>
+      <div style="font-family:Anton,sans-serif;font-size:44pt;line-height:0.9;text-transform:uppercase;margin-bottom:5mm">Mini<br />Cooper S</div>
+      <div style="display:flex;align-items:baseline;gap:5mm;padding-bottom:7mm;border-bottom:2px solid #0E2529">
+        <span style="font-family:Anton,sans-serif;font-size:40pt;line-height:1;color:#0E2529">10 900 €</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:8pt;color:#6C7472">chave na mão · desde 180 €/mês</span>
+      </div>
+    </div>
+
+    <div style="padding:9mm 14mm 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#C9CCD2;border:1px solid #C9CCD2">
+        <sc-for list="{{ fichaDestaques }}" as="f" hint-placeholder-count="6">
+          <div style="background:#F3F1EC;padding:6mm 5mm">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.18em;text-transform:uppercase;color:#6C7472;margin-bottom:3mm">{{ f.label }}</div>
+            <div style="font-family:Anton,sans-serif;font-size:17pt;line-height:1">{{ f.valor }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:9mm 14mm 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.24em;text-transform:uppercase;color:#8A8779;margin-bottom:4mm">Equipamento verificado</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 10mm">
+        <sc-for list="{{ equipamento }}" as="e" hint-placeholder-count="10">
+          <div style="display:flex;gap:3mm;padding:2.2mm 0;border-bottom:1px dotted #C9CCD2">
+            <span style="color:#B07316;font-size:9pt">+</span>
+            <span style="font-size:9.5pt">{{ e }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding:10mm 14mm">
+      <div style="display:flex;align-items:center;gap:8mm;padding:7mm 8mm;background:#0E2529;color:#EDEAE2">
+        <div style="flex:1">
+          <div style="font-family:Anton,sans-serif;font-size:16pt;line-height:1.05;text-transform:uppercase;margin-bottom:2.5mm">Dossier técnico completo</div>
+          <div style="font-size:8.5pt;line-height:1.6;color:#C4BFB3">Histórico, leitura da centralina, 38 fotografias e relatório de inspecção assinado. Peça no balcão ou em www.sharkauto.pt</div>
+        </div>
+        <div style="flex:none;width:24mm;height:24mm;background:#EDEAE2;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:6pt;color:#6C7472;text-align:center">QR<br />DOSSIER</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;line-height:1.65;color:#8A8779;text-align:center;margin-top:6mm">ESTIRPESÓBRIA — Sociedade Unipessoal Lda · NIPC 519473108 · Avenida Luís Bívar, n.º 91, Lisboa · +351 911 903 833</div>
+    </div>
+  </section>
+
+  <section class="page" data-screen-label="Declaração de circulação" style="display:flex;flex-direction:column;background:#FFFFFF;font-family:'IBM Plex Sans',sans-serif;color:#141A1C;padding:14mm">
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;padding-bottom:4mm;border-bottom:2px solid #141A1C;margin-bottom:8mm">
+      <div>
+        <div style="font-family:Anton,sans-serif;font-size:17pt;line-height:1;text-transform:uppercase">Shark Automotive</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;letter-spacing:0.24em;text-transform:uppercase;color:#8A8779;margin-top:2mm">Zero conversas · Total transparência</div>
+      </div>
+      <div style="text-align:right;flex:none;font-family:'IBM Plex Mono',monospace;font-size:7.5pt;color:#6C7472;line-height:1.8">Declaração N.º <span style="border-bottom:1px solid #C9CCD2;padding:0 6mm">031</span><br />Emitida em <span style="border-bottom:1px solid #C9CCD2;padding:0 5mm">14/07/2026</span></div>
+    </div>
+
+    <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:24pt;line-height:1;text-transform:uppercase;text-align:center;margin:0 0 8mm">Declaração de circulação</h1>
+
+    <p style="font-size:9.5pt;line-height:1.7;text-align:justify;margin:0 0 8mm;text-wrap:pretty">Para os devidos efeitos, e em especial para fazer fé perante as Autoridades de Trânsito e Alfandegárias, a SHARK AUTOMOTIVE declara que a viatura abaixo identificada foi vendida e começou a circular nesta data, sob a responsabilidade do seguinte cliente:</p>
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.22em;text-transform:uppercase;color:#8A8779;padding-bottom:2.5mm;border-bottom:1px solid #C9CCD2;margin-bottom:5mm">Dados do cliente</div>
+    <sc-for list="{{ cliente }}" as="c" hint-placeholder-count="3">
+      <div style="display:flex;align-items:baseline;gap:4mm;margin-bottom:4mm">
+        <span style="flex:none;width:38mm;font-family:'IBM Plex Mono',monospace;font-size:7.5pt;color:#6C7472">{{ c.label }}</span>
+        <span style="flex:1;border-bottom:1px solid #C9CCD2;padding-bottom:1mm;font-size:10pt">{{ c.valor }}</span>
+      </div>
+    </sc-for>
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:6.5pt;letter-spacing:0.22em;text-transform:uppercase;color:#8A8779;padding-bottom:2.5mm;border-bottom:1px solid #C9CCD2;margin:6mm 0 5mm">Características da viatura</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 10mm">
+      <sc-for list="{{ viatura }}" as="v" hint-placeholder-count="16">
+        <div style="display:flex;align-items:baseline;gap:3mm;margin-bottom:3.4mm">
+          <span style="flex:none;width:30mm;font-family:'IBM Plex Mono',monospace;font-size:7pt;color:#6C7472">{{ v.label }}</span>
+          <span style="flex:1;border-bottom:1px solid #C9CCD2;padding-bottom:0.8mm;font-size:9.5pt">{{ v.valor }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <p style="font-size:9pt;line-height:1.7;text-align:justify;margin:7mm 0 4mm;text-wrap:pretty">Mais declaramos que o referido cliente não se faz acompanhar dos respectivos documentos, por os mesmos se encontrarem em regularização junto das Repartições Oficiais (Conservatória do Registo de Automóveis e Notariado), situação prevista e autorizada pela Direcção-Geral das Contribuições e Impostos, nos termos da legislação aplicável em vigor.</p>
+    <p style="font-size:9pt;line-height:1.7;font-weight:600;margin:0">Esta declaração é válida por 60 dias úteis a contar da data de emissão.</p>
+
+    <div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10mm;padding-top:12mm">
+      <div style="font-size:10pt">Lisboa, <span style="border-bottom:1px solid #C9CCD2;padding:0 8mm">14/07/2026</span></div>
+      <div style="flex:none;text-align:center;min-width:56mm">
+        <div style="height:16mm"></div>
+        <div style="border-top:1px solid #141A1C;padding-top:2mm;font-family:'IBM Plex Mono',monospace;font-size:7.5pt">A Gerência</div>
+        <div style="font-family:Anton,sans-serif;font-size:10pt;letter-spacing:0.04em;text-transform:uppercase;margin-top:1mm">Shark Automotive</div>
+      </div>
+    </div>
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:6pt;line-height:1.7;color:#8A8779;text-align:center;padding-top:6mm;margin-top:6mm;border-top:1px solid #E2E4E8">ESTIRPESÓBRIA, UNIPESSOAL LDA (Shark Automotive) · Sede: Avenida Luís Bívar, n.º 91, Piso -1 e 0, Fracção A, 1069-141 Lisboa · NIF 519473108 · Capital Social 2.500,00 € · IBAN PT50 0033 0000 4584 3610 1870 5</div>
+  </section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Shark Automotive — document templates (design reference).
+   Content is static/mock. INT-10: populate from `operations` + `vehicles`,
+   render to PDF server-side, store in the `documents` bucket, email the link. */
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      especificacao: [
+        { label: "Marca / Modelo", valor: "Honda S2000" },
+        { label: "Ano", valor: "2000" },
+        { label: "Quilometragem", valor: "63 000 km" },
+        { label: "Combustível", valor: "Gasolina" },
+        { label: "Potência", valor: "240 cv" },
+        { label: "Cilindrada", valor: "1997 cm³" },
+        { label: "Caixa", valor: "Manual" },
+        { label: "Tracção", valor: "RWD" },
+        { label: "Portas / Lugares", valor: "2 / 2" },
+        { label: "Cor", valor: "Prata" },
+        { label: "Interior", valor: "Estofos vermelhos" },
+        { label: "Origem", valor: "leboncoin · França" }
+      ],
+
+      custos: [
+        { label: "Preço do veículo na origem", nota: "", valor: "36 000 €" },
+        { label: "ISV estimado", nota: "Calculado por cilindrada e CO₂, com redução por idade.", valor: "4 030 €" },
+        { label: "Taxa de serviço Shark", nota: "Inclui transporte, seguro e todos os encargos documentais e notariais necessários.", valor: "4 500 €" }
+      ].map(c => ({
+        ...c,
+        notaEstilo: c.nota
+          ? "font-size:7.5pt;line-height:1.55;color:#6C7472;margin-top:1.2mm;max-width:105mm"
+          : "display:none"
+      })),
+
+      fichaDestaques: [
+        { label: "Ano", valor: "2011" },
+        { label: "Quilometragem", valor: "147 500" },
+        { label: "Combustível", valor: "Gasolina" },
+        { label: "Potência", valor: "184 cv" },
+        { label: "Caixa", valor: "Manual" },
+        { label: "Garantia", valor: "6 meses" }
+      ],
+
+      equipamento: [
+        "Climatização automática",
+        "Jantes de liga leve 17\"",
+        "Sensores de estacionamento",
+        "Bluetooth e entrada USB",
+        "Volante multifunções em pele",
+        "Faróis de nevoeiro",
+        "Computador de bordo",
+        "Bancos desportivos",
+        "Livro de revisões completo",
+        "Segundo jogo de chaves"
+      ],
+
+      cliente: [
+        { label: "Nome completo", valor: "Eduardo Rodrigues" },
+        { label: "Morada completa", valor: "Rua das Amoreiras, n.º 12, 3.º Dto., 1250-062 Lisboa" },
+        { label: "NIF (contribuinte)", valor: "234 567 891" }
+      ],
+
+      viatura: [
+        { label: "Matrícula", valor: "AB-12-CD" },
+        { label: "Mat. estrangeira", valor: "GX-482-VK" },
+        { label: "Marca / Modelo", valor: "Honda S2000" },
+        { label: "Ano construção", valor: "2000" },
+        { label: "Data 1.ª matrícula", valor: "12/04/2000" },
+        { label: "Data mat. nacional", valor: "14/07/2026" },
+        { label: "N.º chassi (VIN)", valor: "JHMAP11400S200412" },
+        { label: "Cilindrada", valor: "1997 cm³" },
+        { label: "Potência", valor: "240 cv / 176 kW" },
+        { label: "Combustível", valor: "Gasolina" },
+        { label: "Lotação", valor: "2 lugares" },
+        { label: "Categoria / Tipo", valor: "Ligeiro / Passageiros" },
+        { label: "Cor", valor: "Prata" },
+        { label: "Portas", valor: "2" },
+        { label: "Tara", valor: "1 260 kg" },
+        { label: "Peso bruto", valor: "1 480 kg" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #E4E1D8; }
+  * { box-sizing: border-box; }
+  a { color: #B07316; text-decoration: none; }
+  a:hover { color: #0E2529; }
+  ::selection { background: #E9A93F; color: #0E2529; }
+  input, select, textarea, button { font-family: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgba(14,37,41,0.22); }
+</style>
+</helmet>
+
+<div style="display:flex;min-height:100vh;background:#E4E1D8;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#0E2529">
+
+  <aside style="width:246px;flex:none;background:#0E2529;color:#EDEAE2;display:flex;flex-direction:column;position:sticky;top:0;height:100vh">
+    <div style="padding:24px 20px 20px;border-bottom:1px solid rgba(237,234,226,0.14)">
+      <img src="https://www.sharkauto.pt/images/shark-fin-logo.png" alt="Shark" style="height:18px;width:auto;filter:brightness(0) invert(1);opacity:0.9;display:block;margin-bottom:14px" />
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#E9A93F">ADMIN</div>
+    </div>
+
+    <nav style="flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
+        <button onClick="{{ n.go }}" style="{{ n.estilo }}">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:0.55;width:18px;flex:none">{{ n.num }}</span>
+          <span style="flex:1;text-align:left">{{ n.label }}</span>
+          <span style="{{ n.badgeEstilo }}">{{ n.badge }}</span>
+        </button>
+      </sc-for>
+    </nav>
+
+    <div style="padding:16px 20px;border-top:1px solid rgba(237,234,226,0.14)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div style="width:30px;height:30px;flex:none;background:#E9A93F;color:#0E2529;display:grid;place-items:center;font-family:Anton,sans-serif;font-size:14px">I</div>
+        <div style="min-width:0">
+          <div style="font-size:11px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">imports@sharkauto.pt</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#8FA3A6">ADMIN</div>
+        </div>
+      </div>
+      <button onClick="{{ irLogin }}" style="width:100%;padding:9px;background:none;border:1px solid rgba(237,234,226,0.28);color:#C4BFB3;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#E9A93F;color:#E9A93F">Terminar sessão</button>
+    </div>
+  </aside>
+
+  <main style="flex:1;min-width:0;padding:clamp(20px,2.6vw,40px)">
+
+    <sc-if value="{{ ecraLogin }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;place-items:center;min-height:calc(100vh - 80px)">
+        <div style="width:100%;max-width:400px;background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:44px 36px">
+          <img src="https://www.sharkauto.pt/images/shark-logo.png" alt="Shark Automotive" style="height:40px;width:auto;display:block;margin:0 auto 30px" />
+          <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:26px;line-height:1;text-transform:uppercase;text-align:center;margin:0 0 8px">Admin Dashboard</h1>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;text-align:center;margin:0 0 32px">Acesso restrito</p>
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#3E4E51;margin-bottom:7px">Email</label>
+          <input type="email" placeholder="imports@sharkauto.pt" style="width:100%;padding:13px 14px;background:#FFFFFF;border:1px solid rgba(14,37,41,0.2);font-size:14px;margin-bottom:20px;outline:none" />
+          <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#3E4E51;margin-bottom:7px">Password</label>
+          <input type="password" placeholder="••••••••" style="width:100%;padding:13px 14px;background:#FFFFFF;border:1px solid rgba(14,37,41,0.2);font-size:14px;margin-bottom:28px;outline:none" />
+          <button onClick="{{ entrar }}" style="width:100%;padding:16px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Entrar</button>
+          <div style="text-align:center;margin-top:22px"><a href="https://www.sharkauto.pt" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#6C6A62">Voltar ao website</a></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraDashboard }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px">
+        <div>
+          <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Dashboard</h1>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Visão geral do negócio · actualizado agora</p>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button onClick="{{ irOperacoes }}" style="padding:13px 20px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">+ Nova operação</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;border:1px solid rgba(14,37,41,0.14);margin-bottom:24px">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="5">
+          <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:22px 20px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:14px">{{ k.label }}</div>
+            <div style="font-family:Anton,sans-serif;font-size:38px;line-height:0.9">{{ k.valor }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3E4E51;margin-top:10px">{{ k.nota }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;margin-bottom:20px">
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+            <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Operações a decorrer</h2>
+            <button onClick="{{ irOperacoes }}" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#B07316;cursor:pointer">Ver todas →</button>
+          </div>
+          <sc-for list="{{ operacoes }}" as="o" hint-placeholder-count="3">
+            <button onClick="{{ o.abrir }}" style="width:100%;display:block;text-align:left;background:none;border:none;border-bottom:1px solid rgba(14,37,41,0.09);padding:16px 22px;cursor:pointer" style-hover="background:#EDEAE2">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px">
+                <span style="font-size:14px;font-weight:600">{{ o.cliente }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ o.actualizado }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51">{{ o.viatura }}</span>
+                <span style="width:4px;height:4px;background:#B07316;border-radius:50%"></span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#B07316">{{ o.passoLabel }}</span>
+              </div>
+              <div style="height:4px;background:rgba(14,37,41,0.12);margin-top:12px">
+                <div style="{{ o.barra }}"></div>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+            <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Precisa de atenção</h2>
+          </div>
+          <sc-for list="{{ atencao }}" as="a" hint-placeholder-count="4">
+            <div style="display:flex;gap:14px;padding:16px 22px;border-bottom:1px solid rgba(14,37,41,0.09)">
+              <div style="{{ a.pontoEstilo }}"></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:500;margin-bottom:4px">{{ a.titulo }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ a.detalhe }}</div>
+              </div>
+              <button onClick="{{ a.accao }}" style="flex:none;align-self:center;padding:7px 12px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#0E2529;background:#EDEAE2">{{ a.cta }}</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+        <div style="padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Leads recentes</h2>
+        </div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:640px">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Lead</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Tipo</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Estado</th>
+                <th style="text-align:right;padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ leadsRecentes }}" as="l" hint-placeholder-count="5">
+                <tr style="border-bottom:1px solid rgba(14,37,41,0.09)">
+                  <td style="padding:14px 22px">
+                    <div style="font-size:13px;font-weight:500">{{ l.nome }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:3px">{{ l.email }}</div>
+                  </td>
+                  <td style="padding:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51">{{ l.tipo }}</td>
+                  <td style="padding:14px"><span style="{{ l.chip }}">{{ l.estado }}</span></td>
+                  <td style="padding:14px 22px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6C6A62;font-variant-numeric:tabular-nums">{{ l.data }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraVeiculos }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px">
+        <div>
+          <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Gestão de viaturas</h1>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">{{ totalVeiculos }} em inventário · alimenta o site em tempo real</p>
+        </div>
+        <button style="padding:13px 20px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">+ Adicionar viatura</button>
+      </div>
+
+      <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:900px">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:14px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Viatura</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Ano</th>
+              <th style="text-align:right;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Km</th>
+              <th style="text-align:right;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Preço</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Estado</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Protocolo</th>
+              <th style="text-align:right;padding:14px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Acções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ veiculos }}" as="v" hint-placeholder-count="3">
+              <tr style="border-bottom:1px solid rgba(14,37,41,0.09)">
+                <td style="padding:16px 22px">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div style="width:46px;height:34px;flex:none;background:#DDD9CF;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#6C6A62">FOTO</div>
+                    <div>
+                      <div style="font-size:14px;font-weight:600">{{ v.nome }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:3px">{{ v.especificacao }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:16px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-variant-numeric:tabular-nums">{{ v.ano }}</td>
+                <td style="padding:16px 14px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-variant-numeric:tabular-nums">{{ v.km }}</td>
+                <td style="padding:16px 14px;text-align:right;font-family:Anton,sans-serif;font-size:18px">{{ v.preco }}</td>
+                <td style="padding:16px 14px"><span style="{{ v.chip }}">{{ v.estado }}</span></td>
+                <td style="padding:16px 14px">
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:66px;height:4px;background:rgba(14,37,41,0.14);flex:none">
+                      <div style="{{ v.barra }}"></div>
+                    </div>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;font-variant-numeric:tabular-nums">{{ v.protocolo }}</span>
+                  </div>
+                </td>
+                <td style="padding:16px 22px">
+                  <div style="display:flex;gap:6px;justify-content:flex-end">
+                    <button onClick="{{ v.abrir }}" style="padding:7px 11px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#0E2529;background:#EDEAE2">Abrir</button>
+                    <button onClick="{{ v.ficha }}" style="padding:7px 11px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#B07316;color:#B07316">Ficha</button>
+                    <button onClick="{{ v.declaracao }}" style="padding:7px 11px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#B07316;color:#B07316">Declaração</button>
+                  </div>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+
+      <sc-if value="{{ veiculoAberto }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:24px;background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid rgba(14,37,41,0.14);background:#0E2529;color:#EDEAE2">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#E9A93F;margin-bottom:6px">Editar viatura</div>
+              <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:26px;line-height:1;text-transform:uppercase;margin:0">{{ vaNome }}</h2>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button onClick="{{ vaFicha }}" style="padding:11px 16px;background:#E9A93F;color:#0E2529;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#EDEAE2">Gerar ficha de vidro</button>
+              <button onClick="{{ vaDeclaracao }}" style="padding:11px 16px;background:none;border:1px solid rgba(237,234,226,0.4);color:#EDEAE2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#E9A93F;color:#E9A93F">Declaração de circulação</button>
+              <button onClick="{{ fecharVeiculo }}" style="padding:11px 14px;background:none;border:1px solid rgba(237,234,226,0.4);color:#EDEAE2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#EDEAE2">Fechar</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px">
+            <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:24px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:20px">Identificação</div>
+              <sc-for list="{{ vaCampos }}" as="c" hint-placeholder-count="8">
+                <div style="display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dotted rgba(14,37,41,0.2)">
+                  <span style="flex:none;width:112px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#6C6A62">{{ c.label }}</span>
+                  <input type="text" value="{{ c.valor }}" onChange="{{ c.onChange }}" style="flex:1;min-width:0;padding:5px 6px;background:transparent;border:none;border-bottom:1px solid rgba(14,37,41,0.16);font-size:13px;outline:none" />
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:24px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:20px">Visibilidade no site</div>
+              <div style="display:grid;gap:14px;margin-bottom:26px">
+                <sc-for list="{{ vaFlags }}" as="f" hint-placeholder-count="4">
+                  <button onClick="{{ f.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;background:#EDEAE2;border:1px solid rgba(14,37,41,0.16);text-align:left;cursor:pointer" style-hover="border-color:#0E2529">
+                    <span style="{{ f.caixa }}">{{ f.marca }}</span>
+                    <span style="flex:1">
+                      <span style="display:block;font-size:13px;font-weight:500">{{ f.label }}</span>
+                      <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:2px">{{ f.nota }}</span>
+                    </span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:14px">Protocolo Shark · {{ vaProtocolo }}</div>
+              <sc-for list="{{ vaProtocoloPassos }}" as="p" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+                  <span style="{{ p.ponto }}"></span>
+                  <span style="flex:1;font-size:12px">{{ p.label }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ p.contagem }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:24px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:20px">Fotografias · {{ vaNumFotos }}</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-bottom:20px">
+                <sc-for list="{{ vaFotos }}" as="f" hint-placeholder-count="9">
+                  <div style="aspect-ratio:4/3;background:#DDD9CF;border:1px solid rgba(14,37,41,0.12);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#6C6A62">{{ f.label }}</div>
+                </sc-for>
+              </div>
+              <button style="width:100%;padding:13px;background:none;border:1px dashed rgba(14,37,41,0.35);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#3E4E51;cursor:pointer" style-hover="border-color:#0E2529;background:#EDEAE2">Carregar fotografias</button>
+              <div style="margin-top:22px;padding:14px;background:#EDEAE2;border-left:3px solid #E9A93F">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#B07316;margin-bottom:6px">Integração</div>
+                <div style="font-size:11px;line-height:1.6;color:#3E4E51">Upload para bucket <strong>vehicle-photos</strong>. Ver <strong>INT-04</strong> no handoff.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;padding:20px 24px;border-top:1px solid rgba(14,37,41,0.14)">
+            <button style="padding:14px 24px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Guardar alterações</button>
+            <button onClick="{{ fecharVeiculo }}" style="padding:14px 24px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#0E2529">Cancelar</button>
+          </div>
+        </div>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ ecraOperacoes }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ semOperacaoAberta }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px">
+          <div>
+            <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Operações</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Pedidos de importação qualificados · cada um com portal de cliente</p>
+          </div>
+          <button style="padding:13px 20px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">+ Nova operação</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
+          <sc-for list="{{ operacoes }}" as="o" hint-placeholder-count="3">
+            <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);display:flex;flex-direction:column">
+              <div style="padding:20px 22px;border-bottom:1px solid rgba(14,37,41,0.12)">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px">
+                  <div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#B07316;margin-bottom:6px">{{ o.ref }}</div>
+                    <div style="font-size:17px;font-weight:600;line-height:1.2">{{ o.cliente }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:4px">{{ o.email }}</div>
+                  </div>
+                  <span style="{{ o.chipTipo }}">{{ o.tipo }}</span>
+                </div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                  <span style="font-family:Anton,sans-serif;font-size:21px;text-transform:uppercase">{{ o.viatura }}</span>
+                  <span style="font-family:Anton,sans-serif;font-size:21px;color:#B07316">{{ o.valor }}</span>
+                </div>
+              </div>
+              <div style="padding:20px 22px;flex:1">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6C6A62">Passo {{ o.passoNum }} de 8</span>
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#0E2529">{{ o.passoLabel }}</span>
+                </div>
+                <div style="height:5px;background:rgba(14,37,41,0.12);margin-bottom:18px">
+                  <div style="{{ o.barra }}"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid rgba(14,37,41,0.12)">
+                  <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.12);background:#EDEAE2;padding:11px 13px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#6C6A62">Pago</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;margin-top:4px">{{ o.pago }}</div>
+                  </div>
+                  <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.12);background:#EDEAE2;padding:11px 13px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#6C6A62">Documentos</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;margin-top:4px">{{ o.numDocs }}</div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;padding:0 22px 20px">
+                <button onClick="{{ o.abrir }}" style="flex:1;padding:13px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Abrir operação</button>
+                <button onClick="{{ o.portal }}" style="flex:none;padding:13px 15px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#B07316;color:#B07316">Portal</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ operacaoAberta }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ fecharOperacao }}" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#B07316;cursor:pointer;padding:0;margin-bottom:18px">← Todas as operações</button>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#B07316;margin-bottom:10px">{{ oaRef }} · {{ oaTipo }}</div>
+            <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1;text-transform:uppercase;margin:0 0 10px">{{ oaViatura }}</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51;margin:0">{{ oaCliente }} · {{ oaEmail }} · {{ oaTelefone }}</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button onClick="{{ oaPortal }}" style="padding:12px 18px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Ver portal do cliente</button>
+            <button style="padding:12px 18px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#0E2529">Criar conta de acesso</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;align-items:start">
+
+          <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+            <div style="padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+              <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Estado do processo</h2>
+            </div>
+            <sc-for list="{{ oaPassos }}" as="p" hint-placeholder-count="8">
+              <div style="display:flex;gap:16px;padding:15px 22px;border-bottom:1px solid rgba(14,37,41,0.09)">
+                <div style="{{ p.marcador }}">{{ p.icone }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <span style="{{ p.tituloEstilo }}">{{ p.titulo }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;flex:none">{{ p.data }}</span>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.6;color:#6C6A62;margin-top:5px">{{ p.nota }}</div>
+                </div>
+                <button onClick="{{ p.avancar }}" style="{{ p.botaoEstilo }}">{{ p.botaoLabel }}</button>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;gap:20px">
+
+            <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+                <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Pagamentos</h2>
+                <button style="padding:8px 13px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">+ Criar link</button>
+              </div>
+              <div style="padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.12)">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6C6A62">Recebido de {{ oaTotal }}</span>
+                  <span style="font-family:Anton,sans-serif;font-size:24px">{{ oaPago }}</span>
+                </div>
+                <div style="height:6px;background:rgba(14,37,41,0.12)">
+                  <div style="{{ oaBarraPago }}"></div>
+                </div>
+              </div>
+              <sc-for list="{{ oaPagamentos }}" as="p" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:14px;padding:15px 22px;border-bottom:1px solid rgba(14,37,41,0.09)">
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:13px;font-weight:500">{{ p.descricao }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:4px">{{ p.metodo }} · {{ p.data }}</div>
+                  </div>
+                  <div style="text-align:right;flex:none">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">{{ p.valor }}</div>
+                    <span style="{{ p.chip }}">{{ p.estado }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="padding:14px 22px;background:#EDEAE2;border-left:3px solid #E9A93F;margin:14px 22px 18px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#B07316;margin-bottom:6px">Integração</div>
+                <div style="font-size:11px;line-height:1.6;color:#3E4E51">Links via Stripe Payment Links; webhook actualiza <strong>payments.status</strong>. Ver <strong>INT-05</strong>.</div>
+              </div>
+            </div>
+
+            <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+                <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Documentos e facturas</h2>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ oaNumDocs }}</span>
+              </div>
+              <sc-for list="{{ oaDocumentos }}" as="d" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid rgba(14,37,41,0.09)">
+                  <div style="width:32px;height:40px;flex:none;background:#DDD9CF;border:1px solid rgba(14,37,41,0.14);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:7px;color:#3E4E51">{{ d.ext }}</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.nome }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62;margin-top:4px">{{ d.meta }}</div>
+                  </div>
+                  <span style="{{ d.chip }}">{{ d.visivel }}</span>
+                </div>
+              </sc-for>
+              <div style="padding:18px 22px">
+                <button style="width:100%;padding:14px;background:none;border:1px dashed rgba(14,37,41,0.35);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#3E4E51;cursor:pointer" style-hover="border-color:#0E2529;background:#EDEAE2">Carregar factura ou documento</button>
+              </div>
+            </div>
+
+            <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+                <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Conversa com o cliente</h2>
+                <span style="display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#3E7D5A"><span style="width:6px;height:6px;background:#3E7D5A;border-radius:50%"></span>Online</span>
+              </div>
+              <div style="padding:18px 22px;display:flex;flex-direction:column;gap:14px;max-height:340px;overflow-y:auto">
+                <sc-for list="{{ oaMensagens }}" as="m" hint-placeholder-count="4">
+                  <div style="{{ m.linha }}">
+                    <div style="{{ m.bolha }}">
+                      <div style="font-size:13px;line-height:1.55">{{ m.texto }}</div>
+                      <div style="{{ m.metaEstilo }}">{{ m.autor }} · {{ m.hora }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:8px;padding:16px 22px;border-top:1px solid rgba(14,37,41,0.12)">
+                <input type="text" value="{{ rascunho }}" onChange="{{ setRascunho }}" placeholder="Escrever mensagem ao cliente…" style="flex:1;min-width:0;padding:12px 14px;background:#FFFFFF;border:1px solid rgba(14,37,41,0.2);font-size:13px;outline:none" />
+                <button onClick="{{ enviar }}" style="flex:none;padding:12px 18px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Enviar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ ecraDocumentos }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px">
+        <div>
+          <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Documentos</h1>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Propostas, orçamentos e declarações · saem em PDF com carta timbrada</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;border:1px solid rgba(14,37,41,0.14);margin-bottom:26px">
+        <sc-for list="{{ modelos }}" as="m" hint-placeholder-count="4">
+          <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:24px;display:flex;flex-direction:column;gap:14px;min-height:212px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#B07316">{{ m.codigo }}</div>
+            <div style="font-family:Anton,sans-serif;font-size:22px;line-height:1.05;text-transform:uppercase">{{ m.nome }}</div>
+            <div style="font-size:12px;line-height:1.6;color:#3E4E51;flex:1">{{ m.descricao }}</div>
+            <button onClick="{{ m.abrir }}" style="padding:12px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Abrir modelo</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14)">
+        <div style="padding:18px 22px;border-bottom:1px solid rgba(14,37,41,0.14)">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0">Emitidos</h2>
+        </div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:700px">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Referência</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Tipo</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Cliente</th>
+                <th style="text-align:right;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Valor</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Estado</th>
+                <th style="text-align:right;padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Acções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ emitidos }}" as="e" hint-placeholder-count="4">
+                <tr style="border-bottom:1px solid rgba(14,37,41,0.09)">
+                  <td style="padding:14px 22px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600">{{ e.ref }}</td>
+                  <td style="padding:14px;font-size:13px">{{ e.tipo }}</td>
+                  <td style="padding:14px;font-size:13px">{{ e.cliente }}</td>
+                  <td style="padding:14px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums">{{ e.valor }}</td>
+                  <td style="padding:14px"><span style="{{ e.chip }}">{{ e.estado }}</span></td>
+                  <td style="padding:14px 22px;text-align:right">
+                    <button onClick="{{ e.abrir }}" style="padding:7px 12px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#B07316;color:#B07316">Ver PDF</button>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraLeads }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:26px">
+        <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Gestão de leads</h1>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">{{ totalLeads }} no total · {{ novosLeads }} novos</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:1px;border:1px solid rgba(14,37,41,0.14);margin-bottom:20px">
+        <sc-for list="{{ funil }}" as="f" hint-placeholder-count="6">
+          <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:18px 16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;margin-bottom:10px">{{ f.label }}</div>
+            <div style="font-family:Anton,sans-serif;font-size:30px;line-height:0.9">{{ f.valor }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px">
+        <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="7">
+          <button onClick="{{ f.escolher }}" style="{{ f.estilo }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:820px">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:14px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Lead</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Tipo</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Interesse</th>
+              <th style="text-align:left;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Estado</th>
+              <th style="text-align:right;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Data</th>
+              <th style="text-align:right;padding:14px 22px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#6C6A62;font-weight:500;border-bottom:1px solid rgba(14,37,41,0.14)">Acções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ leads }}" as="l" hint-placeholder-count="6">
+              <tr style="border-bottom:1px solid rgba(14,37,41,0.09)">
+                <td style="padding:16px 22px">
+                  <div style="font-size:14px;font-weight:600">{{ l.nome }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:5px">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ l.email }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ l.telefone }}</span>
+                  </div>
+                </td>
+                <td style="padding:16px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51">{{ l.tipo }}</td>
+                <td style="padding:16px 14px;font-size:13px">{{ l.interesse }}</td>
+                <td style="padding:16px 14px"><span style="{{ l.chip }}">{{ l.estado }}</span></td>
+                <td style="padding:16px 14px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6C6A62;font-variant-numeric:tabular-nums">{{ l.data }}</td>
+                <td style="padding:16px 22px;text-align:right">
+                  <button onClick="{{ l.converter }}" style="padding:7px 12px;background:none;border:1px solid rgba(14,37,41,0.28);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#B07316;color:#B07316">Criar operação</button>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraMensagens }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:26px">
+        <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Mensagens</h1>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Formulários do site e conversas de operações</p>
+      </div>
+      <div style="display:grid;gap:14px">
+        <sc-for list="{{ mensagens }}" as="m" hint-placeholder-count="3">
+          <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:22px">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase">{{ m.nome }}</span>
+                <span style="{{ m.chip }}">{{ m.origem }}</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6C6A62">{{ m.data }}</span>
+            </div>
+            <div style="background:#EDEAE2;border-left:3px solid rgba(14,37,41,0.25);padding:16px 18px;font-size:13px;line-height:1.65;color:#0E2529;margin-bottom:16px">{{ m.texto }}</div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51">{{ m.email }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3E4E51">{{ m.telefone }}</span>
+              <button style="margin-left:auto;padding:9px 15px;background:#0E2529;color:#EDEAE2;border:none;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#E9A93F;color:#0E2529">Responder</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraRelatorios }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:26px">
+        <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Relatórios</h1>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Desempenho do negócio</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1px;border:1px solid rgba(14,37,41,0.14);margin-bottom:20px">
+        <sc-for list="{{ metricas }}" as="m" hint-placeholder-count="4">
+          <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;padding:22px 20px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#6C6A62;margin-bottom:14px">{{ m.label }}</div>
+            <div style="font-family:Anton,sans-serif;font-size:34px;line-height:0.9">{{ m.valor }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px">
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:24px">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 22px">Distribuição de stock</h2>
+          <sc-for list="{{ stock }}" as="s" hint-placeholder-count="3">
+            <div style="margin-bottom:18px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px">
+                <span style="font-size:13px">{{ s.label }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600">{{ s.valor }}</span>
+              </div>
+              <div style="height:6px;background:rgba(14,37,41,0.12)">
+                <div style="{{ s.barra }}"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:24px">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 22px">Leads por tipo</h2>
+          <sc-for list="{{ leadsPorTipo }}" as="s" hint-placeholder-count="3">
+            <div style="margin-bottom:18px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px">
+                <span style="font-size:13px">{{ s.label }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600">{{ s.valor }}</span>
+              </div>
+              <div style="height:6px;background:rgba(14,37,41,0.12)">
+                <div style="{{ s.barra }}"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:24px;margin-top:20px">
+        <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 22px">Pipeline de leads</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;border:1px solid rgba(14,37,41,0.14)">
+          <sc-for list="{{ funil }}" as="f" hint-placeholder-count="6">
+            <div style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#EDEAE2;padding:18px 14px;text-align:center">
+              <div style="font-family:Anton,sans-serif;font-size:26px;line-height:1">{{ f.valor }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#6C6A62;margin-top:8px">{{ f.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraConteudo }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:26px">
+        <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Conteúdo do site</h1>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Editar o texto de cada página · publica em tempo real</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;border:1px solid rgba(14,37,41,0.14)">
+        <sc-for list="{{ paginas }}" as="p" hint-placeholder-count="7">
+          <button onClick="{{ p.abrir }}" style="box-shadow:0 0 0 1px rgba(14,37,41,0.14);background:#F5F3EE;border:none;padding:24px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-height:180px" style-hover="background:#EDEAE2">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <span style="font-family:Anton,sans-serif;font-size:21px;line-height:1.05;text-transform:uppercase">{{ p.nome }}</span>
+              <span style="{{ p.chip }}">{{ p.estado }}</span>
+            </div>
+            <div style="font-size:12px;line-height:1.6;color:#3E4E51;flex:1">{{ p.descricao }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <sc-for list="{{ p.blocos }}" as="b" hint-placeholder-count="4">
+                <span style="padding:4px 8px;background:#DDD9CF;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.06em;color:#3E4E51">{{ b }}</span>
+              </sc-for>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ecraConfig }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:26px">
+        <h1 style="font-family:Anton,sans-serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1;text-transform:uppercase;margin:0 0 8px">Configurações</h1>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#6C6A62;margin:0">Empresa, custos do orçamento e integrações</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;align-items:start">
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:24px">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 20px">Dados da empresa</h2>
+          <sc-for list="{{ dadosEmpresa }}" as="d" hint-placeholder-count="6">
+            <div style="display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dotted rgba(14,37,41,0.2)">
+              <span style="flex:none;width:118px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#6C6A62">{{ d.label }}</span>
+              <input type="text" value="{{ d.valor }}" style="flex:1;min-width:0;padding:5px 6px;background:transparent;border:none;border-bottom:1px solid rgba(14,37,41,0.16);font-size:13px;outline:none" />
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#F5F3EE;border:1px solid rgba(14,37,41,0.14);padding:24px">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 8px">Custos padrão</h2>
+          <p style="font-size:12px;line-height:1.6;color:#3E4E51;margin:0 0 20px">Alimentam a calculadora do site e os orçamentos.</p>
+          <sc-for list="{{ custos }}" as="c" hint-placeholder-count="4">
+            <div style="display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dotted rgba(14,37,41,0.2)">
+              <span style="flex:1;font-size:13px">{{ c.label }}</span>
+              <input type="text" value="{{ c.valor }}" style="flex:none;width:100px;padding:5px 6px;background:transparent;border:none;border-bottom:1px solid rgba(14,37,41,0.16);font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;outline:none" />
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#0E2529;color:#EDEAE2;border:1px solid rgba(14,37,41,0.14);padding:24px">
+          <h2 style="font-family:Anton,sans-serif;font-weight:400;font-size:17px;text-transform:uppercase;margin:0 0 8px">Integrações</h2>
+          <p style="font-size:12px;line-height:1.6;color:#C4BFB3;margin:0 0 20px">Pontos abertos para ligar. Cada código remete para o handoff.</p>
+          <sc-for list="{{ integracoes }}" as="i" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(237,234,226,0.14)">
+              <span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#E9A93F;width:56px">{{ i.codigo }}</span>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:500">{{ i.nome }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA3A6;margin-top:3px">{{ i.detalhe }}</div>
+              </div>
+              <span style="{{ i.chip }}">{{ i.estado }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+/* =========================================================================
+   SHARK AUTOMOTIVE — ADMIN PANEL (design reference)
+   -------------------------------------------------------------------------
+   ALL DATA BELOW IS MOCK. Every array in `dados()` is a seam: replace the
+   return value with a Supabase query and the UI works unchanged.
+
+   INTEGRATION POINTS (full spec in design_handoff_shark_admin/README.md):
+     INT-01  auth        supabase.auth.signInWithPassword  → admin session
+     INT-02  vehicles    select/insert/update/delete        → drives public site
+     INT-03  operations  select + realtime channel          → pipeline state
+     INT-04  storage     buckets: vehicle-photos, documents
+     INT-05  payments    Stripe Payment Links + webhook     → payments.status
+     INT-06  messages    realtime channel per operation     → customer chat
+     INT-07  leads       select/update status
+     INT-08  site_content select/update by page+block       → website copy
+     INT-09  settings    single-row config table            → costs, company
+     INT-10  documents   generate PDF + store + email
+   ========================================================================= */
+
+class Component extends DCLogic {
+  state = {
+    ecra: "dashboard",
+    veiculoId: null,
+    operacaoId: null,
+    filtroLead: "Todos",
+    rascunho: "",
+    extraMensagens: [],
+    flags: { publicado: true, destaque: true, reservado: false, vendido: false }
+  };
+
+  eur(n) {
+    return new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+  }
+
+  chip(texto, tom) {
+    const tons = {
+      verde: ["#DCEBE1", "#2C5F44"],
+      ambar: ["#F6E7CB", "#8A5A11"],
+      azul: ["#D9E4F0", "#2B4C74"],
+      vermelho: ["#F3DCDC", "#8A2E2E"],
+      neutro: ["#DDD9CF", "#3E4E51"]
+    };
+    const [bg, fg] = tons[tom] || tons.neutro;
+    return "display:inline-block;padding:4px 9px;background:" + bg + ";color:" + fg +
+      ";font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap";
+  }
+
+  barra(pct, cor) {
+    return "width:" + Math.max(0, Math.min(100, pct)) + "%;height:100%;background:" + (cor || "#0E2529");
+  }
+
+  /* ---------- MOCK DATA — replace each key with a Supabase query ---------- */
+  dados() {
+    return {
+      // INT-02
+      veiculos: [
+        { id: "v1", nome: "BMW 320d Touring Aut.", especificacao: "Diesel · Automática · 184 cv", ano: 2012, km: "119 000", preco: 13500, estado: "Vendido", tom: "vermelho", protocolo: "144/150", pct: 96 },
+        { id: "v2", nome: "Mini Cooper S", especificacao: "Gasolina · Manual · 184 cv", ano: 2011, km: "147 500", preco: 10900, estado: "Disponível", tom: "verde", protocolo: "150/150", pct: 100 },
+        { id: "v3", nome: "Volkswagen Polo", especificacao: "Diesel · Manual · 75 cv", ano: 2012, km: "144 500", preco: 6800, estado: "Disponível", tom: "verde", protocolo: "150/150", pct: 100 }
+      ],
+      // INT-03
+      operacoes: [
+        {
+          id: "o1", ref: "OP-2026-014", cliente: "Vasco Menezes", email: "vrm@sharkauto.pt", telefone: "+351 911 903 833",
+          tipo: "Encomenda", tomTipo: "ambar", viatura: "BMW M8", total: 96400, pago: 8000,
+          passoNum: 2, passoLabel: "Briefing recebido", actualizado: "14/07/2026", numDocs: "3 ficheiros"
+        },
+        {
+          id: "o2", ref: "OP-2026-012", cliente: "Cliente Teste", email: "cliente.teste@sharkauto.pt", telefone: "+351 912 000 000",
+          tipo: "Comprador", tomTipo: "azul", viatura: "BMW M340i", total: 58200, pago: 29100,
+          passoNum: 5, passoLabel: "Contrato assinado", actualizado: "12/07/2026", numDocs: "7 ficheiros"
+        },
+        {
+          id: "o3", ref: "OP-2026-009", cliente: "Eduardo Rodrigues", email: "dudu.rodrigues.k1@gmail.com", telefone: "+351 967 109 920",
+          tipo: "Encomenda", tomTipo: "ambar", viatura: "Honda S2000", total: 44530, pago: 44530,
+          passoNum: 8, passoLabel: "Entregue", actualizado: "09/07/2026", numDocs: "11 ficheiros"
+        }
+      ],
+      // INT-07
+      leads: [
+        { nome: "VASCO MENEZES", email: "vascomenezes.14@gmail.com", telefone: "911 903 833", tipo: "Importação", interesse: "BMW M8 Competition", estado: "Novo", tom: "azul", data: "07/05/2026" },
+        { nome: "Maria do Carmo Castelo Branco", email: "mcarmocbssacoto@gmail.com", telefone: "917 941 567", tipo: "Importação", interesse: "Volvo XC60", estado: "Contactado", tom: "ambar", data: "06/05/2026" },
+        { nome: "Eduardo Rodrigues", email: "dudu.rodrigues.k1@gmail.com", telefone: "+351 967 109 920", tipo: "Importação", interesse: "Honda S2000", estado: "Convertido", tom: "verde", data: "06/05/2026" },
+        { nome: "Eduardo Rodrigues", email: "dudu.rodrigues.k1@gmail.com", telefone: "+351 967 109 920", tipo: "Contacto", interesse: "—", estado: "Novo", tom: "azul", data: "06/05/2026" },
+        { nome: "Ricardo Nunes", email: "ricardo.nunes@outlook.pt", telefone: "934 220 118", tipo: "Importação", interesse: "Audi RS4 Avant", estado: "Em negociação", tom: "ambar", data: "05/05/2026" },
+        { nome: "mika pika", email: "mikapika@mikapika.mikapika", telefone: "—", tipo: "Importação", interesse: "—", estado: "Perdido", tom: "vermelho", data: "07/05/2026" }
+      ]
+    };
+  }
+
+  passosOperacao(passoNum) {
+    const defs = [
+      ["Pedido qualificado", "Briefing e orçamento aprovados pelo cliente."],
+      ["Briefing recebido", "Marca, modelo, orçamento e extras confirmados."],
+      ["Viatura localizada", "Opções apresentadas com conta fechada."],
+      ["Inspecção na origem", "Relatório técnico e fotografias na rampa."],
+      ["Contrato assinado", "Sinal liquidado e viatura reservada."],
+      ["Transporte", "Porta-carros coberto, com rastreamento."],
+      ["Legalização", "ISV, matrícula nacional e registo."],
+      ["Entregue", "Entrega ao domicílio e garantia activa."]
+    ];
+    const datas = ["02/06", "14/07", "—", "—", "—", "—", "—", "—"];
+    return defs.map(([titulo, nota], i) => {
+      const n = i + 1;
+      const feito = n < passoNum;
+      const actual = n === passoNum;
+      let marcador = "width:26px;height:26px;flex:none;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;";
+      if (feito) marcador += "background:#0E2529;color:#EDEAE2";
+      else if (actual) marcador += "background:#E9A93F;color:#0E2529";
+      else marcador += "background:#DDD9CF;color:#6C6A62";
+      return {
+        titulo, nota,
+        icone: feito ? "✓" : String(n),
+        data: feito || actual ? datas[i] : "—",
+        marcador,
+        tituloEstilo: "font-size:13px;font-weight:" + (actual ? "600" : "500") + ";color:" + (n > passoNum ? "#6C6A62" : "#0E2529"),
+        botaoLabel: actual ? "Avançar" : feito ? "Feito" : "—",
+        botaoEstilo: "flex:none;align-self:center;padding:7px 11px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;cursor:" +
+          (actual ? "pointer" : "default") + ";border:1px solid " + (actual ? "#0E2529" : "transparent") +
+          ";background:" + (actual ? "#0E2529" : "transparent") + ";color:" + (actual ? "#EDEAE2" : "#8A8779"),
+        avancar: actual ? () => this.setState({}) : () => {}
+      };
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const d = this.dados();
+    const ir = (ecra) => () => this.setState({ ecra, veiculoId: null, operacaoId: null });
+
+    const navDefs = [
+      ["01", "Dashboard", "dashboard", ""],
+      ["02", "Viaturas", "veiculos", "3"],
+      ["03", "Operações", "operacoes", "3"],
+      ["04", "Documentos", "documentos", ""],
+      ["05", "Leads", "leads", "6"],
+      ["06", "Mensagens", "mensagens", "1"],
+      ["07", "Relatórios", "relatorios", ""],
+      ["08", "Conteúdo do site", "conteudo", ""],
+      ["09", "Configurações", "config", ""]
+    ];
+
+    const vAberto = d.veiculos.find(v => v.id === s.veiculoId) || null;
+    const oAberta = d.operacoes.find(o => o.id === s.operacaoId) || null;
+
+    const leadsFiltrados = s.filtroLead === "Todos" ? d.leads : d.leads.filter(l => l.estado === s.filtroLead);
+
+    const mensagensBase = [
+      { autor: "Shark", texto: "Boa tarde Vasco. Recebemos o briefing do M8. Já temos duas opções na Alemanha que encaixam no orçamento.", hora: "14:02", meu: true },
+      { autor: "Vasco Menezes", texto: "Perfeito. A prioridade é o Carbon Core e o pacote Driver's. Cor escura de preferência.", hora: "14:18", meu: false },
+      { autor: "Shark", texto: "Anotado. Envio o dossier das duas até amanhã com a conta fechada de cada uma, ISV incluído.", hora: "14:25", meu: true },
+      { autor: "Vasco Menezes", texto: "Obrigado. E o prazo mantém-se nas 4 semanas?", hora: "14:31", meu: false }
+    ];
+    const mensagens = mensagensBase.concat(s.extraMensagens);
+
+    return {
+      nav: navDefs.map(([num, label, ecra, badge]) => {
+        const activo = s.ecra === ecra;
+        return {
+          num, label, badge,
+          go: ir(ecra),
+          estilo: "display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border:none;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:" +
+            (activo ? "600" : "400") + ";background:" + (activo ? "#E9A93F" : "transparent") +
+            ";color:" + (activo ? "#0E2529" : "#C4BFB3"),
+          badgeEstilo: badge
+            ? "flex:none;padding:2px 7px;background:" + (activo ? "rgba(14,37,41,0.18)" : "rgba(237,234,226,0.14)") +
+              ";color:" + (activo ? "#0E2529" : "#8FA3A6") + ";font-family:'IBM Plex Mono',monospace;font-size:9px"
+            : "display:none"
+        };
+      }),
+
+      ecraLogin: s.ecra === "login",
+      ecraDashboard: s.ecra === "dashboard",
+      ecraVeiculos: s.ecra === "veiculos",
+      ecraOperacoes: s.ecra === "operacoes",
+      ecraDocumentos: s.ecra === "documentos",
+      ecraLeads: s.ecra === "leads",
+      ecraMensagens: s.ecra === "mensagens",
+      ecraRelatorios: s.ecra === "relatorios",
+      ecraConteudo: s.ecra === "conteudo",
+      ecraConfig: s.ecra === "config",
+
+      irLogin: ir("login"),
+      entrar: ir("dashboard"),
+      irOperacoes: ir("operacoes"),
+
+      kpis: [
+        { label: "Viaturas em stock", valor: "3", nota: "2 disponíveis · 1 vendida" },
+        { label: "Operações activas", valor: "3", nota: "1 aguarda inspecção" },
+        { label: "Leads novos", valor: "6", nota: "por contactar" },
+        { label: "Valor em curso", valor: "199k", nota: this.eur(199130) + " em operações" },
+        { label: "Taxa de conversão", valor: "12,5%", nota: "últimos 90 dias" }
+      ],
+
+      atencao: [
+        { titulo: "Inspecção do BMW M8 sem relatório", detalhe: "OP-2026-014 · parada há 4 dias", cta: "Abrir", tom: "vermelho", accao: () => this.setState({ ecra: "operacoes", operacaoId: "o1" }) },
+        { titulo: "Sinal do M340i em falta", detalhe: "OP-2026-012 · link enviado a 10/07", cta: "Link", tom: "ambar", accao: () => this.setState({ ecra: "operacoes", operacaoId: "o2" }) },
+        { titulo: "6 leads novos sem primeiro contacto", detalhe: "o mais antigo tem 5 dias", cta: "Ver", tom: "ambar", accao: ir("leads") },
+        { titulo: "Página Verificação Shark desactualizada", detalhe: "conteúdo pendente de publicação", cta: "Editar", tom: "azul", accao: ir("conteudo") }
+      ].map(a => ({
+        ...a,
+        pontoEstilo: "width:8px;height:8px;flex:none;margin-top:5px;border-radius:50%;background:" +
+          (a.tom === "vermelho" ? "#A33B3B" : a.tom === "ambar" ? "#B07316" : "#2B4C74")
+      })),
+
+      leadsRecentes: d.leads.slice(0, 5).map(l => ({ ...l, chip: this.chip(l.estado, l.tom) })),
+
+      totalVeiculos: d.veiculos.length,
+      veiculos: d.veiculos.map(v => ({
+        ...v,
+        preco: this.eur(v.preco),
+        chip: this.chip(v.estado, v.tom),
+        barra: this.barra(v.pct, v.pct === 100 ? "#2C5F44" : "#0E2529"),
+        abrir: () => this.setState({ veiculoId: v.id }),
+        ficha: () => this.setState({ ecra: "documentos" }),
+        declaracao: () => this.setState({ ecra: "documentos" })
+      })),
+
+      veiculoAberto: !!vAberto,
+      fecharVeiculo: () => this.setState({ veiculoId: null }),
+      vaNome: vAberto ? vAberto.nome : "",
+      vaProtocolo: vAberto ? vAberto.protocolo : "",
+      vaFicha: () => this.setState({ ecra: "documentos" }),
+      vaDeclaracao: () => this.setState({ ecra: "documentos" }),
+      vaCampos: vAberto ? [
+        { label: "Marca / Modelo", valor: vAberto.nome },
+        { label: "Ano", valor: String(vAberto.ano) },
+        { label: "Quilometragem", valor: vAberto.km + " km" },
+        { label: "Preço", valor: this.eur(vAberto.preco) },
+        { label: "Matrícula", valor: "AA-00-AA" },
+        { label: "VIN", valor: "WBA3K51070K123456" },
+        { label: "Cilindrada", valor: "1995 cm³" },
+        { label: "CO₂", valor: "132 g/km" },
+        { label: "Origem", valor: "Holanda" }
+      ].map(c => ({ ...c, onChange: () => {} })) : [],
+      vaFlags: [
+        { key: "publicado", label: "Publicado no site", nota: "Visível no inventário público" },
+        { key: "destaque", label: "Em destaque", nota: "Aparece na página inicial" },
+        { key: "reservado", label: "Reservado", nota: "Mostra selo de reserva" },
+        { key: "vendido", label: "Vendido", nota: "Sai do inventário activo" }
+      ].map(f => {
+        const on = !!s.flags[f.key];
+        return {
+          ...f,
+          marca: on ? "✓" : "",
+          caixa: "width:20px;height:20px;flex:none;display:grid;place-items:center;font-size:12px;background:" +
+            (on ? "#0E2529" : "transparent") + ";color:#EDEAE2;border:1px solid " + (on ? "#0E2529" : "rgba(14,37,41,0.35)"),
+          toggle: () => this.setState({ flags: { ...s.flags, [f.key]: !on } })
+        };
+      }),
+      vaProtocoloPassos: [
+        { label: "Verificação documental", contagem: "12/12", ok: true },
+        { label: "Inspecção técnica", contagem: "46/46", ok: true },
+        { label: "Registo fotográfico", contagem: "38/38", ok: true },
+        { label: "Transporte", contagem: "18/18", ok: true },
+        { label: "Legalização", contagem: "22/22", ok: true },
+        { label: "Garantia", contagem: "14/14", ok: true }
+      ].map(p => ({
+        ...p,
+        ponto: "width:7px;height:7px;flex:none;border-radius:50%;background:" + (p.ok ? "#2C5F44" : "#DDD9CF")
+      })),
+      vaNumFotos: "38 fotografias",
+      vaFotos: ["FRENTE", "TRÁS", "LAT. E", "LAT. D", "INTERIOR", "MOTOR", "JANTES", "MALA", "PAINEL"].map(label => ({ label })),
+
+      semOperacaoAberta: !oAberta,
+      operacaoAberta: !!oAberta,
+      fecharOperacao: () => this.setState({ operacaoId: null }),
+      operacoes: d.operacoes.map(o => ({
+        ...o,
+        valor: this.eur(o.total),
+        pago: this.eur(o.pago),
+        chipTipo: this.chip(o.tipo, o.tomTipo),
+        barra: this.barra((o.passoNum / 8) * 100, "#E9A93F"),
+        abrir: () => this.setState({ ecra: "operacoes", operacaoId: o.id }),
+        portal: () => this.setState({ ecra: "operacoes", operacaoId: o.id })
+      })),
+
+      oaRef: oAberta ? oAberta.ref : "",
+      oaTipo: oAberta ? oAberta.tipo : "",
+      oaViatura: oAberta ? oAberta.viatura : "",
+      oaCliente: oAberta ? oAberta.cliente : "",
+      oaEmail: oAberta ? oAberta.email : "",
+      oaTelefone: oAberta ? oAberta.telefone : "",
+      oaTotal: oAberta ? this.eur(oAberta.total) : "",
+      oaPago: oAberta ? this.eur(oAberta.pago) : "",
+      oaBarraPago: oAberta ? this.barra((oAberta.pago / oAberta.total) * 100, "#2C5F44") : "",
+      oaNumDocs: oAberta ? oAberta.numDocs : "",
+      oaPortal: () => {},
+      oaPassos: oAberta ? this.passosOperacao(oAberta.passoNum) : [],
+
+      oaPagamentos: [
+        { descricao: "Sinal de reserva", metodo: "Stripe · MB Way", data: "14/07/2026", valor: this.eur(8000), estado: "Pago", tom: "verde" },
+        { descricao: "Compra na origem", metodo: "Transferência SEPA", data: "vence 28/07", valor: this.eur(72000), estado: "Pendente", tom: "ambar" },
+        { descricao: "ISV, matrícula e comissão", metodo: "Link não emitido", data: "—", valor: this.eur(16400), estado: "Agendado", tom: "neutro" }
+      ].map(p => ({ ...p, chip: this.chip(p.estado, p.tom) })),
+
+      oaDocumentos: [
+        { nome: "Orçamento ORC-2026-014.pdf", meta: "Emitido 02/06 · 240 KB", ext: "PDF", visivel: "Visível", tom: "verde" },
+        { nome: "Briefing assinado.pdf", meta: "Recebido 14/07 · 1,1 MB", ext: "PDF", visivel: "Visível", tom: "verde" },
+        { nome: "Factura de compra (origem).pdf", meta: "Interno · 380 KB", ext: "PDF", visivel: "Interno", tom: "neutro" },
+        { nome: "Relatório de inspecção.pdf", meta: "Em falta", ext: "—", visivel: "Pendente", tom: "ambar" }
+      ].map(x => ({ ...x, chip: this.chip(x.visivel, x.tom) })),
+
+      oaMensagens: mensagens.map(m => ({
+        ...m,
+        linha: "display:flex;justify-content:" + (m.meu ? "flex-end" : "flex-start"),
+        bolha: "max-width:78%;padding:13px 15px;background:" + (m.meu ? "#0E2529" : "#EDEAE2") +
+          ";color:" + (m.meu ? "#EDEAE2" : "#0E2529"),
+        metaEstilo: "font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;margin-top:8px;color:" +
+          (m.meu ? "#8FA3A6" : "#6C6A62")
+      })),
+      rascunho: s.rascunho,
+      setRascunho: (e) => this.setState({ rascunho: e.target.value }),
+      enviar: () => {
+        const t = s.rascunho.trim();
+        if (!t) return;
+        this.setState({
+          rascunho: "",
+          extraMensagens: s.extraMensagens.concat([{ autor: "Shark", texto: t, hora: "agora", meu: true }])
+        });
+      },
+
+      modelos: [
+        { codigo: "DOC-01", nome: "Orçamento de importação", descricao: "Uma página com especificação, discriminação de custos, prazo e garantia. O formato que já usa.", abrir: () => {} },
+        { codigo: "DOC-02", nome: "Proposta de venda", descricao: "Para viatura em stock: ficha completa, condições de pagamento e garantia incluída.", abrir: () => {} },
+        { codigo: "DOC-03", nome: "Declaração de circulação", descricao: "Dados do cliente e 16 características da viatura. Válida 60 dias úteis.", abrir: () => {} },
+        { codigo: "DOC-04", nome: "Ficha de vidro", descricao: "Cartaz A4 para expor na viatura, com preço, especificação e selo do protocolo.", abrir: () => {} }
+      ],
+
+      emitidos: [
+        { ref: "ORC-2026-005", tipo: "Orçamento", cliente: "Eduardo Rodrigues", valor: this.eur(44530), estado: "Aceite", tom: "verde", abrir: () => {} },
+        { ref: "ORC-2026-014", tipo: "Orçamento", cliente: "Vasco Menezes", valor: this.eur(96400), estado: "Enviado", tom: "azul", abrir: () => {} },
+        { ref: "DEC-2026-031", tipo: "Declaração", cliente: "Cliente Teste", valor: "—", estado: "Emitida", tom: "neutro", abrir: () => {} },
+        { ref: "PRO-2026-008", tipo: "Proposta", cliente: "Maria do Carmo C. B.", valor: this.eur(10900), estado: "Rascunho", tom: "ambar", abrir: () => {} }
+      ].map(e => ({ ...e, chip: this.chip(e.estado, e.tom) })),
+
+      totalLeads: d.leads.length,
+      novosLeads: d.leads.filter(l => l.estado === "Novo").length,
+      funil: [
+        { label: "Novos", valor: 2 },
+        { label: "Contactados", valor: 1 },
+        { label: "Qualificados", valor: 0 },
+        { label: "Em negociação", valor: 1 },
+        { label: "Convertidos", valor: 1 },
+        { label: "Perdidos", valor: 1 }
+      ],
+      filtros: ["Todos", "Novo", "Contactado", "Qualificado", "Em negociação", "Convertido", "Perdido"].map(label => {
+        const activo = s.filtroLead === label;
+        return {
+          label,
+          escolher: () => this.setState({ filtroLead: label }),
+          estilo: "padding:9px 15px;border:1px solid " + (activo ? "#0E2529" : "rgba(14,37,41,0.22)") +
+            ";background:" + (activo ? "#0E2529" : "transparent") + ";color:" + (activo ? "#EDEAE2" : "#3E4E51") +
+            ";font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer"
+        };
+      }),
+      leads: leadsFiltrados.map(l => ({
+        ...l,
+        chip: this.chip(l.estado, l.tom),
+        converter: () => this.setState({ ecra: "operacoes" })
+      })),
+
+      mensagens: [
+        { nome: "Eduardo Rodrigues", origem: "Contacto geral", tom: "neutro", data: "06/05/2026, 22:38", texto: "[importacao] Boa noite. Tenho interesse em importar um Honda S2000 e queria saber o custo total até estar na minha garagem.", email: "dudu.rodrigues.k1@gmail.com", telefone: "+351 967 109 920" },
+        { nome: "Vasco Menezes", origem: "Operação OP-2026-014", tom: "ambar", data: "14/07/2026, 14:31", texto: "Obrigado. E o prazo mantém-se nas 4 semanas?", email: "vrm@sharkauto.pt", telefone: "+351 911 903 833" },
+        { nome: "Ricardo Nunes", origem: "Pedido de dossier", tom: "azul", data: "05/05/2026, 09:12", texto: "Procuro um Audi RS4 Avant até 60 mil, com histórico limpo. Podem enviar o dossier de alguma opção?", email: "ricardo.nunes@outlook.pt", telefone: "934 220 118" }
+      ].map(m => ({ ...m, chip: this.chip(m.origem, m.tom) })),
+
+      metricas: [
+        { label: "Valor em stock", valor: "17,7k" },
+        { label: "Valor vendido", valor: "13,5k" },
+        { label: "Viaturas vendidas", valor: "1" },
+        { label: "Margem média", valor: "8,4%" }
+      ],
+      stock: [
+        { label: "Disponíveis", valor: 2, pct: 67, cor: "#2C5F44" },
+        { label: "Reservados", valor: 0, pct: 0, cor: "#B07316" },
+        { label: "Vendidos", valor: 1, pct: 33, cor: "#A33B3B" }
+      ].map(x => ({ ...x, barra: this.barra(x.pct, x.cor) })),
+      leadsPorTipo: [
+        { label: "Importação", valor: 5, pct: 83 },
+        { label: "Contacto", valor: 1, pct: 17 }
+      ].map(x => ({ ...x, barra: this.barra(x.pct, "#0E2529") })),
+
+      paginas: [
+        { nome: "Página inicial", descricao: "Hero, calculadora, protocolo, inventário e CTA.", estado: "Activo", tom: "verde", blocos: ["hero", "calculadora", "servico", "dossier", "cta"] },
+        { nome: "Verificação Shark", descricao: "Os seis passos do protocolo e o que cada um entrega.", estado: "Pendente", tom: "ambar", blocos: ["hero", "passos", "timeline"] },
+        { nome: "Inventário", descricao: "Listagem de viaturas e filtros.", estado: "Activo", tom: "verde", blocos: ["hero", "filtros"] },
+        { nome: "Importação", descricao: "Processo de encomenda e calculadora de custo.", estado: "Pendente", tom: "ambar", blocos: ["hero", "beneficios", "timeline", "calculadora"] },
+        { nome: "Parceiros", descricao: "Modelos de parceria e formulário.", estado: "Pendente", tom: "ambar", blocos: ["hero", "modelos", "beneficios"] },
+        { nome: "Quem somos", descricao: "Missão da empresa e equipa.", estado: "Pendente", tom: "ambar", blocos: ["hero", "missao", "equipa"] },
+        { nome: "Contacto", descricao: "Informação de contacto e formulário.", estado: "Activo", tom: "verde", blocos: ["hero", "contacto"] }
+      ].map(p => ({ ...p, chip: this.chip(p.estado, p.tom), abrir: () => {} })),
+
+      dadosEmpresa: [
+        { label: "Nome comercial", valor: "Shark Automotive" },
+        { label: "Sociedade", valor: "ESTIRPESÓBRIA — Sociedade Unipessoal Lda" },
+        { label: "NIPC", valor: "519473108" },
+        { label: "Sede", valor: "Avenida Luís Bívar, n.º 91, Piso 1 e 0, Fracção A, Lisboa" },
+        { label: "Telefone", valor: "+351 911 903 833" },
+        { label: "Email", valor: "imports@sharkauto.pt" },
+        { label: "IBAN", valor: "PT50 0033 0000 4584 3610 1870 5" }
+      ],
+      custos: [
+        { label: "Transporte (camião coberto)", valor: "950 €" },
+        { label: "Legalização, matrícula e IUC", valor: "480 €" },
+        { label: "Comissão Shark (fixa)", valor: "1 250 €" },
+        { label: "Taxa de serviço por encomenda", valor: "4 500 €" },
+        { label: "Garantia 6 meses", valor: "500 €" }
+      ],
+      integracoes: [
+        { codigo: "INT-01", nome: "Autenticação de admin", detalhe: "supabase.auth · RLS por role", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-02", nome: "Viaturas", detalhe: "tabela vehicles · alimenta o site", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-03", nome: "Operações", detalhe: "operations + operation_steps", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-04", nome: "Armazenamento", detalhe: "buckets vehicle-photos, documents", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-05", nome: "Pagamentos", detalhe: "Stripe Payment Links + webhook", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-06", nome: "Chat de operação", detalhe: "realtime channel por operação", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-08", nome: "Conteúdo do site", detalhe: "site_content por página e bloco", estado: "Aberto", tom: "ambar" },
+        { codigo: "INT-10", nome: "Geração de PDF", detalhe: "documento → storage → email", estado: "Aberto", tom: "ambar" }
+      ].map(i => ({ ...i, chip: this.chip(i.estado, i.tom) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
