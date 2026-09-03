@@ -26,6 +26,15 @@ interface EncomendaBody {
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    return await createDocument(request)
+  } catch (err) {
+    console.error("[v0] Unhandled document creation error:", err)
+    return NextResponse.json({ error: "Erro interno ao criar o documento." }, { status: 500 })
+  }
+}
+
+async function createDocument(request: NextRequest) {
   const supabase = await createClient()
   const {
     data: { user },
@@ -100,10 +109,10 @@ export async function POST(request: NextRequest) {
 
   let pdfBuffer: Buffer
   try {
-    pdfBuffer = await renderToBuffer(createElement(EncomendaDocument, docProps))
+    pdfBuffer = await renderToBuffer(createElement(EncomendaDocument, docProps) as never)
   } catch (err) {
-    console.log("[v0] Encomenda render failed:", (err as Error).message)
-    return NextResponse.json({ error: "Falha ao gerar o PDF" }, { status: 500 })
+    console.error("[v0] Encomenda render failed:", (err as Error).message)
+    return NextResponse.json({ error: `Falha ao gerar o PDF: ${(err as Error).message}` }, { status: 500 })
   }
 
   const docTypeSlug = body.mode === "orcamento" ? "encomenda_orcamento" : "encomenda_proposta"
@@ -113,13 +122,16 @@ export async function POST(request: NextRequest) {
     .upload(filename, pdfBuffer, { contentType: "application/pdf", upsert: true })
 
   if (upErr) {
-    console.log("[v0] Encomenda upload failed:", upErr.message)
+    console.error("[v0] Encomenda upload failed:", upErr.message)
     return NextResponse.json({ error: "Falha ao guardar o PDF" }, { status: 500 })
   }
 
-  const {
-    data: { publicUrl },
-  } = supabase.storage.from("documents").getPublicUrl(filename)
+  const { data: signed, error: signErr } = await supabase.storage.from("documents").createSignedUrl(filename, 60 * 15)
+  if (signErr || !signed?.signedUrl) {
+    console.error("[v0] Encomenda signed URL failed:", signErr?.message)
+    return NextResponse.json({ error: `Falha ao criar link do PDF: ${signErr?.message || "URL indisponível"}` }, { status: 500 })
+  }
+  const signedUrl = signed.signedUrl
 
   const title =
     body.mode === "orcamento"
@@ -134,7 +146,7 @@ export async function POST(request: NextRequest) {
       lead_id: body.leadId ?? null,
       title,
       storage_path: filename,
-      public_url: publicUrl,
+      public_url: null,
       client_name: body.clientName.trim(),
       document_number: documentNumber ?? null,
       // Persist original photo URLs, not the embedded data URIs used for rendering.
@@ -145,9 +157,9 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (docErr) {
-    console.log("[v0] Encomenda record failed:", docErr.message)
-    return NextResponse.json({ success: true, publicUrl, title, warning: "Documento gerado mas não registado." })
+    console.error("[v0] Encomenda record failed:", docErr.message)
+    return NextResponse.json({ success: true, signedUrl, title, warning: "Documento gerado mas não registado." })
   }
 
-  return NextResponse.json({ success: true, ...doc, publicUrl })
+  return NextResponse.json({ success: true, ...doc, signedUrl })
 }

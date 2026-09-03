@@ -37,7 +37,7 @@ interface VehicleOption {
 interface GeneratedDoc {
   id: string
   title: string
-  public_url: string
+  signedUrl: string
   created_at: string
 }
 
@@ -329,14 +329,22 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       })
-      const data = await res.json()
+      const text = await res.text()
+      let data: any = null
+      try { data = JSON.parse(text) } catch {}
       if (!res.ok) {
-        setError(data.error || "Falha ao gerar o documento.")
+        setError(data?.error || `Falha ao gerar (HTTP ${res.status}). ${text.slice(0, 140)}`)
+        return
+      }
+      if (!data?.success) {
+        setError("O servidor não confirmou a criação do documento.")
       } else {
         setResult(data)
       }
-    } catch {
-      setError("Erro de rede ao gerar o documento.")
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      console.error("[v0] Document creation request failed:", message)
+      setError(`Falha de rede: ${message}`)
     } finally {
       setLoading(false)
     }
@@ -650,7 +658,7 @@ export function EncomendaGenerator({ vehicles }: { vehicles: VehicleOption[] }) 
             <p className="text-muted-foreground/50 text-xs">Documento gerado com sucesso.</p>
           </div>
           <a
-            href={result.public_url}
+            href={result.signedUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-primary hover:text-primary"

@@ -204,8 +204,7 @@ async function getClientEmail(operationId: string): Promise<string | null> {
     .select('profiles(email, notification_email)')
     .eq('id', operationId)
     .single()
-  // @ts-expect-error nested relation typing
-  const profile = data?.profiles
+  const profile = Array.isArray(data?.profiles) ? data.profiles[0] : data?.profiles
   if (!profile || profile.notification_email === false) return null
   return profile.email ?? null
 }
