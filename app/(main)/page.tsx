@@ -42,9 +42,8 @@ export default async function HomePage() {
         <StatsSection />
         {vehicles.length > 0 && <FeaturedVehicles vehicles={vehicles} />}
         <TrustSignals />
-        <ProtocolSection />
-        <InsideProcess />
-        <ProcessTimeline />
+        <div id="dossier" className="scroll-mt-24"><ProtocolSection /></div>
+        <div id="processo" className="scroll-mt-24"><InsideProcess /><ProcessTimeline /></div>
         <CTASection />
       </main>
       <Footer />
