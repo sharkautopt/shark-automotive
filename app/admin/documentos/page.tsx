@@ -31,7 +31,7 @@ async function getVehicles() {
 async function getRecentDocuments() {
   const { data, error } = await supabaseAdmin
     .from("generated_documents")
-    .select("id, doc_type, title, public_url, client_name, document_number, created_at")
+    .select("id, doc_type, title, public_url, storage_path, client_name, document_number, created_at")
     .in("doc_type", ["encomenda_proposta", "encomenda_orcamento"])
     .order("created_at", { ascending: false })
     .limit(20)

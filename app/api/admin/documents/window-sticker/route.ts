@@ -1,17 +1,28 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
-import { buildWindowSticker } from "@/lib/pdf/build-window-sticker"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
 
+// lib/pdf/build-window-sticker transitively pulls in @react-pdf/renderer and
+// the font/image pipeline. Loaded lazily (see the encomenda route for the
+// same pattern) so a crash there surfaces as a JSON error naming the module,
+// not Next.js's default HTML error page from a module-load-time crash.
+async function loadModule<T>(name: string, loader: () => Promise<T>): Promise<T> {
+  try {
+    return await loader()
+  } catch (err) {
+    throw new Error(`Falha ao carregar ${name}: ${(err as Error).message}`)
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     return await createWindowSticker(request)
   } catch (err) {
-    console.error("[v0] Unhandled window sticker error:", err)
-    return NextResponse.json({ error: `Falha ao gerar o PDF: ${(err as Error).message}` }, { status: 500 })
+    console.error("[documents] unhandled window sticker error:", err)
+    return NextResponse.json({ error: (err as Error).message || "Falha ao gerar o PDF" }, { status: 500 })
   }
 }
 
@@ -35,6 +46,10 @@ async function createWindowSticker(request: NextRequest) {
   if (!body.vehicleId) {
     return NextResponse.json({ error: "vehicleId em falta" }, { status: 400 })
   }
+
+  const { buildWindowSticker } = await loadModule("lib/pdf/build-window-sticker", () =>
+    import("@/lib/pdf/build-window-sticker"),
+  )
 
   let built
   try {

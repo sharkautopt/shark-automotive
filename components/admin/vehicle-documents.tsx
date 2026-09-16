@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { FileText, Loader2, Download, AlertCircle, Plus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { getAdminSignedUrl } from '@/app/admin/operacoes/actions'
 
 interface GeneratedDoc {
   id: string
@@ -42,11 +43,18 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
 
   const openDocument = async (doc: GeneratedDoc) => {
     setError(null)
-    if (!doc.public_url) {
+    let url = doc.public_url ?? null
+
+    if (doc.storage_path) {
+      const { url: signed } = await getAdminSignedUrl(doc.storage_path, 'documents')
+      if (signed) url = signed
+    }
+
+    if (!url) {
       setError('Este documento não tem um URL de download válido.')
       return
     }
-    const opened = window.open(doc.public_url, '_blank', 'noopener,noreferrer')
+    const opened = window.open(url, '_blank', 'noopener,noreferrer')
     if (!opened) setError('O navegador bloqueou a abertura. Permita pop-ups para descarregar o documento.')
   }
 
@@ -65,7 +73,7 @@ export function VehicleDocuments({ vehicleId }: VehicleDocumentsProps) {
         return
       }
       // Open the freshly generated PDF and refresh the list.
-      if (data.publicUrl) window.open(data.publicUrl, '_blank')
+      if (data.signedUrl) window.open(data.signedUrl, '_blank')
       await loadDocs()
     } catch {
       setError('Não foi possível gerar o documento.')

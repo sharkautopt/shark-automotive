@@ -336,11 +336,16 @@ export async function updateResults(
   return { ok: true }
 }
 
-// Signed URL — server-side only
-export async function getAdminSignedUrl(storagePath: string): Promise<{ url: string | null }> {
+// Signed URL — server-side only. Defaults to the operation-attachments bucket;
+// pass 'documents' for generated_documents rows (orçamentos, propostas, window
+// stickers), which live in a separate bucket.
+export async function getAdminSignedUrl(
+  storagePath: string,
+  bucket: 'client-documents' | 'documents' = 'client-documents',
+): Promise<{ url: string | null }> {
   await requireAdmin()
   const { data } = await supabaseAdmin.storage
-    .from('client-documents')
+    .from(bucket)
     .createSignedUrl(storagePath, 1800)
   return { url: data?.signedUrl ?? null }
 }
