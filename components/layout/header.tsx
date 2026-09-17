@@ -10,10 +10,10 @@ import { Button } from '@/components/ui/button'
 
 const navigation = [
   { name: 'Viaturas', href: '/inventario' },
-  { name: 'Serviço', href: '/importacao' },
-  { name: 'Dossier', href: '/#dossier' },
-  { name: 'Processo', href: '/#processo' },
-  { name: 'Sobre nós', href: '/quem-somos' },
+  { name: 'Encomenda', href: '/importacao' },
+  { name: 'Parceiros', href: '/parceiros' },
+  { name: 'Quem Somos', href: '/quem-somos' },
+  { name: 'Contacto', href: '/contacto' },
 ]
 
 export function Header() {
