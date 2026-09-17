@@ -17,6 +17,8 @@ export const metadata: Metadata = {
 interface SearchParams {
   make?: string
   fuel?: string
+  origin?: string
+  segment?: string
   minPrice?: string
   maxPrice?: string
   minYear?: string
@@ -38,6 +40,12 @@ async function getVehicles(searchParams: SearchParams): Promise<Vehicle[]> {
   }
   if (searchParams.fuel) {
     query = query.eq('fuel_type', searchParams.fuel)
+  }
+  if (searchParams.origin) {
+    query = query.eq('country_origin', searchParams.origin)
+  }
+  if (searchParams.segment) {
+    query = query.eq('segmento', searchParams.segment)
   }
   if (searchParams.minPrice) {
     query = query.gte('price', parseFloat(searchParams.minPrice))
@@ -92,13 +100,15 @@ async function getFilterOptions() {
   
   const { data: vehicles } = await supabase
     .from('vehicles')
-    .select('make, fuel_type')
+    .select('make, fuel_type, country_origin, segmento')
     .in('status', ['available', 'reserved'])
 
   const makes = [...new Set(vehicles?.map(v => v.make) || [])].sort()
   const fuels = [...new Set(vehicles?.map(v => v.fuel_type) || [])].sort()
+  const origins = [...new Set(vehicles?.map(v => v.country_origin).filter(Boolean) || [])].sort()
+  const segments = [...new Set(vehicles?.map(v => v.segmento).filter(Boolean) || [])] as string[]
 
-  return { makes, fuels }
+  return { makes, fuels, origins, segments }
 }
 
 export default async function InventoryPage({
@@ -135,6 +145,8 @@ export default async function InventoryPage({
                 <InventoryFilters
                   makes={filterOptions.makes}
                   fuels={filterOptions.fuels}
+                  origins={filterOptions.origins}
+                  segments={filterOptions.segments}
                   currentFilters={params}
                 />
               </Suspense>
