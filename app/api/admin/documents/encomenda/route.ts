@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createElement } from "react"
-import { renderToBuffer } from "@react-pdf/renderer"
 import { createClient } from "@/lib/supabase/server"
-import { supabaseAdmin } from "@/lib/supabase/service-role"
-import { registerPdfFonts } from "@/lib/pdf/theme"
-import { generateQrDataUrl } from "@/lib/pdf/helpers"
-import { resolvePdfImages } from "@/lib/pdf/images"
-import { COMPANY } from "@/lib/pdf/company"
-import { EncomendaDocument, type EncomendaDocProps } from "@/components/pdf/encomenda-document"
+import type { EncomendaDocProps } from "@/components/pdf/encomenda-document"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 export const maxDuration = 60
+
+async function loadModule<T>(name: string, loader: () => Promise<T>): Promise<T> {
+  try {
+    return await loader()
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    throw new Error(`Falha ao carregar ${name}: ${message}`)
+  }
+}
 
 interface EncomendaBody {
   mode: "proposta" | "orcamento"
@@ -29,8 +32,9 @@ export async function POST(request: NextRequest) {
   try {
     return await createDocument(request)
   } catch (err) {
-    console.error("[v0] Unhandled document creation error:", err)
-    return NextResponse.json({ error: "Erro interno ao criar o documento." }, { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    console.error("[documents] unhandled:", message)
+    return NextResponse.json({ error: message || "Erro interno ao criar o documento." }, { status: 500 })
   }
 }
 
@@ -63,6 +67,16 @@ async function createDocument(request: NextRequest) {
   if (body.mode === "orcamento" && !body.costs) {
     return NextResponse.json({ error: "Estrutura de custos em falta para orçamento" }, { status: 400 })
   }
+
+  const [{ renderToBuffer }, { registerPdfFonts }, { generateQrDataUrl }, { resolvePdfImages }, { COMPANY }, { supabaseAdmin }, { EncomendaDocument }] = await Promise.all([
+    loadModule("@react-pdf/renderer", () => import("@react-pdf/renderer")),
+    loadModule("lib/pdf/theme", () => import("@/lib/pdf/theme")),
+    loadModule("lib/pdf/helpers", () => import("@/lib/pdf/helpers")),
+    loadModule("lib/pdf/images", () => import("@/lib/pdf/images")),
+    loadModule("lib/pdf/company", () => import("@/lib/pdf/company")),
+    loadModule("lib/supabase/service-role", () => import("@/lib/supabase/service-role")),
+    loadModule("components/pdf/encomenda-document", () => import("@/components/pdf/encomenda-document")),
+  ])
 
   const now = new Date()
   const dateStr = now.toLocaleDateString("pt-PT")
