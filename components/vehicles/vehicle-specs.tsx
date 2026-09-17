@@ -78,7 +78,7 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
               className="flex items-center gap-3 bg-background p-3 sm:items-start"
             >
               <div className="flex size-9 shrink-0 items-center justify-center border border-primary/20 bg-primary/10 sm:size-10">
-                <spec.icon className="w-5 h-5 text-[#2E6B9E]" />
+                <spec.icon className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{spec.label}</p>
