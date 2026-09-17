@@ -10,6 +10,8 @@ export interface Vehicle {
   price: number
   monthly_price: number | null
   country_origin: string
+  segmento: string | null
+  plate: string | null
   vin: string | null
   inspection_status: 'pending' | 'in_progress' | 'approved' | 'rejected'
   carpass_status: boolean

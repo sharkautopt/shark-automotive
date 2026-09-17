@@ -15,105 +15,104 @@
   }
 }
 
-/* Shark Automotive - Light Industrial Theme: Concrete & Charcoal */
+/* Shark Automotive design system — dark navy, blue accent, sharp corners.
+   Two background colors total (--background / --card). No gradients. */
 :root {
-  /* Shark Navy canvas */
-  --background: #07111f;
-  --foreground: #edf5f7;
-  
-  /* Elevated panels */
-  --card: #0d1d2d;
-  --card-foreground: #edf5f7;
-  
-  /* Popover */
-  --popover: #102538;
-  --popover-foreground: #edf5f7;
-  
-  /* Primary - Shark cyan */
-  --primary: #20c7d9;
-  --primary-foreground: #07111f;
-  
-  /* Secondary surfaces */
-  --secondary: #102538;
-  --secondary-foreground: #d9e7eb;
-  
-  /* Muted */
-  --muted: #122a3d;
-  --muted-foreground: #9eb4bd;
-  
-  /* Accent */
-  --accent: #15384d;
-  --accent-foreground: #edf5f7;
-  
-  /* Destructive */
-  --destructive: oklch(0.58 0.22 25);
-  --destructive-foreground: oklch(1.00 0.000 0);
-  
-  /* Borders */
-  --border: #234257;
-  --input: #102538;
-  --ring: #20c7d9;
+  --background: #0a111c;
+  --foreground: #ffffff;
 
-  /* Marine blue accent — links, small icons, stat numbers */
-  --shark-blue: #2E6B9E;
-  /* Muted silver — secondary icons/dividers */
-  --shark-silver: #9FADBB;
-  
-  /* Charts */
-  --chart-1: oklch(0.25 0.008 40);
-  --chart-2: oklch(0.35 0.008 40);
-  --chart-3: oklch(0.45 0.008 40);
-  --chart-4: oklch(0.65 0.14 40);
-  --chart-5: oklch(0.70 0.13 120);
-  
-  --radius: 0.5rem;
-  
-  /* Sidebar */
-  --sidebar: oklch(0.93 0.010 50);
-  --sidebar-foreground: oklch(0.08 0.008 40);
-  --sidebar-primary: oklch(0.58 0.15 25);
-  --sidebar-primary-foreground: oklch(1.00 0.000 0);
-  --sidebar-accent: oklch(0.89 0.010 50);
-  --sidebar-accent-foreground: oklch(0.08 0.008 40);
-  --sidebar-border: oklch(0.79 0.009 50);
-  --sidebar-ring: oklch(0.58 0.15 25);
-  
-  /* Custom Shark Automotive Colors - Light Theme */
-  --shark-navy: #07111f;
-  --shark-navy-light: #102538;
-  --shark-gold: #20c7d9;
-  --shark-gold-light: #63e0e9;
-  --shark-gold-dark: #0b6d82;
-  --shark-platinum: #edf5f7;
-  --shark-steel: #9eb4bd;
+  --card: #0f1826;
+  --card-foreground: #ffffff;
+
+  --popover: #0f1826;
+  --popover-foreground: #ffffff;
+
+  --primary: #2f80ed;
+  --primary-foreground: #ffffff;
+
+  --secondary: #0f1826;
+  --secondary-foreground: #94a0b0;
+
+  --muted: #0f1826;
+  --muted-foreground: #94a0b0;
+
+  --accent: #0f1826;
+  --accent-foreground: #ffffff;
+
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
+
+  --success: #6ee7a8;
+  --success-foreground: #0a111c;
+
+  --border: rgba(148, 160, 176, 0.14);
+  --border-field: rgba(148, 160, 176, 0.16);
+  --border-control: rgba(148, 160, 176, 0.35);
+  --border-dotted: rgba(148, 160, 176, 0.2);
+  --input: #0f1826;
+  --ring: #2f80ed;
+
+  /* Legacy "shark-*" names kept so existing utility classes (bg-shark-gold,
+     text-shark-steel, ...) across the app repaint correctly without a
+     repo-wide rename. */
+  --shark-blue: #2f80ed;
+  --shark-silver: #94a0b0;
+
+  --chart-1: #2f80ed;
+  --chart-2: #7fb0f5;
+  --chart-3: #6ee7a8;
+  --chart-4: #f87171;
+  --chart-5: #94a0b0;
+
+  --radius: 0px;
+
+  --sidebar: #0a111c;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #2f80ed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #0f1826;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(148, 160, 176, 0.14);
+  --sidebar-ring: #2f80ed;
+
+  --shark-navy: #0a111c;
+  --shark-navy-light: #0f1826;
+  --shark-gold: #2f80ed;
+  --shark-gold-light: #7fb0f5;
+  --shark-gold-dark: #1c5bb0;
+  --shark-platinum: #ffffff;
+  --shark-steel: #94a0b0;
 }
 
 .dark {
-  --background: #07111f;
-  --foreground: #edf5f7;
-  --card: #0d1d2d;
-  --card-foreground: #edf5f7;
-  --popover: #102538;
-  --popover-foreground: #edf5f7;
-  --primary: #20c7d9;
-  --primary-foreground: #07111f;
-  --secondary: #102538;
-  --secondary-foreground: #d9e7eb;
-  --muted: #122a3d;
-  --muted-foreground: #9eb4bd;
-  --accent: #15384d;
-  --accent-foreground: #edf5f7;
-  --destructive: #ef6a6a;
-  --destructive-foreground: #07111f;
-  --border: #234257;
-  --input: #102538;
-  --ring: #20c7d9;
+  --background: #0a111c;
+  --foreground: #ffffff;
+  --card: #0f1826;
+  --card-foreground: #ffffff;
+  --popover: #0f1826;
+  --popover-foreground: #ffffff;
+  --primary: #2f80ed;
+  --primary-foreground: #ffffff;
+  --secondary: #0f1826;
+  --secondary-foreground: #94a0b0;
+  --muted: #0f1826;
+  --muted-foreground: #94a0b0;
+  --accent: #0f1826;
+  --accent-foreground: #ffffff;
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
+  --border: rgba(148, 160, 176, 0.14);
+  --input: #0f1826;
+  --ring: #2f80ed;
 }
 
 @theme inline {
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'DM Mono', 'Geist Mono', monospace;
-  --font-display: 'Bebas Neue', system-ui, sans-serif;
+  /* One family, all weights — Inter, self-hosted via next/font (see
+     app/layout.tsx). font-mono/font-display keep their names (many
+     components already use those classes) but now alias Inter too. */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-inter), system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -130,6 +129,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -138,10 +139,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -150,7 +151,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
+
   /* Shark Custom Colors */
   --color-shark-navy: var(--shark-navy);
   --color-shark-navy-light: var(--shark-navy-light);
@@ -170,125 +171,39 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
-  
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: var(--background);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: var(--shark-gold-dark);
-    border-radius: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--shark-gold);
   }
 }
 
 @layer utilities {
-  /* Glass morphism effect */
-  .glass {
-    background: rgba(28, 32, 28, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(16, 185, 129, 0.1);
+  /* Hairline separators, per the design spec: box-shadow instead of border
+     so the line doesn't add to layout. */
+  .hairline {
+    box-shadow: 0 0 0 1px var(--border);
   }
-  
-  .glass-gold {
-    background: rgba(16, 185, 129, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+  .hairline-field {
+    box-shadow: 0 0 0 1px var(--border-field);
   }
-  
-  /* Gold gradient text */
-  .text-gradient-gold {
-    background: linear-gradient(135deg, #10b981 0%, #6ee7b7 50%, #10b981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .hairline-control {
+    box-shadow: 0 0 0 1px var(--border-control);
   }
-  
-  /* Brushed metal effect */
-  .brushed-gold {
-    background: linear-gradient(
-      135deg,
-      #0e9e6e 0%,
-      #10b981 20%,
-      #6ee7b7 40%,
-      #10b981 60%,
-      #0e9e6e 80%,
-      #10b981 100%
-    );
-  }
-  
-  /* Technical border */
-  .border-technical {
-    border: 1px solid rgba(16, 185, 129, 0.15);
-    position: relative;
-  }
-  
-  .border-technical::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
-  }
-  
-  /* Cinematic overlay */
-  .cinematic-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(18, 22, 18, 0.8) 0%,
-      rgba(18, 22, 18, 0.4) 50%,
-      rgba(18, 22, 18, 0.9) 100%
-    );
-  }
-  
-  /* Luxury cursor */
-  .luxury-cursor {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%2310b981'/%3E%3C/svg%3E") 12 12, auto;
-  }
-  
-  /* Shine animation */
-  .shine {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .shine::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      45deg,
-      transparent 30%,
-      rgba(16, 185, 129, 0.1) 50%,
-      transparent 70%
-    );
-    transform: translateX(-100%);
-    animation: shine 3s infinite;
-  }
-  
-  @keyframes shine {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-  
+
   /* Font display class */
   .font-display {
     font-family: var(--font-display);
@@ -297,8 +212,8 @@
 
 /* Selection color */
 ::selection {
-  background: rgba(16, 185, 129, 0.3);
-  color: #6ee7b7;
+  background: rgba(47, 128, 237, 0.3);
+  color: #ffffff;
 }
 
 /* Focus visible styles */

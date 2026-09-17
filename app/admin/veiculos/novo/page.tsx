@@ -7,6 +7,7 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { PhotoUploader } from "@/components/admin/photo-uploader"
+import { VehicleIdentificationFields } from "@/components/admin/vehicle-identification-fields"
 
 export default function NovoVeiculoPage() {
   const router = useRouter()
@@ -23,6 +24,8 @@ export default function NovoVeiculoPage() {
     price: 0,
     monthly_price: 0,
     country_origin: "Alemanha",
+    segmento: "" as string | null,
+    plate: "" as string | null,
     vin: "",
     inspection_status: "pending",
     carpass_status: false,
@@ -39,7 +42,6 @@ export default function NovoVeiculoPage() {
     co2_emissions: 0,
     first_owner: false,
     service_history: true,
-    warranty_months: 12,
     financing_available: true,
     photos: [] as string[],
   })
@@ -187,14 +189,14 @@ export default function NovoVeiculoPage() {
                     <option value="Coupé">Coupé</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">ORIGEM</label>
-                  <select name="country_origin" value={formData.country_origin} onChange={handleChange} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none">
-                    <option value="Alemanha">Alemanha</option>
-                    <option value="Bélgica">Bélgica</option>
-                    <option value="Holanda">Holanda</option>
-                  </select>
-                </div>
+                <VehicleIdentificationFields
+                  origem={formData.country_origin}
+                  segmento={formData.segmento}
+                  plate={formData.plate}
+                  onOrigemChange={(value) => setFormData((prev) => ({ ...prev, country_origin: value }))}
+                  onSegmentoChange={(value) => setFormData((prev) => ({ ...prev, segmento: value }))}
+                  onPlateChange={(value) => setFormData((prev) => ({ ...prev, plate: value }))}
+                />
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">COR EXTERIOR</label>
                   <input type="text" name="exterior_color" value={formData.exterior_color} onChange={handleChange} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" placeholder="Cinza Metalizado" />
@@ -229,10 +231,6 @@ export default function NovoVeiculoPage() {
                     <option value="in_progress">Em Curso</option>
                     <option value="approved">Aprovado</option>
                   </select>
-                </div>
-                <div>
-                  <label className="block text-muted-foreground/70 text-sm font-mono mb-2">GARANTIA (MESES)</label>
-                  <input type="number" name="warranty_months" value={formData.warranty_months} onChange={handleChange} min={0} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">STATUS</label>

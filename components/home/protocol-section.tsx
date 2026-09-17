@@ -3,12 +3,11 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { 
-  Shield, 
-  FileSearch, 
-  Wrench, 
-  FileText, 
-  Truck, 
+import {
+  FileSearch,
+  Wrench,
+  FileText,
+  Truck,
   Award,
   ArrowRight,
   CheckCircle2
@@ -51,13 +50,6 @@ const protocolSteps = [
     title: 'Legalização',
     description: 'Tratamos de toda a documentação: ISV, IUC, matrícula e registo português.',
     points: ['Cálculo ISV', 'Matrícula portuguesa', 'Documentos DGV'],
-  },
-  {
-    icon: Shield,
-    number: '06',
-    title: 'Garantia Shark',
-    description: 'Garantia de 6 meses cobrindo motor, transmissão e sistemas principais.',
-    points: ['Garantia 6 meses', 'Assistência 24h', 'Rede oficinas parceiras'],
   },
 ]
 

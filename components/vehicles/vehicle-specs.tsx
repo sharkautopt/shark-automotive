@@ -15,6 +15,7 @@ import {
   Award
 } from 'lucide-react'
 import type { Vehicle } from '@/lib/types'
+import { WARRANTY_TERM } from '@/lib/warranty'
 
 interface VehicleSpecsProps {
   vehicle: Vehicle
@@ -55,10 +56,10 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
       value: vehicle.service_history ? 'Completo' : 'Parcial',
       verified: vehicle.service_history
     },
-    { 
-      icon: Award, 
-      label: 'Garantia', 
-      value: `${vehicle.warranty_months} meses`,
+    {
+      icon: Award,
+      label: 'Garantia',
+      value: WARRANTY_TERM,
       verified: true
     },
   ]

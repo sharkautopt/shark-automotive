@@ -1,25 +1,14 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, DM_Mono, Bebas_Neue } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const dmSans = DM_Sans({ 
+// One family, all weights, per the design spec. font-mono/font-display keep
+// their CSS variable names (many components already use those classes) but
+// all three now point at the same Inter instance.
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-})
-
-const dmMono = DM_Mono({ 
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-  display: 'swap',
-})
-
-const bebasNeue = Bebas_Neue({ 
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-display',
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -101,7 +90,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0a0f23',
+  themeColor: '#0a111c',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -114,7 +103,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt" className={`${dmSans.variable} ${dmMono.variable} ${bebasNeue.variable}`}>
+    <html lang="pt" className={inter.variable}>
       <body className="font-sans antialiased bg-background">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
