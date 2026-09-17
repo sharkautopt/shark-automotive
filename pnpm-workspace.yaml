@@ -1,0 +1,12 @@
+# nodeLinker: hoisted — sharp's native addon dlopen()s its libvips shared
+# library using a path relative to its own install location, assuming a
+# flat/hoisted node_modules layout. pnpm's default isolated layout (symlinked
+# .pnpm store) nests @img/sharp-libvips-* inside @img/sharp-<platform>'s own
+# dependency tree instead of at the top level, which breaks that lookup on
+# Vercel's linux-x64 runtime:
+#   ERR_DLOPEN_FAILED: libvips-cpp.so.8.18.3: cannot open shared object file
+# This is sharp's own documented fix for pnpm: https://sharp.pixelplumbing.com/install#pnpm
+nodeLinker: hoisted
+
+allowBuilds:
+  sharp: true
