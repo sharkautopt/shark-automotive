@@ -1,10 +1,12 @@
-import { FileText, ExternalLink } from "lucide-react"
+import { FileText } from "lucide-react"
+import { DocumentOpenLink } from "@/components/admin/document-open-link"
 
 interface DocRow {
   id: string
   doc_type: string
   title: string
   public_url: string | null
+  storage_path: string | null
   client_name: string | null
   document_number: string | null
   created_at: string
@@ -52,18 +54,7 @@ export function RecentDocuments({ documents }: { documents: DocRow[] }) {
                 {new Date(doc.created_at).toLocaleDateString("pt-PT")}
               </td>
               <td className="p-4 text-right">
-                {doc.public_url ? (
-                  <a
-                    href={doc.public_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-primary hover:text-primary"
-                  >
-                    PDF <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                ) : (
-                  <span className="text-muted-foreground/30">—</span>
-                )}
+                <DocumentOpenLink publicUrl={doc.public_url} storagePath={doc.storage_path} />
               </td>
             </tr>
           ))}

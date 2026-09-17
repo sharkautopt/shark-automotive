@@ -388,8 +388,7 @@ export function EncomendaDocument(props: EncomendaDocProps) {
             <View style={styles.dividerTight} />
             <Text style={styles.sectionLabel}>INCLUI</Text>
             <Text style={styles.includes}>
-              Verificação técnica e documental · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais ·
-              Garantia de 6 meses.
+              Verificação técnica e documental · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais.
             </Text>
             <View style={styles.divider} />
             <View style={styles.ctaRow}>
@@ -442,10 +441,6 @@ export function EncomendaDocument(props: EncomendaDocProps) {
               <View style={styles.metaItem}>
                 <Text style={styles.metaKey}>PRAZO ESTIMADO</Text>
                 <Text style={styles.metaVal}>{props.deliveryTime || "2-4 semanas"}</Text>
-              </View>
-              <View style={styles.metaItem}>
-                <Text style={styles.metaKey}>GARANTIA INCLUÍDA</Text>
-                <Text style={styles.metaVal}>6 meses / 500€</Text>
               </View>
             </View>
             <Text style={styles.smallPrint}>{ORCAMENTO_DISCLAIMER}</Text>

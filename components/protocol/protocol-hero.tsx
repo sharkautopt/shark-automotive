@@ -19,7 +19,7 @@ export function ProtocolHero() {
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-block font-mono text-xs tracking-[0.3em] text-[#2E6B9E] uppercase mb-6"
+              className="inline-block font-mono text-xs tracking-[0.3em] text-primary uppercase mb-6"
             >
               A Nossa Metodologia
             </motion.span>
@@ -31,7 +31,7 @@ export function ProtocolHero() {
               className="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide text-foreground mb-6 text-balance"
             >
               VERIFICAÇÃO{' '}
-              <span className="text-[#9FADBB]">SHARK</span>
+              <span className="text-muted-foreground">SHARK</span>
             </motion.h1>
             
             <motion.p
@@ -65,7 +65,7 @@ export function ProtocolHero() {
             >
               <Link
                 href="/contacto"
-                className="font-mono text-sm tracking-wider text-[#2E6B9E] hover:text-foreground transition-colors underline underline-offset-4"
+                className="font-mono text-sm tracking-wider text-primary hover:text-foreground transition-colors underline underline-offset-4"
               >
                 {'Peça um exemplo de Dossier Técnico \u2192'}
               </Link>
@@ -84,7 +84,7 @@ export function ProtocolHero() {
                 className="flex items-start gap-4 p-6 bg-card/50 border border-border/50"
               >
                 <div className="w-12 h-12 border border-border/60 flex items-center justify-center flex-shrink-0">
-                  <value.icon className="w-6 h-6 text-[#2E6B9E]" />
+                  <value.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-display text-xl text-foreground mb-1">{value.title}</h3>

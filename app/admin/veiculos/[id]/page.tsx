@@ -9,6 +9,7 @@ import { AdminSidebar } from '@/components/admin/admin-sidebar'
 import { PhotoUploader } from '@/components/admin/photo-uploader'
 import { PhotoAnalysisPanel } from '@/components/admin/photo-analysis-panel'
 import { VehicleDocuments } from '@/components/admin/vehicle-documents'
+import { VehicleIdentificationFields } from '@/components/admin/vehicle-identification-fields'
 import type { Vehicle } from '@/lib/types'
 
 export default function EditVehiclePage() {
@@ -176,6 +177,21 @@ export default function EditVehiclePage() {
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">POTÊNCIA (CV)</label>
                   <input type="number" value={vehicle.power} onChange={(e) => updateField('power', parseInt(e.target.value))} required className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" />
                 </div>
+              </div>
+            </div>
+
+            {/* Identification */}
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-6">IDENTIFICAÇÃO</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <VehicleIdentificationFields
+                  origem={vehicle.country_origin}
+                  segmento={vehicle.segmento}
+                  plate={vehicle.plate}
+                  onOrigemChange={(value) => updateField('country_origin', value)}
+                  onSegmentoChange={(value) => updateField('segmento', value)}
+                  onPlateChange={(value) => updateField('plate', value)}
+                />
               </div>
             </div>
 

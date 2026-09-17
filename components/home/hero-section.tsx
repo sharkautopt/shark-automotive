@@ -9,7 +9,7 @@ import { SimulatorForm } from '@/components/import/simulator-form'
 const trustStats = [
   { value: '3–6', label: 'semanas até à entrega', icon: Clock3 },
   { value: '0', label: 'custos fora da conta', icon: WalletCards },
-  { value: '6', label: 'meses de garantia', icon: ShieldCheck },
+  { value: '18', label: 'meses de garantia em stock', icon: ShieldCheck },
 ]
 
 export function HeroSection() {

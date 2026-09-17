@@ -5,12 +5,12 @@ export function ClientHeader({ name, role, title }: { name: string; role: Operat
   return (
     <header className="mb-8">
       <div className="flex items-center gap-3 mb-2">
-        <span className="font-mono uppercase text-xs tracking-widest" style={{ color: '#6B7280' }}>
+        <span className="font-mono uppercase text-xs tracking-widest text-muted-foreground">
           {title}
         </span>
         <RoleBadge role={role} />
       </div>
-      <h1 className="text-3xl font-semibold text-balance" style={{ color: '#0E1B2F' }}>
+      <h1 className="text-3xl font-semibold text-balance text-foreground">
         Olá, {name}
       </h1>
     </header>

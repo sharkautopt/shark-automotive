@@ -40,13 +40,10 @@ export function ClientSidebar({
   return (
     <>
       {/* Desktop sidebar */}
-      <aside
-        className="hidden md:flex fixed left-0 top-0 h-screen w-60 flex-col"
-        style={{ backgroundColor: '#0E1B2F' }}
-      >
-        <div className="p-6" style={{ borderBottom: '1px solid rgba(159, 173, 187,0.15)' }}>
+      <aside className="hidden md:flex fixed left-0 top-0 h-screen w-60 flex-col bg-background border-r border-border">
+        <div className="p-6 border-b border-border">
           <Image src="/images/shark-logo.png" alt="Shark Automotive" width={150} height={50} className="h-9 w-auto" />
-          <p className="font-mono uppercase text-[10px] tracking-widest mt-3" style={{ color: '#8B93A1' }}>
+          <p className="font-mono uppercase text-[10px] tracking-widest mt-3 text-muted-foreground">
             Área de Cliente
           </p>
         </div>
@@ -57,17 +54,16 @@ export function ClientSidebar({
               <button
                 key={s.id}
                 onClick={() => onSelect(s.id)}
-                className="w-full flex items-center gap-3 px-4 py-3 font-mono uppercase text-xs tracking-wider transition-colors"
-                style={{
-                  color: isActive ? '#E8E4DC' : '#8B93A1',
-                  backgroundColor: isActive ? 'rgba(232,228,220,0.08)' : 'transparent',
-                  borderLeft: isActive ? '2px solid #E8E4DC' : '2px solid transparent',
-                }}
+                className={`w-full flex items-center gap-3 px-4 py-3 font-mono uppercase text-xs tracking-wider transition-colors border-l-2 ${
+                  isActive
+                    ? 'text-foreground bg-primary/10 border-primary'
+                    : 'text-muted-foreground border-transparent hover:text-foreground'
+                }`}
               >
                 <s.icon className="w-4 h-4" />
                 <span className="flex-1 text-left">{s.label}</span>
                 {s.id === 'mensagens' && unread ? (
-                  <span className="text-[10px] px-1.5 py-0.5" style={{ backgroundColor: '#E8E4DC', color: '#0E1B2F' }}>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-primary text-primary-foreground">
                     {unread}
                   </span>
                 ) : null}
@@ -75,11 +71,10 @@ export function ClientSidebar({
             )
           })}
         </nav>
-        <div className="p-3" style={{ borderTop: '1px solid rgba(159, 173, 187,0.15)' }}>
+        <div className="p-3 border-t border-border">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 font-mono uppercase text-xs tracking-wider transition-colors"
-            style={{ color: '#8B93A1' }}
+            className="w-full flex items-center gap-3 px-4 py-3 font-mono uppercase text-xs tracking-wider text-muted-foreground transition-colors hover:text-foreground"
           >
             <LogOut className="w-4 h-4" />
             Terminar sessão
@@ -88,18 +83,16 @@ export function ClientSidebar({
       </aside>
 
       {/* Mobile bottom tab bar */}
-      <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex"
-        style={{ backgroundColor: '#0E1B2F', borderTop: '1px solid rgba(159, 173, 187,0.15)' }}
-      >
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex bg-background border-t border-border">
         {sections.map((s) => {
           const isActive = active === s.id
           return (
             <button
               key={s.id}
               onClick={() => onSelect(s.id)}
-              className="flex min-h-16 flex-1 flex-col items-center justify-center gap-1 px-1 py-2"
-              style={{ color: isActive ? '#E8E4DC' : '#8B93A1' }}
+              className={`flex min-h-16 flex-1 flex-col items-center justify-center gap-1 px-1 py-2 ${
+                isActive ? 'text-foreground' : 'text-muted-foreground'
+              }`}
             >
               <s.icon className="w-5 h-5" />
               <span className="text-[9px] font-mono uppercase">{s.label}</span>

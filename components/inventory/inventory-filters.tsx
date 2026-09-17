@@ -15,9 +15,13 @@ import {
 interface InventoryFiltersProps {
   makes: string[]
   fuels: string[]
+  origins: string[]
+  segments: string[]
   currentFilters: {
     make?: string
     fuel?: string
+    origin?: string
+    segment?: string
     minPrice?: string
     maxPrice?: string
     sort?: string
@@ -40,7 +44,7 @@ const sortOptions = [
   { value: 'mileage_asc', label: 'Menor quilometragem' },
 ]
 
-export function InventoryFilters({ makes, fuels, currentFilters }: InventoryFiltersProps) {
+export function InventoryFilters({ makes, fuels, origins, segments, currentFilters }: InventoryFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -95,7 +99,7 @@ export function InventoryFilters({ makes, fuels, currentFilters }: InventoryFilt
           <span className="font-mono tracking-wider uppercase">Filtros</span>
         </div>
 
-        <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {/* Make Filter */}
           <Select
             value={currentFilters.make || 'all'}
@@ -124,6 +128,38 @@ export function InventoryFilters({ makes, fuels, currentFilters }: InventoryFilt
               <SelectItem value="all">Todos</SelectItem>
               {fuels.map((fuel) => (
                 <SelectItem key={fuel} value={fuel}>{fuel}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Origin Filter */}
+          <Select
+            value={currentFilters.origin || 'all'}
+            onValueChange={(value) => updateFilter('origin', value)}
+          >
+            <SelectTrigger className="bg-background border-border/50">
+              <SelectValue placeholder="Origem" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas as origens</SelectItem>
+              {origins.map((origin) => (
+                <SelectItem key={origin} value={origin}>{origin}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Segment Filter */}
+          <Select
+            value={currentFilters.segment || 'all'}
+            onValueChange={(value) => updateFilter('segment', value)}
+          >
+            <SelectTrigger className="bg-background border-border/50">
+              <SelectValue placeholder="Segmento" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todos os segmentos</SelectItem>
+              {segments.map((segment) => (
+                <SelectItem key={segment} value={segment}>{segment}</SelectItem>
               ))}
             </SelectContent>
           </Select>

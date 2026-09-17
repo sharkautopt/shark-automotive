@@ -46,14 +46,14 @@ export function StatsSection() {
               className="text-center"
             >
               <div className="inline-flex items-center justify-center w-14 h-14 border border-border/60 mb-4">
-                <stat.icon className="w-6 h-6 text-[#2E6B9E]" />
+                <stat.icon className="w-6 h-6 text-primary" />
               </div>
               <div className="mb-2">
-                <span className="font-display text-5xl md:text-6xl text-[#E8E4DC]">
+                <span className="font-display text-5xl md:text-6xl text-foreground">
                   {stat.value}
                 </span>
               </div>
-              <h3 className="font-mono text-sm tracking-wider text-[#2E6B9E] uppercase mb-1">
+              <h3 className="font-mono text-sm tracking-wider text-primary uppercase mb-1">
                 {stat.label}
               </h3>
               <p className="text-sm text-muted-foreground">{stat.description}</p>

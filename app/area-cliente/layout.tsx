@@ -23,5 +23,5 @@ export default async function AreaClienteLayout({ children }: { children: ReactN
     })
   }
 
-  return <div style={{ backgroundColor: '#F4F8FC', minHeight: '100vh' }}>{children}</div>
+  return <div className="bg-background min-h-screen">{children}</div>
 }

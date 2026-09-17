@@ -16,8 +16,8 @@ export const COMPANY = {
 /** Brand tagline shown on every document footer. */
 export const TAGLINE = "Zero Conversas. Total Transparência."
 
-/** Warranty summary reused across documents. */
-export const WARRANTY_TEXT = "Garantia 6 meses / até 500€ — motor, transmissão e sistemas eletrónicos principais."
+/** Warranty summary — stock vehicles only, never the encomenda/order flow. */
+export const WARRANTY_TEXT = "Garantia de 18 meses por mútuo acordo."
 
 /** Legal footer line shared by all documents. */
 export const LEGAL_FOOTER =
