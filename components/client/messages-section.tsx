@@ -55,14 +55,14 @@ export function MessagesSection({
   }
 
   return (
-    <section className="flex h-[520px] flex-col border border-[#9FADBB] bg-white">
-      <header className="border-b border-[#9FADBB] px-6 py-4">
-        <h2 className="font-bebas text-xl tracking-wide text-[#0E1B2F]">Mensagens</h2>
+    <section className="flex h-[520px] flex-col border border-border bg-card">
+      <header className="border-b border-border px-6 py-4">
+        <h2 className="font-display text-xl tracking-wide text-foreground">Mensagens</h2>
       </header>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-6 py-4">
         {messages.length === 0 ? (
-          <p className="text-sm text-[#0E1B2F]/70">Sem mensagens. Inicia uma conversa com a equipa Shark.</p>
+          <p className="text-sm text-secondary-foreground">Sem mensagens. Inicia uma conversa com a equipa Shark.</p>
         ) : (
           messages.map((m) => {
             const isClient = m.sender === 'client'
@@ -71,8 +71,8 @@ export function MessagesSection({
                 <div
                   className={`max-w-[75%] border px-4 py-2 ${
                     isClient
-                      ? 'border-[#0E1B2F] bg-[#0E1B2F] text-[#E8E4DC]'
-                      : 'border-[#9FADBB] bg-[#F4F8FC] text-[#0E1B2F]'
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-border bg-background text-foreground'
                   }`}
                 >
                   <p className="font-mono text-[9px] uppercase tracking-widest opacity-70">
@@ -95,17 +95,17 @@ export function MessagesSection({
         <div ref={endRef} />
       </div>
 
-      <form onSubmit={submit} className="flex gap-2 border-t border-[#9FADBB] p-4">
+      <form onSubmit={submit} className="flex gap-2 border-t border-border p-4">
         <input
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Escreve uma mensagem..."
-          className="flex-1 border border-[#9FADBB] bg-white px-3 py-2 text-sm text-[#0E1B2F] outline-none focus:border-[#0E1B2F]"
+          className="flex-1 border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
         />
         <button
           type="submit"
           disabled={sending || !body.trim()}
-          className="flex items-center gap-2 bg-[#0E1B2F] px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-[#E8E4DC] hover:opacity-90 disabled:opacity-50"
+          className="flex items-center gap-2 bg-primary px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-primary-foreground hover:opacity-90 disabled:opacity-50"
         >
           <Send className="h-3.5 w-3.5" />
           Enviar
