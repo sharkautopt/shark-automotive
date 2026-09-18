@@ -12,6 +12,7 @@ import type {
 } from '@/lib/types'
 import { OperationStepsEditor } from './operation-steps-editor'
 import { OperationVehicleSpec } from './operation-vehicle-spec'
+import { OperationDocumentGenerator } from './operation-document-generator'
 import { OperationDocumentsManager } from './operation-documents-manager'
 import { OperationInvoicesManager } from './operation-invoices-manager'
 import { OperationMessages } from './operation-messages'
@@ -60,7 +61,12 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
 
       {tab === 'steps' && <OperationStepsEditor operationId={operation.id} steps={steps} />}
       {tab === 'viatura' && <OperationVehicleSpec operation={operation} />}
-      {tab === 'docs' && <OperationDocumentsManager operationId={operation.id} documents={documents} />}
+      {tab === 'docs' && (
+        <>
+          <OperationDocumentGenerator operation={operation} />
+          <OperationDocumentsManager operationId={operation.id} documents={documents} />
+        </>
+      )}
       {tab === 'invoices' && <OperationInvoicesManager operationId={operation.id} invoices={invoices} />}
       {tab === 'messages' && <OperationMessages operationId={operation.id} initialMessages={messages} />}
       {tab === 'results' && operation.role === 'parceiro' && <OperationResults operation={operation} />}
