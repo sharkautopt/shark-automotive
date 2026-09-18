@@ -17,6 +17,7 @@ export interface Vehicle {
   categoria: string | null
   tara_kg: number | null
   peso_bruto_kg: number | null
+  equipamento: string[] | null
   vin: string | null
   inspection_status: 'pending' | 'in_progress' | 'approved' | 'rejected'
   carpass_status: boolean

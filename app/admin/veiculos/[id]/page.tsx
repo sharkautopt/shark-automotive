@@ -49,7 +49,12 @@ export default function EditVehiclePage() {
     if (!vehicle) return
     setSaving(true)
     const supabase = createClient()
-    const { error } = await supabase.from('vehicles').update({ ...vehicle, updated_at: new Date().toISOString() }).eq('id', vehicle.id)
+    const payload = {
+      ...vehicle,
+      equipamento: (vehicle.equipamento || []).map((l) => l.trim()).filter(Boolean),
+      updated_at: new Date().toISOString(),
+    }
+    const { error } = await supabase.from('vehicles').update(payload).eq('id', vehicle.id)
     if (error) {
       console.error('Error updating vehicle:', error)
       alert('Erro ao atualizar veículo')
@@ -260,6 +265,19 @@ export default function EditVehiclePage() {
             <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
               <h2 className="font-display text-2xl text-foreground mb-6">DESCRIÇÃO</h2>
               <textarea value={vehicle.description || ''} onChange={(e) => updateField('description', e.target.value)} rows={4} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none" placeholder="Descrição detalhada do veículo..." />
+            </div>
+
+            {/* Equipment */}
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-2">EQUIPAMENTO</h2>
+              <p className="text-muted-foreground/60 text-sm mb-4">Um item por linha. Usado na ficha de viatura em stock.</p>
+              <textarea
+                value={(vehicle.equipamento || []).join('\n')}
+                onChange={(e) => updateField('equipamento', e.target.value.split('\n'))}
+                rows={6}
+                className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none"
+                placeholder={'Teto de abrir panorâmico\nEstofos em pele Dakota\nBancos dianteiros aquecidos'}
+              />
             </div>
 
             {/* Submit */}

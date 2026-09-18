@@ -31,6 +31,7 @@ export default function NovoVeiculoPage() {
     categoria: "" as string | null,
     tara_kg: null as number | null,
     peso_bruto_kg: null as number | null,
+    equipamento: [] as string[],
     vin: "",
     inspection_status: "pending",
     carpass_status: false,
@@ -83,7 +84,8 @@ export default function NovoVeiculoPage() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.from("vehicles").insert([formData])
+      const payload = { ...formData, equipamento: formData.equipamento.map((l) => l.trim()).filter(Boolean) }
+      const { error } = await supabase.from("vehicles").insert([payload])
       if (error) throw error
       router.push("/admin/veiculos")
       router.refresh()
@@ -291,6 +293,19 @@ export default function NovoVeiculoPage() {
             <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
               <h2 className="font-display text-2xl text-foreground mb-6">DESCRIÇÃO</h2>
               <textarea name="description" value={formData.description} onChange={handleChange} rows={5} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none" placeholder="Descrição detalhada do veículo..." />
+            </div>
+
+            {/* Equipment */}
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-2">EQUIPAMENTO</h2>
+              <p className="text-muted-foreground/60 text-sm mb-4">Um item por linha. Usado na ficha de viatura em stock.</p>
+              <textarea
+                value={formData.equipamento.join("\n")}
+                onChange={(e) => setFormData((prev) => ({ ...prev, equipamento: e.target.value.split("\n") }))}
+                rows={6}
+                className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none"
+                placeholder={"Teto de abrir panorâmico\nEstofos em pele Dakota\nBancos dianteiros aquecidos"}
+              />
             </div>
 
             {/* Submit */}

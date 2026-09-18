@@ -21,7 +21,10 @@ ALTER TABLE public.vehicles
   ADD COLUMN IF NOT EXISTS national_registration_date DATE,
   ADD COLUMN IF NOT EXISTS categoria TEXT,
   ADD COLUMN IF NOT EXISTS tara_kg INTEGER,
-  ADD COLUMN IF NOT EXISTS peso_bruto_kg INTEGER;
+  ADD COLUMN IF NOT EXISTS peso_bruto_kg INTEGER,
+  ADD COLUMN IF NOT EXISTS equipamento TEXT[];
+
+COMMENT ON COLUMN public.vehicles.equipamento IS 'Equipment/feature list for the stock spec sheet (Ficha de viatura em stock) — one item per array element, e.g. {"Teto de abrir panorâmico","Estofos em pele Dakota"}.';
 
 COMMENT ON COLUMN public.vehicles.foreign_plate IS 'Matrícula de origem — distinct from `plate` (national). Required on Declaração de Circulação, Orçamento de Importação.';
 COMMENT ON COLUMN public.vehicles.national_registration_date IS 'Data de atribuição da matrícula nacional. `registration_date` (existing column) is unused/ambiguous elsewhere — this is a separate, explicit field.';
