@@ -69,7 +69,7 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
       )}
       {tab === 'docs' && (
         <>
-          <OperationDocumentGenerator operation={operation} />
+          <OperationDocumentGenerator operation={operation} profile={profile} />
           <OperationDocumentsManager operationId={operation.id} documents={documents} />
         </>
       )}

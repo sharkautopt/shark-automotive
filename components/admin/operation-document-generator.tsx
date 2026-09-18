@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { FileText, Loader2, Download, ChevronDown } from 'lucide-react'
-import type { Operation } from '@/lib/types'
+import { FileText, Loader2, Download, ChevronDown, AlertTriangle } from 'lucide-react'
+import type { Operation, Profile } from '@/lib/types'
 
 interface DocDef {
   key: string
@@ -15,6 +15,9 @@ interface DocDef {
   /** True for docs that need a small form filled in before generating (facts
    * about a specific event, not persistent data — e.g. delivery details). */
   needsEntregaForm?: boolean
+  /** True for docs where a wrong field is a real legal problem — shows the
+   * mandante's data for explicit admin review before generating. */
+  needsIdReview?: boolean
 }
 
 // Extended stage by stage as each document type is built (Contrato,
@@ -28,6 +31,7 @@ const DOCS: DocDef[] = [
   { key: 'orcamento_importacao', label: 'Orçamento de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'orcamento' } },
   { key: 'contrato_compra_venda', label: 'Contrato de Compra e Venda', endpoint: '/api/admin/documents/contrato' },
   { key: 'declaracao_entrega', label: 'Declaração de Entrega', endpoint: '/api/admin/documents/declaracao-entrega', needsEntregaForm: true },
+  { key: 'procuracao', label: 'Procuração', endpoint: '/api/admin/documents/procuracao', needsIdReview: true },
   { key: 'declaracao_circulacao', label: 'Declaração de Circulação', endpoint: '/api/admin/documents/declaracao-circulacao' },
 ]
 
@@ -41,7 +45,7 @@ interface EntregaForm {
 
 const ENTREGA_DEFAULTS: EntregaForm = { quilometragem: '', local: 'Lisboa', chavesEntregues: '2', nivelCombustivel: '', observacoes: '' }
 
-export function OperationDocumentGenerator({ operation }: { operation: Operation }) {
+export function OperationDocumentGenerator({ operation, profile }: { operation: Operation; profile: Profile }) {
   const [busyKey, setBusyKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, string>>({})
@@ -50,7 +54,7 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
 
   const visibleDocs = DOCS.filter((d) => !d.role || d.role === operation.role)
 
-  async function generate(doc: DocDef, extra?: EntregaForm) {
+  async function generate(doc: DocDef, extra?: EntregaForm | { confirmed: boolean }) {
     setBusyKey(doc.key)
     setError(null)
     try {
@@ -75,7 +79,7 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
   }
 
   function handleGenerateClick(doc: DocDef) {
-    if (doc.needsEntregaForm) {
+    if (doc.needsEntregaForm || doc.needsIdReview) {
       setExpandedKey((prev) => (prev === doc.key ? null : doc.key))
       return
     }
@@ -95,7 +99,7 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
 
       <div className="grid sm:grid-cols-2 gap-3">
         {visibleDocs.map((doc) => (
-          <div key={doc.key} className={doc.needsEntregaForm && expandedKey === doc.key ? 'sm:col-span-2' : ''}>
+          <div key={doc.key} className={(doc.needsEntregaForm || doc.needsIdReview) && expandedKey === doc.key ? 'sm:col-span-2' : ''}>
             <div className="flex items-center justify-between gap-3 border border-primary/20 rounded-lg px-4 py-3">
               <div className="flex items-center gap-2 min-w-0">
                 <FileText className="w-4 h-4 text-primary shrink-0" />
@@ -120,7 +124,7 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
                   className="flex items-center gap-2 px-3 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
                 >
                   {busyKey === doc.key && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                  {doc.needsEntregaForm && <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandedKey === doc.key ? 'rotate-180' : ''}`} />}
+                  {(doc.needsEntregaForm || doc.needsIdReview) && <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandedKey === doc.key ? 'rotate-180' : ''}`} />}
                   {busyKey === doc.key ? 'A gerar...' : 'Gerar'}
                 </button>
               </div>
@@ -168,6 +172,34 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
                   className="px-4 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
                 >
                   Confirmar e Gerar
+                </button>
+              </div>
+            )}
+
+            {doc.needsIdReview && expandedKey === doc.key && (
+              <div className="mt-2 border border-amber-500/30 rounded-lg p-4 space-y-3 bg-amber-500/5">
+                <div className="flex items-start gap-2 text-amber-400 text-sm">
+                  <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <p>Confirme os dados de identificação do mandante antes de gerar. Um NIF ou número de documento errado numa procuração é um problema real.</p>
+                </div>
+                <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">Nome</dt><dd className="text-foreground">{profile.full_name || '— em falta —'}</dd></div>
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">NIF</dt><dd className="text-foreground">{profile.nif || '— em falta —'}</dd></div>
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">Documento de identificação</dt><dd className="text-foreground">{profile.id_document_number || '— em falta —'}</dd></div>
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">Validade do documento</dt><dd className="text-foreground">{profile.id_document_validity || '— em falta —'}</dd></div>
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">Data de nascimento</dt><dd className="text-foreground">{profile.birth_date || '— em falta —'}</dd></div>
+                  <div><dt className="text-muted-foreground/60 text-xs font-mono uppercase">Morada</dt><dd className="text-foreground">{profile.morada || '— em falta —'}</dd></div>
+                </dl>
+                <p className="text-muted-foreground/60 text-xs">
+                  Dados em falta? O cliente pode preenchê-los em Definições no portal, ou pode editá-los directamente na base de dados.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => generate(doc, { confirmed: true })}
+                  disabled={busyKey === doc.key}
+                  className="px-4 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
+                >
+                  Confirmo os dados — Gerar
                 </button>
               </div>
             )}
