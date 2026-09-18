@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { FileText, Loader2, Download } from 'lucide-react'
+import { FileText, Loader2, Download, ChevronDown } from 'lucide-react'
 import type { Operation } from '@/lib/types'
 
 interface DocDef {
@@ -12,6 +12,9 @@ interface DocDef {
   role?: Operation['role']
   /** Extra fixed fields merged into the POST body — e.g. { mode: "proposta" }. */
   extraBody?: Record<string, string>
+  /** True for docs that need a small form filled in before generating (facts
+   * about a specific event, not persistent data — e.g. delivery details). */
+  needsEntregaForm?: boolean
 }
 
 // Extended stage by stage as each document type is built (Contrato,
@@ -24,24 +27,37 @@ const DOCS: DocDef[] = [
   { key: 'proposta_importacao', label: 'Proposta de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'proposta' } },
   { key: 'orcamento_importacao', label: 'Orçamento de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'orcamento' } },
   { key: 'contrato_compra_venda', label: 'Contrato de Compra e Venda', endpoint: '/api/admin/documents/contrato' },
+  { key: 'declaracao_entrega', label: 'Declaração de Entrega', endpoint: '/api/admin/documents/declaracao-entrega', needsEntregaForm: true },
   { key: 'declaracao_circulacao', label: 'Declaração de Circulação', endpoint: '/api/admin/documents/declaracao-circulacao' },
 ]
+
+interface EntregaForm {
+  quilometragem: string
+  local: string
+  chavesEntregues: string
+  nivelCombustivel: string
+  observacoes: string
+}
+
+const ENTREGA_DEFAULTS: EntregaForm = { quilometragem: '', local: 'Lisboa', chavesEntregues: '2', nivelCombustivel: '', observacoes: '' }
 
 export function OperationDocumentGenerator({ operation }: { operation: Operation }) {
   const [busyKey, setBusyKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, string>>({})
+  const [expandedKey, setExpandedKey] = useState<string | null>(null)
+  const [entregaForm, setEntregaForm] = useState<EntregaForm>(ENTREGA_DEFAULTS)
 
   const visibleDocs = DOCS.filter((d) => !d.role || d.role === operation.role)
 
-  async function generate(doc: DocDef) {
+  async function generate(doc: DocDef, extra?: EntregaForm) {
     setBusyKey(doc.key)
     setError(null)
     try {
       const res = await fetch(doc.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ operationId: operation.id, ...doc.extraBody }),
+        body: JSON.stringify({ operationId: operation.id, ...doc.extraBody, ...extra }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -49,12 +65,21 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
         return
       }
       setResults((prev) => ({ ...prev, [doc.key]: data.signedUrl }))
+      setExpandedKey(null)
       if (data.signedUrl) window.open(data.signedUrl, '_blank', 'noopener,noreferrer')
     } catch {
       setError('Não foi possível gerar o documento.')
     } finally {
       setBusyKey(null)
     }
+  }
+
+  function handleGenerateClick(doc: DocDef) {
+    if (doc.needsEntregaForm) {
+      setExpandedKey((prev) => (prev === doc.key ? null : doc.key))
+      return
+    }
+    generate(doc)
   }
 
   return (
@@ -70,33 +95,82 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
 
       <div className="grid sm:grid-cols-2 gap-3">
         {visibleDocs.map((doc) => (
-          <div key={doc.key} className="flex items-center justify-between gap-3 border border-primary/20 rounded-lg px-4 py-3">
-            <div className="flex items-center gap-2 min-w-0">
-              <FileText className="w-4 h-4 text-primary shrink-0" />
-              <span className="text-sm text-foreground truncate">{doc.label}</span>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              {results[doc.key] && (
-                <a
-                  href={results[doc.key]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-primary hover:text-primary/80"
-                  aria-label="Abrir PDF"
+          <div key={doc.key} className={doc.needsEntregaForm && expandedKey === doc.key ? 'sm:col-span-2' : ''}>
+            <div className="flex items-center justify-between gap-3 border border-primary/20 rounded-lg px-4 py-3">
+              <div className="flex items-center gap-2 min-w-0">
+                <FileText className="w-4 h-4 text-primary shrink-0" />
+                <span className="text-sm text-foreground truncate">{doc.label}</span>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                {results[doc.key] && (
+                  <a
+                    href={results[doc.key]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-primary hover:text-primary/80"
+                    aria-label="Abrir PDF"
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleGenerateClick(doc)}
+                  disabled={busyKey === doc.key}
+                  className="flex items-center gap-2 px-3 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
                 >
-                  <Download className="w-4 h-4" />
-                </a>
-              )}
-              <button
-                type="button"
-                onClick={() => generate(doc)}
-                disabled={busyKey === doc.key}
-                className="flex items-center gap-2 px-3 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
-              >
-                {busyKey === doc.key ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
-                {busyKey === doc.key ? 'A gerar...' : 'Gerar'}
-              </button>
+                  {busyKey === doc.key && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  {doc.needsEntregaForm && <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandedKey === doc.key ? 'rotate-180' : ''}`} />}
+                  {busyKey === doc.key ? 'A gerar...' : 'Gerar'}
+                </button>
+              </div>
             </div>
+
+            {doc.needsEntregaForm && expandedKey === doc.key && (
+              <div className="mt-2 border border-primary/20 rounded-lg p-4 space-y-3 bg-background/40">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <input
+                    type="text" placeholder="Quilometragem à entrega"
+                    value={entregaForm.quilometragem}
+                    onChange={(e) => setEntregaForm((p) => ({ ...p, quilometragem: e.target.value }))}
+                    className="px-3 py-2 bg-background border border-primary/20 rounded-lg text-foreground text-sm focus:border-primary focus:outline-none"
+                  />
+                  <input
+                    type="text" placeholder="Local da entrega"
+                    value={entregaForm.local}
+                    onChange={(e) => setEntregaForm((p) => ({ ...p, local: e.target.value }))}
+                    className="px-3 py-2 bg-background border border-primary/20 rounded-lg text-foreground text-sm focus:border-primary focus:outline-none"
+                  />
+                  <input
+                    type="text" placeholder="Chaves entregues"
+                    value={entregaForm.chavesEntregues}
+                    onChange={(e) => setEntregaForm((p) => ({ ...p, chavesEntregues: e.target.value }))}
+                    className="px-3 py-2 bg-background border border-primary/20 rounded-lg text-foreground text-sm focus:border-primary focus:outline-none"
+                  />
+                  <input
+                    type="text" placeholder="Nível de combustível"
+                    value={entregaForm.nivelCombustivel}
+                    onChange={(e) => setEntregaForm((p) => ({ ...p, nivelCombustivel: e.target.value }))}
+                    className="px-3 py-2 bg-background border border-primary/20 rounded-lg text-foreground text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <textarea
+                  placeholder="Observações ao estado do veículo (opcional)"
+                  value={entregaForm.observacoes}
+                  onChange={(e) => setEntregaForm((p) => ({ ...p, observacoes: e.target.value }))}
+                  rows={2}
+                  className="w-full px-3 py-2 bg-background border border-primary/20 rounded-lg text-foreground text-sm focus:border-primary focus:outline-none resize-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => generate(doc, entregaForm)}
+                  disabled={busyKey === doc.key}
+                  className="px-4 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
+                >
+                  Confirmar e Gerar
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
