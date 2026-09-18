@@ -27,11 +27,15 @@ export function OperationVehicleSpec({ operation }: { operation: Operation }) {
     taraKg: operation.vehicle_tara_kg ?? undefined,
     pesoBrutoKg: operation.vehicle_peso_bruto_kg ?? undefined,
     vin: operation.vehicle_vin ?? '',
+    countryOrigin: operation.vehicle_country_origin ?? '',
     fuelType: operation.vehicle_fuel_type ?? '',
     power: operation.vehicle_power ?? undefined,
     engineSize: operation.vehicle_engine_size ?? '',
     doors: operation.vehicle_doors ?? undefined,
     co2Emissions: operation.vehicle_co2_emissions ?? undefined,
+    vehiclePriceOrigin: operation.vehicle_price_origin ?? undefined,
+    isvEstimado: operation.isv_estimado ?? undefined,
+    taxaServico: operation.taxa_servico ?? undefined,
   })
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
@@ -72,11 +76,18 @@ export function OperationVehicleSpec({ operation }: { operation: Operation }) {
         <div><label className={labelClass}>TARA (KG)</label><input type="number" className={fieldClass} {...field('taraKg', true)} /></div>
         <div><label className={labelClass}>PESO BRUTO (KG)</label><input type="number" className={fieldClass} {...field('pesoBrutoKg', true)} /></div>
         <div><label className={labelClass}>N.º CHASSI (VIN)</label><input type="text" className={fieldClass} {...field('vin')} /></div>
+        <div><label className={labelClass}>ORIGEM</label><input type="text" className={fieldClass} placeholder="Alemanha" {...field('countryOrigin')} /></div>
         <div><label className={labelClass}>COMBUSTÍVEL</label><input type="text" className={fieldClass} {...field('fuelType')} /></div>
         <div><label className={labelClass}>POTÊNCIA (CV)</label><input type="number" className={fieldClass} {...field('power', true)} /></div>
         <div><label className={labelClass}>CILINDRADA</label><input type="text" className={fieldClass} placeholder="1995 cm³" {...field('engineSize')} /></div>
         <div><label className={labelClass}>PORTAS</label><input type="number" className={fieldClass} {...field('doors', true)} /></div>
         <div><label className={labelClass}>CO₂ (G/KM)</label><input type="number" className={fieldClass} {...field('co2Emissions', true)} /></div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 border-t border-primary/10 pt-6">
+        <div><label className={labelClass}>PREÇO NA ORIGEM (€)</label><input type="number" className={fieldClass} {...field('vehiclePriceOrigin', true)} /></div>
+        <div><label className={labelClass}>ISV ESTIMADO (€)</label><input type="number" className={fieldClass} {...field('isvEstimado', true)} /></div>
+        <div><label className={labelClass}>TAXA DE SERVIÇO SHARK (€)</label><input type="number" className={fieldClass} {...field('taxaServico', true)} /></div>
       </div>
 
       <div className="flex items-center gap-4">

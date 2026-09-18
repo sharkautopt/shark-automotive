@@ -11,6 +11,7 @@ import type {
   Profile,
 } from '@/lib/types'
 import { OperationStepsEditor } from './operation-steps-editor'
+import { OperationDesiredSpec } from './operation-desired-spec'
 import { OperationVehicleSpec } from './operation-vehicle-spec'
 import { OperationDocumentGenerator } from './operation-document-generator'
 import { OperationDocumentsManager } from './operation-documents-manager'
@@ -60,7 +61,12 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
       </div>
 
       {tab === 'steps' && <OperationStepsEditor operationId={operation.id} steps={steps} />}
-      {tab === 'viatura' && <OperationVehicleSpec operation={operation} />}
+      {tab === 'viatura' && (
+        <div className="space-y-6">
+          {operation.role === 'encomenda' && <OperationDesiredSpec operation={operation} />}
+          <OperationVehicleSpec operation={operation} />
+        </div>
+      )}
       {tab === 'docs' && (
         <>
           <OperationDocumentGenerator operation={operation} />

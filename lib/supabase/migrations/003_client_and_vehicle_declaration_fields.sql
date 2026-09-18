@@ -44,11 +44,38 @@ ALTER TABLE public.operations
   ADD COLUMN IF NOT EXISTS vehicle_tara_kg INTEGER,
   ADD COLUMN IF NOT EXISTS vehicle_peso_bruto_kg INTEGER,
   ADD COLUMN IF NOT EXISTS vehicle_vin TEXT,
+  ADD COLUMN IF NOT EXISTS vehicle_country_origin TEXT,
   ADD COLUMN IF NOT EXISTS vehicle_fuel_type TEXT,
   ADD COLUMN IF NOT EXISTS vehicle_power INTEGER,
   ADD COLUMN IF NOT EXISTS vehicle_engine_size TEXT,
   ADD COLUMN IF NOT EXISTS vehicle_doors INTEGER,
-  ADD COLUMN IF NOT EXISTS vehicle_co2_emissions INTEGER;
+  ADD COLUMN IF NOT EXISTS vehicle_co2_emissions INTEGER,
+  ADD COLUMN IF NOT EXISTS vehicle_price_origin NUMERIC,
+  ADD COLUMN IF NOT EXISTS isv_estimado NUMERIC,
+  ADD COLUMN IF NOT EXISTS taxa_servico NUMERIC;
+
+COMMENT ON COLUMN public.operations.vehicle_price_origin IS 'Preço do veículo na origem — Orçamento de Importação, paid by client directly to the stand.';
+COMMENT ON COLUMN public.operations.isv_estimado IS 'Estimated ISV — Orçamento de Importação, paid by client directly to AT.';
+COMMENT ON COLUMN public.operations.taxa_servico IS 'Taxa de serviço Shark — the only leg of the payment actually owed to Shark.';
+
+-- Desired-spec + terms for Proposta/Orçamento de Importação — generated
+-- BEFORE a vehicle is sourced, so these are deliberately separate from the
+-- vehicle_* "found vehicle" columns above (which describe the actual car,
+-- once one exists).
+ALTER TABLE public.operations
+  ADD COLUMN IF NOT EXISTS desired_make TEXT,
+  ADD COLUMN IF NOT EXISTS desired_model TEXT,
+  ADD COLUMN IF NOT EXISTS desired_segmento TEXT,
+  ADD COLUMN IF NOT EXISTS desired_origem TEXT,
+  ADD COLUMN IF NOT EXISTS desired_year_min INTEGER,
+  ADD COLUMN IF NOT EXISTS desired_km_max INTEGER,
+  ADD COLUMN IF NOT EXISTS desired_fuel_type TEXT,
+  ADD COLUMN IF NOT EXISTS desired_transmission TEXT,
+  ADD COLUMN IF NOT EXISTS desired_equipment_notes TEXT,
+  ADD COLUMN IF NOT EXISTS budget_max NUMERIC,
+  ADD COLUMN IF NOT EXISTS sinal_adjudicacao NUMERIC,
+  ADD COLUMN IF NOT EXISTS prazo_entrega_estimado TEXT,
+  ADD COLUMN IF NOT EXISTS proposta_validade_dias INTEGER DEFAULT 15;
 
 ALTER TABLE public.generated_documents
   ADD COLUMN IF NOT EXISTS operation_id UUID REFERENCES public.operations(id),

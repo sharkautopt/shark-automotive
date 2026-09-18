@@ -10,6 +10,8 @@ interface DocDef {
   endpoint: string
   /** Only shown for operations with this role, or any role if omitted. */
   role?: Operation['role']
+  /** Extra fixed fields merged into the POST body — e.g. { mode: "proposta" }. */
+  extraBody?: Record<string, string>
 }
 
 // Extended stage by stage as each document type is built (Contrato,
@@ -19,6 +21,8 @@ interface DocDef {
 // confusingly also named "Contrato" — that's a client-attachment slot,
 // this is Shark's own generated legal document).
 const DOCS: DocDef[] = [
+  { key: 'proposta_importacao', label: 'Proposta de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'proposta' } },
+  { key: 'orcamento_importacao', label: 'Orçamento de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'orcamento' } },
   { key: 'declaracao_circulacao', label: 'Declaração de Circulação', endpoint: '/api/admin/documents/declaracao-circulacao' },
 ]
 
@@ -36,7 +40,7 @@ export function OperationDocumentGenerator({ operation }: { operation: Operation
       const res = await fetch(doc.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ operationId: operation.id }),
+        body: JSON.stringify({ operationId: operation.id, ...doc.extraBody }),
       })
       const data = await res.json()
       if (!res.ok) {

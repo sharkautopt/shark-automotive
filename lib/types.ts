@@ -136,12 +136,29 @@ export interface Operation {
   vehicle_tara_kg: number | null
   vehicle_peso_bruto_kg: number | null
   vehicle_vin: string | null
+  vehicle_country_origin: string | null
   vehicle_fuel_type: string | null
   vehicle_power: number | null
   vehicle_engine_size: string | null
   vehicle_doors: number | null
   vehicle_co2_emissions: number | null
+  vehicle_price_origin: number | null
+  isv_estimado: number | null
+  taxa_servico: number | null
   vehicle_photo_url: string | null
+  desired_make: string | null
+  desired_model: string | null
+  desired_segmento: string | null
+  desired_origem: string | null
+  desired_year_min: number | null
+  desired_km_max: number | null
+  desired_fuel_type: string | null
+  desired_transmission: string | null
+  desired_equipment_notes: string | null
+  budget_max: number | null
+  sinal_adjudicacao: number | null
+  prazo_entrega_estimado: string | null
+  proposta_validade_dias: number | null
   protocolo_score: number | null
   investment_amount: number | null
   investment_date: string | null
