@@ -12,6 +12,12 @@ export interface Vehicle {
   country_origin: string
   segmento: string | null
   plate: string | null
+  foreign_plate: string | null
+  national_registration_date: string | null
+  categoria: string | null
+  tara_kg: number | null
+  peso_bruto_kg: number | null
+  equipamento: string[] | null
   vin: string | null
   inspection_status: 'pending' | 'in_progress' | 'approved' | 'rejected'
   carpass_status: boolean
@@ -106,6 +112,11 @@ export interface Profile {
   email: string | null
   phone: string | null
   notification_email: boolean
+  nif: string | null
+  morada: string | null
+  id_document_number: string | null
+  id_document_validity: string | null
+  birth_date: string | null
   created_at: string
 }
 
@@ -119,7 +130,35 @@ export interface Operation {
   vehicle_km: number | null
   vehicle_colour: string | null
   vehicle_plate: string | null
+  vehicle_foreign_plate: string | null
+  vehicle_national_registration_date: string | null
+  vehicle_categoria: string | null
+  vehicle_tara_kg: number | null
+  vehicle_peso_bruto_kg: number | null
+  vehicle_vin: string | null
+  vehicle_country_origin: string | null
+  vehicle_fuel_type: string | null
+  vehicle_power: number | null
+  vehicle_engine_size: string | null
+  vehicle_doors: number | null
+  vehicle_co2_emissions: number | null
+  vehicle_price_origin: number | null
+  isv_estimado: number | null
+  taxa_servico: number | null
   vehicle_photo_url: string | null
+  desired_make: string | null
+  desired_model: string | null
+  desired_segmento: string | null
+  desired_origem: string | null
+  desired_year_min: number | null
+  desired_km_max: number | null
+  desired_fuel_type: string | null
+  desired_transmission: string | null
+  desired_equipment_notes: string | null
+  budget_max: number | null
+  sinal_adjudicacao: number | null
+  prazo_entrega_estimado: string | null
+  proposta_validade_dias: number | null
   protocolo_score: number | null
   investment_amount: number | null
   investment_date: string | null
@@ -193,4 +232,20 @@ export interface ActivityLogEntry {
   performed_by: string | null
   detail: string | null
   performed_at: string
+}
+
+// Admin-generated legal/marketing PDFs (Contrato, Procuração, Declarações,
+// Proposta/Orçamento de Importação, encomenda, window sticker). Distinct
+// from OperationDocument (client-attachment uploads, a different table).
+export interface GeneratedDocument {
+  id: string
+  doc_type: string
+  operation_id: string | null
+  vehicle_id: string | null
+  title: string
+  storage_path: string | null
+  document_number: string | null
+  accepted_at: string | null
+  accepted_by: string | null
+  created_at: string
 }

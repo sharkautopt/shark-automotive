@@ -1,7 +1,7 @@
 import { createElement } from "react"
 import { renderToBuffer } from "@react-pdf/renderer"
 import type { SupabaseClient } from "@supabase/supabase-js"
-import { registerPdfFonts } from "@/lib/pdf/theme"
+import { registerPdfFontsV2 } from "@/lib/pdf/theme-v2"
 import { generateQrDataUrl } from "@/lib/pdf/helpers"
 import { resolvePdfImage, resolvePdfImages } from "@/lib/pdf/images"
 import { COMPANY } from "@/lib/pdf/company"
@@ -59,7 +59,7 @@ export async function buildWindowSticker(
     resolvePdfImages(thumbnailUrls),
   ])
 
-  registerPdfFonts()
+  registerPdfFontsV2()
   const buffer = await renderToBuffer(
     createElement(WindowStickerDocument, { vehicle, heroPhoto, thumbnails, qrDataUrl, registo }) as never,
   )

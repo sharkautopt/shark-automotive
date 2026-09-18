@@ -9,8 +9,12 @@ import type {
   Message,
   ActivityLogEntry,
   Profile,
+  GeneratedDocument,
 } from '@/lib/types'
 import { OperationStepsEditor } from './operation-steps-editor'
+import { OperationDesiredSpec } from './operation-desired-spec'
+import { OperationVehicleSpec } from './operation-vehicle-spec'
+import { OperationDocumentGenerator } from './operation-document-generator'
 import { OperationDocumentsManager } from './operation-documents-manager'
 import { OperationInvoicesManager } from './operation-invoices-manager'
 import { OperationMessages } from './operation-messages'
@@ -25,11 +29,13 @@ type Props = {
   invoices: Invoice[]
   messages: Message[]
   activity: ActivityLogEntry[]
+  generatedDocuments: GeneratedDocument[]
 }
 
-export function OperationDetail({ operation, profile, steps, documents, invoices, messages, activity }: Props) {
+export function OperationDetail({ operation, profile, steps, documents, invoices, messages, activity, generatedDocuments }: Props) {
   const tabs = [
     { id: 'steps', label: 'Status Tracker' },
+    { id: 'viatura', label: 'Viatura' },
     { id: 'docs', label: 'Documentos' },
     { id: 'invoices', label: 'Facturas' },
     { id: 'messages', label: 'Mensagens' },
@@ -57,7 +63,18 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
       </div>
 
       {tab === 'steps' && <OperationStepsEditor operationId={operation.id} steps={steps} />}
-      {tab === 'docs' && <OperationDocumentsManager operationId={operation.id} documents={documents} />}
+      {tab === 'viatura' && (
+        <div className="space-y-6">
+          {operation.role === 'encomenda' && <OperationDesiredSpec operation={operation} />}
+          <OperationVehicleSpec operation={operation} />
+        </div>
+      )}
+      {tab === 'docs' && (
+        <>
+          <OperationDocumentGenerator operation={operation} profile={profile} existingDocuments={generatedDocuments} />
+          <OperationDocumentsManager operationId={operation.id} documents={documents} />
+        </>
+      )}
       {tab === 'invoices' && <OperationInvoicesManager operationId={operation.id} invoices={invoices} />}
       {tab === 'messages' && <OperationMessages operationId={operation.id} initialMessages={messages} />}
       {tab === 'results' && operation.role === 'parceiro' && <OperationResults operation={operation} />}

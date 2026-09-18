@@ -97,6 +97,121 @@ export async function createClientAccount(
   return { ok: true, userId: created.user.id, tempPassword, existing: false }
 }
 
+export type VehicleSpecInput = {
+  make?: string
+  model?: string
+  year?: number
+  km?: number
+  colour?: string
+  plate?: string
+  foreignPlate?: string
+  nationalRegistrationDate?: string
+  categoria?: string
+  taraKg?: number
+  pesoBrutoKg?: number
+  vin?: string
+  countryOrigin?: string
+  fuelType?: string
+  power?: number
+  engineSize?: string
+  doors?: number
+  co2Emissions?: number
+  vehiclePriceOrigin?: number
+  isvEstimado?: number
+  taxaServico?: number
+}
+
+// Fills in the full vehicle spec once a car has actually been sourced for an
+// encomenda operation — this is what the document-generation routes read
+// from (loadOperationDocData), so filling it once auto-fills every document.
+export async function updateOperationVehicleSpec(
+  operationId: string,
+  input: VehicleSpecInput,
+): Promise<{ ok: boolean; error?: string }> {
+  const admin = await requireAdmin()
+
+  const { error } = await supabaseAdmin
+    .from('operations')
+    .update({
+      vehicle_make: input.make ?? null,
+      vehicle_model: input.model ?? null,
+      vehicle_year: input.year ?? null,
+      vehicle_km: input.km ?? null,
+      vehicle_colour: input.colour ?? null,
+      vehicle_plate: input.plate ?? null,
+      vehicle_foreign_plate: input.foreignPlate ?? null,
+      vehicle_national_registration_date: input.nationalRegistrationDate ?? null,
+      vehicle_categoria: input.categoria ?? null,
+      vehicle_tara_kg: input.taraKg ?? null,
+      vehicle_peso_bruto_kg: input.pesoBrutoKg ?? null,
+      vehicle_vin: input.vin ?? null,
+      vehicle_country_origin: input.countryOrigin ?? null,
+      vehicle_fuel_type: input.fuelType ?? null,
+      vehicle_power: input.power ?? null,
+      vehicle_engine_size: input.engineSize ?? null,
+      vehicle_doors: input.doors ?? null,
+      vehicle_co2_emissions: input.co2Emissions ?? null,
+      vehicle_price_origin: input.vehiclePriceOrigin ?? null,
+      isv_estimado: input.isvEstimado ?? null,
+      taxa_servico: input.taxaServico ?? null,
+    })
+    .eq('id', operationId)
+
+  if (error) return { ok: false, error: error.message }
+  await logActivity(operationId, 'vehicle_spec_updated', admin.email ?? 'admin')
+  revalidatePath(`/admin/operacoes/${operationId}`)
+  return { ok: true }
+}
+
+export type DesiredSpecInput = {
+  make?: string
+  model?: string
+  segmento?: string
+  origem?: string
+  yearMin?: number
+  kmMax?: number
+  fuelType?: string
+  transmission?: string
+  equipmentNotes?: string
+  budgetMax?: number
+  sinalAdjudicacao?: number
+  prazoEntregaEstimado?: string
+  propostaValidadeDias?: number
+}
+
+// The "what the client is asking for" side, used by Proposta de Importação —
+// distinct from updateOperationVehicleSpec, which is "what was actually
+// found," used by Orçamento/Contrato/Procuração/Declarações.
+export async function updateOperationDesiredSpec(
+  operationId: string,
+  input: DesiredSpecInput,
+): Promise<{ ok: boolean; error?: string }> {
+  await requireAdmin()
+
+  const { error } = await supabaseAdmin
+    .from('operations')
+    .update({
+      desired_make: input.make ?? null,
+      desired_model: input.model ?? null,
+      desired_segmento: input.segmento ?? null,
+      desired_origem: input.origem ?? null,
+      desired_year_min: input.yearMin ?? null,
+      desired_km_max: input.kmMax ?? null,
+      desired_fuel_type: input.fuelType ?? null,
+      desired_transmission: input.transmission ?? null,
+      desired_equipment_notes: input.equipmentNotes ?? null,
+      budget_max: input.budgetMax ?? null,
+      sinal_adjudicacao: input.sinalAdjudicacao ?? null,
+      prazo_entrega_estimado: input.prazoEntregaEstimado ?? null,
+      proposta_validade_dias: input.propostaValidadeDias ?? 15,
+    })
+    .eq('id', operationId)
+
+  if (error) return { ok: false, error: error.message }
+  revalidatePath(`/admin/operacoes/${operationId}`)
+  return { ok: true }
+}
+
 export type CreateOperationInput = {
   profileId: string
   role: OperationRole

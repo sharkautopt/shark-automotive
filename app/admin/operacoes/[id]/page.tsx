@@ -14,6 +14,7 @@ import type {
   Message,
   ActivityLogEntry,
   Profile,
+  GeneratedDocument,
 } from '@/lib/types'
 
 async function checkAdmin() {
@@ -36,7 +37,7 @@ export default async function OperationDetailPage({ params }: { params: Promise<
 
   if (!operation) notFound()
 
-  const [{ data: profile }, { data: steps }, { data: documents }, { data: invoices }, { data: messages }, { data: activity }] =
+  const [{ data: profile }, { data: steps }, { data: documents }, { data: invoices }, { data: messages }, { data: activity }, { data: generatedDocuments }] =
     await Promise.all([
       supabaseAdmin.from('profiles').select('*').eq('id', operation.profile_id).single(),
       supabaseAdmin.from('operation_steps').select('*').eq('operation_id', id).order('step_order'),
@@ -44,6 +45,7 @@ export default async function OperationDetailPage({ params }: { params: Promise<
       supabaseAdmin.from('invoices').select('*').eq('operation_id', id).order('invoice_date', { ascending: false }),
       supabaseAdmin.from('messages').select('*').eq('operation_id', id).order('created_at'),
       supabaseAdmin.from('activity_log').select('*').eq('operation_id', id).order('performed_at', { ascending: false }),
+      supabaseAdmin.from('generated_documents').select('*').eq('operation_id', id).order('created_at', { ascending: false }),
     ])
 
   return (
@@ -75,6 +77,7 @@ export default async function OperationDetailPage({ params }: { params: Promise<
             invoices={(invoices as Invoice[]) ?? []}
             messages={(messages as Message[]) ?? []}
             activity={(activity as ActivityLogEntry[]) ?? []}
+            generatedDocuments={(generatedDocuments as GeneratedDocument[]) ?? []}
           />
         </div>
       </main>

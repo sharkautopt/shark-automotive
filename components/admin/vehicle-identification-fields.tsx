@@ -1,7 +1,7 @@
-// Shared "Identificação" fields (Origem, Segmento, Matrícula) used by both the
-// vehicle create and edit admin forms, so they can't drift out of sync again.
-// Styled to match the surrounding raw <select>/<input> fields in those forms —
-// this gets swept into the shared UI primitives when the admin gets restyled.
+// Shared "Identificação" fields used by both the vehicle create and edit
+// admin forms, so they can't drift out of sync again. Styled to match the
+// surrounding raw <select>/<input> fields in those forms — this gets swept
+// into the shared UI primitives when the admin gets restyled.
 
 export const ORIGEM_OPTIONS = [
   'Nacional', 'Alemanha', 'Holanda', 'Bélgica', 'França', 'Itália', 'Espanha',
@@ -63,6 +63,87 @@ export function VehicleIdentificationFields({
           value={plate ?? ''}
           onChange={(e) => onPlateChange(e.target.value)}
           placeholder="AA-00-AA"
+          className={fieldClass}
+        />
+      </div>
+    </>
+  )
+}
+
+// Fields needed only for the Declaração de Circulação / Orçamento de
+// Importação document suite — split from VehicleIdentificationFields so
+// forms that don't generate those documents aren't forced to show them.
+interface VehicleDeclarationFieldsProps {
+  foreignPlate: string | null
+  nationalRegistrationDate: string | null
+  categoria: string | null
+  taraKg: number | null
+  pesoBrutoKg: number | null
+  onForeignPlateChange: (value: string) => void
+  onNationalRegistrationDateChange: (value: string) => void
+  onCategoriaChange: (value: string) => void
+  onTaraKgChange: (value: number | null) => void
+  onPesoBrutoKgChange: (value: number | null) => void
+}
+
+export function VehicleDeclarationFields({
+  foreignPlate,
+  nationalRegistrationDate,
+  categoria,
+  taraKg,
+  pesoBrutoKg,
+  onForeignPlateChange,
+  onNationalRegistrationDateChange,
+  onCategoriaChange,
+  onTaraKgChange,
+  onPesoBrutoKgChange,
+}: VehicleDeclarationFieldsProps) {
+  return (
+    <>
+      <div>
+        <label className={labelClass}>MAT. ESTRANGEIRA</label>
+        <input
+          type="text"
+          value={foreignPlate ?? ''}
+          onChange={(e) => onForeignPlateChange(e.target.value)}
+          placeholder="M-AB 4217"
+          className={fieldClass}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>DATA MAT. NACIONAL</label>
+        <input
+          type="date"
+          value={nationalRegistrationDate ?? ''}
+          onChange={(e) => onNationalRegistrationDateChange(e.target.value)}
+          className={fieldClass}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>CATEGORIA / TIPO</label>
+        <input
+          type="text"
+          value={categoria ?? ''}
+          onChange={(e) => onCategoriaChange(e.target.value)}
+          placeholder="Ligeiro / Passageiros"
+          className={fieldClass}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>TARA (KG)</label>
+        <input
+          type="number"
+          value={taraKg ?? ''}
+          onChange={(e) => onTaraKgChange(e.target.value === '' ? null : parseInt(e.target.value, 10))}
+          className={fieldClass}
+        />
+      </div>
+      <div>
+        <label className={labelClass}>PESO BRUTO (KG)</label>
+        <input
+          type="number"
+          value={pesoBrutoKg ?? ''}
+          onChange={(e) => onPesoBrutoKgChange(e.target.value === '' ? null : parseInt(e.target.value, 10))}
           className={fieldClass}
         />
       </div>

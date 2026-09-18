@@ -9,6 +9,11 @@ export function SettingsSection({ profile }: { profile: Profile }) {
   const [email, setEmail] = useState(profile.email ?? '')
   const [phone, setPhone] = useState(profile.phone ?? '')
   const [notify, setNotify] = useState(profile.notification_email)
+  const [nif, setNif] = useState(profile.nif ?? '')
+  const [morada, setMorada] = useState(profile.morada ?? '')
+  const [idDocumentNumber, setIdDocumentNumber] = useState(profile.id_document_number ?? '')
+  const [idDocumentValidity, setIdDocumentValidity] = useState(profile.id_document_validity ?? '')
+  const [birthDate, setBirthDate] = useState(profile.birth_date ?? '')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -16,7 +21,17 @@ export function SettingsSection({ profile }: { profile: Profile }) {
     e.preventDefault()
     setSaving(true)
     setMessage('')
-    const res = await updateProfile({ full_name: fullName, email, phone, notification_email: notify })
+    const res = await updateProfile({
+      full_name: fullName,
+      email,
+      phone,
+      notification_email: notify,
+      nif,
+      morada,
+      id_document_number: idDocumentNumber,
+      id_document_validity: idDocumentValidity,
+      birth_date: birthDate,
+    })
     setSaving(false)
     setMessage(res.error ? res.error : 'Alterações guardadas.')
   }
@@ -36,6 +51,19 @@ export function SettingsSection({ profile }: { profile: Profile }) {
         <Field label="Nome Completo" value={fullName} onChange={setFullName} />
         <Field label="Email" type="email" value={email} onChange={setEmail} />
         <Field label="Telefone" value={phone} onChange={setPhone} />
+
+        <div className="border-t border-border pt-5">
+          <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            Dados para documentos legais
+          </p>
+          <div className="space-y-5">
+            <Field label="NIF" value={nif} onChange={setNif} />
+            <Field label="Morada Completa" value={morada} onChange={setMorada} />
+            <Field label="N.º Documento de Identificação" value={idDocumentNumber} onChange={setIdDocumentNumber} />
+            <Field label="Validade do Documento" type="date" value={idDocumentValidity} onChange={setIdDocumentValidity} />
+            <Field label="Data de Nascimento" type="date" value={birthDate} onChange={setBirthDate} />
+          </div>
+        </div>
 
         <label className="flex items-center gap-3">
           <input

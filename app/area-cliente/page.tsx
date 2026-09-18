@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { supabaseAdmin } from '@/lib/supabase/service-role'
 import { ClientDashboard } from '@/components/client/client-dashboard'
-import type { Profile, Operation, OperationStepClient, OperationDocument, Invoice, Message } from '@/lib/types'
+import type { Profile, Operation, OperationStepClient, OperationDocument, Invoice, Message, GeneratedDocument } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -71,6 +71,12 @@ export default async function AreaClientePage() {
     .eq('operation_id', operation.id)
     .order('created_at', { ascending: true })
 
+  const { data: generatedDocuments } = await supabase
+    .from('generated_documents')
+    .select('id, doc_type, operation_id, vehicle_id, title, storage_path, document_number, accepted_at, accepted_by, created_at')
+    .eq('operation_id', operation.id)
+    .order('created_at', { ascending: false })
+
   // Vehicle photo lives in the private bucket — resolve to a signed URL for display.
   const resolvedOperation = { ...operation } as Operation
   if (resolvedOperation.vehicle_photo_url) {
@@ -88,6 +94,7 @@ export default async function AreaClientePage() {
       documents={(documents ?? []) as OperationDocument[]}
       invoices={(invoices ?? []) as Invoice[]}
       messages={(messages ?? []) as Message[]}
+      generatedDocuments={(generatedDocuments ?? []) as GeneratedDocument[]}
     />
   )
 }

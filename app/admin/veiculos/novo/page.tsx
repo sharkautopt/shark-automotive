@@ -7,7 +7,7 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { PhotoUploader } from "@/components/admin/photo-uploader"
-import { VehicleIdentificationFields } from "@/components/admin/vehicle-identification-fields"
+import { VehicleIdentificationFields, VehicleDeclarationFields } from "@/components/admin/vehicle-identification-fields"
 
 export default function NovoVeiculoPage() {
   const router = useRouter()
@@ -26,6 +26,12 @@ export default function NovoVeiculoPage() {
     country_origin: "Alemanha",
     segmento: "" as string | null,
     plate: "" as string | null,
+    foreign_plate: "" as string | null,
+    national_registration_date: "" as string | null,
+    categoria: "" as string | null,
+    tara_kg: null as number | null,
+    peso_bruto_kg: null as number | null,
+    equipamento: [] as string[],
     vin: "",
     inspection_status: "pending",
     carpass_status: false,
@@ -78,7 +84,8 @@ export default function NovoVeiculoPage() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.from("vehicles").insert([formData])
+      const payload = { ...formData, equipamento: formData.equipamento.map((l) => l.trim()).filter(Boolean) }
+      const { error } = await supabase.from("vehicles").insert([payload])
       if (error) throw error
       router.push("/admin/veiculos")
       router.refresh()
@@ -197,6 +204,18 @@ export default function NovoVeiculoPage() {
                   onSegmentoChange={(value) => setFormData((prev) => ({ ...prev, segmento: value }))}
                   onPlateChange={(value) => setFormData((prev) => ({ ...prev, plate: value }))}
                 />
+                <VehicleDeclarationFields
+                  foreignPlate={formData.foreign_plate}
+                  nationalRegistrationDate={formData.national_registration_date}
+                  categoria={formData.categoria}
+                  taraKg={formData.tara_kg}
+                  pesoBrutoKg={formData.peso_bruto_kg}
+                  onForeignPlateChange={(value) => setFormData((prev) => ({ ...prev, foreign_plate: value }))}
+                  onNationalRegistrationDateChange={(value) => setFormData((prev) => ({ ...prev, national_registration_date: value }))}
+                  onCategoriaChange={(value) => setFormData((prev) => ({ ...prev, categoria: value }))}
+                  onTaraKgChange={(value) => setFormData((prev) => ({ ...prev, tara_kg: value }))}
+                  onPesoBrutoKgChange={(value) => setFormData((prev) => ({ ...prev, peso_bruto_kg: value }))}
+                />
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">COR EXTERIOR</label>
                   <input type="text" name="exterior_color" value={formData.exterior_color} onChange={handleChange} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none" placeholder="Cinza Metalizado" />
@@ -274,6 +293,19 @@ export default function NovoVeiculoPage() {
             <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
               <h2 className="font-display text-2xl text-foreground mb-6">DESCRIÇÃO</h2>
               <textarea name="description" value={formData.description} onChange={handleChange} rows={5} className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none" placeholder="Descrição detalhada do veículo..." />
+            </div>
+
+            {/* Equipment */}
+            <div className="bg-secondary/30 border border-primary/10 rounded-xl p-6">
+              <h2 className="font-display text-2xl text-foreground mb-2">EQUIPAMENTO</h2>
+              <p className="text-muted-foreground/60 text-sm mb-4">Um item por linha. Usado na ficha de viatura em stock.</p>
+              <textarea
+                value={formData.equipamento.join("\n")}
+                onChange={(e) => setFormData((prev) => ({ ...prev, equipamento: e.target.value.split("\n") }))}
+                rows={6}
+                className="w-full px-4 py-3 bg-background border border-primary/20 rounded-lg text-foreground focus:border-primary focus:outline-none resize-none"
+                placeholder={"Teto de abrir panorâmico\nEstofos em pele Dakota\nBancos dianteiros aquecidos"}
+              />
             </div>
 
             {/* Submit */}
