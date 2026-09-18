@@ -233,3 +233,19 @@ export interface ActivityLogEntry {
   detail: string | null
   performed_at: string
 }
+
+// Admin-generated legal/marketing PDFs (Contrato, Procuração, Declarações,
+// Proposta/Orçamento de Importação, encomenda, window sticker). Distinct
+// from OperationDocument (client-attachment uploads, a different table).
+export interface GeneratedDocument {
+  id: string
+  doc_type: string
+  operation_id: string | null
+  vehicle_id: string | null
+  title: string
+  storage_path: string | null
+  document_number: string | null
+  accepted_at: string | null
+  accepted_by: string | null
+  created_at: string
+}

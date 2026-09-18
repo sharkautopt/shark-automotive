@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { FileText, Loader2, Download, ChevronDown, AlertTriangle } from 'lucide-react'
-import type { Operation, Profile } from '@/lib/types'
+import { FileText, Loader2, Download, ChevronDown, AlertTriangle, CheckCircle2 } from 'lucide-react'
+import type { Operation, Profile, GeneratedDocument } from '@/lib/types'
 
 interface DocDef {
   key: string
@@ -45,7 +45,15 @@ interface EntregaForm {
 
 const ENTREGA_DEFAULTS: EntregaForm = { quilometragem: '', local: 'Lisboa', chavesEntregues: '2', nivelCombustivel: '', observacoes: '' }
 
-export function OperationDocumentGenerator({ operation, profile }: { operation: Operation; profile: Profile }) {
+export function OperationDocumentGenerator({
+  operation,
+  profile,
+  existingDocuments,
+}: {
+  operation: Operation
+  profile: Profile
+  existingDocuments: GeneratedDocument[]
+}) {
   const [busyKey, setBusyKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, string>>({})
@@ -53,6 +61,13 @@ export function OperationDocumentGenerator({ operation, profile }: { operation: 
   const [entregaForm, setEntregaForm] = useState<EntregaForm>(ENTREGA_DEFAULTS)
 
   const visibleDocs = DOCS.filter((d) => !d.role || d.role === operation.role)
+
+  // Most recent generated document of each type, for status display
+  // (e.g. whether the client has accepted the orçamento yet).
+  const latestByType = new Map<string, GeneratedDocument>()
+  for (const doc of existingDocuments) {
+    if (!latestByType.has(doc.doc_type)) latestByType.set(doc.doc_type, doc)
+  }
 
   async function generate(doc: DocDef, extra?: EntregaForm | { confirmed: boolean }) {
     setBusyKey(doc.key)
@@ -104,6 +119,17 @@ export function OperationDocumentGenerator({ operation, profile }: { operation: 
               <div className="flex items-center gap-2 min-w-0">
                 <FileText className="w-4 h-4 text-primary shrink-0" />
                 <span className="text-sm text-foreground truncate">{doc.label}</span>
+                {doc.key === 'orcamento_importacao' && latestByType.get(doc.key) && (
+                  latestByType.get(doc.key)!.accepted_at ? (
+                    <span className="flex items-center gap-1 font-mono text-[9px] uppercase tracking-widest text-success shrink-0">
+                      <CheckCircle2 className="w-3 h-3" /> Aceite pelo cliente
+                    </span>
+                  ) : (
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/60 shrink-0">
+                      Aguarda aceitação
+                    </span>
+                  )
+                )}
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {results[doc.key] && (

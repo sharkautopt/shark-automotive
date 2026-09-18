@@ -73,6 +73,53 @@ export async function getDocumentUrl(operationId: string, storagePath: string): 
   return { url: data.signedUrl }
 }
 
+// Signed URL for a generated document (Contrato, Procuração, Declarações,
+// Proposta/Orçamento de Importação, ...) — a different table (generated_documents)
+// and bucket ('documents') than uploaded attachments, so it needs its own
+// ownership check rather than reusing getDocumentUrl.
+export async function getGeneratedDocumentUrl(operationId: string, documentId: string): Promise<{ url?: string; error?: string }> {
+  const { user, supabase } = await requireUser()
+  if (!(await userOwnsOperation(operationId, user.id, supabase))) return { error: 'Não autorizado' }
+
+  const { data: doc } = await supabase
+    .from('generated_documents')
+    .select('storage_path')
+    .eq('id', documentId)
+    .eq('operation_id', operationId)
+    .maybeSingle()
+  if (!doc?.storage_path) return { error: 'Documento não encontrado.' }
+
+  const { data, error } = await supabaseAdmin.storage.from('documents').createSignedUrl(doc.storage_path, 1800)
+  if (error || !data?.signedUrl) return { error: error?.message || 'Não foi possível gerar o link.' }
+  return { url: data.signedUrl }
+}
+
+// Records the client's digital acceptance of an Orçamento de Importação — a
+// recorded click + timestamp, not an e-signature, per the document's own
+// disclaimer text ("sem necessidade de assinatura manuscrita").
+export async function acceptGeneratedDocument(operationId: string, documentId: string): Promise<{ ok?: boolean; error?: string }> {
+  const { user, supabase } = await requireUser()
+  if (!(await userOwnsOperation(operationId, user.id, supabase))) return { error: 'Não autorizado' }
+
+  const { data: doc } = await supabase
+    .from('generated_documents')
+    .select('id, doc_type, accepted_at')
+    .eq('id', documentId)
+    .eq('operation_id', operationId)
+    .maybeSingle()
+  if (!doc) return { error: 'Documento não encontrado.' }
+  if (doc.doc_type !== 'orcamento_importacao') return { error: 'Este tipo de documento não é aceite no portal.' }
+  if (doc.accepted_at) return { ok: true }
+
+  const { error } = await supabaseAdmin
+    .from('generated_documents')
+    .update({ accepted_at: new Date().toISOString(), accepted_by: user.id })
+    .eq('id', documentId)
+  if (error) return { error: error.message }
+  revalidatePath('/area-cliente')
+  return { ok: true }
+}
+
 export async function uploadClientDocument(formData: FormData): Promise<{ ok?: boolean; error?: string }> {
   const { user, supabase } = await requireUser()
   const operationId = formData.get('operationId') as string

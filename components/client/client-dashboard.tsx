@@ -7,6 +7,7 @@ import { StatusTracker } from './status-tracker'
 import { VehicleCard } from './vehicle-card'
 import { OperationCard } from './operation-card'
 import { DocumentsSection } from './documents-section'
+import { GeneratedDocumentsSection } from './generated-documents-section'
 import { InvoicesSection } from './invoices-section'
 import { MessagesSection } from './messages-section'
 import { SettingsSection } from './settings-section'
@@ -17,6 +18,7 @@ import type {
   Invoice,
   Message,
   Profile,
+  GeneratedDocument,
 } from '@/lib/types'
 
 export function ClientDashboard({
@@ -26,6 +28,7 @@ export function ClientDashboard({
   documents,
   invoices,
   messages,
+  generatedDocuments,
 }: {
   profile: Profile
   operation: Operation
@@ -33,6 +36,7 @@ export function ClientDashboard({
   documents: OperationDocument[]
   invoices: Invoice[]
   messages: Message[]
+  generatedDocuments: GeneratedDocument[]
 }) {
   const isParceiro = operation.role === 'parceiro'
   const sections = ALL_SECTIONS.filter((s) => (s.id === 'resultados' ? isParceiro : true))
@@ -61,7 +65,10 @@ export function ClientDashboard({
         )}
 
         {active === 'documentos' && (
-          <DocumentsSection operationId={operation.id} documents={documents} />
+          <>
+            <GeneratedDocumentsSection operationId={operation.id} documents={generatedDocuments} />
+            <DocumentsSection operationId={operation.id} documents={documents} />
+          </>
         )}
 
         {active === 'facturas' && <InvoicesSection operationId={operation.id} invoices={invoices} />}
