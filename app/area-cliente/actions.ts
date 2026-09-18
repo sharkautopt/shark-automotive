@@ -135,6 +135,11 @@ export async function updateProfile(updates: {
   email: string
   phone: string
   notification_email: boolean
+  nif?: string
+  morada?: string
+  id_document_number?: string
+  id_document_validity?: string
+  birth_date?: string
 }): Promise<{ ok?: boolean; error?: string }> {
   const { user, supabase } = await requireUser()
   const { error } = await supabase
@@ -144,6 +149,11 @@ export async function updateProfile(updates: {
       email: updates.email || null,
       phone: updates.phone || null,
       notification_email: updates.notification_email,
+      nif: updates.nif || null,
+      morada: updates.morada || null,
+      id_document_number: updates.id_document_number || null,
+      id_document_validity: updates.id_document_validity || null,
+      birth_date: updates.birth_date || null,
     })
     .eq('id', user.id)
   if (error) return { error: error.message }

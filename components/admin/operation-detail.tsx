@@ -11,6 +11,7 @@ import type {
   Profile,
 } from '@/lib/types'
 import { OperationStepsEditor } from './operation-steps-editor'
+import { OperationVehicleSpec } from './operation-vehicle-spec'
 import { OperationDocumentsManager } from './operation-documents-manager'
 import { OperationInvoicesManager } from './operation-invoices-manager'
 import { OperationMessages } from './operation-messages'
@@ -30,6 +31,7 @@ type Props = {
 export function OperationDetail({ operation, profile, steps, documents, invoices, messages, activity }: Props) {
   const tabs = [
     { id: 'steps', label: 'Status Tracker' },
+    { id: 'viatura', label: 'Viatura' },
     { id: 'docs', label: 'Documentos' },
     { id: 'invoices', label: 'Facturas' },
     { id: 'messages', label: 'Mensagens' },
@@ -57,6 +59,7 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
       </div>
 
       {tab === 'steps' && <OperationStepsEditor operationId={operation.id} steps={steps} />}
+      {tab === 'viatura' && <OperationVehicleSpec operation={operation} />}
       {tab === 'docs' && <OperationDocumentsManager operationId={operation.id} documents={documents} />}
       {tab === 'invoices' && <OperationInvoicesManager operationId={operation.id} invoices={invoices} />}
       {tab === 'messages' && <OperationMessages operationId={operation.id} initialMessages={messages} />}

@@ -12,6 +12,11 @@ export interface Vehicle {
   country_origin: string
   segmento: string | null
   plate: string | null
+  foreign_plate: string | null
+  national_registration_date: string | null
+  categoria: string | null
+  tara_kg: number | null
+  peso_bruto_kg: number | null
   vin: string | null
   inspection_status: 'pending' | 'in_progress' | 'approved' | 'rejected'
   carpass_status: boolean
@@ -106,6 +111,11 @@ export interface Profile {
   email: string | null
   phone: string | null
   notification_email: boolean
+  nif: string | null
+  morada: string | null
+  id_document_number: string | null
+  id_document_validity: string | null
+  birth_date: string | null
   created_at: string
 }
 
@@ -119,6 +129,17 @@ export interface Operation {
   vehicle_km: number | null
   vehicle_colour: string | null
   vehicle_plate: string | null
+  vehicle_foreign_plate: string | null
+  vehicle_national_registration_date: string | null
+  vehicle_categoria: string | null
+  vehicle_tara_kg: number | null
+  vehicle_peso_bruto_kg: number | null
+  vehicle_vin: string | null
+  vehicle_fuel_type: string | null
+  vehicle_power: number | null
+  vehicle_engine_size: string | null
+  vehicle_doors: number | null
+  vehicle_co2_emissions: number | null
   vehicle_photo_url: string | null
   protocolo_score: number | null
   investment_amount: number | null

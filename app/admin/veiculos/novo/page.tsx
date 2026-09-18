@@ -7,7 +7,7 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { PhotoUploader } from "@/components/admin/photo-uploader"
-import { VehicleIdentificationFields } from "@/components/admin/vehicle-identification-fields"
+import { VehicleIdentificationFields, VehicleDeclarationFields } from "@/components/admin/vehicle-identification-fields"
 
 export default function NovoVeiculoPage() {
   const router = useRouter()
@@ -26,6 +26,11 @@ export default function NovoVeiculoPage() {
     country_origin: "Alemanha",
     segmento: "" as string | null,
     plate: "" as string | null,
+    foreign_plate: "" as string | null,
+    national_registration_date: "" as string | null,
+    categoria: "" as string | null,
+    tara_kg: null as number | null,
+    peso_bruto_kg: null as number | null,
     vin: "",
     inspection_status: "pending",
     carpass_status: false,
@@ -196,6 +201,18 @@ export default function NovoVeiculoPage() {
                   onOrigemChange={(value) => setFormData((prev) => ({ ...prev, country_origin: value }))}
                   onSegmentoChange={(value) => setFormData((prev) => ({ ...prev, segmento: value }))}
                   onPlateChange={(value) => setFormData((prev) => ({ ...prev, plate: value }))}
+                />
+                <VehicleDeclarationFields
+                  foreignPlate={formData.foreign_plate}
+                  nationalRegistrationDate={formData.national_registration_date}
+                  categoria={formData.categoria}
+                  taraKg={formData.tara_kg}
+                  pesoBrutoKg={formData.peso_bruto_kg}
+                  onForeignPlateChange={(value) => setFormData((prev) => ({ ...prev, foreign_plate: value }))}
+                  onNationalRegistrationDateChange={(value) => setFormData((prev) => ({ ...prev, national_registration_date: value }))}
+                  onCategoriaChange={(value) => setFormData((prev) => ({ ...prev, categoria: value }))}
+                  onTaraKgChange={(value) => setFormData((prev) => ({ ...prev, tara_kg: value }))}
+                  onPesoBrutoKgChange={(value) => setFormData((prev) => ({ ...prev, peso_bruto_kg: value }))}
                 />
                 <div>
                   <label className="block text-muted-foreground/70 text-sm font-mono mb-2">COR EXTERIOR</label>

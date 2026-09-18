@@ -9,7 +9,7 @@ import { AdminSidebar } from '@/components/admin/admin-sidebar'
 import { PhotoUploader } from '@/components/admin/photo-uploader'
 import { PhotoAnalysisPanel } from '@/components/admin/photo-analysis-panel'
 import { VehicleDocuments } from '@/components/admin/vehicle-documents'
-import { VehicleIdentificationFields } from '@/components/admin/vehicle-identification-fields'
+import { VehicleIdentificationFields, VehicleDeclarationFields } from '@/components/admin/vehicle-identification-fields'
 import type { Vehicle } from '@/lib/types'
 
 export default function EditVehiclePage() {
@@ -191,6 +191,18 @@ export default function EditVehiclePage() {
                   onOrigemChange={(value) => updateField('country_origin', value)}
                   onSegmentoChange={(value) => updateField('segmento', value)}
                   onPlateChange={(value) => updateField('plate', value)}
+                />
+                <VehicleDeclarationFields
+                  foreignPlate={vehicle.foreign_plate}
+                  nationalRegistrationDate={vehicle.national_registration_date}
+                  categoria={vehicle.categoria}
+                  taraKg={vehicle.tara_kg}
+                  pesoBrutoKg={vehicle.peso_bruto_kg}
+                  onForeignPlateChange={(value) => updateField('foreign_plate', value)}
+                  onNationalRegistrationDateChange={(value) => updateField('national_registration_date', value)}
+                  onCategoriaChange={(value) => updateField('categoria', value)}
+                  onTaraKgChange={(value) => updateField('tara_kg', value)}
+                  onPesoBrutoKgChange={(value) => updateField('peso_bruto_kg', value)}
                 />
               </div>
             </div>
