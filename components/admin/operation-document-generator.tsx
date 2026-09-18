@@ -23,6 +23,7 @@ interface DocDef {
 const DOCS: DocDef[] = [
   { key: 'proposta_importacao', label: 'Proposta de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'proposta' } },
   { key: 'orcamento_importacao', label: 'Orçamento de Importação', endpoint: '/api/admin/documents/importacao', role: 'encomenda', extraBody: { mode: 'orcamento' } },
+  { key: 'contrato_compra_venda', label: 'Contrato de Compra e Venda', endpoint: '/api/admin/documents/contrato' },
   { key: 'declaracao_circulacao', label: 'Declaração de Circulação', endpoint: '/api/admin/documents/declaracao-circulacao' },
 ]
 
