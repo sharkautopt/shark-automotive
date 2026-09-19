@@ -65,8 +65,8 @@ export interface EncomendaDocProps {
 const styles = StyleSheet.create({
   page: {
     backgroundColor: brand.navy,
-    paddingTop: 30,
-    paddingBottom: 78,
+    paddingTop: 26,
+    paddingBottom: 74,
     paddingHorizontal: 36,
     fontFamily: "DM Sans",
     color: brand.chalk,
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: brand.line,
-    paddingBottom: 12,
-    marginBottom: 16,
+    paddingBottom: 8,
+    marginBottom: 10,
   },
   headerLeft: { flexShrink: 1, paddingRight: 12 },
   headerRight: { flexShrink: 0, alignItems: "flex-end" },
@@ -87,31 +87,33 @@ const styles = StyleSheet.create({
   docType: { fontFamily: "Bebas Neue", fontSize: 18, color: brand.chalk, paddingLeft: 6, paddingRight: 1 },
   docNumber: { fontFamily: "DM Mono", fontSize: 8, color: brand.steel, textAlign: "right", marginTop: 2 },
 
-  metaBar: { flexDirection: "row", justifyContent: "space-between", marginBottom: 16 },
+  metaBar: { flexDirection: "row", justifyContent: "space-between", marginBottom: 10 },
   metaItem: {},
   metaKey: { fontFamily: "DM Mono", fontSize: 7, color: brand.steel, letterSpacing: 1, marginBottom: 2 },
   metaVal: { fontFamily: "DM Sans", fontSize: 11, fontWeight: 500, color: brand.white },
 
-  // photos — 1 large + 2x2 square, all equal height
-  photoRow: { flexDirection: "row", gap: 6, marginBottom: 12 },
-  photoBig: { flex: 1, objectFit: "cover" },
-  photoQuad: { flex: 1, gap: 6 },
-  quadRow: { flex: 1, flexDirection: "row", gap: 6 },
-  quadCell: { flex: 1, objectFit: "cover" },
+  // photos — one big square + a 2x2 grid that forms a square of the same size
+  photoRow: { flexDirection: "row", justifyContent: "center", marginBottom: 8 },
+  photoQuadWrap: { justifyContent: "space-between" },
+  quadRow: { flexDirection: "row", justifyContent: "space-between" },
+  photoEmpty: { backgroundColor: brand.navyLight },
   photoPlaceholder: {
     width: "100%",
     backgroundColor: brand.navyLight,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 12,
+    marginBottom: 8,
   },
 
-  vehicleTitle: { fontFamily: "Bebas Neue", fontSize: 34, color: brand.white, lineHeight: 1 },
+  titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" },
+  titleBlock: { flexShrink: 1, paddingRight: 12 },
+  estimateBlock: { flexShrink: 0, alignItems: "flex-end" },
+  vehicleTitle: { fontFamily: "Bebas Neue", fontSize: 30, color: brand.white, lineHeight: 1 },
   vehicleVariant: { fontFamily: "DM Sans", fontSize: 11, fontWeight: 500, color: brand.chalkDark, marginTop: 2 },
   vehicleMeta: { fontFamily: "DM Mono", fontSize: 10, color: brand.steel, marginTop: 4 },
   summary: { fontFamily: "DM Sans", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 8 },
-  divider: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 14 },
-  dividerTight: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 9 },
+  divider: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 9 },
+  dividerTight: { borderBottomWidth: 1, borderBottomColor: brand.line, marginVertical: 7 },
 
   sectionLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.chalkDark, letterSpacing: 2, marginBottom: 8 },
 
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
 
   // proposta estimate
   estimateLabel: { fontFamily: "DM Mono", fontSize: 8, color: brand.steel, letterSpacing: 1.5, marginBottom: 3 },
-  estimate: { fontFamily: "Bebas Neue", fontSize: 40, color: brand.gold, lineHeight: 1 },
+  estimate: { fontFamily: "Bebas Neue", fontSize: 28, color: brand.gold, lineHeight: 1 },
   estimateNote: { fontFamily: "DM Sans", fontSize: 8.5, color: brand.chalkDark, marginTop: 3 },
   includes: { fontFamily: "DM Sans", fontSize: 9.5, color: brand.chalk, lineHeight: 1.5, marginTop: 4 },
 
@@ -176,10 +178,10 @@ const styles = StyleSheet.create({
 
   ctaRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 4 },
   ctaText: { fontFamily: "Bebas Neue", fontSize: 20, color: brand.chalk, maxWidth: "70%" },
-  qr: { width: 72, height: 72 },
+  qr: { width: 58, height: 58 },
   qrText: { fontFamily: "DM Mono", fontSize: 6, color: brand.steel, marginTop: 3, letterSpacing: 1, textAlign: "center" },
 
-  smallPrint: { fontFamily: "DM Sans", fontSize: 7.5, color: brand.steel, lineHeight: 1.4, marginTop: 12 },
+  smallPrint: { fontFamily: "DM Sans", fontSize: 7.5, color: brand.steel, lineHeight: 1.4, marginTop: 6 },
 
   footer: {
     position: "absolute",
@@ -237,50 +239,54 @@ function SpecGrid({ vehicle }: { vehicle: EncomendaVehicle }) {
   )
 }
 
-function Photos({ photos, height }: { photos: string[]; height: number }) {
+const PHOTO_GAP = 6
+
+/** One big square + four small photos forming a square of the same size. */
+function Photos({ photos, size }: { photos: string[]; size: number }) {
   if (photos.length === 0) {
     return (
-      <View style={[styles.photoPlaceholder, { height }]}>
+      <View style={[styles.photoPlaceholder, { height: Math.round(size * 0.55) }]}>
         <Text style={{ fontFamily: "DM Mono", fontSize: 9, color: brand.steel }}>SEM FOTOGRAFIA</Text>
       </View>
     )
   }
 
   const [main, ...rest] = photos
+  const full = size * 2 + PHOTO_GAP
 
   // Single photo: full-width hero.
   if (rest.length === 0) {
     return (
       <View style={styles.photoRow}>
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <Image src={main} style={[styles.photoBig, { height }]} />
+        <Image src={main} style={{ width: full, height: Math.round(size * 0.75), objectFit: "cover" }} />
       </View>
     )
   }
 
+  const cell = (size - PHOTO_GAP) / 2
   const quad = rest.slice(0, 4)
-  const topRow = quad.slice(0, 2)
-  const bottomRow = quad.slice(2, 4)
+  const slot = (i: number) =>
+    quad[i] ? (
+      // eslint-disable-next-line jsx-a11y/alt-text
+      <Image key={i} src={quad[i]} style={{ width: cell, height: cell, objectFit: "cover" }} />
+    ) : (
+      <View key={i} style={[styles.photoEmpty, { width: cell, height: cell }]} />
+    )
 
   return (
-    <View style={[styles.photoRow, { height }]}>
+    <View style={styles.photoRow}>
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <Image src={main} style={styles.photoBig} />
-      <View style={styles.photoQuad}>
+      <Image src={main} style={{ width: size, height: size, objectFit: "cover" }} />
+      <View style={[styles.photoQuadWrap, { width: size, height: size, marginLeft: PHOTO_GAP }]}>
         <View style={styles.quadRow}>
-          {topRow.map((p, i) => (
-            // eslint-disable-next-line jsx-a11y/alt-text
-            <Image key={`t${i}`} src={p} style={styles.quadCell} />
-          ))}
+          {slot(0)}
+          {slot(1)}
         </View>
-        {bottomRow.length > 0 && (
-          <View style={styles.quadRow}>
-            {bottomRow.map((p, i) => (
-              // eslint-disable-next-line jsx-a11y/alt-text
-              <Image key={`b${i}`} src={p} style={styles.quadCell} />
-            ))}
-          </View>
-        )}
+        <View style={styles.quadRow}>
+          {slot(2)}
+          {slot(3)}
+        </View>
       </View>
     </View>
   )
@@ -305,8 +311,8 @@ export function EncomendaDocument(props: EncomendaDocProps) {
   const { mode, clientName, vehicle, photos, qrDataUrl } = props
   const title = `${vehicle.make} ${vehicle.model}`.trim() || "Viatura"
   const metaParts = [vehicle.year, vehicle.mileage, vehicle.colour, vehicle.origin].filter(Boolean)
-  const photoHeight = mode === "orcamento" ? 150 : 190
-  const features = (vehicle.features || []).filter((f) => f && f.trim()).slice(0, 8)
+  const photoSize = mode === "orcamento" ? 150 : 180
+  const features = (vehicle.features || []).filter((f) => f && f.trim()).slice(0, 6)
 
   return (
     <Document
@@ -350,14 +356,25 @@ export function EncomendaDocument(props: EncomendaDocProps) {
         </View>
 
         {/* Photos */}
-        <Photos photos={photos} height={photoHeight} />
+        <Photos photos={photos} size={photoSize} />
 
         {/* Title */}
-        <Text style={styles.vehicleTitle}>{title}</Text>
-        {vehicle.variant && vehicle.variant.trim() && (
-          <Text style={styles.vehicleVariant}>{vehicle.variant}</Text>
-        )}
-        {metaParts.length > 0 && <Text style={styles.vehicleMeta}>{metaParts.join("  ·  ")}</Text>}
+        <View style={styles.titleRow}>
+          <View style={styles.titleBlock}>
+            <Text style={styles.vehicleTitle}>{title}</Text>
+            {vehicle.variant && vehicle.variant.trim() && vehicle.variant.trim() !== vehicle.model.trim() && (
+              <Text style={styles.vehicleVariant}>{vehicle.variant}</Text>
+            )}
+            {metaParts.length > 0 && <Text style={styles.vehicleMeta}>{metaParts.join("  ·  ")}</Text>}
+          </View>
+          {mode === "proposta" && (
+            <View style={styles.estimateBlock}>
+              <Text style={styles.estimateLabel}>ESTIMATIVA</Text>
+              <Text style={styles.estimate}>a partir de {formatEuro(props.fromPrice)}</Text>
+              <Text style={styles.estimateNote}>(sujeito a inspeção e confirmação)</Text>
+            </View>
+          )}
+        </View>
         {mode === "proposta" && vehicle.summary && vehicle.summary.trim() && (
           <Text style={styles.summary}>{vehicle.summary}</Text>
         )}
@@ -382,17 +399,16 @@ export function EncomendaDocument(props: EncomendaDocProps) {
               </>
             )}
             <View style={styles.divider} />
-            <Text style={styles.estimateLabel}>ESTIMATIVA</Text>
-            <Text style={styles.estimate}>a partir de {formatEuro(props.fromPrice)}</Text>
-            <Text style={styles.estimateNote}>(sujeito a inspeção e confirmação)</Text>
-            <View style={styles.dividerTight} />
-            <Text style={styles.sectionLabel}>INCLUI</Text>
-            <Text style={styles.includes}>
-              Verificação técnica e documental · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais.
-            </Text>
-            <View style={styles.divider} />
             <View style={styles.ctaRow}>
-              <Text style={styles.ctaText}>Interessado? Fale connosco e agende uma chamada.</Text>
+              <View style={{ flex: 1, paddingRight: 16 }}>
+                <Text style={styles.sectionLabel}>INCLUI</Text>
+                <Text style={styles.includes}>
+                  Verificação técnica e documental · Transporte e seguro · Legalização e ISV · Encargos documentais e notariais.
+                </Text>
+                <Text style={[styles.ctaText, { marginTop: 8, maxWidth: "100%", fontSize: 16 }]}>
+                  Interessado? Fale connosco e agende uma chamada.
+                </Text>
+              </View>
               {qrDataUrl && (
                 <View>
                   {/* eslint-disable-next-line jsx-a11y/alt-text */}
