@@ -14,15 +14,13 @@ async function checkAdmin() {
   return user
 }
 
-async function getStockVehicles(): Promise<StockVehicleOption[]> {
-  const { data, error } = await supabaseAdmin
-    .from('vehicles')
-    .select('id, make, model, year, mileage, price, status, plate, exterior_color, protocol_score, photos')
-    .in('status', ['available', 'reserved'])
-    .order('created_at', { ascending: false })
+async function getStockVehicles(): Promise<{ vehicles: StockVehicleOption[]; error: string | null }> {
+  // select('*') de propósito: pedir colunas concretas faz a consulta inteira falhar
+  // se alguma não existir na base real. Tudo o que não seja "vendido" conta como stock.
+  const { data, error } = await supabaseAdmin.from('vehicles').select('*').order('created_at', { ascending: false })
   if (error || !data) {
     console.error('[operacoes/nova] stock fetch error:', error)
-    return []
+    return { vehicles: [], error: error?.message ?? 'Sem resposta da base de dados.' }
   }
 
   // Carros que já têm uma operação (evita vender o mesmo duas vezes). Se a
@@ -31,25 +29,28 @@ async function getStockVehicles(): Promise<StockVehicleOption[]> {
   const { data: ops, error: opsErr } = await supabaseAdmin.from('operations').select('vehicle_id').not('vehicle_id', 'is', null)
   if (!opsErr) for (const o of ops ?? []) taken.add(String(o.vehicle_id))
 
-  return data.map((v) => ({
-    id: String(v.id),
-    make: v.make,
-    model: v.model,
-    year: v.year,
-    mileage: v.mileage,
-    price: v.price,
-    status: v.status,
-    plate: v.plate,
-    colour: v.exterior_color,
-    protocolScore: v.protocol_score,
-    photo: Array.isArray(v.photos) ? (v.photos[0] ?? null) : null,
-    hasOperation: taken.has(String(v.id)),
-  }))
+  const vehicles = data
+    .filter((v) => v.status !== 'sold')
+    .map((v) => ({
+      id: String(v.id),
+      make: String(v.make ?? ''),
+      model: String(v.model ?? ''),
+      year: Number(v.year ?? 0),
+      mileage: Number(v.mileage ?? 0),
+      price: v.price != null ? Number(v.price) : null,
+      status: v.status === 'reserved' ? ('reserved' as const) : ('available' as const),
+      plate: (v.plate as string | null) ?? null,
+      colour: (v.exterior_color as string | null) ?? null,
+      protocolScore: v.protocol_score != null ? Number(v.protocol_score) : null,
+      photo: Array.isArray(v.photos) ? ((v.photos[0] as string | undefined) ?? null) : null,
+      hasOperation: taken.has(String(v.id)),
+    }))
+  return { vehicles, error: null }
 }
 
 export default async function NovaOperacaoPage() {
   await checkAdmin()
-  const stockVehicles = await getStockVehicles()
+  const { vehicles: stockVehicles, error: stockError } = await getStockVehicles()
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -64,7 +65,7 @@ export default async function NovaOperacaoPage() {
             <h1 className="font-display text-4xl text-foreground">NOVA OPERAÇÃO</h1>
             <p className="text-muted-foreground/60 mt-1">Cria a conta do cliente e configura o processo</p>
           </div>
-          <OperationForm stockVehicles={stockVehicles} />
+          <OperationForm stockVehicles={stockVehicles} stockError={stockError} />
         </div>
       </main>
     </div>
