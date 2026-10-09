@@ -146,6 +146,7 @@ export interface Operation {
   isv_estimado: number | null
   taxa_servico: number | null
   vehicle_photo_url: string | null
+  vehicle_id: string | null
   desired_make: string | null
   desired_model: string | null
   desired_segmento: string | null
