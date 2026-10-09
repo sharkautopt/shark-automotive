@@ -1,7 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { FileText, Loader2, Download, ChevronDown, AlertTriangle, CheckCircle2 } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { FileText, Loader2, Download, ChevronDown, AlertTriangle, CheckCircle2, ShieldCheck } from 'lucide-react'
+import { criarGarantiaDaOperacao } from '@/app/admin/garantias/actions'
+import { GarantiaBadge } from './garantia-badge'
+import { estadoEfetivo } from '@/lib/garantias/dates'
+import type { Garantia } from '@/lib/garantias/types'
 import type { Operation, Profile, GeneratedDocument } from '@/lib/types'
 
 interface DocDef {
@@ -49,11 +55,26 @@ export function OperationDocumentGenerator({
   operation,
   profile,
   existingDocuments,
+  garantia = null,
 }: {
   operation: Operation
   profile: Profile
   existingDocuments: GeneratedDocument[]
+  garantia?: Garantia | null
 }) {
+  const router = useRouter()
+  const [criando, setCriando] = useState(false)
+  const [erroGarantia, setErroGarantia] = useState<string | null>(null)
+
+  async function criarGarantia() {
+    setCriando(true)
+    setErroGarantia(null)
+    const res = await criarGarantiaDaOperacao(operation.id)
+    setCriando(false)
+    if (!res.ok) return setErroGarantia(res.error)
+    router.push(`/admin/garantias/${res.id}`)
+  }
+
   const [busyKey, setBusyKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, string>>({})
@@ -232,6 +253,41 @@ export function OperationDocumentGenerator({
           </div>
         ))}
       </div>
+
+      {operation.role === 'comprador' && (
+        <div className="mt-6 pt-6 border-t border-primary/10">
+          <div className="flex flex-wrap items-center justify-between gap-3 border border-primary/20 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
+              <span className="text-sm text-foreground">Garantia</span>
+              {garantia ? (
+                <>
+                  <span className="font-mono text-xs text-muted-foreground/70">{garantia.numero ?? 'rascunho'}</span>
+                  <GarantiaBadge estado={estadoEfetivo(garantia)} />
+                </>
+              ) : (
+                <span className="text-muted-foreground/50 text-xs">Ainda não criada — pré-preenche-se com os dados da venda.</span>
+              )}
+            </div>
+            {garantia ? (
+              <Link href={`/admin/garantias/${garantia.id}`} className="px-3 py-2 border border-primary/30 text-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-secondary/50">
+                Abrir
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={criarGarantia}
+                disabled={criando}
+                className="flex items-center gap-2 px-3 py-2 bg-primary text-primary-foreground font-mono text-[10px] uppercase tracking-widest rounded-lg hover:bg-primary/90 disabled:opacity-50"
+              >
+                {criando && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                Criar Garantia
+              </button>
+            )}
+          </div>
+          {erroGarantia && <p className="mt-3 text-red-400 text-sm border border-red-400/30 bg-red-400/10 rounded-lg px-4 py-3">{erroGarantia}</p>}
+        </div>
+      )}
     </div>
   )
 }

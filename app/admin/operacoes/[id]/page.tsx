@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react'
 import { AdminSidebar } from '@/components/admin/admin-sidebar'
 import { RoleBadge } from '@/components/admin/role-badge'
 import { OperationDetail } from '@/components/admin/operation-detail'
+import { getGarantiaAtivaDaOperacao } from '@/lib/garantias/service'
 import type {
   Operation,
   OperationStep,
@@ -48,6 +49,9 @@ export default async function OperationDetailPage({ params }: { params: Promise<
       supabaseAdmin.from('generated_documents').select('*').eq('operation_id', id).order('created_at', { ascending: false }),
     ])
 
+  // Se a migração 005 ainda não foi corrida, a página continua a funcionar sem o cartão de garantia.
+  const garantia = await getGarantiaAtivaDaOperacao(id).catch(() => null)
+
   return (
     <div className="min-h-screen bg-background flex">
       <AdminSidebar />
@@ -78,6 +82,7 @@ export default async function OperationDetailPage({ params }: { params: Promise<
             messages={(messages as Message[]) ?? []}
             activity={(activity as ActivityLogEntry[]) ?? []}
             generatedDocuments={(generatedDocuments as GeneratedDocument[]) ?? []}
+            garantia={garantia}
           />
         </div>
       </main>
