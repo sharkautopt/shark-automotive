@@ -43,7 +43,13 @@ function describeStock(v: StockVehicleOption): string {
   return [`${v.make} ${v.model}`, v.year, `${new Intl.NumberFormat('pt-PT').format(v.mileage)} km`, v.plate].filter(Boolean).join(' · ')
 }
 
-export function OperationForm({ stockVehicles = [] }: { stockVehicles?: StockVehicleOption[] }) {
+export function OperationForm({
+  stockVehicles = [],
+  stockError = null,
+}: {
+  stockVehicles?: StockVehicleOption[]
+  stockError?: string | null
+}) {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -300,8 +306,12 @@ export function OperationForm({ stockVehicles = [] }: { stockVehicles?: StockVeh
                       </div>
                       <ul className="max-h-64 overflow-y-auto border border-primary/10 rounded-lg divide-y divide-primary/5">
                         {stockMatches.length === 0 ? (
-                          <li className="p-4 text-center text-muted-foreground/50 text-sm">
-                            {stockVehicles.length === 0 ? 'Não há viaturas disponíveis no stock.' : 'Nenhuma viatura corresponde à pesquisa.'}
+                          <li className={`p-4 text-center text-sm ${stockError ? 'text-red-400' : 'text-muted-foreground/50'}`}>
+                            {stockError
+                              ? `Não foi possível carregar o stock: ${stockError}`
+                              : stockVehicles.length === 0
+                                ? 'Não há viaturas disponíveis no stock (as vendidas não aparecem).'
+                                : 'Nenhuma viatura corresponde à pesquisa.'}
                           </li>
                         ) : (
                           stockMatches.map((v) => (
