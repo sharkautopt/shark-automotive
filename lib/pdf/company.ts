@@ -16,6 +16,9 @@ export const COMPANY = {
 /** Brand tagline shown on every document footer. */
 export const TAGLINE = "Zero Conversas. Total Transparência."
 
+/** Número de assistência da garantia — aparece nas garantias (cláusula de acionamento e linha fixa do PDF). */
+export const WARRANTY_PHONE = "936 616 026"
+
 /** Warranty summary — stock vehicles only, never the encomenda/order flow. */
 export const WARRANTY_TEXT = "Garantia de 18 meses por mútuo acordo."
 

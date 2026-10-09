@@ -1,4 +1,4 @@
-import { COMPANY, COMPANY_V2 } from '@/lib/pdf/company'
+import { COMPANY, COMPANY_V2, WARRANTY_PHONE } from '@/lib/pdf/company'
 import { addMonthsClamped } from './dates'
 import { formatDatePt, formatEuroPt, formatKmPt, joinList } from './format'
 import type { GarantiaSnapshot } from './types'
@@ -25,6 +25,7 @@ export const TEMPLATE_VARIABLES: { key: string; descricao: string }[] = [
   { key: 'garantia.componentes', descricao: 'Lista de componentes cobertos' },
   { key: 'garantia.exclusoes', descricao: 'Lista de exclusões' },
   { key: 'garantia.url_validacao', descricao: 'Endereço da página pública de validação' },
+  { key: 'garantia.telefone', descricao: 'Número de assistência da garantia (936 616 026)' },
   { key: 'empresa.nome', descricao: 'Nome legal da empresa' },
   { key: 'empresa.nif', descricao: 'NIPC da empresa' },
   { key: 'empresa.morada', descricao: 'Morada da empresa' },
@@ -107,6 +108,7 @@ export function buildTemplateContext(d: {
     'garantia.componentes': joinList(d.garantia.componentes),
     'garantia.exclusoes': joinList(d.garantia.exclusoes),
     'garantia.url_validacao': validationUrl(d.codigo),
+    'garantia.telefone': WARRANTY_PHONE,
     'empresa.nome': d.empresa.nome,
     'empresa.nif': d.empresa.nif,
     'empresa.morada': d.empresa.morada,
