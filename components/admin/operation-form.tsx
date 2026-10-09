@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check, Copy, Loader2 } from 'lucide-react'
+import { Check, Copy, Loader2, Search } from 'lucide-react'
 import {
   createClientAccount,
   createOperation,
@@ -24,7 +24,26 @@ async function fileToBase64(file: File): Promise<string> {
   })
 }
 
-export function OperationForm() {
+export interface StockVehicleOption {
+  id: string
+  make: string
+  model: string
+  year: number
+  mileage: number
+  price: number | null
+  status: 'available' | 'reserved' | 'sold'
+  plate: string | null
+  colour: string | null
+  protocolScore: number | null
+  photo: string | null
+  hasOperation: boolean
+}
+
+function describeStock(v: StockVehicleOption): string {
+  return [`${v.make} ${v.model}`, v.year, `${new Intl.NumberFormat('pt-PT').format(v.mileage)} km`, v.plate].filter(Boolean).join(' · ')
+}
+
+export function OperationForm({ stockVehicles = [] }: { stockVehicles?: StockVehicleOption[] }) {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -47,9 +66,36 @@ export function OperationForm() {
   const [plate, setPlate] = useState('')
   const [protocolo, setProtocolo] = useState('')
   const [photoFile, setPhotoFile] = useState<File | null>(null)
+  // 'stock' = escolher uma viatura existente; 'manual' = preencher à mão
+  const [vehicleMode, setVehicleMode] = useState<'stock' | 'manual'>('stock')
+  const [stockSearch, setStockSearch] = useState('')
+  const [stockId, setStockId] = useState<string | null>(null)
   const [investAmount, setInvestAmount] = useState('')
   const [investDate, setInvestDate] = useState('')
   const [closeDate, setCloseDate] = useState('')
+
+  const selectedStock = stockVehicles.find((v) => v.id === stockId) ?? null
+  const stockMatches = stockVehicles.filter((v) => {
+    const q = stockSearch.trim().toLowerCase()
+    return !q || `${v.make} ${v.model} ${v.year} ${v.plate ?? ''}`.toLowerCase().includes(q)
+  })
+
+  function pickStock(v: StockVehicleOption) {
+    setStockId(v.id)
+    setMake(v.make)
+    setModel(v.model)
+    setYear(String(v.year ?? ''))
+    setKm(String(v.mileage ?? ''))
+    setColour(v.colour ?? '')
+    setPlate(v.plate ?? '')
+    setProtocolo(v.protocolScore != null ? String(v.protocolScore) : '')
+    setPhotoFile(null)
+  }
+
+  function switchMode(mode: 'stock' | 'manual') {
+    setVehicleMode(mode)
+    if (mode === 'manual') setStockId(null)
+  }
 
   async function handleCreateAccount() {
     setError(null)
@@ -95,6 +141,7 @@ export function OperationForm() {
               plate,
               photoUrl,
               protocoloScore: protocolo ? Number(protocolo) : undefined,
+              stockVehicleId: vehicleMode === 'stock' && stockId ? stockId : undefined,
             }
           : undefined,
       parceiro:
@@ -206,15 +253,106 @@ export function OperationForm() {
           )}
 
           {role !== 'parceiro' ? (
-            <div className="grid grid-cols-2 gap-4">
-              <div><label className={labelClass}>Marca</label><input className={inputClass} value={make} onChange={(e) => setMake(e.target.value)} /></div>
-              <div><label className={labelClass}>Modelo</label><input className={inputClass} value={model} onChange={(e) => setModel(e.target.value)} /></div>
-              <div><label className={labelClass}>Ano</label><input className={inputClass} type="number" value={year} onChange={(e) => setYear(e.target.value)} /></div>
-              <div><label className={labelClass}>Km</label><input className={inputClass} type="number" value={km} onChange={(e) => setKm(e.target.value)} /></div>
-              <div><label className={labelClass}>Cor</label><input className={inputClass} value={colour} onChange={(e) => setColour(e.target.value)} /></div>
-              <div><label className={labelClass}>Matrícula (opcional)</label><input className={inputClass} value={plate} onChange={(e) => setPlate(e.target.value)} /></div>
-              <div><label className={labelClass}>Score Protocolo</label><input className={inputClass} type="number" value={protocolo} onChange={(e) => setProtocolo(e.target.value)} placeholder="150" /></div>
-              <div><label className={labelClass}>Foto</label><input className={inputClass} type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)} /></div>
+            <div className="space-y-5">
+              <div className="inline-flex rounded-lg border border-primary/20 overflow-hidden text-sm">
+                {(['stock', 'manual'] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => switchMode(m)}
+                    className={`px-4 py-2 transition-colors ${
+                      vehicleMode === m ? 'bg-primary/20 text-primary' : 'text-muted-foreground/60 hover:text-foreground'
+                    }`}
+                  >
+                    {m === 'stock' ? `Escolher do stock (${stockVehicles.length})` : 'Preencher à mão'}
+                  </button>
+                ))}
+              </div>
+
+              {vehicleMode === 'stock' && (
+                <div className="space-y-3">
+                  {selectedStock ? (
+                    <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/30 rounded-lg">
+                      {selectedStock.photo && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={selectedStock.photo} alt="" className="w-20 h-14 object-cover rounded" />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-foreground truncate">{describeStock(selectedStock)}</p>
+                        <p className="text-muted-foreground/60 text-sm">
+                          A ficha completa (VIN, potência, emissões, pesos…) é copiada para a operação ao criar.
+                        </p>
+                      </div>
+                      <button type="button" onClick={() => setStockId(null)} className="text-primary text-sm hover:underline shrink-0">
+                        Alterar
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
+                        <input
+                          className={`${inputClass} pl-10`}
+                          value={stockSearch}
+                          onChange={(e) => setStockSearch(e.target.value)}
+                          placeholder="Pesquisar por marca, modelo, ano ou matrícula"
+                        />
+                      </div>
+                      <ul className="max-h-64 overflow-y-auto border border-primary/10 rounded-lg divide-y divide-primary/5">
+                        {stockMatches.length === 0 ? (
+                          <li className="p-4 text-center text-muted-foreground/50 text-sm">
+                            {stockVehicles.length === 0 ? 'Não há viaturas disponíveis no stock.' : 'Nenhuma viatura corresponde à pesquisa.'}
+                          </li>
+                        ) : (
+                          stockMatches.map((v) => (
+                            <li key={v.id}>
+                              <button
+                                type="button"
+                                onClick={() => pickStock(v)}
+                                className="w-full flex items-center gap-3 p-3 text-left hover:bg-secondary/40 transition-colors"
+                              >
+                                {v.photo ? (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={v.photo} alt="" className="w-14 h-10 object-cover rounded shrink-0" />
+                                ) : (
+                                  <div className="w-14 h-10 rounded bg-secondary/50 shrink-0" />
+                                )}
+                                <span className="flex-1 min-w-0 text-foreground text-sm truncate">{describeStock(v)}</span>
+                                {v.price != null && (
+                                  <span className="text-muted-foreground/70 text-sm shrink-0">
+                                    {new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(v.price)}
+                                  </span>
+                                )}
+                                {v.status === 'reserved' && (
+                                  <span className="font-mono text-[10px] uppercase text-amber-400 shrink-0">Reservado</span>
+                                )}
+                                {v.hasOperation && (
+                                  <span className="font-mono text-[10px] uppercase text-amber-400 shrink-0">Já tem operação</span>
+                                )}
+                              </button>
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {(vehicleMode === 'manual' || selectedStock) && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div><label className={labelClass}>Marca</label><input className={inputClass} value={make} onChange={(e) => setMake(e.target.value)} /></div>
+                  <div><label className={labelClass}>Modelo</label><input className={inputClass} value={model} onChange={(e) => setModel(e.target.value)} /></div>
+                  <div><label className={labelClass}>Ano</label><input className={inputClass} type="number" value={year} onChange={(e) => setYear(e.target.value)} /></div>
+                  <div><label className={labelClass}>Km</label><input className={inputClass} type="number" value={km} onChange={(e) => setKm(e.target.value)} /></div>
+                  <div><label className={labelClass}>Cor</label><input className={inputClass} value={colour} onChange={(e) => setColour(e.target.value)} /></div>
+                  <div><label className={labelClass}>Matrícula (opcional)</label><input className={inputClass} value={plate} onChange={(e) => setPlate(e.target.value)} /></div>
+                  <div><label className={labelClass}>Score Protocolo</label><input className={inputClass} type="number" value={protocolo} onChange={(e) => setProtocolo(e.target.value)} placeholder="150" /></div>
+                  {!selectedStock && (
+                    <div><label className={labelClass}>Foto</label><input className={inputClass} type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)} /></div>
+                  )}
+                </div>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4">
@@ -225,7 +363,10 @@ export function OperationForm() {
           )}
 
           <div className="flex gap-3">
-            <button onClick={() => setStep(3)} className="bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors">
+            <button
+              onClick={() => setStep(3)}
+              disabled={role !== 'parceiro' && vehicleMode === 'stock' && !selectedStock}
+              className="bg-primary text-primary-foreground font-medium px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-40">
               Continuar
             </button>
           </div>
@@ -239,7 +380,7 @@ export function OperationForm() {
             <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Cliente:</span> {fullName} ({email})</p>
             <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Role:</span> {role}</p>
             {role !== 'parceiro' ? (
-              <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Viatura:</span> {make} {model} {year}</p>
+              <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Viatura{selectedStock ? ' (do stock)' : ''}:</span> {make} {model} {year}</p>
             ) : (
               <p><span className="text-muted-foreground/50 font-mono text-xs uppercase">Investimento:</span> {investAmount ? `${investAmount}€` : '—'}</p>
             )}

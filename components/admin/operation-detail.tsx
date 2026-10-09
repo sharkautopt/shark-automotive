@@ -11,6 +11,7 @@ import type {
   Profile,
   GeneratedDocument,
 } from '@/lib/types'
+import type { Garantia } from '@/lib/garantias/types'
 import { OperationStepsEditor } from './operation-steps-editor'
 import { OperationDesiredSpec } from './operation-desired-spec'
 import { OperationVehicleSpec } from './operation-vehicle-spec'
@@ -30,9 +31,10 @@ type Props = {
   messages: Message[]
   activity: ActivityLogEntry[]
   generatedDocuments: GeneratedDocument[]
+  garantia: Garantia | null
 }
 
-export function OperationDetail({ operation, profile, steps, documents, invoices, messages, activity, generatedDocuments }: Props) {
+export function OperationDetail({ operation, profile, steps, documents, invoices, messages, activity, generatedDocuments, garantia }: Props) {
   const tabs = [
     { id: 'steps', label: 'Status Tracker' },
     { id: 'viatura', label: 'Viatura' },
@@ -71,7 +73,7 @@ export function OperationDetail({ operation, profile, steps, documents, invoices
       )}
       {tab === 'docs' && (
         <>
-          <OperationDocumentGenerator operation={operation} profile={profile} existingDocuments={generatedDocuments} />
+          <OperationDocumentGenerator operation={operation} profile={profile} existingDocuments={generatedDocuments} garantia={garantia} />
           <OperationDocumentsManager operationId={operation.id} documents={documents} />
         </>
       )}

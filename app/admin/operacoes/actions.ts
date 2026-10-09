@@ -224,6 +224,8 @@ export type CreateOperationInput = {
     plate?: string
     photoUrl?: string
     protocoloScore?: number
+    /** Viatura escolhida do stock: o servidor copia a ficha completa a partir do registo real. */
+    stockVehicleId?: string
   }
   parceiro?: {
     investmentAmount?: number
@@ -234,6 +236,22 @@ export type CreateOperationInput = {
 
 export async function createOperation(input: CreateOperationInput): Promise<{ ok: boolean; id?: string; error?: string }> {
   const admin = await requireAdmin()
+
+  // Viatura do stock: a ficha completa vem do registo real (nunca do browser),
+  // para que todos os documentos da operação fiquem preenchidos de uma vez.
+  // Os campos básicos que o admin possa ter corrigido no formulário prevalecem.
+  let stock: Record<string, unknown> | null = null
+  if (input.vehicle?.stockVehicleId && input.role !== 'parceiro') {
+    const { data: v, error: vErr } = await supabaseAdmin
+      .from('vehicles')
+      .select('*')
+      .eq('id', input.vehicle.stockVehicleId)
+      .single()
+    if (vErr || !v) return { ok: false, error: 'Viatura do stock não encontrada.' }
+    if (v.status === 'sold') return { ok: false, error: 'Esta viatura já está marcada como vendida.' }
+    stock = v
+  }
+  const fromStock = (key: string) => (stock ? ((stock[key] as unknown) ?? null) : null)
 
   const { data: op, error } = await supabaseAdmin
     .from('operations')
@@ -246,8 +264,25 @@ export async function createOperation(input: CreateOperationInput): Promise<{ ok
       vehicle_km: input.vehicle?.km ?? null,
       vehicle_colour: input.vehicle?.colour ?? null,
       vehicle_plate: input.vehicle?.plate ?? null,
-      vehicle_photo_url: input.vehicle?.photoUrl ?? null,
-      protocolo_score: input.vehicle?.protocoloScore ?? null,
+      vehicle_photo_url: input.vehicle?.photoUrl ?? (Array.isArray(stock?.photos) ? (stock!.photos as string[])[0] ?? null : null),
+      protocolo_score: input.vehicle?.protocoloScore ?? (stock ? (stock.protocol_score as number | null) ?? null : null),
+      ...(stock
+        ? {
+            vehicle_id: stock.id,
+            vehicle_foreign_plate: fromStock('foreign_plate'),
+            vehicle_national_registration_date: fromStock('national_registration_date'),
+            vehicle_categoria: fromStock('categoria'),
+            vehicle_tara_kg: fromStock('tara_kg'),
+            vehicle_peso_bruto_kg: fromStock('peso_bruto_kg'),
+            vehicle_vin: fromStock('vin'),
+            vehicle_country_origin: fromStock('country_origin'),
+            vehicle_fuel_type: fromStock('fuel_type'),
+            vehicle_power: fromStock('power'),
+            vehicle_engine_size: fromStock('engine_size'),
+            vehicle_doors: fromStock('doors'),
+            vehicle_co2_emissions: fromStock('co2_emissions'),
+          }
+        : {}),
       investment_amount: input.parceiro?.investmentAmount ?? null,
       investment_date: input.parceiro?.investmentDate ?? null,
       estimated_close_date: input.parceiro?.estimatedCloseDate ?? null,
@@ -256,6 +291,9 @@ export async function createOperation(input: CreateOperationInput): Promise<{ ok
     .single()
 
   if (error || !op) {
+    if (error?.message?.includes('vehicle_id')) {
+      return { ok: false, error: 'Falta correr a migração 006_operation_vehicle_link.sql no Supabase.' }
+    }
     return { ok: false, error: error?.message ?? 'Falha ao criar operação' }
   }
 
@@ -270,7 +308,12 @@ export async function createOperation(input: CreateOperationInput): Promise<{ ok
   }))
   await supabaseAdmin.from('operation_steps').insert(steps)
 
-  await logActivity(op.id, 'Operação criada', admin.email ?? 'admin', `Role: ${input.role}`)
+  await logActivity(
+    op.id,
+    'Operação criada',
+    admin.email ?? 'admin',
+    stock ? `Role: ${input.role} · viatura do stock: ${stock.make} ${stock.model}` : `Role: ${input.role}`,
+  )
 
   revalidatePath('/admin/operacoes')
   return { ok: true, id: op.id }

@@ -13,7 +13,8 @@ import {
   TrendingUp,
   FileText,
   Briefcase,
-  FileEdit
+  FileEdit,
+  ShieldCheck
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import type { User } from "@supabase/supabase-js"
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/admin/veiculos", icon: Car, label: "Veículos" },
   { href: "/admin/operacoes", icon: Briefcase, label: "Operações" },
   { href: "/admin/documentos", icon: FileText, label: "Documentos" },
+  { href: "/admin/garantias", icon: ShieldCheck, label: "Garantias" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
   { href: "/admin/mensagens", icon: MessageSquare, label: "Mensagens" },
   { href: "/admin/relatorios", icon: TrendingUp, label: "Relatórios" },

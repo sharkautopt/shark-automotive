@@ -24,7 +24,14 @@ function shell(title: string, bodyHtml: string): string {
   </div>`
 }
 
-export async function sendEmail(to: string, subject: string, html: string): Promise<SendResult> {
+export type EmailAttachment = { filename: string; content: Buffer }
+
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  attachments?: EmailAttachment[],
+): Promise<SendResult> {
   if (!process.env.RESEND_API_KEY) {
     console.warn(`[email] RESEND_API_KEY not set — skipped: ${subject}`)
     return { skipped: true }
@@ -37,6 +44,7 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
       to,
       subject,
       html,
+      ...(attachments?.length ? { attachments } : {}),
     })
     if (error) return { error: error.message }
     return { id: data?.id }
@@ -124,5 +132,26 @@ export function emailNewClientMessage(clientName: string, preview: string) {
       `<p><strong>${clientName}</strong> enviou:</p>
        <p style="border-left:2px solid #C8C4BC;padding-left:12px;color:#374151;">${preview}</p>`,
     ),
+  )
+}
+
+// Garantia emitida, com o PDF (as duas vias) em anexo.
+export function emailGarantia(
+  to: string,
+  d: { numero: string; versao: number; clienteNome: string; dataFim: string; urlValidacao: string },
+  pdf: Buffer,
+) {
+  const safeNumero = d.numero.replace(/[^A-Za-z0-9]+/g, '-')
+  return sendEmail(
+    to,
+    `A tua garantia Shark Automotive — ${d.numero}`,
+    shell(
+      'A tua garantia',
+      `<p>Olá ${d.clienteNome},</p>
+       <p>Segue em anexo a garantia <strong>${d.numero}</strong> (versão ${d.versao}), em duas vias. Imprime-a, assina-a e entrega-nos uma via assinada.</p>
+       <p><strong>Válida até:</strong> ${d.dataFim}</p>
+       <p>Podes confirmar a autenticidade e a validade em <a href="${d.urlValidacao}" style="color:#0D1B2A;">${d.urlValidacao}</a>.</p>`,
+    ),
+    [{ filename: `Garantia-${safeNumero}-v${d.versao}.pdf`, content: pdf }],
   )
 }
