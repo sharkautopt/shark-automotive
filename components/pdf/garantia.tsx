@@ -1,6 +1,6 @@
 import { Document, Page, View, Text, Image, StyleSheet } from "@react-pdf/renderer"
 import { stylesV2, brandV2 } from "@/lib/pdf/theme-v2"
-import { COMPANY_V2, LEGAL_FOOTER_V2 } from "@/lib/pdf/company"
+import { COMPANY_V2, LEGAL_FOOTER_V2, WARRANTY_PHONE } from "@/lib/pdf/company"
 import { formatDatePt, formatEuroPt, formatKmPt } from "@/lib/garantias/format"
 import { validationUrl } from "@/lib/garantias/template"
 import type { GarantiaSnapshot } from "@/lib/garantias/types"
@@ -13,8 +13,8 @@ export interface GarantiaPdfProps {
 }
 
 const s = StyleSheet.create({
-  page: { ...stylesV2.page, paddingTop: "11mm", paddingBottom: "24mm", paddingHorizontal: "14mm", fontSize: 8.5 },
-  headerRow: { ...stylesV2.headerRow, marginBottom: 12 },
+  page: { ...stylesV2.page, paddingTop: "11mm", paddingBottom: "25mm", paddingHorizontal: "14mm", fontSize: 8.5 },
+  headerRow: { ...stylesV2.headerRow, marginBottom: 9 },
   viaBadge: {
     alignSelf: "center",
     borderWidth: 1,
@@ -27,27 +27,28 @@ const s = StyleSheet.create({
     textTransform: "uppercase",
     paddingVertical: 3,
     paddingHorizontal: 10,
-    marginBottom: 12,
+    marginBottom: 8,
   },
-  title: { ...stylesV2.title, fontSize: 17, marginBottom: 8 },
-  cols: { flexDirection: "row", gap: 16, marginBottom: 10 },
+  title: { ...stylesV2.title, fontSize: 16, marginBottom: 6 },
+  cols: { flexDirection: "row", gap: 16, marginBottom: 8 },
   col: { flex: 1 },
   pair: { flexDirection: "row", marginBottom: 3 },
   pairLabel: { width: 62, fontFamily: "Inter", fontWeight: 500, fontSize: 6.8, color: brandV2.steelLight },
   pairValue: { flex: 1, fontSize: 8.5 },
-  intro: { fontSize: 8.5, lineHeight: 1.5, textAlign: "justify", marginBottom: 8 },
+  intro: { fontSize: 8.2, lineHeight: 1.45, textAlign: "justify", marginBottom: 6 },
   clauseTitle: { fontFamily: "Inter", fontWeight: 700, fontSize: 8, marginBottom: 1.5 },
-  clauseText: { fontSize: 8.5, lineHeight: 1.5, textAlign: "justify" },
+  clauseText: { fontSize: 8.2, lineHeight: 1.45, textAlign: "justify" },
   closing: { fontSize: 8, color: brandV2.steel, marginTop: 4 },
-  sigRow: { flexDirection: "row", justifyContent: "space-between", marginTop: 20 },
+  sigRow: { flexDirection: "row", justifyContent: "space-between", marginTop: 14 },
   sigBox: { width: "46%" },
   sigLine: { borderTopWidth: 1, borderTopColor: brandV2.steelLight, paddingTop: 3 },
   sigRole: { fontFamily: "Inter", fontWeight: 500, fontSize: 7 },
   sigName: { fontFamily: "Inter", fontWeight: 900, fontSize: 8.5, textTransform: "uppercase", marginTop: 1 },
   sigDate: { fontFamily: "Inter", fontWeight: 500, fontSize: 7.5, marginTop: 8 },
-  verifyRow: { flexDirection: "row", alignItems: "center", gap: 10, marginTop: 14 },
-  qr: { width: 46, height: 46 },
-  verifyText: { fontSize: 7, color: brandV2.steel, lineHeight: 1.5, flex: 1 },
+  assist: { fontFamily: "Inter", fontWeight: 700, fontSize: 8.5, textAlign: "center", marginTop: -4, marginBottom: 9 },
+  qr: { width: 40, height: 40 },
+  verifyText: { fontFamily: "Inter", fontWeight: 500, fontSize: 6.2, color: brandV2.steel, lineHeight: 1.5, marginBottom: 3 },
+  legal: { fontFamily: "Inter", fontWeight: 500, fontSize: 5.8, lineHeight: 1.6, color: brandV2.steel },
   footer: {
     position: "absolute",
     left: "14mm",
@@ -56,11 +57,6 @@ const s = StyleSheet.create({
     paddingTop: 6,
     borderTopWidth: 1,
     borderTopColor: brandV2.lineFaint,
-    fontFamily: "Inter",
-    fontWeight: 500,
-    fontSize: 5.8,
-    lineHeight: 1.6,
-    color: brandV2.steel,
     textAlign: "center",
   },
 })
@@ -83,17 +79,26 @@ function Via({ label, props }: { label: string; props: GarantiaPdfProps }) {
     <Page size="A4" style={s.page}>
       <View style={s.headerRow}>
         <Text style={{ fontFamily: "Inter", fontWeight: 700, fontSize: 8, letterSpacing: 0.5 }}>{COMPANY_V2.brandLine}</Text>
-        <View style={stylesV2.docMeta}>
-          <Text>Garantia n.º {d.numero}</Text>
-          <Text>
-            Versão {d.versao}
-            {emitida ? ` · emitida em ${emitida}` : ""}
-          </Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <View style={stylesV2.docMeta}>
+            <Text>Garantia n.º {d.numero}</Text>
+            <Text>
+              Versão {d.versao}
+              {emitida ? ` · emitida em ${emitida}` : ""}
+            </Text>
+          </View>
+          {qrDataUrl && (
+            // eslint-disable-next-line jsx-a11y/alt-text
+            <Image src={qrDataUrl} style={s.qr} />
+          )}
         </View>
       </View>
 
       <Text style={s.title}>Declaração de Garantia</Text>
       <Text style={s.viaBadge}>{label}</Text>
+      <Text style={s.assist}>
+        Assistência da garantia: {WARRANTY_PHONE} · reparações em oficina autorizada e parceira da Shark Automotive
+      </Text>
 
       <View style={s.cols}>
         <View style={s.col}>
@@ -122,7 +127,7 @@ function Via({ label, props }: { label: string; props: GarantiaPdfProps }) {
       <Text style={s.intro}>{d.conteudo.introducao}</Text>
 
       {d.conteudo.clausulas.map((c, i) => (
-        <View key={i} style={{ marginBottom: 6 }} wrap={false}>
+        <View key={i} style={{ marginBottom: 4.5 }} wrap={false}>
           <Text style={s.clauseTitle}>
             {i + 1}. {c.titulo}
           </Text>
@@ -134,7 +139,7 @@ function Via({ label, props }: { label: string; props: GarantiaPdfProps }) {
 
       <View style={s.sigRow} wrap={false}>
         <View style={s.sigBox}>
-          <View style={{ height: 30 }} />
+          <View style={{ height: 24 }} />
           <View style={s.sigLine}>
             <Text style={s.sigRole}>O Vendedor</Text>
             <Text style={s.sigName}>Shark Automotive</Text>
@@ -142,7 +147,7 @@ function Via({ label, props }: { label: string; props: GarantiaPdfProps }) {
           </View>
         </View>
         <View style={s.sigBox}>
-          <View style={{ height: 30 }} />
+          <View style={{ height: 24 }} />
           <View style={s.sigLine}>
             <Text style={s.sigRole}>O Comprador</Text>
             <Text style={s.sigName}>{d.cliente.nome}</Text>
@@ -151,21 +156,12 @@ function Via({ label, props }: { label: string; props: GarantiaPdfProps }) {
         </View>
       </View>
 
-      <View style={s.verifyRow} wrap={false}>
-        {qrDataUrl && (
-          // eslint-disable-next-line jsx-a11y/alt-text
-          <Image src={qrDataUrl} style={s.qr} />
-        )}
+      <View style={s.footer} fixed>
         <Text style={s.verifyText}>
-          Verifique a autenticidade e a validade desta garantia em {url}
-          {"\n"}
-          {d.numero} · versão {d.versao} · ref. {hash.slice(0, 12)}
+          Verifique a autenticidade e a validade desta garantia em {url} (ou leia o QR do cabeçalho) · {d.numero} · versão {d.versao} · ref. {hash.slice(0, 12)}
         </Text>
+        <Text style={s.legal}>{LEGAL_FOOTER_V2}</Text>
       </View>
-
-      <Text style={s.footer} fixed>
-        {LEGAL_FOOTER_V2}
-      </Text>
     </Page>
   )
 }
